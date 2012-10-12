@@ -1,6 +1,6 @@
 {
-    "name": "pixelpolishers/collaboratory",
-    "homepage": "http://pixelpolishers.com",
+    "name": "nextphp/collaboratory",
+    "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",
         "zendframework/zendframework": "2.*",
