@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This file is part of Collaboratory (https://github.com/pixelpolishers/collaboratory)
  *
@@ -9,11 +8,15 @@
  * @package   Collaboratory
  */
 
-// Change the working directory to the application's root:
-chdir(dirname(__DIR__));
+namespace Application\Controller;
 
-// Setup autoloading:
-require 'autoloading.php';
+use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
 
-// Run the application:
-Zend\Mvc\Application::init(require 'config/application.config.php')->run();
+class IndexController extends AbstractActionController
+{
+    public function indexAction()
+    {
+        return new ViewModel();
+    }
+}

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This file is part of Collaboratory (https://github.com/pixelpolishers/collaboratory)
  *
@@ -8,12 +7,17 @@
  * @license   For the full copyright and license information, view the LICENSE file.
  * @package   Collaboratory
  */
-
-// Change the working directory to the application's root:
-chdir(dirname(__DIR__));
-
-// Setup autoloading:
-require 'autoloading.php';
-
-// Run the application:
-Zend\Mvc\Application::init(require 'config/application.config.php')->run();
+return array(
+    'modules' => array(
+        'Application',
+    ),
+    'module_listener_options' => array(
+        'config_glob_paths' => array(
+            'config/autoload/{,*.}{global,local}.php',
+        ),
+        'module_paths' => array(
+            './module',
+            './vendor',
+        ),
+    ),
+);

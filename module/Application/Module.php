@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This file is part of Collaboratory (https://github.com/pixelpolishers/collaboratory)
  *
@@ -9,11 +8,12 @@
  * @package   Collaboratory
  */
 
-// Change the working directory to the application's root:
-chdir(dirname(__DIR__));
+namespace Application;
 
-// Setup autoloading:
-require 'autoloading.php';
-
-// Run the application:
-Zend\Mvc\Application::init(require 'config/application.config.php')->run();
+class Module
+{
+    public function getConfig()
+    {
+        return include __DIR__ . '/config/module.config.php';
+    }
+}
