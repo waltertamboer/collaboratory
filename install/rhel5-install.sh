@@ -43,9 +43,9 @@ yum install -y \
 
 # Install Apache and PHP from Remi Collet's repository:
 yum -y --enablerepo=remi,remi-test install \
-	httpd php php-common php-pecl-apc php-cli php-pear php-pdo php-mysql \
-	php-pgsql php-pecl-mongo php-sqlite php-pecl-memcache php-pecl-memcached \
-	php-gd php-mbstring php-mcrypt php-xml
+	httpd php php-common php-cli php-pear \
+    php-pecl-apc php-pecl-memcache php-pecl-memcached \
+    php-gd php-intl php-mbstring php-mcrypt php-mysql php-pdo php-xml
 
 # Create the user "git", all git services will be ran under this user:
 if [[ `grep "^$CL_GIT_USER" /etc/passwd` ]]; then
@@ -87,9 +87,9 @@ cat > /etc/httpd/conf.d/collaboratory.conf << EOF
 <VirtualHost *:80>
     ServerName $HOSTNAME
     DocumentRoot $CL_ROOT_PATH/public
-    
-    php_flag display_errors on 
-    php_flag display_startup_errors on 
+
+    php_flag display_errors on
+    php_flag display_startup_errors on
     php_value error_reporting 32767
 
     <Directory $CL_ROOT_PATH/public>
