@@ -8,6 +8,9 @@ export CL_GITHUB_BRANCH=master
 # Quit the script when an error does occur:
 set -e
 
+# We always work from the home directory:
+cd ~
+
 # Define the die function, that helps us to write a cleaner script:
 die()
 {
@@ -74,8 +77,10 @@ usermod -G $CL_GIT_USER apache
 chown -R apache:apache $CL_ROOT_PATH
 
 # Next we install the scripts from Composer:
+cd $CL_ROOT_PATH
 php composer.phar self-update
 php composer.phar install
+cd ~
 
 # Create a virtual host for Collaboratory:
 cat > /etc/httpd/conf.d/collaboratory.conf << EOF
