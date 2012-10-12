@@ -13,48 +13,94 @@ namespace Application;
 return array(
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index' => 'Application\Controller\IndexController'
+            'Application\Controller\DashboardController' => 'Application\Controller\DashboardController',
         ),
     ),
     'router' => array(
         'routes' => array(
-            'home' => array(
+            'account' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route' => '/',
+                    'route' => '/account',
                     'defaults' => array(
-                        'controller' => 'Application\Controller\Index',
+                        'controller' => 'Application\Controller\DashboardController',
                         'action' => 'index',
                     ),
                 ),
             ),
-            // The following is a route to simplify getting started creating
-            // new controllers and actions without needing to create a new
-            // module. Simply drop new controllers in, and you can access them
-            // using the path /application/:controller/:action
-            'application' => array(
-                'type' => 'Literal',
+            'dashboard' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route' => '/application',
+                    'route' => '/',
                     'defaults' => array(
-                        '__NAMESPACE__' => 'Application\Controller',
-                        'controller' => 'Index',
+                        'controller' => 'Application\Controller\DashboardController',
                         'action' => 'index',
                     ),
                 ),
-                'may_terminate' => true,
-                'child_routes' => array(
-                    'default' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/[:controller[/:action]]',
-                            'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            ),
-                            'defaults' => array(
-                            ),
-                        ),
+            ),
+            'issueOverview' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/issues',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\DashboardController',
+                        'action' => 'issues',
+                    ),
+                ),
+            ),
+            'projectOverview' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/projects',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\DashboardController',
+                        'action' => 'projects',
+                    ),
+                ),
+            ),
+            'projectCreate' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/project/create',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\DashboardController',
+                        'action' => 'index',
+                    ),
+                ),
+            ),
+            'teamOverview' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/teams',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\DashboardController',
+                        'action' => 'teams',
+                    ),
+                ),
+            ),
+            'teamCreate' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route' => '/team/create',
+                    'constraints' => array(
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\DashboardController',
+                        'action' => 'index',
+                    ),
+                ),
+            ),
+            'teamUpdate' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route' => '/team/:id',
+                    'constraints' => array(
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\DashboardController',
+                        'action' => 'index',
                     ),
                 ),
             ),

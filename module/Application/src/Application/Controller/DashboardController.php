@@ -13,9 +13,24 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-class IndexController extends AbstractActionController
+class DashboardController extends AbstractActionController
 {
     public function indexAction()
+    {
+        return new ViewModel();
+    }
+
+    public function issuesAction()
+    {
+        return new ViewModel();
+    }
+
+    public function projectsAction()
+    {
+        return new ViewModel();
+    }
+
+    public function teamsAction()
     {
         return new ViewModel();
     }

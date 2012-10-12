@@ -1,1 +1,38 @@
-Hello World
+<?php $this->headTitle('News Feed'); ?>
+
+<div id="top-bar" class="container">
+    <ul>
+        <li><a href="<?php echo $this->url('dashboard'); ?>" class="selected">News Feed</a></li>
+        <li><a href="<?php echo $this->url('issueOverview'); ?>">Issues <span class="counter">0</span></a></li>
+        <li><a href="<?php echo $this->url('projectOverview'); ?>">Projects</a></li>
+        <li><a href="<?php echo $this->url('teamOverview'); ?>">Teams</a></li>
+    </ul>
+</div>
+
+<div class="main-content container">
+    <?php for ($i = 0; $i < 3; ++$i) { ?>
+    <div class="news-item">
+        <div class="time">
+            <time title="2012-07-29 19:59:42" datetime="2012-07-29T19:59:42Z">3 months ago</time>
+        </div>
+        <div class="title">
+            <a href="">Walter Tamboer</a> pushed to <a href="">project</a>
+        </div>
+        <div class="details">
+            <a href="<?php echo $this->url('account'); ?>" class="avatar"><?php echo $this->gravatar('walter.tamboer@live.com')->setImgSize(32); ?></a>
+            <div class="commits">
+                <ul>
+                    <li>
+                        <code>
+                            <a href="/pixelpolishers/resolver/commit/7df0c81b77ab1a511875cae15686cddc69091693">7df0c81</a>
+                        </code>
+                        <blockquote title="The initial commit." class="message">
+                            The initial commit.
+                        </blockquote>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <?php } ?>
+</div>

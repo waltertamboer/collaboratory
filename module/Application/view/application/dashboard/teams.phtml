@@ -1,1 +1,37 @@
-Hello World
+<?php $this->headTitle('Teams'); ?>
+
+<div id="top-bar" class="container">
+    <ul>
+        <li><a href="<?php echo $this->url('dashboard'); ?>">News Feed</a></li>
+        <li><a href="<?php echo $this->url('issueOverview'); ?>">Issues <span class="counter">0</span></a></li>
+        <li><a href="<?php echo $this->url('projectOverview'); ?>">Projects</a></li>
+        <li><a href="<?php echo $this->url('teamOverview'); ?>" class="selected">Teams</a></li>
+    </ul>
+</div>
+
+<div class="main-content container">
+    <ul class="collection">
+        <li>
+            <h3><a href="<?php echo $this->url('teamUpdate', array(
+                'id' => 1
+            )); ?>">Owners</a></h3>
+            <p>All the people with full access rights to this installation of Collaboratory.</p>
+            <ul class="actions">
+                <li><a href="">Remove</a></li>
+            </ul>
+        </li>
+        <?php for ($i = 0; $i < 3; ++$i) { ?>
+        <li>
+            <h3><a href="">Team <?php echo $i; ?></a></h3>
+            <p>This is a team description</p>
+            <ul class="actions">
+                <li><a href="">Remove</a></li>
+            </ul>
+        </li>
+        <?php } ?>
+    </ul>
+
+    <div class="action-bar">
+        <a href="<?php echo $this->url('teamCreate'); ?>" class="button">New Team</a>
+    </div>
+</div>

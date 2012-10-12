@@ -1,1 +1,10 @@
-Hello World
+<?php $this->headTitle('Issues'); ?>
+
+<div id="top-bar" class="container">
+    <ul>
+        <li><a href="<?php echo $this->url('dashboard'); ?>">News Feed</a></li>
+        <li><a href="<?php echo $this->url('issueOverview'); ?>" class="selected">Issues <span class="counter">0</span></a></li>
+        <li><a href="<?php echo $this->url('projectOverview'); ?>">Projects</a></li>
+        <li><a href="<?php echo $this->url('teamOverview'); ?>">Teams</a></li>
+    </ul>
+</div>

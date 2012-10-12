@@ -1,1 +1,28 @@
-Hello World
+<?php $this->headTitle('Projects'); ?>
+
+<div id="top-bar" class="container">
+    <ul>
+        <li><a href="<?php echo $this->url('dashboard'); ?>">News Feed</a></li>
+        <li><a href="<?php echo $this->url('issueOverview'); ?>">Issues <span class="counter">0</span></a></li>
+        <li><a href="<?php echo $this->url('projectOverview'); ?>" class="selected">Projects</a></li>
+        <li><a href="<?php echo $this->url('teamOverview'); ?>">Teams</a></li>
+    </ul>
+</div>
+
+<div class="main-content container">
+    <ul class="collection">
+        <li>
+            <h3><a href="<?php echo $this->url('teamUpdate', array(
+                'id' => 1
+            )); ?>">pup</a></h3>
+            <p>The Polder Knowledge Universal Project.</p>
+            <ul class="actions">
+                <li><a href="">Remove</a></li>
+            </ul>
+        </li>
+    </ul>
+
+    <div class="action-bar">
+        <a href="<?php echo $this->url('teamCreate'); ?>" class="button">New Project</a>
+    </div>
+</div>
