@@ -10,6 +10,7 @@
 
 namespace Application\Form;
 
+use Application\Entity\Team as TeamEntity;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterProviderInterface;
 use Zend\Form\Fieldset;
@@ -20,34 +21,6 @@ use Zend\Form\Element\Text;
 use Zend\Form\Element\Textarea;
 use Zend\Form\Form;
 use Zend\Stdlib\Hydrator\ClassMethods as ClassMethodsHydrator;
-
-class TeamEntity
-{
-    protected $name;
-    protected $members;
-
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    public function setName($name)
-    {
-        $this->name = $name;
-        return $this;
-    }
-
-    public function getMembers()
-    {
-        return $this->members;
-    }
-
-    public function setMembers(array $members)
-    {
-        $this->members = $members;
-        return $this;
-    }
-}
 
 class TeamMember
 {
@@ -146,7 +119,13 @@ class TeamFieldset extends Fieldset implements InputFilterProviderInterface
             ),
             'description' => array(
                 'required' => true,
-            )
+            ),
+            'permissions' => array(
+                'required' => false,
+            ),
+            'members' => array(
+                'required' => false,
+            ),
         );
     }
 }
@@ -163,17 +142,9 @@ class Team extends Form
              ->setHydrator(new ClassMethodsHydrator(false))
              ->setInputFilter(new InputFilter());
 
-        $this->add(array(
-            'type' => 'Application\Form\TeamFieldset',
-            'options' => array(
-                'use_as_base_fieldset' => true
-            )
-        ));
-
-        $this->add(array(
-            'type' => 'Zend\Form\Element\Csrf',
-            'name' => 'csrf'
-        ));
+        $fieldset = new TeamFieldset();
+        $fieldset->setUseAsBaseFieldset(true);
+        $this->add($fieldset);
 
         $submitButton = new Submit();
         $submitButton->setName('save');

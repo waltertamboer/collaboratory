@@ -10,6 +10,7 @@
 
 namespace Application\Controller;
 
+use Application\Entity\Team;
 use Application\Form\Team as TeamForm;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -41,17 +42,13 @@ class TeamController extends AbstractActionController
 
         $request = $this->getRequest();
         if ($request->isPost()) {
+            $team = new Team();
+            $form->bind($team);
+
             $form->setData($request->getPost());
 
-            if ($request->getPost('save')) {
-                $exam = new Team();
-                $form->bind($exam);
-
-                if ($form->isValid()) {
-                    $this->getExamService()->persist($exam);
-                    return $this->redirect()->toRoute('teamOverview');
-                }
-            } else {
+            if ($form->isValid()) {
+                $this->getTeamService()->persist($team);
                 return $this->redirect()->toRoute('teamOverview');
             }
         }

@@ -24,6 +24,7 @@ $teamFieldset = $form->get('team');
             <dt><?php echo $this->formLabel($teamFieldset->get('name')); ?></dt>
             <dd>
                 <?php echo $this->formText($teamFieldset->get('name')); ?>
+                <?php echo $this->formElementErrors($teamFieldset->get('name')); ?>
                 <div class="example" style="margin-top: 10px;">(e.g. Programmers, Concept Artists, Managers)</div>
             </dd>
         </dl>
@@ -32,7 +33,10 @@ $teamFieldset = $form->get('team');
     <div class="main-content grid_11 push_2">
         <dl>
             <dt><?php echo $this->formLabel($teamFieldset->get('description')); ?></dt>
-            <dd><?php echo $this->formTextarea($teamFieldset->get('description')); ?></dd>
+            <dd>
+                <?php echo $this->formTextarea($teamFieldset->get('description')); ?>
+                <?php echo $this->formElementErrors($teamFieldset->get('description')); ?>
+            </dd>
         </dl>
     </div>
 

@@ -10,6 +10,7 @@
 
 namespace Application\Service;
 
+use Application\Entity\Team;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
 
@@ -29,6 +30,12 @@ class TeamService implements ServiceManagerAwareInterface
     public function getAll()
     {
         return $this->getMapper()->getAll();
+    }
+
+    public function persist(Team $team)
+    {
+        $this->getMapper()->persist($team);
+        return $this;
     }
 
     public function setServiceManager(ServiceManager $serviceManager)
