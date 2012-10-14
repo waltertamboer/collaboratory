@@ -61,27 +61,27 @@ class TeamController extends AbstractActionController
 
     public function updateAction()
     {
+        $team = $this->getTeamService()->getById($this->params('id'));
+        if (!$team) {
+            return $this->redirect()->toRoute('teamOverview');
+        }
+
         $form = new TeamForm();
+        $form->bind($team);
 
         $request = $this->getRequest();
         if ($request->isPost()) {
             $form->setData($request->getPost());
 
-            if ($request->getPost('save')) {
-                $exam = new Team();
-                $form->bind($exam);
-
-                if ($form->isValid()) {
-                    $this->getExamService()->persist($exam);
-                    return $this->redirect()->toRoute('teamOverview');
-                }
-            } else {
+            if ($form->isValid()) {
+                $this->getTeamService()->persist($team);
                 return $this->redirect()->toRoute('teamOverview');
             }
         }
 
         $viewModel = new ViewModel();
         $viewModel->setVariable('form', $form);
+        $viewModel->setVariable('team', $team);
         $viewModel->setTerminal($request->isXmlHttpRequest());
         return $viewModel;
     }

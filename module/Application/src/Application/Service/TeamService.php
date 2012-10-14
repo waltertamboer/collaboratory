@@ -32,6 +32,11 @@ class TeamService implements ServiceManagerAwareInterface
         return $this->getMapper()->getAll();
     }
 
+    public function getById($id)
+    {
+        return $this->getMapper()->getById($id);
+    }
+
     public function persist(Team $team)
     {
         $this->getMapper()->persist($team);
