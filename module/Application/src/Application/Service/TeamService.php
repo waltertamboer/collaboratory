@@ -43,6 +43,12 @@ class TeamService implements ServiceManagerAwareInterface
         return $this;
     }
 
+    public function remove(Team $team)
+    {
+        $this->getMapper()->remove($team);
+        return $this;
+    }
+
     public function setServiceManager(ServiceManager $serviceManager)
     {
         $this->serviceManager = $serviceManager;

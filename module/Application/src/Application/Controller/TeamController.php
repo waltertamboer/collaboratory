@@ -11,6 +11,7 @@
 namespace Application\Controller;
 
 use Application\Entity\Team;
+use Application\Form\Delete;
 use Application\Form\Team as TeamForm;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -88,7 +89,25 @@ class TeamController extends AbstractActionController
 
     public function deleteAction()
     {
-        return new ViewModel();
+        $team = $this->getTeamService()->getById($this->params('id'));
+        if (!$team) {
+            return $this->redirect()->toRoute('teamOverview');
+        }
+
+        $form = new Delete();
+
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            if ($request->getPost('yes') != null) {
+                $this->getTeamService()->remove($team);
+            }
+            return $this->redirect()->toRoute('teamOverview');
+        }
+
+        $viewModel = new ViewModel();
+        $viewModel->setVariable('form', $form);
+        $viewModel->setVariable('team', $team);
+        return $viewModel;
     }
 
 }

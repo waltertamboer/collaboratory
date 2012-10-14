@@ -1,6 +1,4 @@
-
-
-button, a.button {
+button, .button {
     -moz-border-bottom-colors: none;
     -moz-border-left-colors: none;
     -moz-border-right-colors: none;
@@ -25,14 +23,14 @@ button, a.button {
     text-shadow: 0 1px rgba(255, 255, 255, 0.9);
 }
 
-button:hover, a.button:hover {
+button:hover, .button:hover {
     background: -moz-linear-gradient(#F0F7FA, #D8EAF2) repeat scroll 0 0 transparent;
     border-color: #CBE3EE #CBE3EE #97C7DD;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     color: #337797;
 }
 
-button.positive:hover, a.button.positive:hover {
+button.positive:hover, .button.positive:hover {
     background: -moz-linear-gradient(#8ADD6D, #60B044) repeat scroll 0 0 transparent;
     border-color: #74BB5A #74BB5A #509338;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
@@ -40,7 +38,7 @@ button.positive:hover, a.button.positive:hover {
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
 }
 
-button.negative:hover, a.button.negative:hover {
+button.negative:hover, .button.negative:hover {
     background: -moz-linear-gradient(#DC5F59, #B33630) repeat scroll 0 0 transparent;
     border-color: #C62E2E;
     color: #FFFFFF;
