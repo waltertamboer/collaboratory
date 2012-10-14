@@ -109,3 +109,8 @@ ul.collection > li .actions a {
     color: #AAA;
     font-style: italic;
 }
+
+#footer {
+    color: #CCC;
+    margin: 10px;
+}
