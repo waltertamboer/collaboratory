@@ -10,6 +10,7 @@
 
 namespace Application\Controller;
 
+use Application\Form\Team as TeamForm;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -23,22 +24,22 @@ class TeamController extends AbstractActionController
 
     public function createAction()
     {
-        $form = new \Application\Form\Team();
-        
+        $form = new TeamForm();
+
         $request = $this->getRequest();
         if ($request->isPost()) {
             $form->setData($request->getPost());
 
             if ($request->getPost('save')) {
-                $exam = new Exam();
+                $exam = new Team();
                 $form->bind($exam);
 
                 if ($form->isValid()) {
                     $this->getExamService()->persist($exam);
-                    return $this->redirect()->toRoute('elearning/wildcard');
+                    return $this->redirect()->toRoute('teamOverview');
                 }
             } else {
-                return $this->redirect()->toRoute('elearning/wildcard');
+                return $this->redirect()->toRoute('teamOverview');
             }
         }
 
@@ -50,7 +51,29 @@ class TeamController extends AbstractActionController
 
     public function updateAction()
     {
-        return new ViewModel();
+        $form = new TeamForm();
+
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $form->setData($request->getPost());
+
+            if ($request->getPost('save')) {
+                $exam = new Team();
+                $form->bind($exam);
+
+                if ($form->isValid()) {
+                    $this->getExamService()->persist($exam);
+                    return $this->redirect()->toRoute('teamOverview');
+                }
+            } else {
+                return $this->redirect()->toRoute('teamOverview');
+            }
+        }
+
+        $viewModel = new ViewModel();
+        $viewModel->setVariable('form', $form);
+        $viewModel->setTerminal($request->isXmlHttpRequest());
+        return $viewModel;
     }
 
     public function deleteAction()
