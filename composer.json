@@ -8,7 +8,8 @@
     },
     "autoload": {
         "psr-0": {
-            "Application": "module/Application/src"
+            "Application": "module/Application/src",
+            "ApplicationDoctrineORM": "module/ApplicationDoctrineORM/src"
         }
     }
 }

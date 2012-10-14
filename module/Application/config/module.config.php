@@ -19,6 +19,16 @@ return array(
     ),
     'router' => array(
         'routes' => array(
+            'db' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/create/database',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\DashboardController',
+                        'action' => 'db',
+                    ),
+                ),
+            ),
             'account' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
@@ -123,6 +133,7 @@ return array(
     'service_manager' => array(
         'factories' => array(
             'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',
+            'team.service' => 'Application\Service\TeamServiceFactory',
         ),
     ),
     'view_manager' => array(

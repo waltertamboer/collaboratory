@@ -16,10 +16,23 @@ use Zend\View\Model\ViewModel;
 
 class TeamController extends AbstractActionController
 {
+    private $teamService;
+
+    private function getTeamService()
+    {
+        if ($this->teamService === null) {
+            $this->teamService = $this->getServiceLocator()->get('team.service');
+        }
+        return $this->teamService;
+    }
 
     public function indexAction()
     {
-        return new ViewModel();
+        $teamService = $this->getTeamService();
+
+        $viewModel = new ViewModel();
+        $viewModel->setVariable('teams', $teamService->getAll());
+        return $viewModel;
     }
 
     public function createAction()

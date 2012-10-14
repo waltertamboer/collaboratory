@@ -15,6 +15,32 @@ use Zend\View\Model\ViewModel;
 
 class DashboardController extends AbstractActionController
 {
+    public function dbAction()
+    {
+        $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+
+        // All the meta data of the system:
+        $metaData = $entityManager->getMetadataFactory()->getAllMetadata();
+
+        // Drop the current schema and create a new one:
+        $tool = new \Doctrine\ORM\Tools\SchemaTool($entityManager);
+        $tool->dropDatabase();
+        $tool->createSchema($metaData);
+
+        // Generating the proxy classes for the entities:
+        $destPath = getcwd() . '/data/DoctrineORMModule/Client/Proxy';
+        $entityManager->getProxyFactory()->generateProxyClasses($metaData, $destPath);
+
+        //$cme = new \Doctrine\ORM\Tools\Export\ClassMetadataExporter();
+        //$destPath = getcwd() . '/data/test';
+        //$exporter = $cme->getExporter('yml', $destPath);
+        //$exporter->setMetadata($classes);
+        //$exporter->export();
+
+        echo 'Done!';
+        exit;
+    }
+
     public function indexAction()
     {
         return new ViewModel();
