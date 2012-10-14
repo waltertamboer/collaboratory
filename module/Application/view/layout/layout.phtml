@@ -4,7 +4,6 @@
     <head>
         <meta charset="utf-8">
         <?php
-
         echo $this->headTitle('Collaboratory')->setSeparator(' - ')->setAutoEscape(false);
 
         echo $this->headMeta()->setCharset('utf-8');
@@ -15,34 +14,43 @@
                 'type' => 'image/vnd.microsoft.icon',
                 'href' => $this->basePath() . '/images/favicon.ico'
             ))
-            ->appendStylesheet($this->basePath() . '/css/screen.css');
+            ->appendStylesheet($this->basePath() . '/css/reset.css')
+            ->appendStylesheet($this->basePath() . '/css/960_24_col.css')
+            //->appendStylesheet($this->basePath() . '/css/debug.css')
+            ->appendStylesheet($this->basePath() . '/css/layout.css')
+            ->appendStylesheet($this->basePath() . '/css/layout-header.css')
+            ->appendStylesheet($this->basePath() . '/css/layout-menu-tabs.css')
+            ->appendStylesheet($this->basePath() . '/css/layout-content-tabs.css')
+            ->appendStylesheet($this->basePath() . '/css/layout-alerts.css')
+            ->appendStylesheet($this->basePath() . '/css/layout-forms.css')
+            ->appendStylesheet($this->basePath() . '/css/layout-tips.css');
 
         echo $this->headScript()
-                ->prependFile($this->basePath() . '/js/html5.js', 'text/javascript', array('conditional' => 'lt IE 9',))
-                ->prependFile('https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js');
+            ->prependFile($this->basePath() . '/js/html5.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+            ->prependFile('https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js');
         ?>
 
     </head>
     <body>
 
         <div id="header">
-            <div class="container">
-                <h1><a href="<?php echo $this->url('dashboard'); ?>">Collaboratory</a></h1>
+            <div class="container_24">
+                <div class="grid_24">
+                    <h1><a href="<?php echo $this->url('dashboard'); ?>">Collaboratory</a></h1>
 
-                <div id="toolbox">
-                    <a href="<?php echo $this->url('account'); ?>"><?php echo $this->gravatar('w.tamboer@polderknowledge.nl')->setImgSize(16); ?></a>
-                    <a href="<?php echo $this->url('account'); ?>">Walter Tamboer</a>
-
-                    <a href="<?php echo $this->url('projectCreate'); ?>">Create Project</a>
+                    <div id="toolbox">
+                        <a href="<?php echo $this->url('account'); ?>"><?php echo $this->gravatar('w.tamboer@polderknowledge.nl')->setImgSize(16); ?></a>
+                        <a href="<?php echo $this->url('account'); ?>">Walter Tamboer</a>
+                    </div>
                 </div>
-
-                <div class="clear"></div>
             </div>
         </div>
 
-<?php echo $this->content; ?>
+        <div class="container_24">
+            <?php echo $this->content; ?>
+        </div
 
-<?php echo $this->inlineScript() ?>
+        <?php echo $this->inlineScript() ?>
 
     </body>
 </html>

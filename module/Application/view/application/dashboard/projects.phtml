@@ -1,6 +1,6 @@
 <?php $this->headTitle('Projects'); ?>
 
-<div id="top-bar" class="container">
+<div id="menu-tabs" class="grid_24">
     <ul>
         <li><a href="<?php echo $this->url('dashboard'); ?>">News Feed</a></li>
         <li><a href="<?php echo $this->url('issueOverview'); ?>">Issues <span class="counter">0</span></a></li>
@@ -9,7 +9,7 @@
     </ul>
 </div>
 
-<div class="main-content container">
+<div class="main-content grid_13">
     <ul class="collection">
         <li>
             <h3><a href="<?php echo $this->url('teamUpdate', array(
@@ -17,12 +17,21 @@
             )); ?>">pup</a></h3>
             <p>The Polder Knowledge Universal Project.</p>
             <ul class="actions">
-                <li><a href="">Remove</a></li>
+                <li><a href="" class="button negative">Remove</a></li>
             </ul>
         </li>
     </ul>
 
     <div class="action-bar">
         <a href="<?php echo $this->url('teamCreate'); ?>" class="button">New Project</a>
+    </div>
+</div>
+
+<div class="main-content grid_10 push_1">
+    <div class="tip">
+        <h3>Project Management</h3>
+
+        <p>Collaboratory makes project management easy! Agile has never been so much fun!</p>
+        <p><a href="">Find out more here!</a></p>
     </div>
 </div>

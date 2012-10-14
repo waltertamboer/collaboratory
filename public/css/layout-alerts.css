@@ -1,0 +1,60 @@
+.alert {
+    border-bottom: 1px solid #F1F1F1;
+    overflow: hidden;
+    margin-bottom: 15px;
+    padding: 0px 0px 15px 0px;
+    position: relative;
+}
+
+.alert time {
+    color: #BBBBBB;
+    font-size: 12px;
+}
+
+.alert .title {
+    font-size: 13px;
+    font-weight: bold;
+    margin-top: 3px;
+}
+
+.alert .title time {
+    font-weight: normal;
+}
+
+.alert .title span {
+    background: -moz-linear-gradient(#E1E1E1, #D5D2D2) repeat scroll 0 0 transparent;
+    border-radius: 4px;
+    color: #FFF;
+    font-size: 11px;
+    font-weight: normal;
+    padding: 3px 5px;
+}
+
+.alert.created .title span {
+    background: -moz-linear-gradient(#8ADD6D, #60B044) repeat scroll 0 0 transparent;
+}
+
+.alert.deleted .title span {
+    background: -moz-linear-gradient(#DC5F59, #B33630) repeat scroll 0 0 transparent;
+}
+
+.alert .commits {
+    margin-top: 5px;
+}
+
+.alert .avatar {
+    background-color: #FFFFFF;
+    float: left;
+    line-height: 0;
+    margin-right: 0.6em;
+}
+
+.alert .message {
+    color: #666666;
+    display: inline-block;
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: top;
+    white-space: nowrap;
+}

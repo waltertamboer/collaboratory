@@ -14,6 +14,7 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Application\Controller\DashboardController' => 'Application\Controller\DashboardController',
+            'Application\Controller\TeamController' => 'Application\Controller\TeamController',
         ),
     ),
     'router' => array(
@@ -73,8 +74,8 @@ return array(
                 'options' => array(
                     'route' => '/teams',
                     'defaults' => array(
-                        'controller' => 'Application\Controller\DashboardController',
-                        'action' => 'teams',
+                        'controller' => 'Application\Controller\TeamController',
+                        'action' => 'index',
                     ),
                 ),
             ),
@@ -86,8 +87,8 @@ return array(
                         'id' => '[0-9]+',
                     ),
                     'defaults' => array(
-                        'controller' => 'Application\Controller\DashboardController',
-                        'action' => 'index',
+                        'controller' => 'Application\Controller\TeamController',
+                        'action' => 'create',
                     ),
                 ),
             ),
@@ -99,8 +100,21 @@ return array(
                         'id' => '[0-9]+',
                     ),
                     'defaults' => array(
-                        'controller' => 'Application\Controller\DashboardController',
-                        'action' => 'index',
+                        'controller' => 'Application\Controller\TeamController',
+                        'action' => 'update',
+                    ),
+                ),
+            ),
+            'teamDelete' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route' => '/team/delete/:id',
+                    'constraints' => array(
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\TeamController',
+                        'action' => 'delete',
                     ),
                 ),
             ),

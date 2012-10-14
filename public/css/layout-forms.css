@@ -1,0 +1,108 @@
+
+
+button, a.button {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    -moz-user-select: none;
+    background: -moz-linear-gradient(#F5F5F5, #E5E5E5) repeat scroll 0 0 transparent;
+    border-color: #DDDDDD #DDDDDD #BBBBBB;
+    border-image: none;
+    border-radius: 3px 3px 3px 3px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    color: #666666;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Helvetica,arial,freesans,clean,sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: normal;
+    padding: 8px 15px;
+    position: relative;
+    text-shadow: 0 1px rgba(255, 255, 255, 0.9);
+}
+
+button:hover, a.button:hover {
+    background: -moz-linear-gradient(#F0F7FA, #D8EAF2) repeat scroll 0 0 transparent;
+    border-color: #CBE3EE #CBE3EE #97C7DD;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    color: #337797;
+}
+
+button.positive:hover, a.button.positive:hover {
+    background: -moz-linear-gradient(#8ADD6D, #60B044) repeat scroll 0 0 transparent;
+    border-color: #74BB5A #74BB5A #509338;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+}
+
+button.negative:hover, a.button.negative:hover {
+    background: -moz-linear-gradient(#DC5F59, #B33630) repeat scroll 0 0 transparent;
+    border-color: #C62E2E;
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+
+form dt {
+    margin: 0 0 6px;
+}
+
+input[type="text"] {
+    -moz-box-sizing: border-box;
+    border: 1px solid #CCC;
+    color: #666666;
+    font-family: arial, verdana, courier;
+    font-size: 14px;
+    margin-right: 5px;
+    padding: 6px;
+    width: 400px;
+}
+
+label {
+    color: #666666;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 5px 0 0;
+    position: relative;
+}
+
+textarea {
+    -moz-box-sizing: border-box;
+    border: 1px solid #CCC;
+    color: #666666;
+    font-family: arial, verdana, courier;
+    font-size: 14px;
+    height: 100px;
+    margin-right: 5px;
+    resize: none;
+    padding: 6px;
+    width: 400px;
+}
+
+.delete {
+    color: #DD0000;
+}
+
+.form-add-box {
+    background-color: #F9F9F9;
+    border: 1px solid #CCC;
+    border-radius: 3px;
+    padding: 5px;
+}
+
+.form-add-box input {
+    border-radius: 5px;
+    float: left;
+    padding: 3px;
+    width: 375px;
+}
+
+.form-add-box button {
+    float: right;
+    padding: 3px;
+}

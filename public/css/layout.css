@@ -1,0 +1,111 @@
+a {
+    color: #4183C4;
+    text-decoration: none;
+}
+
+body {
+    font-family: arial, verdana, courier;
+    font-size: 12px;
+    overflow-y: scroll;
+}
+
+h2 {
+    color: #666666;
+    font-size: 18px;
+    font-weight: normal;
+    margin-bottom: 10px
+}
+
+hr {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 transparent;
+    border-color: -moz-use-text-color -moz-use-text-color #DDDDDD;
+    border-image: none;
+    border-style: none none solid;
+    border-width: medium medium 1px;
+    clear: both;
+    height: 1px;
+    margin: 15px 0;
+    overflow: hidden;
+}
+
+ul.collection {
+    border-top: 1px solid #DDDDDD;
+    margin-bottom: 10px;
+}
+
+ul.collection > li {
+    border-bottom: 1px solid #DDDDDD;
+    list-style-type: none;
+    padding: 8px 0;
+    position: relative;
+}
+
+ul.collection > li p {
+    color: #999999;
+    font-size: 12px;
+    margin: 2px 0 0 0;
+}
+
+ul.collection > li .actions {
+    margin: -12px 0 0;
+    position: absolute;
+    right: 0;
+    top: 50%;
+}
+
+ul.collection > li .actions li {
+    display: inline-block;
+    margin: 0 0 0 5px;
+}
+
+ul.collection > li .actions a {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: -moz-linear-gradient(#FAFAFA, #EAEAEA) repeat scroll 0 0 transparent;
+    border-color: #D4D4D4 #D4D4D4 #BCBCBC;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 3px 3px 3px 3px;
+    color: #990000;
+    display: inline-block;
+    font-size: 13px;
+    line-height: 24px;
+    padding: 0px 10px;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+
+.action-bar {
+    text-align: right;
+    margin-top: 10px;
+}
+
+.main-content {
+    margin-top: 20px;
+}
+
+.small-list li {
+    background: none repeat scroll 0 0 #EEEEEE;
+    border: 1px solid #DDDDDD;
+    border-radius: 3px 3px 3px 3px;
+    color: #333333;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 24px;
+    list-style-type: none;
+    margin: 4px 0;
+    min-height: 24px;
+    padding: 2px 5px;
+    position: relative;
+}
+
+.example {
+    color: #AAA;
+    font-style: italic;
+}

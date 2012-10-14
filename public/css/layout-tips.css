@@ -1,0 +1,26 @@
+.tip {
+    background: -moz-linear-gradient(#F0F7FA, #D8EAF2) repeat scroll 0 0 transparent;
+    border-color: #CBE3EE #CBE3EE #97C7DD;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    color: #333;
+    font-style: italic;
+    margin-bottom: 15px;
+    padding: 5px;
+}
+
+.tip.warning {
+    background-color: #FFF0C1;
+    border: 1px solid #EAE1AA;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 0 5px #EAE1AA;
+}
+
+.tip h3 {
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.tip p {
+    color: #333;
+    margin-bottom: 5px;
+}

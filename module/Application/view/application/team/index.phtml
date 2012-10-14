@@ -1,0 +1,46 @@
+<?php $this->headTitle('Teams'); ?>
+
+<div id="menu-tabs" class="grid_24">
+    <ul>
+        <li><a href="<?php echo $this->url('dashboard'); ?>">News Feed</a></li>
+        <li><a href="<?php echo $this->url('issueOverview'); ?>">Issues <span class="counter">0</span></a></li>
+        <li><a href="<?php echo $this->url('projectOverview'); ?>">Projects</a></li>
+        <li><a href="<?php echo $this->url('teamOverview'); ?>" class="selected">Teams</a></li>
+    </ul>
+</div>
+
+<div class="main-content grid_13">
+    <ul class="collection">
+        <li>
+            <h3><a href="<?php echo $this->url('teamUpdate', array(
+                'id' => 1
+            )); ?>">Owners</a></h3>
+            <p>All the people with full access rights to this installation of Collaboratory.</p>
+        </li>
+        <?php for ($i = 1; $i < 5; ++$i) { ?>
+        <li>
+            <h3><a href="<?php echo $this->url('teamUpdate', array(
+                'id' => 1
+            )); ?>">Team <?php echo $i; ?></a></h3>
+            <p>This is a team description</p>
+            <ul class="actions">
+                <li><a href="<?php echo $this->url('teamDelete', array(
+                    'id' => $i + 1
+                )); ?>" class="button negative">Remove</a></li>
+            </ul>
+        </li>
+        <?php } ?>
+    </ul>
+
+    <div class="action-bar">
+        <a href="<?php echo $this->url('teamCreate'); ?>" class="button">New Team</a>
+    </div>
+</div>
+
+<div class="main-content grid_10 push_1">
+    <div class="tip">
+        <h3>Owners</h3>
+
+        <p>You cannot remove the owners team. People in that team have full access rights.</p>
+    </div>
+</div>
