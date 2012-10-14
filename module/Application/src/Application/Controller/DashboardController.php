@@ -28,7 +28,7 @@ class DashboardController extends AbstractActionController
         $tool->createSchema($metaData);
 
         // Generating the proxy classes for the entities:
-        $destPath = getcwd() . '/data/DoctrineORMModule/Client/Proxy';
+        $destPath = getcwd() . '/data/DoctrineORMModule/Proxy';
         $entityManager->getProxyFactory()->generateProxyClasses($metaData, $destPath);
 
         //$cme = new \Doctrine\ORM\Tools\Export\ClassMetadataExporter();
