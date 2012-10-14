@@ -9,17 +9,15 @@
     </ul>
 </div>
 
-<div class="grid_24">
+<div class="grid_10 push_7 tac">
     <div class="alert-box">
         <p>
             Are you sure you want to delete the team "<?php echo $team->getName(); ?>"?
         </p>
     </div>
-    <div>
 
-        <?php echo $this->form()->openTag($form); ?>
-        <?php echo $this->formSubmit($form->get('yes')->setAttribute('class', 'button positive')); ?>
-        <?php echo $this->formSubmit($form->get('no')->setAttribute('class', 'button negative')); ?>
-        <?php echo $this->form()->closeTag(); ?>
-    </div>
+    <?php echo $this->form()->openTag($form); ?>
+    <?php echo $this->formSubmit($form->get('yes')->setAttribute('class', 'button positive')); ?>
+    <?php echo $this->formSubmit($form->get('no')->setAttribute('class', 'button negative')); ?>
+    <?php echo $this->form()->closeTag(); ?>
 </div>
