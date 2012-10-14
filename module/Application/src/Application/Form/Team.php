@@ -14,6 +14,7 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterProviderInterface;
 use Zend\Form\Fieldset;
 use Zend\Form\Element\Collection;
+use Zend\Form\Element\MultiCheckbox;
 use Zend\Form\Element\Submit;
 use Zend\Form\Element\Text;
 use Zend\Form\Element\Textarea;
@@ -112,6 +113,18 @@ class TeamFieldset extends Fieldset implements InputFilterProviderInterface
         $description->setName('description');
         $description->setLabel('Description');
         $this->add($description);
+
+        $permissions = new MultiCheckbox();
+        $permissions->setName('permissions');
+        $permissions->setValueOptions(array(
+            'Can create teams',
+            'Can delete teams',
+            'Can create projects',
+            'Can delete projects',
+            'Can create issues',
+            'Can delete issues',
+        ));
+        $this->add($permissions);
 
         $members = new Collection();
         $members->setName('members');

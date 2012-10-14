@@ -38,6 +38,14 @@ $teamFieldset = $form->get('team');
 
     <hr class="grid_24" />
 
+    <div class="grid_24 permissions">
+        <h2>Permissions</h2>
+
+        <?php echo $this->formMultiCheckbox($teamFieldset->get('permissions')); ?>
+    </div>
+
+    <hr class="grid_24" />
+
     <div class="grid_11">
         <h2>Members</h2>
 
