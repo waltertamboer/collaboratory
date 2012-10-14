@@ -10,13 +10,13 @@
 
 namespace Application\Mapper;
 
-use Application\Entity\Team;
+use Application\Entity\Project;
 
 interface ProjectMapperInterface
 {
     public function getAll();
     public function getById($id);
     public function getByName($name);
-    public function persist(Team $team);
-    public function remove(Team $team);
+    public function persist(Project $project);
+    public function remove(Project $project);
 }

@@ -23,11 +23,12 @@ return array(
                     'Application\Entity' => __NAMESPACE__
                 )
             ),
-        )
+        ),
     ),
     'service_manager' => array(
         'factories' => array(
             'team.mapper' => 'ApplicationDoctrineORM\Mapper\TeamMapperFactory',
+            'project.mapper' => 'ApplicationDoctrineORM\Mapper\ProjectMapperFactory',
         ),
     ),
 );

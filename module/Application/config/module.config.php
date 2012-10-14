@@ -15,6 +15,7 @@ return array(
         'invokables' => array(
             'Application\Controller\DashboardController' => 'Application\Controller\DashboardController',
             'Application\Controller\TeamController' => 'Application\Controller\TeamController',
+            'Application\Controller\ProjectController' => 'Application\Controller\ProjectController',
         ),
     ),
     'router' => array(
@@ -64,8 +65,8 @@ return array(
                 'options' => array(
                     'route' => '/projects',
                     'defaults' => array(
-                        'controller' => 'Application\Controller\DashboardController',
-                        'action' => 'projects',
+                        'controller' => 'Application\Controller\ProjectController',
+                        'action' => 'index',
                     ),
                 ),
             ),
@@ -74,8 +75,34 @@ return array(
                 'options' => array(
                     'route' => '/project/create',
                     'defaults' => array(
-                        'controller' => 'Application\Controller\DashboardController',
-                        'action' => 'index',
+                        'controller' => 'Application\Controller\ProjectController',
+                        'action' => 'create',
+                    ),
+                ),
+            ),
+            'projectUpdate' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route' => '/project/update/:id',
+                    'constraints' => array(
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\ProjectController',
+                        'action' => 'update',
+                    ),
+                ),
+            ),
+            'projectDelete' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route' => '/project/delete/:id',
+                    'constraints' => array(
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\ProjectController',
+                        'action' => 'delete',
                     ),
                 ),
             ),
@@ -134,6 +161,7 @@ return array(
         'factories' => array(
             'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',
             'team.service' => 'Application\Service\TeamServiceFactory',
+            'project.service' => 'Application\Service\ProjectServiceFactory',
         ),
     ),
     'view_manager' => array(

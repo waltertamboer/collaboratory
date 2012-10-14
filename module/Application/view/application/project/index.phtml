@@ -11,27 +11,30 @@
 
 <div class="main-content grid_13">
     <ul class="collection">
+        <?php foreach ($projects as $project) { ?>
         <li>
-            <h3><a href="<?php echo $this->url('teamUpdate', array(
-                'id' => 1
-            )); ?>">pup</a></h3>
-            <p>The Polder Knowledge Universal Project.</p>
+            <h3><a href="<?php echo $this->url('projectUpdate', array(
+                'id' => $project->getId()
+            )); ?>"><?php echo $project->getName(); ?></a></h3>
+            <p><?php echo $project->getDescription(); ?></p>
             <ul class="actions">
-                <li><a href="" class="button negative">Remove</a></li>
+                <li><a href="<?php echo $this->url('projectDelete', array(
+                    'id' => $project->getId()
+                )); ?>" class="button negative">Remove</a></li>
             </ul>
         </li>
+        <?php } ?>
     </ul>
 
-    <div class="action-bar">
-        <a href="<?php echo $this->url('teamCreate'); ?>" class="button">New Project</a>
+    <div class="tar">
+        <a href="<?php echo $this->url('projectCreate'); ?>" class="button">New Project</a>
     </div>
 </div>
 
 <div class="main-content grid_10 push_1">
     <div class="tip">
-        <h3>Project Management</h3>
+        <h3>Owners</h3>
 
-        <p>Collaboratory makes project management easy! Agile has never been so much fun!</p>
-        <p><a href="">Find out more here!</a></p>
+        <p>You cannot remove the owners team. People in that team have full access rights.</p>
     </div>
 </div>

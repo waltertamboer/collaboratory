@@ -4,15 +4,15 @@
     <ul>
         <li><a href="<?php echo $this->url('dashboard'); ?>">News Feed</a></li>
         <li><a href="<?php echo $this->url('issueOverview'); ?>">Issues <span class="counter">0</span></a></li>
-        <li><a href="<?php echo $this->url('projectOverview'); ?>">Projects</a></li>
-        <li><a href="<?php echo $this->url('teamOverview'); ?>" class="selected">Teams</a></li>
+        <li><a href="<?php echo $this->url('projectOverview'); ?>" class="selected">Projects</a></li>
+        <li><a href="<?php echo $this->url('teamOverview'); ?>">Teams</a></li>
     </ul>
 </div>
 
 <div class="grid_10 push_7 tac">
     <div class="alert-box">
         <p>
-            Are you sure you want to delete the team "<?php echo $this->team->getName(); ?>"?
+            Are you sure you want to delete the project "<?php echo $this->project->getName(); ?>"?
         </p>
     </div>
 
