@@ -34,7 +34,6 @@ class ProjectForm extends Form implements InputFilterProviderInterface
 
         $name = new Text('name');
         $name->setLabel('Project name');
-        $name->setAttribute('required', 'required');
         $this->add($name);
 
         $description = new Textarea();

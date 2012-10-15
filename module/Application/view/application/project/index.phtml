@@ -10,8 +10,9 @@
 </div>
 
 <div class="main-content grid_13">
+    <?php if (count($this->projects)) { ?>
     <ul class="collection">
-        <?php foreach ($projects as $project) { ?>
+        <?php foreach ($this->projects as $project) { ?>
         <li>
             <h3><a href="<?php echo $this->url('projectUpdate', array(
                 'id' => $project->getId()
@@ -25,6 +26,9 @@
         </li>
         <?php } ?>
     </ul>
+    <?php } else { ?>
+    <p>There are no projects yet, would you like to create one?</p>
+    <?php } ?>
 
     <div class="tar">
         <a href="<?php echo $this->url('projectCreate'); ?>" class="button">New Project</a>
