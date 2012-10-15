@@ -41,7 +41,7 @@ ul.collection {
 ul.collection > li {
     border-bottom: 1px solid #DDDDDD;
     list-style-type: none;
-    min-height: 30px;
+    min-height: 32px;
     padding: 8px 85px 8px 0px;
     position: relative;
 }
