@@ -13,6 +13,7 @@ namespace Application;
 return array(
     'controllers' => array(
         'invokables' => array(
+            'Application\Controller\AccountController' => 'Application\Controller\AccountController',
             'Application\Controller\DashboardController' => 'Application\Controller\DashboardController',
             'Application\Controller\TeamController' => 'Application\Controller\TeamController',
             'Application\Controller\ProjectController' => 'Application\Controller\ProjectController',
@@ -30,13 +31,33 @@ return array(
                     ),
                 ),
             ),
-            'account' => array(
+            'accountProfile' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route' => '/account',
+                    'route' => '/account/profile',
                     'defaults' => array(
-                        'controller' => 'Application\Controller\DashboardController',
-                        'action' => 'index',
+                        'controller' => 'Application\Controller\AccountController',
+                        'action' => 'profile',
+                    ),
+                ),
+            ),
+            'accountLogin' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/account/login',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\AccountController',
+                        'action' => 'login',
+                    ),
+                ),
+            ),
+            'accountSsh' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/account/ssh',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\AccountController',
+                        'action' => 'ssh',
                     ),
                 ),
             ),
