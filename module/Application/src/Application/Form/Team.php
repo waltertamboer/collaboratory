@@ -53,8 +53,7 @@ class TeamMemberFieldset extends Fieldset implements InputFilterProviderInterfac
                 'label' => 'Name'
             ),
             'attributes' => array(
-                'type' => 'text',
-                'required' => 'required'
+                'type' => 'text'
             )
         ));
     }
@@ -79,7 +78,6 @@ class TeamFieldset extends Fieldset implements InputFilterProviderInterface
 
         $name = new Text('name');
         $name->setLabel('Team name');
-        $name->setAttribute('required', 'required');
         $this->add($name);
 
         $description = new Textarea();
