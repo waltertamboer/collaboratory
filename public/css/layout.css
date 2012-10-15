@@ -1,3 +1,4 @@
+
 a {
     color: #4183C4;
     text-decoration: none;
@@ -40,7 +41,7 @@ ul.collection {
 ul.collection > li {
     border-bottom: 1px solid #DDDDDD;
     list-style-type: none;
-    padding: 8px 0;
+    padding: 8px 85px 8px 0px;
     position: relative;
 }
 
