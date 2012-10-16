@@ -6,16 +6,38 @@
             <img width="20" height="20" src="https://secure.gravatar.com/avatar/c6b462cc4df153f563355d5d6edc1618?s=140&amp;d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png">
             WalterTamboer
         </a>
-        <ul>
+        <ul class="menu">
             <li><a href="<?php echo $this->url('accountProfile'); ?>">Profile</a></li>
             <li><a href="<?php echo $this->url('accountLogin'); ?>">Login</a></li>
-            <li><a href="<?php echo $this->url('accountSsh'); ?>">SSH Keys</a></li>
+            <li class="selected"><a href="<?php echo $this->url('accountSsh'); ?>">SSH Keys</a></li>
         </ul>
     </div>
 </div>
 
 <div class="main-content grid_17 push_1">
     <div class="box">
-        <h3 class="title">SSH Keys</h3>
+        <h3 class="title">
+            SSH Keys
+
+            <ul class="actions">
+                <li><a href="" class="button">Add SSH Key</a></li>
+            </ul>
+        </h3>
+        <div class="content">
+            <ul>
+                <li>
+                    Computer 1
+                    <ul class="actions">
+                        <li><a href="" class="button negative">Remove</a></li>
+                    </ul>
+                </li>
+                <li>
+                    Computer 2
+                    <ul class="actions">
+                        <li><a href="" class="button negative">Remove</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>

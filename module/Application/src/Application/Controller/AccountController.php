@@ -17,6 +17,11 @@ class AccountController extends AbstractActionController
 {
     public function profileAction()
     {
+        $form = new \Application\Form\ProfileForm();
+
+        $viewModel = new ViewModel();
+        $viewModel->setVariable('form', $form);
+        return $viewModel;
     }
 
     public function loginAction()

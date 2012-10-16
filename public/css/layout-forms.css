@@ -38,6 +38,10 @@ button.positive:hover, .button.positive:hover {
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
 }
 
+button.negative, .button.negative {
+    color: #990000;
+}
+
 button.negative:hover, .button.negative:hover {
     background: -moz-linear-gradient(#DC5F59, #B33630) repeat scroll 0 0 transparent;
     border-color: #C62E2E;

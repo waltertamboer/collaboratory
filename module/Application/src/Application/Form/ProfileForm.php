@@ -10,16 +10,14 @@
 
 namespace Application\Form;
 
-use Application\Entity\Project;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterProviderInterface;
-use Zend\Form\Element\Submit;
 use Zend\Form\Element\Text;
-use Zend\Form\Element\Textarea;
+use Zend\Form\Element\Submit;
 use Zend\Form\Form;
 use Zend\Stdlib\Hydrator\ClassMethods as ClassMethodsHydrator;
 
-class ProjectForm extends Form implements InputFilterProviderInterface
+class ProfileForm extends Form implements InputFilterProviderInterface
 {
     private $serviceManager;
 
@@ -29,17 +27,11 @@ class ProjectForm extends Form implements InputFilterProviderInterface
 
         $this->setAttribute('method', 'post')
              ->setHydrator(new ClassMethodsHydrator(false))
-             ->setObject(new Project())
              ->setInputFilter(new InputFilter());
 
         $name = new Text('name');
-        $name->setLabel('Project name');
+        $name->setLabel('Name');
         $this->add($name);
-
-        $description = new Textarea();
-        $description->setName('description');
-        $description->setLabel('Description');
-        $this->add($description);
 
         $submitButton = new Submit();
         $submitButton->setName('save');

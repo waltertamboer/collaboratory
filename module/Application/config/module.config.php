@@ -19,6 +19,26 @@ return array(
             'Application\Controller\ProjectController' => 'Application\Controller\ProjectController',
         ),
     ),
+    'navigation' => array(
+        'default' => array(
+            'home' => array(
+                'label' => 'News Feed',
+                'route' => 'dashboard',
+            ),
+            'login' => array(
+                'label' => 'Issues <span class="counter">0</span>',
+                'route' => 'issueOverview',
+            ),
+            'logout' => array(
+                'label' => 'Projects',
+                'route' => 'projectOverview',
+            ),
+            'register' => array(
+                'label' => 'Teams',
+                'route' => 'teamOverview',
+            ),
+        ),
+    ),
     'router' => array(
         'routes' => array(
             'db' => array(
@@ -28,6 +48,16 @@ return array(
                     'defaults' => array(
                         'controller' => 'Application\Controller\DashboardController',
                         'action' => 'db',
+                    ),
+                ),
+            ),
+            'logout' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/logout',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\DashboardController',
+                        'action' => 'index',
                     ),
                 ),
             ),
@@ -180,6 +210,7 @@ return array(
     ),
     'service_manager' => array(
         'factories' => array(
+            'navigation/main' => 'Zend\Navigation\Service\DefaultNavigationFactory',
             'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',
             'team.service' => 'Application\Service\TeamServiceFactory',
             'project.service' => 'Application\Service\ProjectServiceFactory',

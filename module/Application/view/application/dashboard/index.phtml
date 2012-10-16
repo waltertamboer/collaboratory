@@ -1,31 +1,26 @@
 <?php $this->headTitle('News Feed'); ?>
 
 <div id="menu-tabs" class="grid_24">
-    <ul>
-        <li><a href="<?php echo $this->url('dashboard'); ?>" class="selected">News Feed</a></li>
-        <li><a href="<?php echo $this->url('issueOverview'); ?>">Issues <span class="counter">0</span></a></li>
-        <li><a href="<?php echo $this->url('projectOverview'); ?>">Projects</a></li>
-        <li><a href="<?php echo $this->url('teamOverview'); ?>">Teams</a></li>
-    </ul>
+    <?php echo $this->navigation('navigation/main')->menu()->escapeLabels(false); ?>
 </div>
 
 <div class="main-content grid_13">
     <?php for ($i = 0; $i < 3; ++$i) { ?>
     <div class="alert project created">
         <div class="title">
-            <a href="">Mark Willemen</a> <span>created project</span> <a href="">test</a>
+            <a href="">Person A</a> <span>created project</span> <a href="">test</a>
             <time title="2012-07-29 19:59:42" datetime="2012-07-29T19:59:42Z">just now</time>
         </div>
     </div>
     <div class="alert branch created">
         <div class="title">
-            <a href="">Remy Honing</a> <span>created branch</span> <a href="">test</a>
+            <a href="">Person B</a> <span>created branch</span> <a href="">test</a>
             <time title="2012-07-29 19:59:42" datetime="2012-07-29T19:59:42Z">just now</time>
         </div>
     </div>
     <div class="alert branch deleted">
         <div class="title">
-            <a href="">Maarten Kooij</a> <span>deleted branch</span> <a href="">hotfix/123</a>
+            <a href="">Person C</a> <span>deleted branch</span> <a href="">hotfix/123</a>
             <time title="2012-07-29 19:59:42" datetime="2012-07-29T19:59:42Z">just now</time>
         </div>
     </div>

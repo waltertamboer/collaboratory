@@ -45,7 +45,7 @@
     text-align: center;
 }
 
-#menu-tabs a.selected, #menu-tabs a:hover {
+#menu-tabs li.active a, #menu-tabs a:hover {
     border-bottom: 2px solid #D26911;
     color: #000;
 }

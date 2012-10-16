@@ -52,19 +52,19 @@ ul.collection > li p {
     margin: 2px 0 0 0;
 }
 
-ul.collection > li .actions {
+ul.actions {
     margin: -12px 0 0;
     position: absolute;
     right: 0;
     top: 50%;
 }
 
-ul.collection > li .actions li {
+ul.actions li {
     display: inline-block;
     margin: 0 0 0 5px;
 }
 
-ul.collection > li .actions a {
+ul.actions a {
     -moz-border-bottom-colors: none;
     -moz-border-left-colors: none;
     -moz-border-right-colors: none;
@@ -75,7 +75,6 @@ ul.collection > li .actions a {
     border-style: solid;
     border-width: 1px;
     border-radius: 3px 3px 3px 3px;
-    color: #990000;
     display: inline-block;
     font-size: 13px;
     line-height: 24px;
@@ -158,6 +157,11 @@ ul.collection > li .actions a {
     line-height: 20px;
     padding: 10px;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+    position: relative;
+}
+
+.box .title ul.actions {
+    right: 10px;
 }
 
 .box .title img {
@@ -166,15 +170,15 @@ ul.collection > li .actions a {
     margin: 0 10px 0 0;
 }
 
-.box ul {
+.box ul.menu {
     border: 1px solid #D8D8D8;
 }
 
-.box li {
+.box ul.menu li {
     border-top: 1px solid #EEEEEE;
 }
 
-.box li a {
+.box ul.menu li a {
     background: none repeat scroll 0 0 #FAFAFB;
     color: #4183C4;
     text-decoration: none;
@@ -183,6 +187,22 @@ ul.collection > li .actions a {
     text-shadow: 0 1px 0 #FFFFFF;
 }
 
-.box li a:hover {
+.box ul.menu li a:hover {
     background-color: #FFF;
+}
+
+.box .content {
+    background-color: #FFF;
+}
+
+.box .content > ul > li {
+    border-bottom: 1px solid #D8D8D8;
+    border-left: 1px solid #D8D8D8;
+    border-right: 1px solid #D8D8D8;
+    padding: 15px 10px;
+    position: relative;
+}
+
+.box .content ul.actions {
+    right: 10px;
 }
