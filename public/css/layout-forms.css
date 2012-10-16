@@ -49,6 +49,10 @@ button.negative:hover, .button.negative:hover {
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
 }
 
+button.mini, .button.mini {
+    padding: 2px 4px;
+}
+
 form dt {
     margin: 0 0 6px;
 }

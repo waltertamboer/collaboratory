@@ -3,3 +3,58 @@
 <div id="menu-tabs" class="grid_24">
     <?php echo $this->navigation('navigation/main')->menu()->escapeLabels(false); ?>
 </div>
+
+<div class="grid_24">
+    <div style="border-radius: 5px; background-color: #F4F4F4; margin-top: 8px; padding: 5px;">
+        <label>
+            Assigned to
+            <select>
+                <option value="">Anyone</option>
+                <option value="">Walter Tamboer</option>
+            </select>
+        </label>
+
+        <label>
+            Status
+            <select>
+                <option value="">All</option>
+                <option value="">New</option>
+                <option value="">Feedback</option>
+                <option value="">Confirmed</option>
+                <option value="">Assigned</option>
+                <option value="">Resolved</option>
+                <option value="">Closed</option>
+            </select>
+        </label>
+
+        <label>
+            Category
+            <select>
+                <option value="">All</option>
+                <option value="">Category A</option>
+                <option value="">Category B</option>
+                <option value="">Category C</option>
+                <option value="">Category D</option>
+            </select>
+        </label>
+
+        <label>
+            Priority
+            <select>
+                <option value="">All</option>
+                <option value="">None</option>
+                <option value="">Low</option>
+                <option value="">Normal</option>
+                <option value="">High</option>
+                <option value="">Immediate</option>
+            </select>
+        </label>
+
+        <button class="mini">Apply</button>
+        <button class="mini">New Issue</button>
+    </div>
+
+    <div class="tac">
+        <p>No issues found.</p>
+    </div>
+</div>
