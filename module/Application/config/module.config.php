@@ -15,6 +15,7 @@ return array(
         'invokables' => array(
             'Application\Controller\AccountController' => 'Application\Controller\AccountController',
             'Application\Controller\DashboardController' => 'Application\Controller\DashboardController',
+            'Application\Controller\IssueController' => 'Application\Controller\IssueController',
             'Application\Controller\TeamController' => 'Application\Controller\TeamController',
             'Application\Controller\ProjectController' => 'Application\Controller\ProjectController',
         ),
@@ -106,8 +107,8 @@ return array(
                 'options' => array(
                     'route' => '/issues',
                     'defaults' => array(
-                        'controller' => 'Application\Controller\DashboardController',
-                        'action' => 'issues',
+                        'controller' => 'Application\Controller\IssueController',
+                        'action' => 'index',
                     ),
                 ),
             ),
