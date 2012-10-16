@@ -9,13 +9,8 @@ $teamFieldset = $form->get('team');
 
 ?>
 
-<div id="menu-tabs" class="grid_24">
-    <ul>
-        <li><a href="<?php echo $this->url('dashboard'); ?>">News Feed</a></li>
-        <li><a href="<?php echo $this->url('issueOverview'); ?>">Issues <span class="counter">0</span></a></li>
-        <li><a href="<?php echo $this->url('projectOverview'); ?>">Projects</a></li>
-        <li><a href="<?php echo $this->url('teamOverview'); ?>" class="selected">Teams</a></li>
-    </ul>
+<div id="menu-tabs" class="grid_24">    <?php echo $this->navigation('navigation/main')->menu()->escapeLabels(false); ?>
+
 </div>
 
 <?php echo $this->form()->openTag($form); ?>

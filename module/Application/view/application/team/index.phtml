@@ -9,12 +9,12 @@
     <ul class="collection">
         <?php foreach ($teams as $team) { ?>
         <li>
-            <h3><a href="<?php echo $this->url('teamUpdate', array(
+            <h3><a href="<?php echo $this->url('team/update', array(
                 'id' => $team->getId()
             )); ?>"><?php echo $team->getName(); ?></a></h3>
             <p><?php echo $team->getDescription(); ?></p>
             <ul class="actions">
-                <li><a href="<?php echo $this->url('teamDelete', array(
+                <li><a href="<?php echo $this->url('team/delete', array(
                     'id' => $team->getId()
                 )); ?>" class="button negative">Remove</a></li>
             </ul>
@@ -26,7 +26,7 @@
     <?php } ?>
 
     <div class="tar">
-        <a href="<?php echo $this->url('teamCreate'); ?>" class="button">New Team</a>
+        <a href="<?php echo $this->url('team/create'); ?>" class="button">New Team</a>
     </div>
 </div>
 

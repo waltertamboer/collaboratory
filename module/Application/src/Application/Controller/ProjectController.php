@@ -48,7 +48,7 @@ class ProjectController extends AbstractActionController
 
             if ($form->isValid()) {
                 $this->getProjectService()->persist($project);
-                return $this->redirect()->toRoute('projectOverview');
+                return $this->redirect()->toRoute('project/overview');
             }
         }
 
@@ -62,7 +62,7 @@ class ProjectController extends AbstractActionController
     {
         $project = $this->getProjectService()->getById($this->params('id'));
         if (!$project) {
-            return $this->redirect()->toRoute('projectOverview');
+            return $this->redirect()->toRoute('project/overview');
         }
 
         $form = new ProjectForm();
@@ -74,7 +74,7 @@ class ProjectController extends AbstractActionController
 
             if ($form->isValid()) {
                 $this->getProjectService()->persist($project);
-                return $this->redirect()->toRoute('projectOverview');
+                return $this->redirect()->toRoute('project/overview');
             }
         }
 
@@ -89,7 +89,7 @@ class ProjectController extends AbstractActionController
     {
         $project = $this->getProjectService()->getById($this->params('id'));
         if (!$project) {
-            return $this->redirect()->toRoute('projectOverview');
+            return $this->redirect()->toRoute('project/overview');
         }
 
         $form = new Delete();
@@ -99,7 +99,7 @@ class ProjectController extends AbstractActionController
             if ($request->getPost('yes') != null) {
                 $this->getProjectService()->remove($project);
             }
-            return $this->redirect()->toRoute('projectOverview');
+            return $this->redirect()->toRoute('project/overview');
         }
 
         $viewModel = new ViewModel();

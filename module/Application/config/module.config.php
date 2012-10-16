@@ -22,21 +22,21 @@ return array(
     ),
     'navigation' => array(
         'default' => array(
-            'home' => array(
+            'dashboard' => array(
                 'label' => 'News Feed',
                 'route' => 'dashboard',
             ),
-            'login' => array(
+            'issue/overview' => array(
                 'label' => 'Issues <span class="counter">0</span>',
-                'route' => 'issueOverview',
+                'route' => 'issue/overview',
             ),
-            'logout' => array(
+            'project/overview' => array(
                 'label' => 'Projects',
-                'route' => 'projectOverview',
+                'route' => 'project/overview',
             ),
-            'register' => array(
+            'team/overview' => array(
                 'label' => 'Teams',
-                'route' => 'teamOverview',
+                'route' => 'team/overview',
             ),
         ),
     ),
@@ -62,33 +62,42 @@ return array(
                     ),
                 ),
             ),
-            'accountProfile' => array(
+            'account' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route' => '/account/profile',
+                    'route' => '/account',
                     'defaults' => array(
                         'controller' => 'Application\Controller\AccountController',
-                        'action' => 'profile',
                     ),
                 ),
-            ),
-            'accountLogin' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
-                'options' => array(
-                    'route' => '/account/login',
-                    'defaults' => array(
-                        'controller' => 'Application\Controller\AccountController',
-                        'action' => 'login',
+                'may_terminate' => false,
+                'child_routes' => array(
+                    'profile' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => array(
+                            'route' => '/profile',
+                            'defaults' => array(
+                                'action' => 'profile',
+                            ),
+                        ),
                     ),
-                ),
-            ),
-            'accountSsh' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
-                'options' => array(
-                    'route' => '/account/ssh',
-                    'defaults' => array(
-                        'controller' => 'Application\Controller\AccountController',
-                        'action' => 'ssh',
+                    'data' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => array(
+                            'route' => '/data',
+                            'defaults' => array(
+                                'action' => 'login',
+                            ),
+                        ),
+                    ),
+                    'ssh' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => array(
+                            'route' => '/ssh',
+                            'defaults' => array(
+                                'action' => 'ssh',
+                            ),
+                        ),
                     ),
                 ),
             ),
@@ -102,7 +111,7 @@ return array(
                     ),
                 ),
             ),
-            'issueOverview' => array(
+            'issue' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
                     'route' => '/issues',
@@ -111,8 +120,20 @@ return array(
                         'action' => 'index',
                     ),
                 ),
+                'may_terminate' => false,
+                'child_routes' => array(
+                    'overview' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => array(
+                            'route' => '/overview',
+                            'defaults' => array(
+                                'action' => 'index',
+                            ),
+                        ),
+                    ),
+                ),
             ),
-            'projectOverview' => array(
+            'project' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
                     'route' => '/projects',
@@ -121,44 +142,56 @@ return array(
                         'action' => 'index',
                     ),
                 ),
-            ),
-            'projectCreate' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
-                'options' => array(
-                    'route' => '/project/create',
-                    'defaults' => array(
-                        'controller' => 'Application\Controller\ProjectController',
-                        'action' => 'create',
+                'may_terminate' => false,
+                'child_routes' => array(
+                    'overview' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => array(
+                            'route' => '/overview',
+                            'defaults' => array(
+                                'action' => 'index',
+                            ),
+                        ),
+                    ),
+                    'create' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => array(
+                            'route' => '/create',
+                            'defaults' => array(
+                                'controller' => 'Application\Controller\ProjectController',
+                                'action' => 'create',
+                            ),
+                        ),
+                    ),
+                    'update' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                        'options' => array(
+                            'route' => '/update/:id',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Application\Controller\ProjectController',
+                                'action' => 'update',
+                            ),
+                        ),
+                    ),
+                    'delete' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                        'options' => array(
+                            'route' => '/delete/:id',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Application\Controller\ProjectController',
+                                'action' => 'delete',
+                            ),
+                        ),
                     ),
                 ),
             ),
-            'projectUpdate' => array(
-                'type' => 'Zend\Mvc\Router\Http\Segment',
-                'options' => array(
-                    'route' => '/project/update/:id',
-                    'constraints' => array(
-                        'id' => '[0-9]+',
-                    ),
-                    'defaults' => array(
-                        'controller' => 'Application\Controller\ProjectController',
-                        'action' => 'update',
-                    ),
-                ),
-            ),
-            'projectDelete' => array(
-                'type' => 'Zend\Mvc\Router\Http\Segment',
-                'options' => array(
-                    'route' => '/project/delete/:id',
-                    'constraints' => array(
-                        'id' => '[0-9]+',
-                    ),
-                    'defaults' => array(
-                        'controller' => 'Application\Controller\ProjectController',
-                        'action' => 'delete',
-                    ),
-                ),
-            ),
-            'teamOverview' => array(
+            'team' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
                     'route' => '/teams',
@@ -167,43 +200,49 @@ return array(
                         'action' => 'index',
                     ),
                 ),
-            ),
-            'teamCreate' => array(
-                'type' => 'Zend\Mvc\Router\Http\Segment',
-                'options' => array(
-                    'route' => '/team/create',
-                    'constraints' => array(
-                        'id' => '[0-9]+',
+                'may_terminate' => false,
+                'child_routes' => array(
+                    'overview' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => array(
+                            'route' => '/overview',
+                            'defaults' => array(
+                                'action' => 'index',
+                            ),
+                        ),
                     ),
-                    'defaults' => array(
-                        'controller' => 'Application\Controller\TeamController',
-                        'action' => 'create',
+                    'create' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => array(
+                            'route' => '/create',
+                            'defaults' => array(
+                                'action' => 'create',
+                            ),
+                        ),
                     ),
-                ),
-            ),
-            'teamUpdate' => array(
-                'type' => 'Zend\Mvc\Router\Http\Segment',
-                'options' => array(
-                    'route' => '/team/:id',
-                    'constraints' => array(
-                        'id' => '[0-9]+',
+                    'update' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                        'options' => array(
+                            'route' => '/team/:id',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'action' => 'update',
+                            ),
+                        ),
                     ),
-                    'defaults' => array(
-                        'controller' => 'Application\Controller\TeamController',
-                        'action' => 'update',
-                    ),
-                ),
-            ),
-            'teamDelete' => array(
-                'type' => 'Zend\Mvc\Router\Http\Segment',
-                'options' => array(
-                    'route' => '/team/delete/:id',
-                    'constraints' => array(
-                        'id' => '[0-9]+',
-                    ),
-                    'defaults' => array(
-                        'controller' => 'Application\Controller\TeamController',
-                        'action' => 'delete',
+                    'delete' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                        'options' => array(
+                            'route' => '/team/delete/:id',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'action' => 'delete',
+                            ),
+                        ),
                     ),
                 ),
             ),

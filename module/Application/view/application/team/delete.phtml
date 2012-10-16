@@ -1,12 +1,7 @@
 <?php $this->headTitle('Delete Team'); ?>
 
 <div id="menu-tabs" class="grid_24">
-    <ul>
-        <li><a href="<?php echo $this->url('dashboard'); ?>">News Feed</a></li>
-        <li><a href="<?php echo $this->url('issueOverview'); ?>">Issues <span class="counter">0</span></a></li>
-        <li><a href="<?php echo $this->url('projectOverview'); ?>">Projects</a></li>
-        <li><a href="<?php echo $this->url('teamOverview'); ?>" class="selected">Teams</a></li>
-    </ul>
+    <?php echo $this->navigation('navigation/main')->menu()->escapeLabels(false); ?>
 </div>
 
 <div class="grid_10 push_7 tac">

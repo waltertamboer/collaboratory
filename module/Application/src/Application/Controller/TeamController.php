@@ -50,7 +50,7 @@ class TeamController extends AbstractActionController
 
             if ($form->isValid()) {
                 $this->getTeamService()->persist($team);
-                return $this->redirect()->toRoute('teamOverview');
+                return $this->redirect()->toRoute('team/overview');
             }
         }
 
@@ -64,7 +64,7 @@ class TeamController extends AbstractActionController
     {
         $team = $this->getTeamService()->getById($this->params('id'));
         if (!$team) {
-            return $this->redirect()->toRoute('teamOverview');
+            return $this->redirect()->toRoute('team/overview');
         }
 
         $form = new TeamForm();
@@ -76,7 +76,7 @@ class TeamController extends AbstractActionController
 
             if ($form->isValid()) {
                 $this->getTeamService()->persist($team);
-                return $this->redirect()->toRoute('teamOverview');
+                return $this->redirect()->toRoute('team/overview');
             }
         }
 
@@ -91,7 +91,7 @@ class TeamController extends AbstractActionController
     {
         $team = $this->getTeamService()->getById($this->params('id'));
         if (!$team) {
-            return $this->redirect()->toRoute('teamOverview');
+            return $this->redirect()->toRoute('team/overview');
         }
 
         $form = new Delete();
@@ -101,7 +101,7 @@ class TeamController extends AbstractActionController
             if ($request->getPost('yes') != null) {
                 $this->getTeamService()->remove($team);
             }
-            return $this->redirect()->toRoute('teamOverview');
+            return $this->redirect()->toRoute('team/overview');
         }
 
         $viewModel = new ViewModel();
