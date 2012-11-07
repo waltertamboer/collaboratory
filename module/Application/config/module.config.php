@@ -18,6 +18,7 @@ return array(
             'Application\Controller\IssueController' => 'Application\Controller\IssueController',
             'Application\Controller\TeamController' => 'Application\Controller\TeamController',
             'Application\Controller\ProjectController' => 'Application\Controller\ProjectController',
+            'Application\Controller\SnippetController' => 'Application\Controller\SnippetController',
         ),
     ),
     'navigation' => array(
@@ -37,6 +38,10 @@ return array(
             'team/overview' => array(
                 'label' => 'Teams',
                 'route' => 'team/overview',
+            ),
+            'snippet/overview' => array(
+                'label' => 'Snippets',
+                'route' => 'snippet/overview',
             ),
         ),
     ),
@@ -255,6 +260,61 @@ return array(
                     ),
                 ),
             ),
+            'snippet' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/snippets',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\SnippetController',
+                        'action' => 'index',
+                    ),
+                ),
+                'may_terminate' => false,
+                'child_routes' => array(
+                    'overview' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => array(
+                            'route' => '/overview',
+                            'defaults' => array(
+                                'action' => 'index',
+                            ),
+                        ),
+                    ),
+                    'create' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => array(
+                            'route' => '/create',
+                            'defaults' => array(
+                                'action' => 'create',
+                            ),
+                        ),
+                    ),
+                    'update' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                        'options' => array(
+                            'route' => '/update/:id',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'action' => 'update',
+                            ),
+                        ),
+                    ),
+                    'delete' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                        'options' => array(
+                            'route' => '/delete/:id',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'action' => 'delete',
+                            ),
+                        ),
+                    ),
+                ),
+            ),
         ),
     ),
     'service_manager' => array(
@@ -263,6 +323,7 @@ return array(
             'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',
             'team.service' => 'Application\Service\TeamServiceFactory',
             'project.service' => 'Application\Service\ProjectServiceFactory',
+            'snippet.service' => 'Application\Service\SnippetServiceFactory',
         ),
     ),
     'view_manager' => array(

@@ -37,6 +37,7 @@ class DashboardController extends AbstractActionController
         //$exporter->setMetadata($classes);
         //$exporter->export();
 
+        echo '<pre>';
         echo 'Done!';
         exit;
     }

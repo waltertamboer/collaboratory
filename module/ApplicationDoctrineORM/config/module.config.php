@@ -29,6 +29,7 @@ return array(
         'factories' => array(
             'team.mapper' => 'ApplicationDoctrineORM\Mapper\TeamMapperFactory',
             'project.mapper' => 'ApplicationDoctrineORM\Mapper\ProjectMapperFactory',
+            'snippet.mapper' => 'ApplicationDoctrineORM\Mapper\SnippetMapperFactory',
         ),
     ),
 );

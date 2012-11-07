@@ -4,10 +4,12 @@
         <id name="id" type="bigint" column="id">
             <generator strategy="IDENTITY" />
         </id>
-        <field name="authorId" type="integer" column="authorId" nullable="false" precision="0" scale="0" />
-        <field name="projectId" type="integer" column="projectId" nullable="false" precision="0" scale="0" />
-        <field name="title" type="string" column="title" nullable="false" precision="0" scale="0" />
+        <field name="projectId" type="integer" column="projectId" nullable="true" precision="0" scale="0" />
+        <field name="name" type="string" column="name" nullable="false" precision="0" scale="0" />
+        <field name="description" type="string" column="description" nullable="true" precision="0" scale="0" />
+        <field name="syntax" type="string" column="syntax" nullable="false" precision="0" scale="0" />
         <field name="content" type="string" column="content" nullable="false" precision="0" scale="0" />
+        <field name="createdBy" type="integer" column="createdBy" nullable="false" precision="0" scale="0" />
         <field name="createdOn" type="datetime" column="createdOn" nullable="false" precision="0" scale="0" />
         <field name="expiresOn" type="datetime" column="expiresOn" nullable="true" precision="0" scale="0" />
     </entity>
