@@ -10,12 +10,24 @@
 
 namespace Application\Controller;
 
+use Application\Entity\SshKey;
 use Application\Form\AddSshForm;
+use DateTime;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 class AccountController extends AbstractActionController
 {
+    private $sshService;
+
+    private function getSshService()
+    {
+        if ($this->sshService === null) {
+            $this->sshService = $this->getServiceLocator()->get('ssh.service');
+        }
+        return $this->sshService;
+    }
+
     public function profileAction()
     {
         $form = new \Application\Form\ProfileForm();
@@ -44,14 +56,17 @@ class AccountController extends AbstractActionController
 
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $project = new Project();
-            $form->bind($project);
+            $sshKey = new SshKey();
 
+            $form->bind($sshKey);
             $form->setData($request->getPost());
 
             if ($form->isValid()) {
-                $this->getProjectService()->persist($project);
-                return $this->redirect()->toRoute('project/overview');
+                $sshKey->setCreatedBy(1);
+                $sshKey->setCreatedOn(new DateTime());
+
+                $this->getSshService()->persist($sshKey);
+                return $this->redirect()->toRoute('account/ssh');
             }
         }
 

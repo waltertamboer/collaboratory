@@ -1,4 +1,4 @@
-<?php $this->headTitle('SSH Keys'); ?>
+<?php $this->headTitle('Add SSH Key'); ?>
 
 <div class="main-content grid_6">
     <div class="box">
@@ -14,6 +14,7 @@
     </div>
 </div>
 
+<?php echo $this->form()->openTag($form); ?>
 <div class="main-content grid_17 push_1">
     <div class="box">
         <h3 class="title">
@@ -21,17 +22,17 @@
         </h3>
         <div class="content">
             <dl>
-            <dt><?php echo $this->formLabel($form->get('name')); ?></dt>
-            <dd>
-                <?php echo $this->formText($form->get('name')); ?>
-                <?php echo $this->formElementErrors($form->get('name')); ?>
-            </dd>
+                <dt><?php echo $this->formLabel($form->get('name')); ?></dt>
+                <dd>
+                    <?php echo $this->formText($form->get('name')); ?>
+                    <?php echo $this->formElementErrors($form->get('name')); ?>
+                </dd>
 
-            <dt><?php echo $this->formLabel($form->get('key')); ?></dt>
-            <dd>
-                <?php echo $this->formTextarea($form->get('key')); ?>
-                <?php echo $this->formElementErrors($form->get('key')); ?>
-            </dd>
+                <dt><?php echo $this->formLabel($form->get('content')); ?></dt>
+                <dd>
+                    <?php echo $this->formTextarea($form->get('content')); ?>
+                    <?php echo $this->formElementErrors($form->get('content')); ?>
+                </dd>
             </dl>
         </div>
     </div>
@@ -40,3 +41,4 @@
         <?php echo $this->formSubmit($form->get('save')->setAttribute('class', 'button positive')); ?>
     </div>
 </div>
+<?php echo $this->form()->closeTag(); ?>

@@ -4,10 +4,11 @@
         <id name="id" type="bigint" column="id">
             <generator strategy="IDENTITY" />
         </id>
-        <field name="userId" type="integer" column="userId" nullable="false" precision="0" scale="0" />
-        <field name="title" type="string" column="title" nullable="false" precision="0" scale="0" />
-        <field name="content" type="string" column="content" nullable="false" precision="0" scale="0" />
-        <field name="createdOn" type="datetime" column="createdOn" nullable="false" precision="0" scale="0" />
+        <field name="name" type="string" column="name" nullable="false" precision="0" scale="0" />
+        <field name="content" type="text" column="content" nullable="false" precision="0" scale="0" />
         <field name="expiresOn" type="datetime" column="expiresOn" nullable="true" precision="0" scale="0" />
+        <field name="createdOn" type="datetime" column="createdOn" nullable="false" precision="0" scale="0" />
+
+        <many-to-one field="createdBy" target-entity="Application\Entity\User" />
     </entity>
 </doctrine-mapping>

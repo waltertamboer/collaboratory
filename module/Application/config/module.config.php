@@ -336,6 +336,7 @@ return array(
             'team.service' => 'Application\Service\TeamServiceFactory',
             'project.service' => 'Application\Service\ProjectServiceFactory',
             'snippet.service' => 'Application\Service\SnippetServiceFactory',
+            'ssh.service' => 'Application\Service\SshServiceFactory',
         ),
     ),
     'view_manager' => array(

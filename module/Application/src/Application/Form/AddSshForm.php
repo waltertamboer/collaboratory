@@ -29,7 +29,7 @@ class AddSshForm extends Form
         $name->setLabel('Name');
         $this->add($name);
 
-        $key = new Textarea('key');
+        $key = new Textarea('content');
         $key->setLabel('Key');
         $this->add($key);
 
