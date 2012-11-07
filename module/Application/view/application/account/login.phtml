@@ -8,7 +8,7 @@
         </a>
         <ul class="menu">
             <li><a href="<?php echo $this->url('account/profile'); ?>">Profile</a></li>
-            <li class="selected"><a href="<?php echo $this->url('account/data'); ?>">Data</a></li>
+            <li class="selected"><a href="<?php echo $this->url('account/login'); ?>">Login</a></li>
             <li><a href="<?php echo $this->url('account/ssh'); ?>">SSH Keys</a></li>
         </ul>
     </div>
@@ -17,5 +17,19 @@
 <div class="main-content grid_17 push_1">
     <div class="box">
         <h3 class="title">Login Information</h3>
+        <div class="content">
+            <dl>
+                <dt><?php echo $this->formLabel($form->get('password')); ?></dt>
+                <dd><?php echo $this->formPassword($form->get('password')); ?></dd>
+            </dl>
+            <dl>
+                <dt><?php echo $this->formLabel($form->get('validation')); ?></dt>
+                <dd><?php echo $this->formPassword($form->get('validation')); ?></dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="tar">
+        <?php echo $this->formSubmit($form->get('save')->setAttribute('class', 'button positive')); ?>
     </div>
 </div>

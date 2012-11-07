@@ -86,10 +86,10 @@ return array(
                             ),
                         ),
                     ),
-                    'data' => array(
+                    'login' => array(
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => array(
-                            'route' => '/data',
+                            'route' => '/login',
                             'defaults' => array(
                                 'action' => 'login',
                             ),

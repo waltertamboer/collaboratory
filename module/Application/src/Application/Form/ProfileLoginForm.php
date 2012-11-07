@@ -10,27 +10,27 @@
 
 namespace Application\Form;
 
-use Zend\Form\Element\Text;
+use Zend\Form\Element\Password;
 use Zend\Form\Element\Submit;
 use Zend\Form\Form;
 use Zend\Stdlib\Hydrator\ClassMethods as ClassMethodsHydrator;
 
-class ProfileForm extends Form
+class ProfileLoginForm extends Form
 {
     public function __construct()
     {
-        parent::__construct('profile');
+        parent::__construct('login');
 
         $this->setAttribute('method', 'post')
              ->setHydrator(new ClassMethodsHydrator(false));
 
-        $name = new Text('name');
-        $name->setLabel('Name');
-        $this->add($name);
+        $password = new Password('password');
+        $password->setLabel('Password');
+        $this->add($password);
 
-        $email = new Text('email');
-        $email->setLabel('E-mail address');
-        $this->add($email);
+        $validation = new Password('validation');
+        $validation->setLabel('(validation)');
+        $this->add($validation);
 
         $submitButton = new Submit();
         $submitButton->setName('save');

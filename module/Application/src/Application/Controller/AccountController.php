@@ -26,6 +26,11 @@ class AccountController extends AbstractActionController
 
     public function loginAction()
     {
+        $form = new \Application\Form\ProfileLoginForm();
+
+        $viewModel = new ViewModel();
+        $viewModel->setVariable('form', $form);
+        return $viewModel;
     }
 
     public function sshAction()

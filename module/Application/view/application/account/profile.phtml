@@ -8,7 +8,7 @@
         </a>
         <ul class="menu">
             <li class="selected"><a href="<?php echo $this->url('account/profile'); ?>">Profile</a></li>
-            <li><a href="<?php echo $this->url('account/data'); ?>">Data</a></li>
+            <li><a href="<?php echo $this->url('account/login'); ?>">Login</a></li>
             <li><a href="<?php echo $this->url('account/ssh'); ?>">SSH Keys</a></li>
         </ul>
     </div>
@@ -21,6 +21,10 @@
             <dl>
                 <dt><?php echo $this->formLabel($form->get('name')); ?></dt>
                 <dd><?php echo $this->formText($form->get('name')); ?></dd>
+            </dl>
+            <dl>
+                <dt><?php echo $this->formLabel($form->get('email')); ?></dt>
+                <dd><?php echo $this->formText($form->get('email')); ?></dd>
             </dl>
         </div>
     </div>
