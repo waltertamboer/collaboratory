@@ -17,27 +17,26 @@
 <div class="main-content grid_17 push_1">
     <div class="box">
         <h3 class="title">
-            SSH Keys
-
-            <ul class="actions">
-                <li><a href="<?php echo $this->url('account/ssh/add'); ?>" class="button">Add SSH Key</a></li>
-            </ul>
+            Add SSH Key
         </h3>
         <div class="content">
-            <ul>
-                <li>
-                    Computer 1
-                    <ul class="actions">
-                        <li><a href="" class="button negative">Remove</a></li>
-                    </ul>
-                </li>
-                <li>
-                    Computer 2
-                    <ul class="actions">
-                        <li><a href="" class="button negative">Remove</a></li>
-                    </ul>
-                </li>
-            </ul>
+            <dl>
+            <dt><?php echo $this->formLabel($form->get('name')); ?></dt>
+            <dd>
+                <?php echo $this->formText($form->get('name')); ?>
+                <?php echo $this->formElementErrors($form->get('name')); ?>
+            </dd>
+
+            <dt><?php echo $this->formLabel($form->get('key')); ?></dt>
+            <dd>
+                <?php echo $this->formTextarea($form->get('key')); ?>
+                <?php echo $this->formElementErrors($form->get('key')); ?>
+            </dd>
+            </dl>
         </div>
+    </div>
+
+    <div class="tar">
+        <?php echo $this->formSubmit($form->get('save')->setAttribute('class', 'button positive')); ?>
     </div>
 </div>

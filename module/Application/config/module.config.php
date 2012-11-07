@@ -103,6 +103,18 @@ return array(
                                 'action' => 'ssh',
                             ),
                         ),
+                        'may_terminate' => true,
+                        'child_routes' => array(
+                            'add' => array(
+                                'type' => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => array(
+                                    'route' => '/add',
+                                    'defaults' => array(
+                                        'action' => 'sshAdd',
+                                    ),
+                                ),
+                            ),
+                        ),
                     ),
                 ),
             ),

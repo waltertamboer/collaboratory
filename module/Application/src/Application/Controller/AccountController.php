@@ -10,6 +10,7 @@
 
 namespace Application\Controller;
 
+use Application\Form\AddSshForm;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -35,5 +36,28 @@ class AccountController extends AbstractActionController
 
     public function sshAction()
     {
+    }
+
+    public function sshAddAction()
+    {
+        $form = new AddSshForm();
+
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $project = new Project();
+            $form->bind($project);
+
+            $form->setData($request->getPost());
+
+            if ($form->isValid()) {
+                $this->getProjectService()->persist($project);
+                return $this->redirect()->toRoute('project/overview');
+            }
+        }
+
+        $viewModel = new ViewModel();
+        $viewModel->setVariable('form', $form);
+        $viewModel->setTerminal($request->isXmlHttpRequest());
+        return $viewModel;
     }
 }
