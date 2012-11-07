@@ -16,6 +16,7 @@ class Team
     private $name;
     private $description;
     private $members;
+    private $projects;
 
     public function getId()
     {
@@ -47,6 +48,28 @@ class Team
     public function setDescription($description)
     {
         $this->description = $description;
+        return $this;
+    }
+
+    public function getMembers()
+    {
+        return $this->members;
+    }
+
+    public function setMembers($members)
+    {
+        $this->members = $members;
+        return $this;
+    }
+
+    public function getProjects()
+    {
+        return $this->projects;
+    }
+
+    public function setProjects($projects)
+    {
+        $this->projects = $projects;
         return $this;
     }
 }

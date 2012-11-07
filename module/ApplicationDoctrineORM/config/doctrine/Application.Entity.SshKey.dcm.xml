@@ -9,6 +9,8 @@
         <field name="expiresOn" type="datetime" column="expiresOn" nullable="true" precision="0" scale="0" />
         <field name="createdOn" type="datetime" column="createdOn" nullable="false" precision="0" scale="0" />
 
-        <many-to-one field="createdBy" target-entity="Application\Entity\User" />
+        <many-to-one field="createdBy" target-entity="Application\Entity\User" inversed-by="sshKeys">
+            <join-column name="createdBy" referenced-column-name="id" on-delete="CASCADE" />
+        </many-to-one>
     </entity>
 </doctrine-mapping>

@@ -13,7 +13,6 @@ namespace Application\Entity;
 class Snippet
 {
     private $id;
-    private $projectId;
     private $name;
     private $description;
     private $syntax;
@@ -21,6 +20,7 @@ class Snippet
     private $createdBy;
     private $createdOn;
     private $expiresOn;
+    private $projects;
 
     public function getId()
     {
@@ -30,17 +30,6 @@ class Snippet
     public function setId($id)
     {
         $this->id = $id;
-        return $this;
-    }
-
-    public function getProjectId()
-    {
-        return $this->projectId;
-    }
-
-    public function setProjectId($projectId)
-    {
-        $this->projectId = $projectId;
         return $this;
     }
 
@@ -118,6 +107,17 @@ class Snippet
     public function setExpiresOn($expiresOn)
     {
         $this->expiresOn = $expiresOn;
+        return $this;
+    }
+
+    public function getProjects()
+    {
+        return $this->projects;
+    }
+
+    public function setProjects($projects)
+    {
+        $this->projects = $projects;
         return $this;
     }
 }

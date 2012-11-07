@@ -17,5 +17,7 @@ class User
     private $credential;
     private $displayName;
     private $active;
+    private $snippets;
     private $teams;
+    private $sshKeys;
 }

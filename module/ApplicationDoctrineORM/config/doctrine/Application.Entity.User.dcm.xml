@@ -10,5 +10,7 @@
         <field name="active" type="boolean" column="active" nullable="false" precision="0" scale="0"/>
 
         <many-to-many field="teams" mapped-by="members" target-entity="Application\Entity\Team" />
+        <one-to-many field="snippets" mapped-by="createdBy" target-entity="Application\Entity\Snippet" />
+        <one-to-many field="sshKeys" mapped-by="createdBy" target-entity="Application\Entity\SshKey" />
     </entity>
 </doctrine-mapping>
