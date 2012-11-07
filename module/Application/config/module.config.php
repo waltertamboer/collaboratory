@@ -131,6 +131,15 @@ return array(
                             ),
                         ),
                     ),
+                    'create' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => array(
+                            'route' => '/create',
+                            'defaults' => array(
+                                'action' => 'create',
+                            ),
+                        ),
+                    ),
                 ),
             ),
             'project' => array(
