@@ -8,5 +8,7 @@
         <field name="credential" type="string" column="credential" nullable="false" precision="0" scale="0"/>
         <field name="displayName" type="string" column="displayName" nullable="true" precision="0" scale="0"/>
         <field name="active" type="boolean" column="active" nullable="false" precision="0" scale="0"/>
+
+        <many-to-many field="teams" mapped-by="members" target-entity="Application\Entity\Team" />
     </entity>
 </doctrine-mapping>

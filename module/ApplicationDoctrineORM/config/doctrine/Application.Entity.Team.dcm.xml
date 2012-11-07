@@ -6,5 +6,16 @@
         </id>
         <field name="name" type="string" column="name" nullable="true" precision="0" scale="0"/>
         <field name="description" type="string" column="description" nullable="true" precision="0" scale="0"/>
+
+        <many-to-many field="members" inversed-by="teams" target-entity="Application\Entity\User">
+            <join-table name="team_member">
+                <join-columns>
+                    <join-column name="user_id" referenced-column-name="id" on-delete="CASCADE" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="team_id" referenced-column-name="id" on-delete="CASCADE" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
     </entity>
 </doctrine-mapping>
