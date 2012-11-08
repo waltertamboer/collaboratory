@@ -8,8 +8,22 @@
     },
     "autoload": {
         "psr-0": {
-            "Application": "module/Application/src",
-            "ApplicationDoctrineORM": "module/ApplicationDoctrineORM/src"
+            "CollabApplication": "module/CollabApplication/src",
+            "CollabApplicationDoctrineORM": "module/CollabApplicationDoctrineORM/src",
+            "CollabCalendar": "module/CollabCalendar/src",
+            "CollabCalendarDoctrineORM": "module/CollabCalendarDoctrineORM/src",
+            "CollabIssue": "module/CollabIssue/src",
+            "CollabIssueDoctrineORM": "module/CollabIssueDoctrineORM/src",
+            "CollabProject": "module/CollabProject/src",
+            "CollabProjectDoctrineORM": "module/CollabProjectDoctrineORM/src",
+            "CollabSnippet": "module/CollabSnippet/src",
+            "CollabSnippetDoctrineORM": "module/CollabSnippetDoctrineORM/src",
+            "CollabTeam": "module/CollabTeam/src",
+            "CollabTeamDoctrineORM": "module/CollabTeamDoctrineORM/src",
+            "CollabTodo": "module/CollabTodo/src",
+            "CollabTodoDoctrineORM": "module/CollabTodoDoctrineORM/src",
+            "CollabUser": "module/CollabUser/src",
+            "CollabUserDoctrineORM": "module/CollabUserDoctrineORM/src"
         }
     }
 }

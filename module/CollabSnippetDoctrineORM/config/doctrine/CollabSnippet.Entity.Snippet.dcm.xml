@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="CollabSnippet\Entity\Snippet" table="snippet">
+        <id name="id" type="bigint" column="id">
+            <generator strategy="IDENTITY" />
+        </id>
+
+        <field name="name" type="string" column="name" nullable="false" precision="0" scale="0" />
+        <field name="description" type="string" column="description" nullable="true" precision="0" scale="0" />
+        <field name="syntax" type="string" column="syntax" nullable="false" precision="0" scale="0" />
+        <field name="content" type="string" column="content" nullable="false" precision="0" scale="0" />
+        <field name="expiresOn" type="datetime" column="expiresOn" nullable="true" precision="0" scale="0" />
+        <field name="createdOn" type="datetime" column="createdOn" nullable="false" precision="0" scale="0" />
+
+        <many-to-one field="createdBy" target-entity="CollabUser\Entity\User" inversed-by="snippets">
+            <join-column name="createdBy" referenced-column-name="id" on-delete="CASCADE" />
+        </many-to-one>
+
+        <many-to-many field="projects" inversed-by="snippets" target-entity="CollabProject\Entity\Project">
+            <join-table name="snippet_project">
+                <join-columns>
+                    <join-column name="snippet_id" referenced-column-name="id" on-delete="CASCADE" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="project_id" referenced-column-name="id" on-delete="CASCADE" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+    </entity>
+</doctrine-mapping>

@@ -1,5 +1,5 @@
 {
-    "hash": "848248dc17ae89c6c1460ba8449a0387",
+    "hash": "0142422b6ec5fbcf23c1dd247ac26d8d",
     "packages": [
         {
             "name": "doctrine/common",
@@ -117,19 +117,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal",
-                "reference": "8c06b7ce92c487cda63ac6c78ee073f3fb0e9232"
+                "reference": "b3e0e6d63b6bf80729f3ca33c017f4ef4f9d2be0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/dbal/archive/8c06b7ce92c487cda63ac6c78ee073f3fb0e9232.zip",
-                "reference": "8c06b7ce92c487cda63ac6c78ee073f3fb0e9232",
+                "url": "https://github.com/doctrine/dbal/archive/b3e0e6d63b6bf80729f3ca33c017f4ef4f9d2be0.zip",
+                "reference": "b3e0e6d63b6bf80729f3ca33c017f4ef4f9d2be0",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
                 "doctrine/common": ">=2.3-dev,<2.5-dev"
             },
-            "time": "1350322364",
+            "time": "1352386255",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -180,12 +180,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/doctrine/DoctrineModule.git",
-                "reference": "ceef726e2acba3feadfe8b308a1ec4cb2b85cbe8"
+                "reference": "e9aca222893bd616a8912a26bef0c0b3f567fe3a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/DoctrineModule/archive/ceef726e2acba3feadfe8b308a1ec4cb2b85cbe8.zip",
-                "reference": "ceef726e2acba3feadfe8b308a1ec4cb2b85cbe8",
+                "url": "https://github.com/doctrine/DoctrineModule/archive/e9aca222893bd616a8912a26bef0c0b3f567fe3a.zip",
+                "reference": "e9aca222893bd616a8912a26bef0c0b3f567fe3a",
                 "shasum": ""
             },
             "require": {
@@ -195,7 +195,7 @@
                 "zendframework/zendframework": "2.*",
                 "doctrine/data-fixtures": "1.*"
             },
-            "time": "1350998063",
+            "time": "1352406175",
             "bin": [
                 "bin/doctrine-module"
             ],
@@ -375,12 +375,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/doctrine/doctrine2.git",
-                "reference": "09d53f0e58a7faf19be5f2efeef52e3c1a707f53"
+                "reference": "182ed07a412c80be42a58d23bfaae777867077ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/doctrine2/archive/09d53f0e58a7faf19be5f2efeef52e3c1a707f53.zip",
-                "reference": "09d53f0e58a7faf19be5f2efeef52e3c1a707f53",
+                "url": "https://github.com/doctrine/doctrine2/archive/182ed07a412c80be42a58d23bfaae777867077ff.zip",
+                "reference": "182ed07a412c80be42a58d23bfaae777867077ff",
                 "shasum": ""
             },
             "require": {
@@ -392,7 +392,7 @@
             "suggest": {
                 "symfony/yaml": "If you want to use YAML Metadata Mapping Driver"
             },
-            "time": "1352242354",
+            "time": "1352325536",
             "bin": [
                 "bin/doctrine",
                 "bin/doctrine.php"
@@ -488,16 +488,16 @@
         },
         {
             "name": "zendframework/zendframework",
-            "version": "dev-master",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "git://github.com/zendframework/zf2.git",
-                "reference": "ef6320a48cfe3dbdf28421a78f007e2b304c9fc7"
+                "reference": "c59ec4d83379a23cec80dd5c4b7d3f0c66a0ca4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/zendframework/zf2/archive/ef6320a48cfe3dbdf28421a78f007e2b304c9fc7.zip",
-                "reference": "ef6320a48cfe3dbdf28421a78f007e2b304c9fc7",
+                "url": "https://github.com/zendframework/zf2/archive/c59ec4d83379a23cec80dd5c4b7d3f0c66a0ca4c.zip",
+                "reference": "c59ec4d83379a23cec80dd5c4b7d3f0c66a0ca4c",
                 "shasum": ""
             },
             "require": {
@@ -516,12 +516,14 @@
                 "zendframework/zend-db": "self.version",
                 "zendframework/zend-di": "self.version",
                 "zendframework/zend-dom": "self.version",
+                "zendframework/zend-escaper": "self.version",
                 "zendframework/zend-eventmanager": "self.version",
                 "zendframework/zend-feed": "self.version",
                 "zendframework/zend-file": "self.version",
                 "zendframework/zend-filter": "self.version",
                 "zendframework/zend-form": "self.version",
                 "zendframework/zend-http": "self.version",
+                "zendframework/zend-i18n": "self.version",
                 "zendframework/zend-inputfilter": "self.version",
                 "zendframework/zend-json": "self.version",
                 "zendframework/zend-ldap": "self.version",
@@ -548,9 +550,7 @@
                 "zendframework/zend-uri": "self.version",
                 "zendframework/zend-validator": "self.version",
                 "zendframework/zend-view": "self.version",
-                "zendframework/zend-xmlrpc": "self.version",
-                "zendframework/zend-escaper": "self.version",
-                "zendframework/zend-i18n": "self.version"
+                "zendframework/zend-xmlrpc": "self.version"
             },
             "require-dev": {
                 "doctrine/common": ">=2.1",
@@ -559,18 +559,19 @@
             "suggest": {
                 "doctrine/common": "Doctrine\\Common >=2.1 for annotation features",
                 "ext-intl": "ext/intl for i18n features",
-                "zendframework/zendservice-recaptcha": "ZendService\\ReCaptcha for rendering ReCaptchas in Zend\\Captcha and/or Zend\\Form",
+                "pecl-weakref": "Implementation of weak references for Zend\\Stdlib\\CallbackHandler",
                 "zendframework/zendpdf": "ZendPdf for creating PDF representations of barcodes",
-                "pecl-weakref": "Implementation of weak references for Zend\\Stdlib\\CallbackHandler"
+                "zendframework/zendservice-recaptcha": "ZendService\\ReCaptcha for rendering ReCaptchas in Zend\\Captcha and/or Zend\\Form"
             },
-            "time": "1352128732",
+            "time": "1352398824",
             "bin": [
                 "bin/classmap_generator.php"
             ],
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0-dev"
+                    "dev-master": "2.0-dev",
+                    "dev-develop": "2.1-dev"
                 }
             },
             "installation-source": "source",

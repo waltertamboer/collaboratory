@@ -1,0 +1,28 @@
+<?php $this->headTitle('Login'); ?>
+
+<?php echo $this->form()->openTag($form); ?>
+<div class="main-content grid_24">
+    <div class="box">
+        <h3 class="title">Login Information</h3>
+        <div class="content">
+            <dl>
+                <dt><?php echo $this->formLabel($form->get('identity')); ?></dt>
+                <dd>
+                    <?php echo $this->formText($form->get('identity')); ?>
+                    <?php echo $this->formElementErrors($form->get('identity')); ?>
+                </dd>
+
+                <dt><?php echo $this->formLabel($form->get('credential')); ?></dt>
+                <dd>
+                    <?php echo $this->formText($form->get('credential')); ?>
+                    <?php echo $this->formElementErrors($form->get('credential')); ?>
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="tar">
+        <?php echo $this->formSubmit($form->get('login')->setAttribute('class', 'button')); ?>
+    </div>
+</div>
+<?php echo $this->form()->closeTag(); ?>

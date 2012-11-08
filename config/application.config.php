@@ -10,10 +10,24 @@
 
 return array(
     'modules' => array(
-        'Application',
-        'ApplicationDoctrineORM',
         'DoctrineModule',
         'DoctrineORMModule',
+        'CollabApplication',
+        'CollabApplicationDoctrineORM',
+        'CollabCalendar',
+        'CollabCalendarDoctrineORM',
+        'CollabIssue',
+        'CollabIssueDoctrineORM',
+        'CollabProject',
+        'CollabProjectDoctrineORM',
+        'CollabSnippet',
+        'CollabSnippetDoctrineORM',
+        'CollabTeam',
+        'CollabTeamDoctrineORM',
+        'CollabTodo',
+        'CollabTodoDoctrineORM',
+        'CollabUser',
+        'CollabUserDoctrineORM',
     ),
     'module_listener_options' => array(
         'config_glob_paths' => array(
