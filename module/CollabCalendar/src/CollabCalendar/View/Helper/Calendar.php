@@ -19,41 +19,68 @@ class Calendar extends AbstractHelper
     {
         $result = '';
 
-        $result .= '<table>';
-        $result .= '<tr>';
-        $result .= '<th>Mon</th>';
-        $result .= '<th>Tue</th>';
-        $result .= '<th>Wed</th>';
-        $result .= '<th>Thu</th>';
-        $result .= '<th>Fri</th>';
-        $result .= '<th>Sat</th>';
-        $result .= '<th>Sun</th>';
-        $result .= '</tr>';
+        $today = new DateTime('this month');
 
-        $lastDayPrevMonth = new DateTime('last day of previous month');
+        $lastDayPrevMonth = clone $today;
+        $lastDayPrevMonth->modify('last day of previous month');
 
-        $today = new DateTime();
+        $nextMonth = clone $today;
+        $nextMonth->modify('+1 month');
+
         $totalDays = $today->format('t');
         $totalRows = ceil($totalDays / 7);
 
-        $firstDay = new DateTime('first day of this month');
+        $firstDay = clone $today;
+        $firstDay->modify('first day of this month');
         $startIndex = $firstDay->format('N') - 1;
+
+        echo '<h2>' . $today->format('F Y') . '</h2>';
+
+        $result .= '<table class="calendar month">';
+        $result .= '<tr>';
+        $result .= '<th><div>Mon</div></th>';
+        $result .= '<th><div>Tue</div></th>';
+        $result .= '<th><div>Wed</div></th>';
+        $result .= '<th><div>Thu</div></th>';
+        $result .= '<th><div>Fri</div></th>';
+        $result .= '<th><div>Sat</div></th>';
+        $result .= '<th><div>Sun</div></th>';
+        $result .= '</tr>';
 
         for ($r = 0; $r < $totalRows; ++$r) {
             $result .= '<tr>';
             for ($c = 0; $c < 7; ++$c) {
                 $day = ($r * 7 + $c - $startIndex + 1);
 
+                $classes = array();
+
                 if ($day < 1) {
-                    $day = $lastDayPrevMonth->format('t') + $day . ' (prev)';
+                    $day = $lastDayPrevMonth->format('t') + $day;
+                    $classes[] = 'previous';
+
+                    if ($day == 1) {
+                        $day .= $lastDayPrevMonth->format(' M');
+                    }
                 } elseif ($day > $totalDays) {
                     $day -= $totalDays;
-                    $day .= ' (next)';
-                } elseif ($day == $today->format('d')) {
-                    $day .= ' (today)';
+                    $classes[] = 'next';
+
+                    if ($day == 1) {
+                        $day .= $nextMonth->format(' M');
+                    }
+                } else {
+                    if ($day == $today->format('d')) {
+                        $classes[] = 'today';
+                    } else {
+                        $classes[] = 'current';
+                    }
+
+                    if ($day == 1) {
+                        $day .= $today->format(' M');
+                    }
                 }
 
-                $result .= '<td>' . $day . '</td>';
+                $result .= '<td class="' . implode(' ', $classes) . '"><div>' . $day . '</div></td>';
             }
             $result .= '</tr>';
         }

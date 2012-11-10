@@ -209,12 +209,3 @@ ul.actions a {
 .box .content ul.actions {
     right: 10px;
 }
-
-table {
-    width: 100%;
-}
-
-td, th {
-    border: 1px solid #CCC;
-    padding: 5px;
-}
