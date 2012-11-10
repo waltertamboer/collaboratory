@@ -47,7 +47,14 @@ class UserController extends AbstractActionController
             $form->setData($request->getPost());
 
             if ($form->isValid()) {
-                // Log in!
+                $adapter = $this->userAuthentication()->getAuthAdapter();
+                $auth = $this->userAuthentication()->getAuthService()->authenticate($adapter);
+
+                if (!$auth->isValid()) {
+                    $this->flashMessenger()->setNamespace('zfcuser-login-form')->addMessage($this->failedLoginMessage);
+                    $adapter->resetAdapters();
+                    return $this->redirect()->toUrl($this->url()->fromRoute('zfcuser/login').($redirect ? '?redirect='.$redirect : ''));
+                }
                 return $this->redirect()->toRoute('dashboard');
             }
         }
@@ -59,8 +66,8 @@ class UserController extends AbstractActionController
 
     public function logoutAction()
     {
-        //$this->userAuthentication()->getAuthAdapter()->resetAdapters();
-        //$this->userAuthentication()->getAuthService()->clearIdentity();
+        $this->userAuthentication()->getAuthAdapter()->resetAdapters();
+        $this->userAuthentication()->getAuthService()->clearIdentity();
 
         return $this->redirect()->toRoute('user/login');
     }
