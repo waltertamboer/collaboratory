@@ -10,12 +10,37 @@
 
 namespace CollabUser;
 
+use CollabUser\Controller\Plugin\UserAuthentication;
+
 class Module
 {
-
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
+    }
+
+    public function getControllerPluginConfig()
+    {
+        return array(
+            'factories' => array(
+                'userAuthentication' => function($sm) {
+                    $instance = new UserAuthentication();
+                    $instance->setServiceManager($sm);
+                    return $instance;
+                },
+            ),
+        );
+    }
+
+    public function getServiceConfig()
+    {
+        return array(
+            'invokables' => array(
+                'collabuser.adapter' => 'CollabUser\Authentication\Adapter\DbAdapter',
+                'collabuser.service' => 'Zend\Authentication\AuthenticationService',
+                'collabuser.storage' => 'Zend\Authentication\Storage\Session',
+            ),
+        );
     }
 
     public function getViewHelperConfig()
@@ -27,5 +52,4 @@ class Module
             ),
         );
     }
-
 }

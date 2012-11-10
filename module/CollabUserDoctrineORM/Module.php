@@ -10,10 +10,24 @@
 
 namespace CollabUserDoctrineORM;
 
+use CollabUserDoctrineORM\Mapper\UserMapper;
+
 class Module
 {
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
+    }
+
+    public function getServiceConfig()
+    {
+        return array(
+            'factories' => array(
+                'collabuser.mapper' => function($sm) {
+                    $entityManager = $sm->get('doctrine.entitymanager.orm_default');
+                    return new UserMapper($entityManager);
+                }
+            ),
+        );
     }
 }

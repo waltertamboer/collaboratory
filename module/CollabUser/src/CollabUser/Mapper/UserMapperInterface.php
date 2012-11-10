@@ -10,10 +10,12 @@
 
 namespace CollabUser\Mapper;
 
-use CollabUser\Entity\SshKey;
+use CollabUser\Entity\User;
 
-interface SshMapperInterface
+interface UserMapperInterface
 {
-    public function persist(SshKey $key);
-    public function remove(SshKey $key);
+    public function findByEmail($email);
+    public function findById($id);
+    public function persist(User $user);
+    public function remove(User $user);
 }

@@ -44,6 +44,10 @@ class DashboardController extends AbstractActionController
 
     public function indexAction()
     {
+        if (!$this->userAuthentication()->hasIdentity()) {
+            return $this->redirect()->toRoute('user/login');
+        }
+
         return new ViewModel();
     }
 }
