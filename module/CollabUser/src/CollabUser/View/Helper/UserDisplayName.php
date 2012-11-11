@@ -11,15 +11,18 @@
 namespace CollabUser\View\Helper;
 
 use CollabUser\Entity\UserInterface;
+use Zend\Authentication\AuthenticationService;
 use Zend\View\Helper\AbstractHelper;
 
 class UserDisplayName extends AbstractHelper
 {
+    private $authService;
 
     public function __invoke(UserInterface $user = null)
     {
-        $result = '@todo UserDisplayName';
-
+        $result = '';
+        
+        $user = $this->authService->getIdentity();
         if ($user) {
             $result = $user->getDisplayName();
             if (!$result) {
@@ -34,4 +37,8 @@ class UserDisplayName extends AbstractHelper
         return $result;
     }
 
+    public function setAuthService(AuthenticationService $authService)
+    {
+        $this->authService = $authService;
+    }
 }

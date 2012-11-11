@@ -10,7 +10,11 @@
 
 namespace CollabUser;
 
+use CollabUser\Authentication\AuthenticationService;
 use CollabUser\Controller\Plugin\UserAuthentication;
+use CollabUser\View\Helper\UserAvatar;
+use CollabUser\View\Helper\UserDisplayName;
+use CollabUser\View\Helper\UserIdentity;
 
 class Module
 {
@@ -37,8 +41,14 @@ class Module
         return array(
             'invokables' => array(
                 'collabuser.adapter' => 'CollabUser\Authentication\Adapter\DbAdapter',
-                'collabuser.service' => 'Zend\Authentication\AuthenticationService',
                 'collabuser.storage' => 'Zend\Authentication\Storage\Session',
+            ),
+            'factories' => array(
+                'collabuser.service' => function ($sm) {
+                    $service = new AuthenticationService();
+                    $service->setAdapter($sm->get('collabuser.adapter'));
+                    return $service;
+                },
             ),
         );
     }
@@ -46,9 +56,28 @@ class Module
     public function getViewHelperConfig()
     {
         return array(
-            'invokables' => array(
-                'userAvatar' => 'CollabUser\View\Helper\UserAvatar',
-                'userDisplayName' => 'CollabUser\View\Helper\UserDisplayName',
+            'factories' => array(
+                'userAvatar' => function ($sm) {
+                    $locator = $sm->getServiceLocator();
+
+                    $viewHelper = new UserAvatar();
+                    $viewHelper->setAuthService($locator->get('collabuser.service'));
+                    return $viewHelper;
+                },
+                'userDisplayName' => function ($sm) {
+                    $locator = $sm->getServiceLocator();
+
+                    $viewHelper = new UserDisplayName();
+                    $viewHelper->setAuthService($locator->get('collabuser.service'));
+                    return $viewHelper;
+                },
+                'userIdentity' => function ($sm) {
+                    $locator = $sm->getServiceLocator();
+
+                    $viewHelper = new UserIdentity();
+                    $viewHelper->setAuthService($locator->get('collabuser.service'));
+                    return $viewHelper;
+                },
             ),
         );
     }

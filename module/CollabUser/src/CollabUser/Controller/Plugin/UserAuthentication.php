@@ -18,15 +18,12 @@ use Zend\ServiceManager\ServiceManagerAwareInterface;
 
 class UserAuthentication extends AbstractPlugin implements ServiceManagerAwareInterface
 {
-    const AUTH_ADAPTER_NAME = 'collabuser.adapter';
     const AUTH_SERVICE_NAME = 'collabuser.service';
-    const AUTH_STORAGE_NAME = 'collabuser.storage';
 
     protected $authAdapter;
     protected $authService;
     protected $serviceManager;
     protected $storage;
-    protected $resolvedIdentity;
 
     public function hasIdentity()
     {
@@ -35,28 +32,7 @@ class UserAuthentication extends AbstractPlugin implements ServiceManagerAwareIn
 
     public function getIdentity()
     {
-        if (!$this->resolvedIdentity) {
-            $id = $this->getAuthService()->getIdentity();
-
-            $mapper = $this->getAuthAdapter()->getMapper();
-            $this->resolvedIdentity = $mapper->findById($id);
-        }
-        return $this->resolvedIdentity;
-    }
-
-    public function getAuthAdapter()
-    {
-        if (null === $this->authAdapter) {
-            $adapter = $this->getServiceManager()->get(self::AUTH_ADAPTER_NAME);
-            $this->setAuthAdapter($adapter);
-        }
-        return $this->authAdapter;
-    }
-
-    public function setAuthAdapter(AdapterInterface $authAdapter)
-    {
-        $this->authAdapter = $authAdapter;
-        return $this;
+        return $this->getAuthService()->getIdentity();
     }
 
     public function getAuthService()
@@ -72,14 +48,6 @@ class UserAuthentication extends AbstractPlugin implements ServiceManagerAwareIn
     {
         $this->authService = $authService;
         return $this;
-    }
-
-    public function getStorage()
-    {
-        if ($this->storage === null) {
-            $this->storage = $this->getServiceManager()->get(self::AUTH_STORAGE_NAME);
-        }
-        return $this->storage;
     }
 
     public function getServiceManager()
@@ -99,18 +67,19 @@ class UserAuthentication extends AbstractPlugin implements ServiceManagerAwareIn
 
     public function login($identity, $credential)
     {
-        $adapter = $this->getAuthAdapter();
+        $result = false;
+        $authService = $this->getAuthService();
+
+        $adapter = $authService->getAdapter();
         $adapter->setIdentity($identity);
         $adapter->setCredential($credential);
 
-        $authResult = $this->getAuthService()->authenticate($adapter);
-
-        $result = false;
+        $authResult = $authService->authenticate($adapter);
         if ($authResult->isValid()) {
             $result = true;
 
             // Write the identity to the storage device:
-            $this->getStorage()->write($authResult->getIdentity());
+            $authService->getStorage()->write($authResult->getIdentity());
         }
 
         return $result;

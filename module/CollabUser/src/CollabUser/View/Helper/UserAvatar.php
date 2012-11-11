@@ -11,14 +11,29 @@
 namespace CollabUser\View\Helper;
 
 use CollabUser\Entity\UserInterface;
+use Zend\Authentication\AuthenticationService;
 use Zend\View\Helper\AbstractHelper;
 
 class UserAvatar extends AbstractHelper
 {
+    private $authService;
+
     public function __invoke(UserInterface $user = null)
     {
-        $view = $this->getView();
+        $result = '';
 
-        return $view->gravatar('w.tamboer@polderknowledge.nl')->setImgSize(16);
+        $user = $this->authService->getIdentity();
+        if ($user) {
+            $view = $this->getView();
+
+            $result = $view->gravatar($user->getIdentity())->setImgSize(16);
+        }
+
+        return $result;
+    }
+
+    public function setAuthService(AuthenticationService $authService)
+    {
+        $this->authService = $authService;
     }
 }
