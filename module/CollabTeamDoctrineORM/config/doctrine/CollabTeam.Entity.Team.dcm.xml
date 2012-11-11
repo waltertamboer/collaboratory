@@ -7,7 +7,7 @@
         <field name="name" type="string" column="name" nullable="true" precision="0" scale="0"/>
         <field name="description" type="string" column="description" nullable="true" precision="0" scale="0"/>
 
-        <one-to-one field="createdBy" target-entity="CollabUser\Entity\User" inversed-by="id">
+        <one-to-one field="createdBy" target-entity="CollabUser\Entity\User">
             <cascade>
                 <cascade-all />
             </cascade>

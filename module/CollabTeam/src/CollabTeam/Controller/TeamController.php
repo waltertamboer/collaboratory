@@ -49,6 +49,7 @@ class TeamController extends AbstractActionController
             $form->setData($request->getPost());
 
             if ($form->isValid()) {
+                $team->setCreatedBy($this->userAuthentication()->getIdentity());
                 $this->getTeamService()->persist($team);
                 return $this->redirect()->toRoute('team/overview');
             }

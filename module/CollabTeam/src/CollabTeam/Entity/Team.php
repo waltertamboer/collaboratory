@@ -10,6 +10,8 @@
 
 namespace CollabTeam\Entity;
 
+use DateTime;
+
 class Team
 {
     private $id;
@@ -19,6 +21,11 @@ class Team
     private $createdOn;
     private $members;
     private $projects;
+
+    public function __construct()
+    {
+        $this->createdOn = new DateTime();
+    }
 
     public function getId()
     {

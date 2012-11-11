@@ -64,4 +64,15 @@ class User
         $this->displayName = $displayName;
         return $this;
     }
+
+    public function isActive()
+    {
+        return $this->active;
+    }
+
+    public function setActive($active)
+    {
+        $this->active = $active;
+        return $this;
+    }
 }

@@ -31,6 +31,15 @@ class DashboardController extends AbstractActionController
         $destPath = getcwd() . '/data/DoctrineORMModule/Proxy';
         $entityManager->getProxyFactory()->generateProxyClasses($metaData, $destPath);
 
+        $user = new \CollabUser\Entity\User();
+        $user->setIdentity('walter.tamboer@live.com');
+        $user->setCredential('$2y$14$/ACQfLrUGo8a/sN59uxnGuwtJXqYytA35bPctziBuZv0hpRoegcJC');
+        $user->setDisplayName('Walter Tamboer');
+        $user->setActive(true);
+
+        $entityManager->persist($user);
+        $entityManager->flush();
+
         //$cme = new \Doctrine\ORM\Tools\Export\ClassMetadataExporter();
         //$destPath = getcwd() . '/data/test';
         //$exporter = $cme->getExporter('yml', $destPath);
