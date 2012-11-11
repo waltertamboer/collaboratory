@@ -18,7 +18,7 @@ use Zend\ServiceManager\ServiceManagerAwareInterface;
 
 class DbAdapter implements AdapterInterface, ServiceManagerAwareInterface
 {
-    const USER_MAPPER = 'collabuser.mapper';
+    const USER_MAPPER = 'collabuser.usermapper';
 
     private $mapper;
     private $serviceManager;

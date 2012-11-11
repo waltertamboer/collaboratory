@@ -8,9 +8,11 @@
  * @package   Collaboratory
  */
 
-namespace Application\Form;
+namespace CollabUser\Form;
 
+use CollabUser\InputFilter\ProfileInputFilter;
 use Zend\Form\Element\Text;
+use Zend\Form\Element\Password;
 use Zend\Form\Element\Submit;
 use Zend\Form\Form;
 use Zend\Stdlib\Hydrator\ClassMethods as ClassMethodsHydrator;
@@ -21,16 +23,17 @@ class ProfileForm extends Form
     {
         parent::__construct('profile');
 
-        $this->setAttribute('method', 'post')
-             ->setHydrator(new ClassMethodsHydrator(false));
+        $this->setAttribute('method', 'post');
+        $this->setHydrator(new ClassMethodsHydrator(false));
+        $this->setInputFilter(new ProfileInputFilter());
 
-        $name = new Text('name');
-        $name->setLabel('Name');
+        $name = new Text('displayName');
+        $name->setLabel('Display name');
         $this->add($name);
 
-        $email = new Text('email');
-        $email->setLabel('E-mail address');
-        $this->add($email);
+        $credential = new Password('credential');
+        $credential->setLabel('Credential');
+        $this->add($name);
 
         $submitButton = new Submit();
         $submitButton->setName('save');

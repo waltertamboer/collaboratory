@@ -38,6 +38,15 @@ return array(
                             ),
                         ),
                     ),
+                    'ssh' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => array(
+                            'route' => '/ssh',
+                            'defaults' => array(
+                                'action' => 'ssh',
+                            ),
+                        ),
+                    ),
                     'login' => array(
                         'type' => 'Zend\Mvc\Router\Http\Literal',
                         'options' => array(

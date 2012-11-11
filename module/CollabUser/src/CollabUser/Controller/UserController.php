@@ -13,6 +13,7 @@ namespace CollabUser\Controller;
 use CollabUser\Entity\SshKey;
 use CollabUser\Form\AddSshForm;
 use CollabUser\Form\LoginForm;
+use CollabUser\Form\ProfileForm;
 use DateTime;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -20,6 +21,7 @@ use Zend\View\Model\ViewModel;
 class UserController extends AbstractActionController
 {
     private $sshService;
+    private $userService;
 
     private function getSshService()
     {
@@ -29,9 +31,29 @@ class UserController extends AbstractActionController
         return $this->sshService;
     }
 
+    private function getUserService()
+    {
+        if ($this->userService === null) {
+            $this->userService = $this->getServiceLocator()->get('collabuser.userservice');
+        }
+        return $this->userService;
+    }
+
     public function profileAction()
     {
-        $form = new \Application\Form\ProfileForm();
+        $user = $this->userAuthentication()->getIdentity();
+
+        $form = new ProfileForm();
+        $form->bind($user);
+
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $form->setData($request->getPost());
+
+            if ($form->isValid()) {
+                $this->getUserService()->persist($user);
+            }
+        }
 
         $viewModel = new ViewModel();
         $viewModel->setVariable('form', $form);

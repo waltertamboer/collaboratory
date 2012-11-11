@@ -44,11 +44,12 @@ class Module
                 'collabuser.storage' => 'Zend\Authentication\Storage\Session',
             ),
             'factories' => array(
-                'collabuser.service' => function ($sm) {
+                'collabuser.authservice' => function ($sm) {
                     $service = new AuthenticationService();
                     $service->setAdapter($sm->get('collabuser.adapter'));
                     return $service;
                 },
+                'collabuser.userservice' => 'CollabUser\Service\UserServiceFactory',
             ),
         );
     }
@@ -61,21 +62,21 @@ class Module
                     $locator = $sm->getServiceLocator();
 
                     $viewHelper = new UserAvatar();
-                    $viewHelper->setAuthService($locator->get('collabuser.service'));
+                    $viewHelper->setAuthService($locator->get('collabuser.authservice'));
                     return $viewHelper;
                 },
                 'userDisplayName' => function ($sm) {
                     $locator = $sm->getServiceLocator();
 
                     $viewHelper = new UserDisplayName();
-                    $viewHelper->setAuthService($locator->get('collabuser.service'));
+                    $viewHelper->setAuthService($locator->get('collabuser.authservice'));
                     return $viewHelper;
                 },
                 'userIdentity' => function ($sm) {
                     $locator = $sm->getServiceLocator();
 
                     $viewHelper = new UserIdentity();
-                    $viewHelper->setAuthService($locator->get('collabuser.service'));
+                    $viewHelper->setAuthService($locator->get('collabuser.authservice'));
                     return $viewHelper;
                 },
             ),

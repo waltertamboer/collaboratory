@@ -18,7 +18,7 @@ use Zend\ServiceManager\ServiceManagerAwareInterface;
 
 class UserAuthentication extends AbstractPlugin implements ServiceManagerAwareInterface
 {
-    const AUTH_SERVICE_NAME = 'collabuser.service';
+    const AUTH_SERVICE_NAME = 'collabuser.authservice';
 
     protected $authAdapter;
     protected $authService;

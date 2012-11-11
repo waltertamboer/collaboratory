@@ -23,7 +23,7 @@ class Module
     {
         return array(
             'factories' => array(
-                'collabuser.mapper' => function($sm) {
+                'collabuser.usermapper' => function($sm) {
                     $entityManager = $sm->get('doctrine.entitymanager.orm_default');
                     return new UserMapper($entityManager);
                 }
