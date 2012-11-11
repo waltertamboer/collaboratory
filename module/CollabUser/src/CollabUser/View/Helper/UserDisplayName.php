@@ -21,15 +21,12 @@ class UserDisplayName extends AbstractHelper
     public function __invoke(UserInterface $user = null)
     {
         $result = '';
-        
+
         $user = $this->authService->getIdentity();
         if ($user) {
             $result = $user->getDisplayName();
             if (!$result) {
-                $result = $user->getUsername();
-            }
-            if (!$result) {
-                $result = $user->getEmail();
+                $result = $user->getIdentity();
                 $result = substr($result, 0, strpos($result, '@'));
             }
         }

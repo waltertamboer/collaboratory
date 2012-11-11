@@ -52,6 +52,9 @@ class DbAdapter implements AdapterInterface, ServiceManagerAwareInterface
      */
     public function authenticate()
     {
+        $bcrypt = new Bcrypt();
+        $bcrypt->setCost(14);
+
         $mapper = $this->getMapper();
 
         $user = $mapper->findByEmail($this->identity);
@@ -60,9 +63,6 @@ class DbAdapter implements AdapterInterface, ServiceManagerAwareInterface
                 'A record with the supplied identity could not be found.'
             ));
         }
-
-        $bcrypt = new Bcrypt();
-        $bcrypt->setCost(14);
 
         if (!$bcrypt->verify($this->credential, $user->getCredential())) {
             return new Result(Result::FAILURE_CREDENTIAL_INVALID, $this->identity, array(
