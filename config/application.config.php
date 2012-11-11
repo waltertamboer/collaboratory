@@ -14,6 +14,7 @@ return array(
         'DoctrineORMModule',
         'CollabApplication',
         'CollabApplicationDoctrineORM',
+        'CollabBootstrap',
         'CollabCalendar',
         'CollabCalendarDoctrineORM',
         'CollabIssue',
