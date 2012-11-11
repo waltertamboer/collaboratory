@@ -81,4 +81,19 @@ class Module
             ),
         );
     }
+
+    public function onBootstrap($e)
+    {
+        $eventManager = $e->getApplication()->getEventManager();
+        $sharedManager = $eventManager->getSharedManager();
+        $sharedManager->attach('Zend\Mvc\Controller\AbstractActionController', 'dispatch', function($e) {
+            $routeMatch = $e->getRouteMatch();
+            $controller = $routeMatch->getParam('controller');
+            $action = $routeMatch->getParam('action');
+
+            if ($controller == 'CollabUser\Controller\UserController' && $action == 'login' || $action == 'logout') {
+                $e->getTarget()->layout('layout/guest');
+            }
+        }, 100);
+    }
 }

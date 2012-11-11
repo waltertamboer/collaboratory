@@ -10,4 +10,19 @@
 
 namespace CollabBootstrap;
 
-return array();
+return array(
+    'asset_manager' => array(
+        'resolver_configs' => array(
+            'map' => array(
+                'bootstrap/css/bootstrap.css' => __DIR__ . '/../public/bootstrap/css/bootstrap.css',
+                'bootstrap/css/bootstrap-min.css' => __DIR__ . '/../public/bootstrap/css/bootstrap-min.css',
+                'bootstrap/css/bootstrap-responsive.css' => __DIR__ . '/../public/bootstrap/css/bootstrap-responsive.css',
+                'bootstrap/css/bootstrap-responsive.min.css' => __DIR__ . '/../public/bootstrap/css/bootstrap-responsive.min.css',
+                'bootstrap/img/glyphicons-halflings.png' => __DIR__ . '/../public/bootstrap/img/glyphicons-halflings.png',
+                'bootstrap/img/glyphicons-halflings-white.png' => __DIR__ . '/../public/bootstrap/img/glyphicons-halflings-white.png',
+                'bootstrap/js/bootstrap.js' => __DIR__ . '/../public/bootstrap/js/bootstrap.js',
+                'bootstrap/js/bootstrap.min.js' => __DIR__ . '/../public/bootstrap/js/bootstrap.min.js',
+            ),
+        ),
+    ),
+);
