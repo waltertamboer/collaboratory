@@ -50,7 +50,7 @@ class SnippetController extends AbstractActionController
             $form->setData($request->getPost());
 
             if ($form->isValid()) {
-                $snippet->setCreatedBy(1);
+                $snippet->setCreatedBy($this->userAuthentication()->getIdentity());
                 $snippet->setCreatedOn(new DateTime());
 
                 $this->getSnippetService()->persist($snippet);
@@ -98,7 +98,7 @@ class SnippetController extends AbstractActionController
             return $this->redirect()->toRoute('snippet/overview');
         }
 
-        $form = new Delete();
+        $form = new DeleteForm();
 
         $request = $this->getRequest();
         if ($request->isPost()) {
