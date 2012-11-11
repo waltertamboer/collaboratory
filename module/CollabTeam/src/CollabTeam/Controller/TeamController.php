@@ -57,6 +57,7 @@ class TeamController extends AbstractActionController
 
         $viewModel = new ViewModel();
         $viewModel->setVariable('form', $form);
+        $viewModel->setVariable('teamMembers', array());
         $viewModel->setTerminal($request->isXmlHttpRequest());
         return $viewModel;
     }
@@ -84,6 +85,7 @@ class TeamController extends AbstractActionController
         $viewModel = new ViewModel();
         $viewModel->setVariable('form', $form);
         $viewModel->setVariable('team', $team);
+        $viewModel->setVariable('teamMembers', array());
         $viewModel->setTerminal($request->isXmlHttpRequest());
         return $viewModel;
     }

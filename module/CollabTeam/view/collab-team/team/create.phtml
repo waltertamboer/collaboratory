@@ -48,12 +48,10 @@ $teamFieldset = $form->get('team');
     <div class="grid_11">
         <h2>Members</h2>
 
-        <ul class="small-list">
-            <li><?php echo $this->gravatar('walter.tamboer@live.com')->setImgSize(20); ?> Walter Tamboer <a href="" class="delete">(remove)</a></li>
-            <li><?php echo $this->gravatar('walter.tamboer@live.com')->setImgSize(20); ?> John Doe <a href="" class="delete">(remove)</a></li>
-            <li><?php echo $this->gravatar('walter.tamboer@live.com')->setImgSize(20); ?> John Doe <a href="" class="delete">(remove)</a></li>
-            <li><?php echo $this->gravatar('walter.tamboer@live.com')->setImgSize(20); ?> John Doe <a href="" class="delete">(remove)</a></li>
-            <li><?php echo $this->gravatar('walter.tamboer@live.com')->setImgSize(20); ?> John Doe <a href="" class="delete">(remove)</a></li>
+        <ul id="member-list" class="small-list">
+            <?php foreach ($this->teamMembers as $member) { ?>
+                <li><?php echo $this->userAvatar($member); echo $this->userDisplayName($member); ?> <a href="" class="delete">(remove)</a></li>
+            <?php } ?>
         </ul>
 
         <div class="form-add-box">
