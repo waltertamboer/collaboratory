@@ -15,6 +15,8 @@ class Team
     private $id;
     private $name;
     private $description;
+    private $createdBy;
+    private $createdOn;
     private $members;
     private $projects;
 
@@ -48,6 +50,28 @@ class Team
     public function setDescription($description)
     {
         $this->description = $description;
+        return $this;
+    }
+
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy($createdBy)
+    {
+        $this->createdBy = $createdBy;
+        return $this;
+    }
+
+    public function getCreatedOn()
+    {
+        return $this->createdOn;
+    }
+
+    public function setCreatedOn($createdOn)
+    {
+        $this->createdOn = $createdOn;
         return $this;
     }
 

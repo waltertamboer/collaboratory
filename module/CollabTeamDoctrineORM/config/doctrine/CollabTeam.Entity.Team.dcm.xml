@@ -7,6 +7,15 @@
         <field name="name" type="string" column="name" nullable="true" precision="0" scale="0"/>
         <field name="description" type="string" column="description" nullable="true" precision="0" scale="0"/>
 
+        <one-to-one field="createdBy" target-entity="CollabUser\Entity\User" inversed-by="id">
+            <cascade>
+                <cascade-all />
+            </cascade>
+            <join-column name="createdBy" referenced-column-name="id" on-delete="CASCADE" on-update="CASCADE" />
+        </one-to-one>
+
+        <field name="createdOn" type="datetime" column="createdOn" nullable="false" precision="0" scale="0" />
+
         <many-to-many field="members" inversed-by="teams" target-entity="CollabUser\Entity\User">
             <join-table name="team_user">
                 <join-columns>

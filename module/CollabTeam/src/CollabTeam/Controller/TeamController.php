@@ -12,7 +12,7 @@ namespace CollabTeam\Controller;
 
 use CollabApplication\Form\DeleteForm;
 use CollabTeam\Entity\Team;
-use CollabTeam\Form\Team as TeamForm;
+use CollabTeam\Form\TeamForm;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -94,7 +94,7 @@ class TeamController extends AbstractActionController
             return $this->redirect()->toRoute('team/overview');
         }
 
-        $form = new Delete();
+        $form = new DeleteForm();
 
         $request = $this->getRequest();
         if ($request->isPost()) {

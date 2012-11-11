@@ -8,65 +8,16 @@
  * @package   Collaboratory
  */
 
-namespace CollabTeam\Form;
+namespace CollabTeam\Form\Fieldset;
 
 use CollabTeam\Entity\Team as TeamEntity;
-use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterProviderInterface;
 use Zend\Form\Fieldset;
 use Zend\Form\Element\Collection;
 use Zend\Form\Element\MultiCheckbox;
-use Zend\Form\Element\Submit;
 use Zend\Form\Element\Text;
 use Zend\Form\Element\Textarea;
-use Zend\Form\Form;
 use Zend\Stdlib\Hydrator\ClassMethods as ClassMethodsHydrator;
-
-class TeamMember
-{
-    protected $name;
-
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    public function setName($name)
-    {
-        $this->name = $name;
-        return $this;
-    }
-}
-
-class TeamMemberFieldset extends Fieldset implements InputFilterProviderInterface
-{
-    public function __construct()
-    {
-        parent::__construct('teamMember');
-        $this->setHydrator(new ClassMethodsHydrator(false))->setObject(new TeamMember());
-
-        $this->setLabel('Member');
-
-        $this->add(array(
-            'name' => 'name',
-            'options' => array(
-                'label' => 'Name'
-            ),
-            'attributes' => array(
-                'type' => 'text'
-            )
-        ));
-    }
-
-    public function getInputFilterSpecification()
-    {
-        return array(
-            'name' => array(
-                'required' => true,
-            )
-        );
-    }
-}
 
 class TeamFieldset extends Fieldset implements InputFilterProviderInterface
 {
@@ -104,7 +55,7 @@ class TeamFieldset extends Fieldset implements InputFilterProviderInterface
         $members->setCount(3);
         $members->setShouldCreateTemplate(true);
         $members->setTargetElement(array(
-            'type' => 'Application\Form\TeamMemberFieldset'
+            'type' => 'CollabTeam\Form\Fieldset\TeamMemberFieldset'
         ));
         $this->add($members);
     }
@@ -125,28 +76,5 @@ class TeamFieldset extends Fieldset implements InputFilterProviderInterface
                 'required' => false,
             ),
         );
-    }
-}
-
-class Team extends Form
-{
-    private $serviceManager;
-
-    public function __construct()
-    {
-        parent::__construct('team');
-
-        $this->setAttribute('method', 'post')
-             ->setHydrator(new ClassMethodsHydrator(false))
-             ->setInputFilter(new InputFilter());
-
-        $fieldset = new TeamFieldset();
-        $fieldset->setUseAsBaseFieldset(true);
-        $this->add($fieldset);
-
-        $submitButton = new Submit();
-        $submitButton->setName('save');
-        $submitButton->setLabel('Save');
-        $this->add($submitButton);
     }
 }
