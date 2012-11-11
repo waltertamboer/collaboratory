@@ -4,12 +4,14 @@
     "require": {
         "php": ">=5.3.3",
         "zendframework/zendframework": "2.*",
-        "doctrine/doctrine-orm-module": "0.*"
+        "doctrine/doctrine-orm-module": "0.*",
+        "rwoverdijk/assetmanager": "1.*"
     },
     "autoload": {
         "psr-0": {
             "CollabApplication": "module/CollabApplication/src",
             "CollabApplicationDoctrineORM": "module/CollabApplicationDoctrineORM/src",
+            "CollabBootstrap": "module/CollabBootstrap/src",
             "CollabCalendar": "module/CollabCalendar/src",
             "CollabCalendarDoctrineORM": "module/CollabCalendarDoctrineORM/src",
             "CollabIssue": "module/CollabIssue/src",
