@@ -10,8 +10,8 @@
 
 namespace CollabProject\Controller;
 
+use CollabApplication\Form\DeleteForm;
 use CollabProject\Entity\Project;
-use CollabProject\Form\DeleteForm;
 use CollabProject\Form\ProjectForm;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -92,7 +92,7 @@ class ProjectController extends AbstractActionController
             return $this->redirect()->toRoute('project/overview');
         }
 
-        $form = new Delete();
+        $form = new DeleteForm();
 
         $request = $this->getRequest();
         if ($request->isPost()) {
