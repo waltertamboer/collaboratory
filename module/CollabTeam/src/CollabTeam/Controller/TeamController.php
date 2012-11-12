@@ -50,7 +50,13 @@ class TeamController extends AbstractActionController
     {
         $request = $this->getRequest();
         if ($request->isXmlHttpRequest()) {
-            $data = $this->getUserService()->findAjax($request->getQuery('query'));
+
+            // TODO: Create a nicer way to handle this, maybe with the event manager?
+            if ($request->getQuery('type') == 'user') {
+                $data = $this->getUserService()->findAjax($request->getQuery('query'));
+            } else {
+                $data = $this->getUserService()->findAjax($request->getQuery('query'));
+            }
 
             die(json_encode($data));
         }
@@ -71,6 +77,7 @@ class TeamController extends AbstractActionController
             }
 
             // Find the teams:
+            // TODO: Create a nicer way to handle this, maybe with the event manager?
             $postData = $request->getPost('team');
             foreach ($postData['members'] as $member) {
                 $teamMembers[] = $this->getUserService()->findById($member['id']);
@@ -102,6 +109,8 @@ class TeamController extends AbstractActionController
         $form = new TeamForm($this->getUserService());
         $form->bind($team);
 
+        $teamMembers = $team->getMembers();
+
         if ($request->isPost()) {
             $form->setData($request->getPost());
 
@@ -109,12 +118,20 @@ class TeamController extends AbstractActionController
                 $this->getTeamService()->persist($team);
                 return $this->redirect()->toRoute('team/overview');
             }
+
+            // Find the teams:
+            // TODO: Create a nicer way to handle this, maybe with the event manager?
+            $postData = $request->getPost('team');
+            $teamMembers = array();
+            foreach ($postData['members'] as $member) {
+                $teamMembers[] = $this->getUserService()->findById($member['id']);
+            }
         }
 
         $viewModel = new ViewModel();
         $viewModel->setVariable('form', $form);
         $viewModel->setVariable('team', $team);
-        $viewModel->setVariable('teamMembers', $team->getMembers());
+        $viewModel->setVariable('teamMembers', $teamMembers);
         $viewModel->setVariable('teamProjects', $team->getProjects());
         $viewModel->setTerminal($request->isXmlHttpRequest());
         return $viewModel;
