@@ -11,6 +11,7 @@
 namespace CollabUserDoctrineORM;
 
 use CollabUserDoctrineORM\Mapper\UserMapper;
+use DoctrineModule\Validator\NoObjectExists;
 
 class Module
 {
@@ -23,6 +24,14 @@ class Module
     {
         return array(
             'factories' => array(
+                'collabuser.identityvalidator' => function($sm) {
+                    $entityManager = $sm->get('doctrine.entitymanager.orm_default');
+                    
+                    return new NoObjectExists(array(
+                        'object_repository' => $entityManager->getRepository('CollabUser\Entity\User'),
+                        'fields' => array('identity'),
+                    ));
+                },
                 'collabuser.usermapper' => function($sm) {
                     $entityManager = $sm->get('doctrine.entitymanager.orm_default');
                     return new UserMapper($entityManager);

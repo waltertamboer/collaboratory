@@ -39,11 +39,12 @@ class AccountController extends AbstractActionController
     public function createAction()
     {
         $form = new AccountForm();
+        $form->setServiceManager($this->getServiceLocator());
 
         $request = $this->getRequest();
         if ($request->isPost()) {
             $user = new User();
-            
+
             $form->bind($user);
             $form->setData($request->getPost());
 
@@ -61,27 +62,28 @@ class AccountController extends AbstractActionController
 
     public function updateAction()
     {
-        $team = $this->getTeamService()->getById($this->params('id'));
-        if (!$team) {
-            return $this->redirect()->toRoute('team/overview');
+        $user = $this->getUserService()->getById($this->params('id'));
+        if (!$user) {
+            return $this->redirect()->toRoute('user/overview');
         }
 
-        $form = new TeamForm();
-        $form->bind($team);
+        $form = new AccountForm();
+        $form->setServiceManager($this->getServiceLocator());
+        $form->bind($user);
 
         $request = $this->getRequest();
         if ($request->isPost()) {
             $form->setData($request->getPost());
 
             if ($form->isValid()) {
-                $this->getTeamService()->persist($team);
+                $this->getTeamService()->persist($user);
                 return $this->redirect()->toRoute('team/overview');
             }
         }
 
         $viewModel = new ViewModel();
         $viewModel->setVariable('form', $form);
-        $viewModel->setVariable('team', $team);
+        $viewModel->setVariable('team', $user);
         $viewModel->setVariable('teamMembers', array());
         $viewModel->setTerminal($request->isXmlHttpRequest());
         return $viewModel;

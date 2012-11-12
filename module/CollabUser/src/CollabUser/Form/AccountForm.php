@@ -15,6 +15,7 @@ use Zend\Form\Element\Text;
 use Zend\Form\Element\Password;
 use Zend\Form\Element\Submit;
 use Zend\Form\Form;
+use Zend\ServiceManager\ServiceManager;
 use Zend\Stdlib\Hydrator\ClassMethods as ClassMethodsHydrator;
 
 class AccountForm extends Form
@@ -48,5 +49,10 @@ class AccountForm extends Form
         $submitButton->setLabel('Save');
         $submitButton->setValue('Save');
         $this->add($submitButton);
+    }
+
+    public function setServiceManager(ServiceManager $serviceManager)
+    {
+        $this->getInputFilter()->setServiceManager($serviceManager);
     }
 }

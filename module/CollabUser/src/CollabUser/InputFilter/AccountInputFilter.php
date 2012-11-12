@@ -12,6 +12,7 @@ namespace CollabUser\InputFilter;
 
 use Zend\InputFilter\Input;
 use Zend\InputFilter\InputFilter;
+use Zend\ServiceManager\ServiceManager;
 
 class AccountInputFilter extends InputFilter
 {
@@ -44,5 +45,17 @@ class AccountInputFilter extends InputFilter
         $displayName->setName('displayName');
         $displayName->setRequired(false);
         $this->add($displayName);
+    }
+
+    public function setServiceManager(ServiceManager $serviceManager)
+    {
+        $serviceName = 'collabuser.identityvalidator';
+
+        if ($serviceManager->has($serviceName)) {
+            $validator = $serviceManager->get($serviceName);
+
+            $identity = $this->get('identity');
+            $identity->getValidatorChain()->addValidator($validator);
+        }
     }
 }
