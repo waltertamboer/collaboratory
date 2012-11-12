@@ -55,11 +55,11 @@ class TeamController extends AbstractActionController
             die(json_encode($data));
         }
 
-        $form = new TeamForm();
+        $form = new TeamForm($this->getUserService());
 
         if ($request->isPost()) {
             $team = new Team();
-            
+
             $form->bind($team);
             $form->setData($request->getPost());
 
@@ -92,7 +92,7 @@ class TeamController extends AbstractActionController
             die(json_encode($data));
         }
 
-        $form = new TeamForm();
+        $form = new TeamForm($this->getUserService());
         $form->bind($team);
 
         if ($request->isPost()) {
@@ -107,8 +107,8 @@ class TeamController extends AbstractActionController
         $viewModel = new ViewModel();
         $viewModel->setVariable('form', $form);
         $viewModel->setVariable('team', $team);
-        $viewModel->setVariable('teamMembers', array());
-        $viewModel->setVariable('teamProjects', array());
+        $viewModel->setVariable('teamMembers', $team->getMembers());
+        $viewModel->setVariable('teamProjects', $team->getProjects());
         $viewModel->setTerminal($request->isXmlHttpRequest());
         return $viewModel;
     }

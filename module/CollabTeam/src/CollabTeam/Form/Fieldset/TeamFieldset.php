@@ -25,7 +25,7 @@ class TeamFieldset extends Fieldset implements InputFilterProviderInterface
     {
         parent::__construct('team');
 
-        $this->setHydrator(new ClassMethodsHydrator(false))->setObject(new TeamEntity());
+        $this->setHydrator(new ClassMethodsHydrator(false));
 
         $name = new Text('name');
         $name->setLabel('Team name');
