@@ -97,7 +97,7 @@ class AccountController extends AbstractActionController
     {
         $userService = $this->getUserService();
         $user = $userService->findById($this->params('id'));
-        if (!$user) {
+        if (!$user || $user->getId() == $this->userAuthentication()->getIdentity()->getId()) {
             return $this->redirect()->toRoute('account/overview');
         }
 
