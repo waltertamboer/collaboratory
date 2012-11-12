@@ -23,6 +23,26 @@ class UserMapper implements UserMapperInterface
         $this->entityManager = $entityManager;
     }
 
+    public function findAjax($query)
+    {
+        $repository = $this->entityManager->getRepository('CollabUser\Entity\User');
+
+        $qb = $repository->createQueryBuilder('e');
+        $qb->add('select', 'u');
+        $qb->add('from', 'CollabUser\Entity\User u');
+        $qb->add('where', $qb->expr()->like('u.identity', $qb->expr()->literal('%' . $query . '%')));
+
+        $result = array();
+        foreach ($qb->getQuery()->getResult() as $entity) {
+            $result[] = array(
+                'id' => $entity->getId(),
+                'identity' => $entity->getIdentity(),
+                'displayName' => $entity->getDisplayName(),
+            );
+        }
+        return $result;
+    }
+
     public function findAll()
     {
         $repository = $this->entityManager->getRepository('CollabUser\Entity\User');
@@ -35,8 +55,8 @@ class UserMapper implements UserMapperInterface
         $repository = $this->entityManager->getRepository('CollabUser\Entity\User');
 
         return $repository->findOneBy(array(
-            'identity' => $email
-        ));
+                'identity' => $email
+            ));
     }
 
     public function findById($id)

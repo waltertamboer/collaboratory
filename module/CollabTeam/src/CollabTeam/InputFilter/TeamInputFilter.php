@@ -10,6 +10,7 @@
 
 namespace CollabTeam\InputFilter;
 
+use Zend\InputFilter\Input;
 use Zend\InputFilter\InputFilter;
 
 class TeamInputFilter extends InputFilter

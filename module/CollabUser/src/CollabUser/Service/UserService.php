@@ -27,6 +27,11 @@ class UserService implements ServiceManagerAwareInterface
         return $this->mapper;
     }
 
+    public function findAjax($query)
+    {
+        return $this->getMapper()->findAjax($query);
+    }
+
     public function findAll()
     {
         return $this->getMapper()->findAll();

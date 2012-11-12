@@ -26,10 +26,8 @@ class TeamMemberFieldset extends Fieldset implements InputFilterProviderInterfac
         $this->setHydrator(new ClassMethodsHydrator(false));
 
         $this->add(array(
-            'name' => 'name',
-            'options' => array(
-                'label' => 'Name'
-            ),
+            'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'id',
             'attributes' => array(
                 'type' => 'text'
             )
@@ -39,7 +37,7 @@ class TeamMemberFieldset extends Fieldset implements InputFilterProviderInterfac
     public function getInputFilterSpecification()
     {
         return array(
-            'name' => array(
+            'id' => array(
                 'required' => true,
             )
         );

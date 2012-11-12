@@ -11,6 +11,13 @@
 namespace CollabTeam;
 
 return array(
+    'asset_manager' => array(
+        'resolver_configs' => array(
+            'map' => array(
+                'js/team.js' => __DIR__ . '/../public/js/team.js',
+            ),
+        ),
+    ),
     'controllers' => array(
         'invokables' => array(
             'CollabTeam\Controller\TeamController' => 'CollabTeam\Controller\TeamController',

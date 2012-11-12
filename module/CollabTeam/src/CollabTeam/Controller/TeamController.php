@@ -19,6 +19,7 @@ use Zend\View\Model\ViewModel;
 class TeamController extends AbstractActionController
 {
     private $teamService;
+    private $userService;
 
     private function getTeamService()
     {
@@ -26,6 +27,14 @@ class TeamController extends AbstractActionController
             $this->teamService = $this->getServiceLocator()->get('team.service');
         }
         return $this->teamService;
+    }
+
+    private function getUserService()
+    {
+        if ($this->userService === null) {
+            $this->userService = $this->getServiceLocator()->get('collabuser.userservice');
+        }
+        return $this->userService;
     }
 
     public function indexAction()
@@ -39,13 +48,19 @@ class TeamController extends AbstractActionController
 
     public function createAction()
     {
+        $request = $this->getRequest();
+        if ($request->isXmlHttpRequest()) {
+            $data = $this->getUserService()->findAjax($request->getQuery('query'));
+
+            die(json_encode($data));
+        }
+
         $form = new TeamForm();
 
-        $request = $this->getRequest();
         if ($request->isPost()) {
             $team = new Team();
+            
             $form->bind($team);
-
             $form->setData($request->getPost());
 
             if ($form->isValid()) {
@@ -58,6 +73,7 @@ class TeamController extends AbstractActionController
         $viewModel = new ViewModel();
         $viewModel->setVariable('form', $form);
         $viewModel->setVariable('teamMembers', array());
+        $viewModel->setVariable('teamProjects', array());
         $viewModel->setTerminal($request->isXmlHttpRequest());
         return $viewModel;
     }
@@ -69,10 +85,16 @@ class TeamController extends AbstractActionController
             return $this->redirect()->toRoute('team/overview');
         }
 
+        $request = $this->getRequest();
+        if ($request->isXmlHttpRequest()) {
+            $data = $this->getUserService()->findAjax($request->getQuery('query'));
+
+            die(json_encode($data));
+        }
+
         $form = new TeamForm();
         $form->bind($team);
 
-        $request = $this->getRequest();
         if ($request->isPost()) {
             $form->setData($request->getPost());
 
@@ -86,6 +108,7 @@ class TeamController extends AbstractActionController
         $viewModel->setVariable('form', $form);
         $viewModel->setVariable('team', $team);
         $viewModel->setVariable('teamMembers', array());
+        $viewModel->setVariable('teamProjects', array());
         $viewModel->setTerminal($request->isXmlHttpRequest());
         return $viewModel;
     }

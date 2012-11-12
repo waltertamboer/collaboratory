@@ -52,7 +52,6 @@ class TeamFieldset extends Fieldset implements InputFilterProviderInterface
         $members->setName('members');
         $members->setLabel('Members');
         $members->setAllowAdd(true);
-        $members->setCount(3);
         $members->setShouldCreateTemplate(true);
         $members->setTargetElement(array(
             'type' => 'CollabTeam\Form\Fieldset\TeamMemberFieldset'

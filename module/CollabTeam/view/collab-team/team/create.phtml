@@ -1,6 +1,7 @@
 <?php
 
 $this->headTitle('Create Team');
+$this->headScript()->appendFile($this->basePath() . '/js/team.js');
 
 $form = $this->form;
 $form->prepare();
@@ -45,34 +46,42 @@ $teamFieldset = $form->get('team');
 
     <hr class="grid_24" />
 
-    <div class="grid_11">
+    <div class="grid_11" id="team-members-list">
         <h2>Members</h2>
 
-        <ul id="member-list" class="small-list">
+        <ul class="small-list">
             <?php foreach ($this->teamMembers as $member) { ?>
-                <li><?php echo $this->userAvatar($member); echo $this->userDisplayName($member); ?> <a href="" class="delete">(remove)</a></li>
+            <li>
+                <input type="hidden" name="team[members][][id]" value="<?php echo $member->getId(); ?>" />
+                <?php echo $this->userDisplayName($member); ?>
+                <a href="" class="delete">(remove)</a>
+            </li>
             <?php } ?>
         </ul>
 
         <div class="form-add-box">
-            <input type="text" name="" value="" />
+            <input type="text" name="" value="" id="team-members-ajax" />
             <button>Add</button>
 
             <div class="clearfix"></div>
         </div>
     </div>
 
-    <div class="grid_11 push_2">
+    <div class="grid_11 push_2" id="team-projects-list">
         <h2>Projects</h2>
 
         <ul class="small-list">
-            <li>Project X <a href="" class="delete">(remove)</a></li>
-            <li>Project Y <a href="" class="delete">(remove)</a></li>
-            <li>Project Z <a href="" class="delete">(remove)</a></li>
+            <?php foreach ($this->teamProjects as $project) { ?>
+            <li>
+                <input type="hidden" name="team[projects][][id]" value="<?php echo $project->getId(); ?>" />
+                <?php echo $project->getName(); ?>
+                <a href="" class="delete">(remove)</a>
+            </li>
+            <?php } ?>
         </ul>
 
         <div class="form-add-box">
-            <input type="text" name="" value="" />
+            <input type="text" name="" value="" id="team-projects-ajax" />
             <button onclick="return false;">Add</button>
 
             <div class="clearfix"></div>
