@@ -35,7 +35,6 @@ class DashboardController extends AbstractActionController
         $user->setIdentity('walter.tamboer@live.com');
         $user->setCredential('$2y$14$/ACQfLrUGo8a/sN59uxnGuwtJXqYytA35bPctziBuZv0hpRoegcJC');
         $user->setDisplayName('Walter Tamboer');
-        $user->setActive(true);
 
         $entityManager->persist($user);
         $entityManager->flush();

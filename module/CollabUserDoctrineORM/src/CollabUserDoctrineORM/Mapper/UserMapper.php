@@ -23,6 +23,13 @@ class UserMapper implements UserMapperInterface
         $this->entityManager = $entityManager;
     }
 
+    public function findAll()
+    {
+        $repository = $this->entityManager->getRepository('CollabUser\Entity\User');
+
+        return $repository->findAll();
+    }
+
     public function findByEmail($email)
     {
         $repository = $this->entityManager->getRepository('CollabUser\Entity\User');

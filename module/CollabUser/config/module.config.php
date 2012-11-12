@@ -13,11 +13,75 @@ namespace CollabUser;
 return array(
     'controllers' => array(
         'invokables' => array(
+            'CollabUser\Controller\AccountController' => 'CollabUser\Controller\AccountController',
             'CollabUser\Controller\UserController' => 'CollabUser\Controller\UserController',
+        ),
+    ),
+    'navigation' => array(
+        'default' => array(
+            'user/overview' => array(
+                'label' => 'Users',
+                'route' => 'account/overview',
+            ),
         ),
     ),
     'router' => array(
         'routes' => array(
+            'account' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/account',
+                    'defaults' => array(
+                        'controller' => 'CollabUser\Controller\AccountController',
+                        'action' => 'index',
+                    ),
+                ),
+                'may_terminate' => false,
+                'child_routes' => array(
+                    'overview' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => array(
+                            'route' => '/overview',
+                            'defaults' => array(
+                                'action' => 'index',
+                            ),
+                        ),
+                    ),
+                    'create' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => array(
+                            'route' => '/create',
+                            'defaults' => array(
+                                'action' => 'create',
+                            ),
+                        ),
+                    ),
+                    'update' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                        'options' => array(
+                            'route' => '/team/:id',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'action' => 'update',
+                            ),
+                        ),
+                    ),
+                    'delete' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                        'options' => array(
+                            'route' => '/team/delete/:id',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'action' => 'delete',
+                            ),
+                        ),
+                    ),
+                ),
+            ),
             'user' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(

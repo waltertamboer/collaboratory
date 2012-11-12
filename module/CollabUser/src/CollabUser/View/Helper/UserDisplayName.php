@@ -10,7 +10,7 @@
 
 namespace CollabUser\View\Helper;
 
-use CollabUser\Entity\UserInterface;
+use CollabUser\Entity\User;
 use Zend\Authentication\AuthenticationService;
 use Zend\View\Helper\AbstractHelper;
 
@@ -18,11 +18,14 @@ class UserDisplayName extends AbstractHelper
 {
     private $authService;
 
-    public function __invoke(UserInterface $user = null)
+    public function __invoke(User $user = null)
     {
         $result = '';
 
-        $user = $this->authService->getIdentity();
+        if ($user === null) {
+            $user = $this->authService->getIdentity();
+        }
+
         if ($user) {
             $result = $user->getDisplayName();
             if (!$result) {

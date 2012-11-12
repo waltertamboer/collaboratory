@@ -16,7 +16,6 @@ class User
     private $identity;
     private $credential;
     private $displayName;
-    private $active;
     private $snippets;
     private $teams;
     private $sshKeys;
@@ -65,14 +64,18 @@ class User
         return $this;
     }
 
-    public function isActive()
+    public function getSnippets()
     {
-        return $this->active;
+        return $this->snippets;
     }
 
-    public function setActive($active)
+    public function getTeams()
     {
-        $this->active = $active;
-        return $this;
+        return $this->teams;
+    }
+
+    public function getSshKeys()
+    {
+        return $this->sshKeys;
     }
 }

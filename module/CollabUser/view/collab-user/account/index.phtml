@@ -1,0 +1,39 @@
+<?php $this->headTitle('Accounts'); ?>
+
+<div id="menu-tabs" class="grid_24">
+    <?php echo $this->navigation('navigation/main')->menu()->escapeLabels(false); ?>
+</div>
+
+<div class="main-content grid_13">
+    <?php if (count($accounts)) { ?>
+    <ul class="collection">
+        <?php foreach ($accounts as $account) { ?>
+        <li>
+            <h3><a href="<?php echo $this->url('account/update', array(
+                'id' => $account->getId()
+            )); ?>"><?php echo $this->userDisplayName($account); ?></a></h3>
+            <p><?php echo $account->getIdentity(); ?></p>
+            <ul class="actions">
+                <li><a href="<?php echo $this->url('account/delete', array(
+                    'id' => $account->getId()
+                )); ?>" class="button negative">Remove</a></li>
+            </ul>
+        </li>
+        <?php } ?>
+    </ul>
+    <?php } else { ?>
+    <p>There are no users yet, would you like to create one?</p>
+    <?php } ?>
+
+    <div class="tar">
+        <a href="<?php echo $this->url('account/create'); ?>" class="button">New User</a>
+    </div>
+</div>
+
+<div class="main-content grid_10 push_1">
+    <div class="tip">
+        <h3>Owners</h3>
+
+        <p>You cannot remove the owners team. People in that team have full access rights.</p>
+    </div>
+</div>

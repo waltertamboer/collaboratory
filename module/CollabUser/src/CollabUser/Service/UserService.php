@@ -27,6 +27,21 @@ class UserService implements ServiceManagerAwareInterface
         return $this->mapper;
     }
 
+    public function findAll()
+    {
+        return $this->getMapper()->findAll();
+    }
+
+    public function findByEmail($email)
+    {
+        return $this->getMapper()->findByEmail($email);
+    }
+
+    public function findById($id)
+    {
+        return $this->getMapper()->findById($id);
+    }
+
     public function persist(User $user)
     {
         $this->getMapper()->persist($user);
