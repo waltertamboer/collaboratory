@@ -7,9 +7,5 @@
         <field name="identity" type="string" column="identity" nullable="false" precision="0" scale="0"/>
         <field name="credential" type="string" column="credential" nullable="false" precision="0" scale="0"/>
         <field name="displayName" type="string" column="displayName" nullable="true" precision="0" scale="0"/>
-
-        <many-to-many field="teams" mapped-by="members" target-entity="CollabTeam\Entity\Team" />
-        <one-to-many field="snippets" mapped-by="createdBy" target-entity="CollabSnippet\Entity\Snippet" />
-        <one-to-many field="sshKeys" mapped-by="createdBy" target-entity="CollabUser\Entity\SshKey" />
     </entity>
 </doctrine-mapping>

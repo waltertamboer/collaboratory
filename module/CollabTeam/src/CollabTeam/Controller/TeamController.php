@@ -57,6 +57,7 @@ class TeamController extends AbstractActionController
 
         $form = new TeamForm($this->getUserService());
 
+        $teamMembers = array();
         if ($request->isPost()) {
             $team = new Team();
 
@@ -68,11 +69,17 @@ class TeamController extends AbstractActionController
                 $this->getTeamService()->persist($team);
                 return $this->redirect()->toRoute('team/overview');
             }
+
+            // Find the teams:
+            $postData = $request->getPost('team');
+            foreach ($postData['members'] as $member) {
+                $teamMembers[] = $this->getUserService()->findById($member['id']);
+            }
         }
 
         $viewModel = new ViewModel();
         $viewModel->setVariable('form', $form);
-        $viewModel->setVariable('teamMembers', array());
+        $viewModel->setVariable('teamMembers', $teamMembers);
         $viewModel->setVariable('teamProjects', array());
         $viewModel->setTerminal($request->isXmlHttpRequest());
         return $viewModel;

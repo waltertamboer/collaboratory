@@ -25,6 +25,8 @@ class Team
     public function __construct()
     {
         $this->createdOn = new DateTime();
+        $this->members = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->projects = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function getId()
@@ -89,7 +91,12 @@ class Team
 
     public function setMembers($members)
     {
-        $this->members = $members;
+        $this->members->clear();
+        foreach ($members as $member) {
+            if ($member) {
+                $this->members->add($member);
+            }
+        }
         return $this;
     }
 
