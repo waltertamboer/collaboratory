@@ -1,86 +1,49 @@
 <?php
 
-$this->headTitle('Update Team');
+$this->headTitle('Update User');
 
 $form = $this->form;
 $form->prepare();
 
-$teamFieldset = $form->get('team');
-
 ?>
 
-<div id="menu-tabs" class="grid_24">    <?php echo $this->navigation('navigation/main')->menu()->escapeLabels(false); ?>
-
+<div id="menu-tabs" class="grid_24">
+    <?php echo $this->navigation('navigation/main')->menu()->escapeLabels(false); ?>
 </div>
 
 <?php echo $this->form()->openTag($form); ?>
     <div class="main-content grid_11">
         <dl>
-            <dt><?php echo $this->formLabel($teamFieldset->get('name')); ?></dt>
+            <dt><?php echo $this->formLabel($form->get('identity')); ?></dt>
             <dd>
-                <?php echo $this->formText($teamFieldset->get('name')); ?>
-                <div class="example" style="margin-top: 10px;">(e.g. Programmers, Concept Artists, Managers)</div>
+                <?php echo $this->formText($form->get('identity')); ?>
+                <?php echo $this->formElementErrors($form->get('identity')); ?>
+            </dd>
+
+            <dt><?php echo $this->formLabel($form->get('credential')); ?></dt>
+            <dd>
+                <?php echo $this->formPassword($form->get('credential')); ?>
+                <?php echo $this->formElementErrors($form->get('credential')); ?>
+            </dd>
+
+            <dt><?php echo $this->formLabel($form->get('validation')); ?></dt>
+            <dd>
+                <?php echo $this->formPassword($form->get('validation')); ?>
+                <?php echo $this->formElementErrors($form->get('validation')); ?>
+            </dd>
+
+            <dt><?php echo $this->formLabel($form->get('displayName')); ?></dt>
+            <dd>
+                <?php echo $this->formText($form->get('displayName')); ?>
+                <?php echo $this->formElementErrors($form->get('displayName')); ?>
             </dd>
         </dl>
-    </div>
-
-    <div class="main-content grid_11 push_2">
-        <dl>
-            <dt><?php echo $this->formLabel($teamFieldset->get('description')); ?></dt>
-            <dd><?php echo $this->formTextarea($teamFieldset->get('description')); ?></dd>
-        </dl>
-    </div>
-
-    <hr class="grid_24" />
-
-    <div class="grid_24 permissions">
-        <h2>Permissions</h2>
-
-        <?php echo $this->formMultiCheckbox($teamFieldset->get('permissions')); ?>
-    </div>
-
-    <hr class="grid_24" />
-
-    <div class="grid_11">
-        <h2>Members</h2>
-
-        <ul class="small-list">
-            <li><?php echo $this->gravatar('walter.tamboer@live.com')->setImgSize(20); ?> Walter Tamboer <a href="" class="delete">(remove)</a></li>
-            <li><?php echo $this->gravatar('walter.tamboer@live.com')->setImgSize(20); ?> John Doe <a href="" class="delete">(remove)</a></li>
-            <li><?php echo $this->gravatar('walter.tamboer@live.com')->setImgSize(20); ?> John Doe <a href="" class="delete">(remove)</a></li>
-            <li><?php echo $this->gravatar('walter.tamboer@live.com')->setImgSize(20); ?> John Doe <a href="" class="delete">(remove)</a></li>
-            <li><?php echo $this->gravatar('walter.tamboer@live.com')->setImgSize(20); ?> John Doe <a href="" class="delete">(remove)</a></li>
-        </ul>
-
-        <div class="form-add-box">
-            <input type="text" name="" value="" />
-            <button>Add</button>
-
-            <div class="clearfix"></div>
-        </div>
-    </div>
-
-    <div class="grid_11 push_2">
-        <h2>Projects</h2>
-
-        <ul class="small-list">
-            <li>Project X <a href="" class="delete">(remove)</a></li>
-            <li>Project Y <a href="" class="delete">(remove)</a></li>
-            <li>Project Z <a href="" class="delete">(remove)</a></li>
-        </ul>
-
-        <div class="form-add-box">
-            <input type="text" name="" value="" />
-            <button onclick="return false;">Add</button>
-
-            <div class="clearfix"></div>
-        </div>
     </div>
 
     <hr class="grid_24" />
 
     <div class="grid_24 tar">
-        <button type="submit" class="positive">Save</button>
+        <?php echo $this->formSubmit($form->get('save')->setAttribute('class', 'button positive')); ?>
     </div>
 
 <?php echo $this->form()->closeTag(); ?>

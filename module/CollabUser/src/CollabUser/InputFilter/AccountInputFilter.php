@@ -16,6 +16,8 @@ use Zend\ServiceManager\ServiceManager;
 
 class AccountInputFilter extends InputFilter
 {
+    private $uniqueIdentity;
+
     public function __construct()
     {
         $identity = new Input();
@@ -47,15 +49,20 @@ class AccountInputFilter extends InputFilter
         $this->add($displayName);
     }
 
+    public function getUniqueIdentity()
+    {
+        return $this->uniqueIdentity;
+    }
+
     public function setServiceManager(ServiceManager $serviceManager)
     {
         $serviceName = 'collabuser.identityvalidator';
 
         if ($serviceManager->has($serviceName)) {
-            $validator = $serviceManager->get($serviceName);
+            $this->uniqueIdentity = $serviceManager->get($serviceName);
 
             $identity = $this->get('identity');
-            $identity->getValidatorChain()->addValidator($validator);
+            $identity->getValidatorChain()->addValidator($this->uniqueIdentity);
         }
     }
 }

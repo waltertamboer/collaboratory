@@ -1,4 +1,4 @@
-<?php $this->headTitle('Delete Team'); ?>
+<?php $this->headTitle('Delete User'); ?>
 
 <div id="menu-tabs" class="grid_24">
     <?php echo $this->navigation('navigation/main')->menu()->escapeLabels(false); ?>
@@ -7,7 +7,7 @@
 <div class="grid_10 push_7 tac">
     <div class="alert-box">
         <p>
-            Are you sure you want to delete the team "<?php echo $this->team->getName(); ?>"?
+            Are you sure you want to delete the user "<?php echo $this->userDisplayName($this->user); ?>"?
         </p>
     </div>
 

@@ -10,6 +10,7 @@
 
 namespace CollabUser\Controller;
 
+use CollabApplication\Form\DeleteForm;
 use CollabUser\Entity\User;
 use CollabUser\Form\AccountForm;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -62,28 +63,31 @@ class AccountController extends AbstractActionController
 
     public function updateAction()
     {
-        $user = $this->getUserService()->getById($this->params('id'));
+        $userService = $this->getUserService();
+        $user = $userService->findById($this->params('id'));
         if (!$user) {
-            return $this->redirect()->toRoute('user/overview');
+            return $this->redirect()->toRoute('account/overview');
         }
 
         $form = new AccountForm();
         $form->setServiceManager($this->getServiceLocator());
         $form->bind($user);
 
+        $form->getInputFilter()->getUniqueIdentity()->addException($user->getIdentity());
+
         $request = $this->getRequest();
         if ($request->isPost()) {
             $form->setData($request->getPost());
 
             if ($form->isValid()) {
-                $this->getTeamService()->persist($user);
-                return $this->redirect()->toRoute('team/overview');
+                $userService->persist($user);
+                return $this->redirect()->toRoute('account/overview');
             }
         }
 
         $viewModel = new ViewModel();
         $viewModel->setVariable('form', $form);
-        $viewModel->setVariable('team', $user);
+        $viewModel->setVariable('user', $user);
         $viewModel->setVariable('teamMembers', array());
         $viewModel->setTerminal($request->isXmlHttpRequest());
         return $viewModel;
@@ -91,9 +95,10 @@ class AccountController extends AbstractActionController
 
     public function deleteAction()
     {
-        $team = $this->getTeamService()->getById($this->params('id'));
-        if (!$team) {
-            return $this->redirect()->toRoute('team/overview');
+        $userService = $this->getUserService();
+        $user = $userService->findById($this->params('id'));
+        if (!$user) {
+            return $this->redirect()->toRoute('account/overview');
         }
 
         $form = new DeleteForm();
@@ -101,14 +106,14 @@ class AccountController extends AbstractActionController
         $request = $this->getRequest();
         if ($request->isPost()) {
             if ($request->getPost('yes') != null) {
-                $this->getTeamService()->remove($team);
+                $userService->remove($user);
             }
-            return $this->redirect()->toRoute('team/overview');
+            return $this->redirect()->toRoute('account/overview');
         }
 
         $viewModel = new ViewModel();
         $viewModel->setVariable('form', $form);
-        $viewModel->setVariable('team', $team);
+        $viewModel->setVariable('user', $user);
         return $viewModel;
     }
 }

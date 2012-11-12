@@ -13,11 +13,13 @@
                 'id' => $account->getId()
             )); ?>"><?php echo $this->userDisplayName($account); ?></a></h3>
             <p><?php echo $account->getIdentity(); ?></p>
+            <?php if ($account->getId() != $this->userIdentity()->getId()) { ?>
             <ul class="actions">
                 <li><a href="<?php echo $this->url('account/delete', array(
                     'id' => $account->getId()
                 )); ?>" class="button negative">Remove</a></li>
             </ul>
+            <?php } ?>
         </li>
         <?php } ?>
     </ul>

@@ -59,7 +59,7 @@ return array(
                     'update' => array(
                         'type' => 'Zend\Mvc\Router\Http\Segment',
                         'options' => array(
-                            'route' => '/team/:id',
+                            'route' => '/update/:id',
                             'constraints' => array(
                                 'id' => '[0-9]+',
                             ),
@@ -71,7 +71,7 @@ return array(
                     'delete' => array(
                         'type' => 'Zend\Mvc\Router\Http\Segment',
                         'options' => array(
-                            'route' => '/team/delete/:id',
+                            'route' => '/delete/:id',
                             'constraints' => array(
                                 'id' => '[0-9]+',
                             ),
