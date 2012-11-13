@@ -27,6 +27,11 @@ class TeamService implements ServiceManagerAwareInterface
         return $this->mapper;
     }
 
+    public function findAjax($query)
+    {
+        return $this->getMapper()->findAjax($query);
+    }
+
     public function getAll()
     {
         return $this->getMapper()->getAll();

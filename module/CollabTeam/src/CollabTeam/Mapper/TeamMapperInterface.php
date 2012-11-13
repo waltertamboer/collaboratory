@@ -14,6 +14,7 @@ use CollabTeam\Entity\Team;
 
 interface TeamMapperInterface
 {
+    public function findAjax($query);
     public function getAll();
     public function getById($id);
     public function getByName($name);

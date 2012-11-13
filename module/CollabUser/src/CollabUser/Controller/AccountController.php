@@ -18,7 +18,16 @@ use Zend\View\Model\ViewModel;
 
 class AccountController extends AbstractActionController
 {
+    private $teamService;
     private $userService;
+
+    private function getTeamService()
+    {
+        if ($this->teamService === null) {
+            $this->teamService = $this->getServiceLocator()->get('team.service');
+        }
+        return $this->teamService;
+    }
 
     private function getUserService()
     {
@@ -39,10 +48,20 @@ class AccountController extends AbstractActionController
 
     public function createAction()
     {
-        $form = new AccountForm();
+        $request = $this->getRequest();
+        if ($request->isXmlHttpRequest()) {
+
+            // TODO: Create a nicer way to handle this, maybe with the event manager?
+            $data = $this->getTeamService()->findAjax($request->getQuery('query'));
+
+            die(json_encode($data));
+        }
+
+        $userTeams = array();
+
+        $form = new AccountForm($this->getTeamService());
         $form->setServiceManager($this->getServiceLocator());
 
-        $request = $this->getRequest();
         if ($request->isPost()) {
             $user = new User();
 
@@ -53,42 +72,74 @@ class AccountController extends AbstractActionController
                 $this->getUserService()->persist($user);
                 return $this->redirect()->toRoute('account/overview');
             }
+
+            // Find the teams:
+            // TODO: Create a nicer way to handle this, maybe with the event manager?
+            $postData = $request->getPost('teams');
+            foreach ($postData as $team) {
+                $userTeams[] = $this->getTeamService()->getById($team['id']);
+            }
         }
 
         $viewModel = new ViewModel();
         $viewModel->setVariable('form', $form);
+        $viewModel->setVariable('userTeams', $userTeams);
         $viewModel->setTerminal($request->isXmlHttpRequest());
         return $viewModel;
     }
 
     public function updateAction()
     {
+        $request = $this->getRequest();
+        if ($request->isXmlHttpRequest()) {
+
+            // TODO: Create a nicer way to handle this, maybe with the event manager?
+            $data = $this->getTeamService()->findAjax($request->getQuery('query'));
+
+            die(json_encode($data));
+        }
+
         $userService = $this->getUserService();
         $user = $userService->findById($this->params('id'));
         if (!$user) {
             return $this->redirect()->toRoute('account/overview');
         }
 
-        $form = new AccountForm();
+        $userTeams = $user->getTeams();
+
+        $form = new AccountForm($this->getTeamService());
         $form->setServiceManager($this->getServiceLocator());
         $form->bind($user);
 
         $form->getInputFilter()->getUniqueIdentity()->addException($user->getIdentity());
 
-        $request = $this->getRequest();
         if ($request->isPost()) {
+            $user->clearTeams();
             $form->setData($request->getPost());
 
             if ($form->isValid()) {
+                $credential = $user->getCredential();
+                $credential = $userService->encryptCredential($credential);
+                $user->setCredential($credential);
+
                 $userService->persist($user);
                 return $this->redirect()->toRoute('account/overview');
+            }
+
+            $userTeams = array();
+
+            // Find the teams:
+            // TODO: Create a nicer way to handle this, maybe with the event manager?
+            $postData = $request->getPost('teams');
+            foreach ($postData as $team) {
+                $userTeams[] = $this->getTeamService()->getById($team['id']);
             }
         }
 
         $viewModel = new ViewModel();
         $viewModel->setVariable('form', $form);
         $viewModel->setVariable('user', $user);
-        $viewModel->setVariable('teamMembers', array());
+        $viewModel->setVariable('userTeams', $userTeams);
         $viewModel->setTerminal($request->isXmlHttpRequest());
         return $viewModel;
     }

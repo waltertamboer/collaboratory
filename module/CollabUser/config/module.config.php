@@ -11,6 +11,13 @@
 namespace CollabUser;
 
 return array(
+    'asset_manager' => array(
+        'resolver_configs' => array(
+            'map' => array(
+                'js/user.js' => __DIR__ . '/../public/js/user.js',
+            ),
+        ),
+    ),
     'controllers' => array(
         'invokables' => array(
             'CollabUser\Controller\AccountController' => 'CollabUser\Controller\AccountController',

@@ -45,8 +45,13 @@ class AccountInputFilter extends InputFilter
 
         $displayName = new Input();
         $displayName->setName('displayName');
-        $displayName->setRequired(false);
+        $displayName->setRequired(true);
         $this->add($displayName);
+
+        $teams = new Input();
+        $teams->setName('teams');
+        $teams->setRequired(false);
+        $this->add($teams);
     }
 
     public function getUniqueIdentity()

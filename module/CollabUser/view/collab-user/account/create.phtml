@@ -1,6 +1,7 @@
 <?php
 
 $this->headTitle('Create Account');
+$this->headScript()->appendFile($this->basePath() . '/js/user.js');
 
 $form = $this->form;
 $form->prepare();
@@ -11,8 +12,10 @@ $form->prepare();
     <?php echo $this->navigation('navigation/main')->menu()->escapeLabels(false); ?>
 </div>
 
-<?php echo $this->form()->openTag($form); ?>
+<?php echo $this->form()->openTag($form->setAttribute('autocomplete', 'off')); ?>
     <div class="main-content grid_11">
+        <h2>Profile</h2>
+
         <dl>
             <dt><?php echo $this->formLabel($form->get('identity')); ?></dt>
             <dd>
@@ -38,6 +41,27 @@ $form->prepare();
                 <?php echo $this->formElementErrors($form->get('displayName')); ?>
             </dd>
         </dl>
+    </div>
+
+    <div class="main-content grid_11 push_2" id="user-teams-list">
+        <h2>Teams</h2>
+
+        <ul class="small-list">
+            <?php foreach ($this->userTeams as $team) { ?>
+            <li>
+                <input type="hidden" name="teams[][id]" value="<?php echo $team->getId(); ?>" />
+                <?php echo $team->getName(); ?>
+                <a href="" class="delete">(remove)</a>
+            </li>
+            <?php } ?>
+        </ul>
+
+        <div class="form-add-box">
+            <input type="text" name="" value="" id="user-teams-ajax" />
+            <button onclick="return false;">Add</button>
+
+            <div class="clearfix"></div>
+        </div>
     </div>
 
     <hr class="grid_24" />

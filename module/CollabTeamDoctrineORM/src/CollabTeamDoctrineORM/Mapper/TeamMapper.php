@@ -23,6 +23,25 @@ class TeamMapper implements TeamMapperInterface
         $this->entityManager = $entityManager;
     }
 
+    public function findAjax($query)
+    {
+        $repository = $this->entityManager->getRepository('CollabTeam\Entity\Team');
+
+        $qb = $repository->createQueryBuilder('e');
+        $qb->add('select', 't');
+        $qb->add('from', 'CollabTeam\Entity\Team t');
+        $qb->add('where', $qb->expr()->like('t.name', $qb->expr()->literal('%' . $query . '%')));
+
+        $result = array();
+        foreach ($qb->getQuery()->getResult() as $entity) {
+            $result[] = array(
+                'id' => $entity->getId(),
+                'name' => $entity->getName(),
+            );
+        }
+        return $result;
+    }
+
     public function getAll()
     {
         $repository = $this->entityManager->getRepository('CollabTeam\Entity\Team');

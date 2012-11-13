@@ -10,6 +10,8 @@
 
 namespace CollabUser\Entity;
 
+use CollabTeam\Entity\Team;
+
 class User
 {
     private $id;
@@ -19,6 +21,13 @@ class User
     private $snippets;
     private $teams;
     private $sshKeys;
+
+    public function __construct()
+    {
+        $this->snippets = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->teams = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->sshKeys = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     public function getId()
     {
@@ -69,13 +78,62 @@ class User
         return $this->snippets;
     }
 
+    public function setSnippets($snippets)
+    {
+        $this->snippets->clear();
+        foreach ($snippets as $snippet) {
+            $this->snippets->add($snippet);
+        }
+        return $this;
+    }
+
+    public function addTeam(Team $team)
+    {
+        if (!$this->teams->contains($team)) {
+            $this->teams->add($team);
+        }
+        return $this;
+    }
+
+    public function clearTeams()
+    {
+        foreach ($this->teams as $team) {
+            $team->removeMember($this);
+        }
+        $this->teams->clear();
+        return $this;
+    }
+
     public function getTeams()
     {
         return $this->teams;
     }
 
+    public function removeTeam(Team $team)
+    {
+        if ($this->teams->contains($team)) {
+            $this->teams->removeElement($team);
+            $team->removeMember($this);
+        }
+    }
+
+    public function setTeams($teams)
+    {
+        $this->clearTeams();
+        foreach ($teams as $team) {
+            $this->addTeam($team);
+            $team->addMember($this);
+        }
+        return $this;
+    }
+
     public function getSshKeys()
     {
         return $this->sshKeys;
+    }
+
+    public function setSshKeys($sshKeys)
+    {
+        return $this;
     }
 }

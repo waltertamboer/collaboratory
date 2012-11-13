@@ -11,6 +11,7 @@
 namespace CollabUser\Form;
 
 use CollabUser\InputFilter\AccountInputFilter;
+use Zend\Form\Element\Collection;
 use Zend\Form\Element\Text;
 use Zend\Form\Element\Password;
 use Zend\Form\Element\Submit;
@@ -18,15 +19,45 @@ use Zend\Form\Form;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Stdlib\Hydrator\ClassMethods as ClassMethodsHydrator;
 
+class UserTeamsStrategy implements \Zend\Stdlib\Hydrator\Strategy\StrategyInterface
+{
+    private $teamService;
+
+    public function __construct($teamService)
+    {
+        $this->teamService = $teamService;
+    }
+
+    public function extract($value)
+    {
+        return $value;
+    }
+
+    public function hydrate($value)
+    {
+        $result = $value;
+        if (is_array($value)) {
+            $result = array();
+            foreach ($value as $entity) {
+                $result[] = $this->teamService->getById($entity->getId());
+            }
+        }
+        return $result;
+    }
+}
+
 class AccountForm extends Form
 {
-    public function __construct()
+    public function __construct($teamService)
     {
         parent::__construct('profile');
 
         $this->setAttribute('method', 'post');
         $this->setHydrator(new ClassMethodsHydrator(false));
         $this->setInputFilter(new AccountInputFilter());
+
+        $hydrator = $this->getHydrator();
+        $hydrator->addStrategy('teams', new UserTeamsStrategy($teamService));
 
         $identity = new Text('identity');
         $identity->setLabel('Identity');
@@ -40,9 +71,19 @@ class AccountForm extends Form
         $validation->setLabel('(Validation)');
         $this->add($validation);
 
-        $name = new Text('displayName');
-        $name->setLabel('Display name');
-        $this->add($name);
+        $displayName = new Text('displayName');
+        $displayName->setLabel('Display name');
+        $this->add($displayName);
+
+        $teams = new Collection();
+        $teams->setName('teams');
+        $teams->setLabel('Teams');
+        $teams->setAllowAdd(true);
+        $teams->setShouldCreateTemplate(true);
+        $teams->setTargetElement(array(
+            'type' => 'CollabUser\Form\Fieldset\UserTeamFieldset'
+        ));
+        $this->add($teams);
 
         $submitButton = new Submit();
         $submitButton->setName('save');

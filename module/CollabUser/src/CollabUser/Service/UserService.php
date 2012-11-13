@@ -11,6 +11,7 @@
 namespace CollabUser\Service;
 
 use CollabUser\Entity\User;
+use Zend\Crypt\Password\Bcrypt;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
 
@@ -25,6 +26,14 @@ class UserService implements ServiceManagerAwareInterface
             $this->mapper = $this->serviceManager->get('collabuser.usermapper');
         }
         return $this->mapper;
+    }
+
+    public function encryptCredential($credential)
+    {
+        $bcrypt = new Bcrypt();
+        $bcrypt->setCost(14);
+
+        return $bcrypt->create($credential);
     }
 
     public function findAjax($query)
