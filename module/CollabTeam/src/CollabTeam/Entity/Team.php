@@ -107,7 +107,13 @@ class Team
 
     public function setProjects($projects)
     {
-        $this->projects = $projects;
+        $this->projects->clear();
+        foreach ($projects as $project) {
+            if ($project) {
+                $project->addTeam($this);
+                $this->projects->add($project);
+            }
+        }
         return $this;
     }
 }

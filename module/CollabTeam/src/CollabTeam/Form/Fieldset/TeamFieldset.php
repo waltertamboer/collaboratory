@@ -57,6 +57,16 @@ class TeamFieldset extends Fieldset implements InputFilterProviderInterface
             'type' => 'CollabTeam\Form\Fieldset\TeamMemberFieldset'
         ));
         $this->add($members);
+
+        $members = new Collection();
+        $members->setName('projects');
+        $members->setLabel('Projects');
+        $members->setAllowAdd(true);
+        $members->setShouldCreateTemplate(true);
+        $members->setTargetElement(array(
+            'type' => 'CollabTeam\Form\Fieldset\TeamProjectFieldset'
+        ));
+        $this->add($members);
     }
 
     public function getInputFilterSpecification()
@@ -72,6 +82,9 @@ class TeamFieldset extends Fieldset implements InputFilterProviderInterface
                 'required' => false,
             ),
             'members' => array(
+                'required' => false,
+            ),
+            'projects' => array(
                 'required' => false,
             ),
         );

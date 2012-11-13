@@ -19,6 +19,7 @@ use Zend\View\Model\ViewModel;
 class TeamController extends AbstractActionController
 {
     private $teamService;
+    private $projectService;
     private $userService;
 
     private function getTeamService()
@@ -27,6 +28,14 @@ class TeamController extends AbstractActionController
             $this->teamService = $this->getServiceLocator()->get('team.service');
         }
         return $this->teamService;
+    }
+
+    private function getProjectService()
+    {
+        if ($this->projectService === null) {
+            $this->projectService = $this->getServiceLocator()->get('project.service');
+        }
+        return $this->projectService;
     }
 
     private function getUserService()
@@ -55,13 +64,13 @@ class TeamController extends AbstractActionController
             if ($request->getQuery('type') == 'user') {
                 $data = $this->getUserService()->findAjax($request->getQuery('query'));
             } else {
-                $data = $this->getUserService()->findAjax($request->getQuery('query'));
+                $data = $this->getProjectService()->findAjax($request->getQuery('query'));
             }
 
             die(json_encode($data));
         }
 
-        $form = new TeamForm($this->getUserService());
+        $form = new TeamForm($this->getUserService(), $this->getProjectService());
 
         $teamMembers = array();
         if ($request->isPost()) {
@@ -101,12 +110,18 @@ class TeamController extends AbstractActionController
 
         $request = $this->getRequest();
         if ($request->isXmlHttpRequest()) {
-            $data = $this->getUserService()->findAjax($request->getQuery('query'));
+
+            // TODO: Create a nicer way to handle this, maybe with the event manager?
+            if ($request->getQuery('type') == 'user') {
+                $data = $this->getUserService()->findAjax($request->getQuery('query'));
+            } else {
+                $data = $this->getProjectService()->findAjax($request->getQuery('query'));
+            }
 
             die(json_encode($data));
         }
 
-        $form = new TeamForm($this->getUserService());
+        $form = new TeamForm($this->getUserService(), $this->getProjectService());
         $form->bind($team);
 
         $teamMembers = $team->getMembers();

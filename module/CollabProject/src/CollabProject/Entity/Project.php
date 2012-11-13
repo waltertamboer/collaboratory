@@ -18,6 +18,12 @@ class Project
     private $teams;
     private $snippets;
 
+    public function __construct()
+    {
+        $this->teams = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->snippets = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
     public function getId()
     {
         return $this->id;
@@ -51,6 +57,14 @@ class Project
         return $this;
     }
 
+    public function addTeam($team)
+    {
+        if (!$this->teams->contains($team)) {
+            $this->teams->add($team);
+        }
+        return $this;
+    }
+
     public function getTeams()
     {
         return $this->teams;
@@ -58,7 +72,10 @@ class Project
 
     public function setTeams($teams)
     {
-        $this->teams = $teams;
+        $this->teams->clear();
+        foreach ($teams as $team) {
+            $this->teams->add($team);
+        }
         return $this;
     }
 

@@ -43,9 +43,36 @@ class TeamMembersStrategy implements \Zend\Stdlib\Hydrator\Strategy\StrategyInte
     }
 }
 
+class TeamProjectsStrategy implements \Zend\Stdlib\Hydrator\Strategy\StrategyInterface
+{
+    private $projectsService;
+
+    public function __construct($userService)
+    {
+        $this->projectsService = $userService;
+    }
+
+    public function extract($value)
+    {
+        return $value;
+    }
+
+    public function hydrate($value)
+    {
+        $result = $value;
+        if (is_array($value)) {
+            $result = array();
+            foreach ($value as $entity) {
+                $result[] = $this->projectsService->getById($entity->getId());
+            }
+        }
+        return $result;
+    }
+}
+
 class TeamForm extends Form
 {
-    public function __construct($userService)
+    public function __construct($userService, $projectsService)
     {
         parent::__construct('team');
 
@@ -59,6 +86,7 @@ class TeamForm extends Form
 
         $hydrator = $fieldset->getHydrator();
         $hydrator->addStrategy('members', new TeamMembersStrategy($userService));
+        $hydrator->addStrategy('projects', new TeamProjectsStrategy($projectsService));
 
         $submitButton = new Submit();
         $submitButton->setName('save');

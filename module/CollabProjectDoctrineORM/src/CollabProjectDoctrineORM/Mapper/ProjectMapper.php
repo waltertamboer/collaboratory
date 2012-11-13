@@ -23,6 +23,25 @@ class ProjectMapper implements ProjectMapperInterface
         $this->entityManager = $entityManager;
     }
 
+    public function findAjax($query)
+    {
+        $repository = $this->entityManager->getRepository('CollabProject\Entity\Project');
+
+        $qb = $repository->createQueryBuilder('e');
+        $qb->add('select', 'p');
+        $qb->add('from', 'CollabProject\Entity\Project p');
+        $qb->add('where', $qb->expr()->like('p.name', $qb->expr()->literal('%' . $query . '%')));
+
+        $result = array();
+        foreach ($qb->getQuery()->getResult() as $entity) {
+            $result[] = array(
+                'id' => $entity->getId(),
+                'name' => $entity->getName(),
+            );
+        }
+        return $result;
+    }
+
     public function getAll()
     {
         $repository = $this->entityManager->getRepository('CollabProject\Entity\Project');
