@@ -7,18 +7,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/common",
-                "reference": "87e2238ec3a9b10f9b56dfc3a0e334d59e898c90"
+                "reference": "30b8cea3bfe22f5eb58b5b0165f21df750aeb2e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/common/archive/87e2238ec3a9b10f9b56dfc3a0e334d59e898c90.zip",
-                "reference": "87e2238ec3a9b10f9b56dfc3a0e334d59e898c90",
+                "url": "https://github.com/doctrine/common/archive/30b8cea3bfe22f5eb58b5b0165f21df750aeb2e2.zip",
+                "reference": "30b8cea3bfe22f5eb58b5b0165f21df750aeb2e2",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2"
             },
-            "time": "1352453641",
+            "time": "1352815365",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -117,19 +117,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal",
-                "reference": "b3e0e6d63b6bf80729f3ca33c017f4ef4f9d2be0"
+                "reference": "3af9edb2c603275dc3dbbb8a5a1797602f941ab6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/dbal/archive/b3e0e6d63b6bf80729f3ca33c017f4ef4f9d2be0.zip",
-                "reference": "b3e0e6d63b6bf80729f3ca33c017f4ef4f9d2be0",
+                "url": "https://github.com/doctrine/dbal/archive/3af9edb2c603275dc3dbbb8a5a1797602f941ab6.zip",
+                "reference": "3af9edb2c603275dc3dbbb8a5a1797602f941ab6",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
                 "doctrine/common": ">=2.3-dev,<2.5-dev"
             },
-            "time": "1352386255",
+            "time": "1352833472",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -375,12 +375,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/doctrine/doctrine2.git",
-                "reference": "fa3f1e088d2b7f4f084d1205c1b96c09dff3273b"
+                "reference": "0d58e6627af4e9864c5d50ef8019a2022a80ee01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/doctrine2/archive/fa3f1e088d2b7f4f084d1205c1b96c09dff3273b.zip",
-                "reference": "fa3f1e088d2b7f4f084d1205c1b96c09dff3273b",
+                "url": "https://github.com/doctrine/doctrine2/archive/0d58e6627af4e9864c5d50ef8019a2022a80ee01.zip",
+                "reference": "0d58e6627af4e9864c5d50ef8019a2022a80ee01",
                 "shasum": ""
             },
             "require": {
@@ -392,7 +392,7 @@
             "suggest": {
                 "symfony/yaml": "If you want to use YAML Metadata Mapping Driver"
             },
-            "time": "1352495020",
+            "time": "1352731699",
             "bin": [
                 "bin/doctrine",
                 "bin/doctrine.php"
@@ -600,18 +600,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console",
-                "reference": "7907e712997a6cb40cce3227a754636461d7e502"
+                "reference": "6da537054e8f9f795e64a5b02eb7f9646c9b59e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/Console/archive/7907e712997a6cb40cce3227a754636461d7e502.zip",
-                "reference": "7907e712997a6cb40cce3227a754636461d7e502",
+                "url": "https://github.com/symfony/Console/archive/6da537054e8f9f795e64a5b02eb7f9646c9b59e7.zip",
+                "reference": "6da537054e8f9f795e64a5b02eb7f9646c9b59e7",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "1352466606",
+            "time": "1352815684",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -647,18 +647,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Process",
-                "reference": "1b0498afba3d3e198de91bf7b3a7907193c3270d"
+                "reference": "a11b312f99a5a8bf88c0ea5e7660c13af79f964f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/Process/archive/1b0498afba3d3e198de91bf7b3a7907193c3270d.zip",
-                "reference": "1b0498afba3d3e198de91bf7b3a7907193c3270d",
+                "url": "https://github.com/symfony/Process/archive/a11b312f99a5a8bf88c0ea5e7660c13af79f964f.zip",
+                "reference": "a11b312f99a5a8bf88c0ea5e7660c13af79f964f",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "1352466606",
+            "time": "1352815684",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -693,12 +693,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/zendframework/zf2.git",
-                "reference": "06f30d03a15692411b47401a69c6c5c2f2316e3b"
+                "reference": "0225df16decb8c88735092394a0f31e3f53854e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/zendframework/zf2/archive/06f30d03a15692411b47401a69c6c5c2f2316e3b.zip",
-                "reference": "06f30d03a15692411b47401a69c6c5c2f2316e3b",
+                "url": "https://github.com/zendframework/zf2/archive/0225df16decb8c88735092394a0f31e3f53854e6.zip",
+                "reference": "0225df16decb8c88735092394a0f31e3f53854e6",
                 "shasum": ""
             },
             "require": {
@@ -764,7 +764,7 @@
                 "zendframework/zendpdf": "ZendPdf for creating PDF representations of barcodes",
                 "pecl-weakref": "Implementation of weak references for Zend\\Stdlib\\CallbackHandler"
             },
-            "time": "1352474621",
+            "time": "1352848095",
             "bin": [
                 "bin/classmap_generator.php"
             ],

@@ -13,7 +13,7 @@ $(document).ready(function() {
     $('#user-teams-list button').click(function() {
         var input = $('#user-teams-ajax'), id = input.attr('data-id'), li;
 
-        if (!$('#user-teams-list li input[value="' + id + '"]').length) {
+        if (id && !$('#user-teams-list li input[value="' + id + '"]').length) {
             li = $('<li />');
             li.append('<input type="hidden" name="teams[][id]" value="' + id + '" />');
             li.append(input.attr('data-name'));
@@ -22,8 +22,8 @@ $(document).ready(function() {
         }
 
         input.val('');
-        input.attr('data-id', false);
-        input.attr('data-name', false);
+        input.removeAttr('data-id');
+        input.removeAttr('data-name');
 
         return false;
     });

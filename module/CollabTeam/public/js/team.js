@@ -14,7 +14,7 @@ $(document).ready(function() {
     $('#team-projects-list button').click(function() {
         var input = $('#team-projects-ajax'), id = input.attr('data-id'), li;
 
-        if (!$('#team-projects-list li input[value="' + id + '"]').length) {
+        if (id && !$('#team-projects-list li input[value="' + id + '"]').length) {
             li = $('<li />');
             li.append('<input type="hidden" name="team[projects][][id]" value="' + id + '" />');
             li.append(input.attr('data-name'));
@@ -23,8 +23,8 @@ $(document).ready(function() {
         }
 
         input.val('');
-        input.attr('data-id', false);
-        input.attr('data-name', false);
+        input.removeAttr('data-id');
+        input.removeAttr('data-name');
 
         return false;
     });
@@ -32,7 +32,7 @@ $(document).ready(function() {
     $('#team-members-list button').click(function() {
         var input = $('#team-members-ajax'), id = input.attr('data-id'), li;
 
-        if (!$('#team-members-list li input[value="' + id + '"]').length) {
+        if (id && !$('#team-members-list li input[value="' + id + '"]').length) {
             li = $('<li />');
             li.append('<input type="hidden" name="team[members][][id]" value="' + id + '" />');
             li.append(input.attr('data-display-name'));
@@ -41,9 +41,9 @@ $(document).ready(function() {
         }
 
         input.val('');
-        input.attr('data-id', false);
-        input.attr('data-identity', false);
-        input.attr('data-display-name', false);
+        input.removeAttr('data-id');
+        input.removeAttr('data-identity');
+        input.removeAttr('data-display-name');
 
         return false;
     });

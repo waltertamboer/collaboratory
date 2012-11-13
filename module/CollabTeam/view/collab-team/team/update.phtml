@@ -14,7 +14,7 @@ $teamFieldset = $form->get('team');
 
 </div>
 
-<?php echo $this->form()->openTag($form); ?>
+<?php echo $this->form()->openTag($form->setAttribute('autocomplete', 'off')); ?>
     <div class="main-content grid_11">
         <dl>
             <dt><?php echo $this->formLabel($teamFieldset->get('name')); ?></dt>
