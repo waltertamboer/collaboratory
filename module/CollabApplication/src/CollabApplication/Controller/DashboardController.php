@@ -51,6 +51,7 @@ class DashboardController extends AbstractActionController
             $team = new \CollabTeam\Entity\Team();
             $team->setName('Team ' . $i);
             $team->setDescription('This is team number ' . $i);
+			$team->addMember($adminUser);
 
             $entityManager->persist($team);
         }
