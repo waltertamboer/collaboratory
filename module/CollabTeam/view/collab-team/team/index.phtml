@@ -1,39 +1,46 @@
 <?php $this->headTitle('Teams'); ?>
 
-<div id="menu-tabs" class="grid_24">
+<div id="menu-tabs" class="container">
     <?php echo $this->navigation('navigation/main')->menu()->escapeLabels(false); ?>
 </div>
 
-<div class="main-content grid_13">
-    <?php if (count($teams)) { ?>
-    <ul class="collection">
-        <?php foreach ($teams as $team) { ?>
-        <li>
-            <h3><a href="<?php echo $this->url('team/update', array(
-                'id' => $team->getId()
-            )); ?>"><?php echo $team->getName(); ?></a></h3>
-            <p><?php echo $team->getDescription(); ?></p>
-            <ul class="actions">
-                <li><a href="<?php echo $this->url('team/delete', array(
-                    'id' => $team->getId()
-                )); ?>" class="button negative">Remove</a></li>
-            </ul>
-        </li>
-        <?php } ?>
-    </ul>
-    <?php } else { ?>
-    <p>There are no teams yet, would you like to create one?</p>
-    <?php } ?>
+<div class="main-content container">
+    <div class="row">
+        <div class="span8">
+            <?php if (count($teams)) { ?>
+                <ul class="data-list">
+                    <?php foreach ($teams as $team) { ?>
+                        <li>
+                            <div class="title">
+                                <a href="<?php echo $this->url('team/update', array('id' => $team->getId())); ?>">
+                                    <?php echo $team->getName(); ?>
+                                </a>
+                            </div>
+                            <div class="description">
+                                <?php echo $team->getDescription(); ?>
+                            </div>
 
-    <div class="tar">
-        <a href="<?php echo $this->url('team/create'); ?>" class="button">New Team</a>
-    </div>
-</div>
+                            <ul class="actions">
+                                <li><a class="btn btn-danger btn-small" href="<?php echo $this->url('team/delete', array('id' => $team->getId())); ?>">Remove</a></li>
+                            </ul>
+                        </li>
+                    <?php } ?>
+                </ul>
+            <?php } else { ?>
+                <p>There are no teams yet, would you like to create one?</p>
+            <?php } ?>
 
-<div class="main-content grid_10 push_1">
-    <div class="tip">
-        <h3>Owners</h3>
+            <div class="form-actions">
+                <a href="<?php echo $this->url('team/create'); ?>" class="btn">New Team</a>
+            </div>
+        </div>
 
-        <p>You cannot remove the owners team. People in that team have full access rights.</p>
+        <div class="span4">
+            <div class="tip">
+                <h3>Owners</h3>
+
+                <p>You cannot remove the owners team. People in that team have full access rights.</p>
+            </div>
+        </div>
     </div>
 </div>

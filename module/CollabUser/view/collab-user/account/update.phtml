@@ -1,71 +1,71 @@
 <?php
-
 $this->headTitle('Update User');
 $this->headScript()->appendFile($this->basePath() . '/js/user.js');
 
 $form = $this->form;
 $form->prepare();
-
 ?>
 
-<div id="menu-tabs" class="grid_24">
+<div id="menu-tabs" class="container">
     <?php echo $this->navigation('navigation/main')->menu()->escapeLabels(false); ?>
 </div>
 
 <?php echo $this->form()->openTag($form->setAttribute('autocomplete', 'off')); ?>
-    <div class="main-content grid_11">
-        <dl>
-            <dt><?php echo $this->formLabel($form->get('identity')); ?></dt>
-            <dd>
+<div class="main-content container">
+    <div class="row">
+        <div class="span6">
+            <div>
+                <?php echo $this->formLabel($form->get('identity')); ?>
                 <?php echo $this->formText($form->get('identity')); ?>
                 <?php echo $this->formElementErrors($form->get('identity')); ?>
-            </dd>
+            </div>
 
-            <dt><?php echo $this->formLabel($form->get('credential')); ?></dt>
-            <dd>
+            <div>
+                <?php echo $this->formLabel($form->get('credential')); ?>
                 <?php echo $this->formPassword($form->get('credential')); ?>
                 <?php echo $this->formElementErrors($form->get('credential')); ?>
-            </dd>
+            </div>
 
-            <dt><?php echo $this->formLabel($form->get('validation')); ?></dt>
-            <dd>
+            <div>
+                <?php echo $this->formLabel($form->get('validation')); ?>
                 <?php echo $this->formPassword($form->get('validation')); ?>
                 <?php echo $this->formElementErrors($form->get('validation')); ?>
-            </dd>
+            </div>
 
-            <dt><?php echo $this->formLabel($form->get('displayName')); ?></dt>
-            <dd>
+            <div>
+                <?php echo $this->formLabel($form->get('displayName')); ?>
                 <?php echo $this->formText($form->get('displayName')); ?>
                 <?php echo $this->formElementErrors($form->get('displayName')); ?>
-            </dd>
-        </dl>
-    </div>
+            </div>
+        </div>
+        <div class="span6" id="user-teams-list">
+            <h2>Teams</h2>
 
-    <div class="main-content grid_11 push_2" id="user-teams-list">
-        <h2>Teams</h2>
+            <ul class="small-list">
+                <?php foreach ($this->userTeams as $team) { ?>
+                    <li>
+                        <input type="hidden" name="teams[][id]" value="<?php echo $team->getId(); ?>" />
+                        <?php echo $team->getName(); ?>
+                        <a href="" class="delete">(remove)</a>
+                    </li>
+                <?php } ?>
+            </ul>
 
-        <ul class="small-list">
-            <?php foreach ($this->userTeams as $team) { ?>
-            <li>
-                <input type="hidden" name="teams[][id]" value="<?php echo $team->getId(); ?>" />
-                <?php echo $team->getName(); ?>
-                <a href="" class="delete">(remove)</a>
-            </li>
-            <?php } ?>
-        </ul>
+            <div class="form-add-box">
+                <input type="text" name="" value="" id="user-teams-ajax" />
+                <button onclick="return false;">Add</button>
 
-        <div class="form-add-box">
-            <input type="text" name="" value="" id="user-teams-ajax" />
-            <button onclick="return false;">Add</button>
-
-            <div class="clearfix"></div>
+                <div class="clearfix"></div>
+            </div>
         </div>
     </div>
-
-    <hr class="grid_24" />
-
-    <div class="grid_24 tar">
-        <?php echo $this->formSubmit($form->get('save')->setAttribute('class', 'button positive')); ?>
+    <div class="row">
+        <div class="span12">
+            <div class="form-actions">
+                <?php echo $this->formSubmit($form->get('save')->setAttribute('class', 'btn btn-success')); ?>
+            </div>
+        </div>
     </div>
+</div>
 
 <?php echo $this->form()->closeTag(); ?>
