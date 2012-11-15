@@ -1,5 +1,5 @@
 {
-    "hash": "e21ac1434599a4b4aec2dd1a9d566d11",
+    "hash": "e86d7b7b0b643e2565b4f61a12ad59fc",
     "packages": [
         {
             "name": "doctrine/common",
@@ -748,12 +748,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/zendframework/zf2.git",
-                "reference": "28056e7409d281de86eef72301f294aa7fa50997"
+                "reference": "8943900b8db3b65c8f767dca9c9bd3c0100200f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/zendframework/zf2/archive/28056e7409d281de86eef72301f294aa7fa50997.zip",
-                "reference": "28056e7409d281de86eef72301f294aa7fa50997",
+                "url": "https://github.com/zendframework/zf2/archive/8943900b8db3b65c8f767dca9c9bd3c0100200f1.zip",
+                "reference": "8943900b8db3b65c8f767dca9c9bd3c0100200f1",
                 "shasum": ""
             },
             "require": {
@@ -819,7 +819,7 @@
                 "zendframework/zendpdf": "ZendPdf for creating PDF representations of barcodes",
                 "zendframework/zendservice-recaptcha": "ZendService\\ReCaptcha for rendering ReCaptchas in Zend\\Captcha and/or Zend\\Form"
             },
-            "time": "1352900857",
+            "time": "1352971962",
             "bin": [
                 "bin/classmap_generator.php"
             ],

@@ -1,11 +1,11 @@
 body {
-    background: url(../../img/body-bg.png);
-    color:#838383;
+	background-color: #F9F9F9;
+    color: #838383;
     font: 13px/1.7em 'Open Sans';
 }
 
 .account-container {
-    background: #F9F9F9;
+    background: #FFF;
     border: 1px solid #D5D5D5;
     border-radius: 5px;
     -webkit-border-radius: 5px;
