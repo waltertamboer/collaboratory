@@ -22,7 +22,7 @@ return array(
                     'application/css/news.css',
                     'application/css/tips.css',
                 ),
-                'application/css/responsive.css' => array(
+                'application/css/layout-responsive.css' => array(
                     'application/css/base-responsive.css',
                 ),
             ),
