@@ -22,7 +22,8 @@
 
 .tip h3 {
     font-size: 13px;
-    margin-bottom: 10px;
+    line-height: 20px;
+    margin: 0px 0px 10px 0px;
 }
 
 .tip p {

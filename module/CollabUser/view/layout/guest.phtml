@@ -1,59 +1,31 @@
-<?php echo $this->doctype(); ?>
-
+<!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
+        <?php echo $this->headMeta()->setCharset('utf-8'); ?>
+        <?php echo $this->headTitle('Collaboratory')->setSeparator(' - ')->setAutoEscape(false); ?>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+
         <?php
-        echo $this->headTitle('Collaboratory')->setSeparator(' - ')->setAutoEscape(false);
-
-        echo $this->headMeta()->setCharset('utf-8');
-
         echo $this->headLink()
             ->appendAlternate(array(
                 'rel' => 'shortcut icon',
                 'type' => 'image/vnd.microsoft.icon',
                 'href' => $this->basePath() . '/images/favicon.ico'
             ))
-//            ->offsetSetStylesheet(0, $this->basePath() . '/bootstrap/css/bootstrap.css');
-            ->offsetSetStylesheet(0, $this->basePath() . '/css/reset.css')
-            ->offsetSetStylesheet(1, $this->basePath() . '/css/960_24_col.css')
-            //->offsetSetStylesheet(2, $this->basePath() . '/css/debug.css')
-            ->offsetSetStylesheet(10, $this->basePath() . '/css/layout.css')
-            ->offsetSetStylesheet(11, $this->basePath() . '/css/layout-header.css')
-            ->offsetSetStylesheet(12, $this->basePath() . '/css/layout-menu-tabs.css')
-            ->offsetSetStylesheet(14, $this->basePath() . '/css/layout-alerts.css')
-            ->offsetSetStylesheet(15, $this->basePath() . '/css/layout-forms.css')
-            ->offsetSetStylesheet(16, $this->basePath() . '/css/layout-tips.css');
+            ->offsetSetStylesheet(0, $this->basePath() . '/bootstrap/css/bootstrap.min.css')
+            ->offsetSetStylesheet(1, $this->basePath() . '/bootstrap/css/bootstrap-responsive.min.css')
+            ->offsetSetStylesheet(10, $this->basePath() . '/application/css/layout.css')
+            ->offsetSetStylesheet(11, $this->basePath() . '/application/css/layout-responsive.css');
         ?>
+
+        <link href="<?php echo $this->basePath(); ?>/css/font-awesome.css" rel="stylesheet">
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
     </head>
     <body>
 
-        <div id="header">
-            <div class="container_24">
-                <div class="grid_24">
-                    <h1><a href="<?php echo $this->url('dashboard'); ?>">Collaboratory</a></h1>
-                </div>
-            </div>
-        </div>
-
-        <div class="container_24">
         <?php echo $this->content; ?>
-        </div>
-
-        <div id="footer">
-            <div class="container_24">
-                <div class="grid_24">
-                    Copyright &copy; 2012 nextphp
-                </div>
-            </div>
-        </div>
-
-        <?php
-        echo $this->headScript()
-            ->appendFile('http://code.jquery.com/jquery-1.8.2.min.js')
-            ->appendFile($this->basePath() . '/bootstrap/js/bootstrap.js');
-        ?>
-<?php echo $this->inlineScript(); ?>
 
     </body>
 </html>

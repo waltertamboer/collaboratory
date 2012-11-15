@@ -1,28 +1,30 @@
-<?php $this->headTitle('Login'); ?>
+<?php $this->headTitle('Sign In'); ?>
+<?php $this->headLink()->offsetSetStylesheet(100, $this->basePath() . '/user/css/login.css'); ?>
 
-<?php echo $this->form()->openTag($form); ?>
-<div class="main-content grid_24">
-    <div class="box">
-        <h3 class="title">Login Information</h3>
-        <div class="content">
-            <dl>
-                <dt><?php echo $this->formLabel($form->get('identity')); ?></dt>
-                <dd>
-                    <?php echo $this->formText($form->get('identity')); ?>
-                    <?php echo $this->formElementErrors($form->get('identity')); ?>
-                </dd>
+<div class="account-container">
+    <div class="content clearfix">
+        <?php echo $this->form()->openTag($form->setAttribute('class', 'form-signin')); ?>
 
-                <dt><?php echo $this->formLabel($form->get('credential')); ?></dt>
-                <dd>
-                    <?php echo $this->formPassword($form->get('credential')); ?>
-                    <?php echo $this->formElementErrors($form->get('credential')); ?>
-                </dd>
-            </dl>
+        <h1>Collaboratory</h1>
+
+        <div class="login-fields">
+            <p>Sign in using your Collaboratory account:</p>
+
+            <div class="field">
+                <label for="identity">Username:</label>
+                <input type="text" id="identity" name="identity" value="" placeholder="Email address" class="login identity-field" />
+            </div>
+
+            <div class="field">
+                <label for="credential">Password:</label>
+                <input type="password" id="credential" name="credential" value="" placeholder="Password" class="login credential-field"/>
+            </div>
         </div>
-    </div>
 
-    <div class="tar">
-        <?php echo $this->formSubmit($form->get('login')->setAttribute('class', 'button')); ?>
+        <div class="login-actions">
+            <button class="button btn btn-warning btn-large">Sign In</button>
+        </div>
+
+        <?php echo $this->form()->closeTag(); ?>
     </div>
 </div>
-<?php echo $this->form()->closeTag(); ?>

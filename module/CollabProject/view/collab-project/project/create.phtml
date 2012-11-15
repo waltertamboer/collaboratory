@@ -1,37 +1,35 @@
 <?php
-
 $this->headTitle('Create Team');
 
 $form = $this->form;
 $form->prepare();
-
 ?>
 
-<div id="menu-tabs" class="grid_24">
+<div id="menu-tabs" class="container">
     <?php echo $this->navigation('navigation/main')->menu()->escapeLabels(false); ?>
 </div>
 
-<?php echo $this->form()->openTag($form); ?>
-    <div class="main-content grid_11">
-        <dl>
-            <dt><?php echo $this->formLabel($form->get('name')); ?></dt>
-            <dd>
-                <?php echo $this->formText($form->get('name')); ?>
+<div class="main-content container">
+    <div class="row">
+        <div class="span6">
+            <?php echo $this->form()->openTag($form); ?>
+
+            <div>
+                <?php echo $this->formLabel($form->get('name')); ?>
+                <?php echo $this->formText($form->get('name')->setAttribute('class', 'span6')); ?>
                 <?php echo $this->formElementErrors($form->get('name')); ?>
-            </dd>
+            </div>
 
-            <dt><?php echo $this->formLabel($form->get('description')); ?></dt>
-            <dd>
-                <?php echo $this->formTextarea($form->get('description')); ?>
+            <div>
+                <?php echo $this->formLabel($form->get('description')); ?>
+                <?php echo $this->formTextarea($form->get('description')->setAttribute('class', 'span6')); ?>
                 <?php echo $this->formElementErrors($form->get('description')); ?>
-            </dd>
-        </dl>
+            </div>
+
+            <div class="form-actions">
+                <?php echo $this->formSubmit($form->get('save')->setAttribute('class', 'btn btn-success')); ?>
+            </div>
+            <?php echo $this->form()->closeTag(); ?>
+        </div>
     </div>
-
-    <hr class="grid_24" />
-
-    <div class="grid_24 tar">
-        <?php echo $this->formSubmit($form->get('save')->setAttribute('class', 'button positive')); ?>
-    </div>
-
-<?php echo $this->form()->closeTag(); ?>
+</div>

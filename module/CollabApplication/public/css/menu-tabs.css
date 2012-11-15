@@ -6,6 +6,7 @@
     border: 1px solid #EAEAEA;
     border-radius: 5px;
     list-style-type: none;
+    margin: 0px;
 }
 
 #menu-tabs li {
@@ -39,10 +40,12 @@
     border-radius: 5px 5px 0 0;
     border-right: 1px solid rgba(0, 0, 0, 0.04);
     color: #777;
+    font-size: 12px;
     font-weight: bold;
     line-height: 35px;
     display: block;
     text-align: center;
+    text-decoration: none;
 }
 
 #menu-tabs li.active a, #menu-tabs a:hover {

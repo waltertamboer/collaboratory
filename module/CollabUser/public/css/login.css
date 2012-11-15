@@ -1,0 +1,78 @@
+body {
+    background: url(../../img/body-bg.png);
+    color:#838383;
+    font: 13px/1.7em 'Open Sans';
+}
+
+.account-container {
+    background: #F9F9F9;
+    border: 1px solid #D5D5D5;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    box-shadow: 0 0 5px #DADADA, 0 0 0 #E6E6E6 inset;
+    display: block;
+    margin: 100px auto 0 auto;
+    width: 380px;
+}
+
+.account-container h1 {
+    margin-bottom: .4em;
+    color: #f90;
+}
+
+.content {
+    padding: 16px 28px 0px 23px;
+}
+
+.login-fields .field {
+    margin-bottom: 1.25em;
+}
+
+.login-fields label {
+    display: none;
+}
+
+.login-fields input {
+    background-color: #fdfdfd;
+    box-shadow: inset 2px 2px 4px #f1f1f1;
+    color: #8e8d8d;
+    display: block;
+    font-family: 'Open Sans';
+    font-size: 13px;
+    margin: 0;
+    padding: 9px 15px 8px 50px;
+    width: 255px;
+}
+
+.identity-field { background: url(../../user/img/identity.png) no-repeat; }
+.credential-field { background: url(../../user/img/credential.png) no-repeat; }
+
+.login-actions {
+    float: left;
+    margin-bottom: 1.25em;
+    width: 100%;
+}
+
+.button {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    display: inline-block;
+    float: right;
+}
+
+@media (max-width: 480px) {
+    .account-container {
+        margin-top: 35px;
+        width: 280px;
+    }
+
+    .login-fields input {
+        width: 160px;
+    }
+
+    .login-social {
+        width: 100%;
+    }
+}

@@ -15,6 +15,9 @@ return array(
         'resolver_configs' => array(
             'map' => array(
                 'js/user.js' => __DIR__ . '/../public/js/user.js',
+                'user/css/login.css' => __DIR__ . '/../public/css/login.css',
+                'user/img/identity.png' => __DIR__ . '/../public/img/identity.png',
+                'user/img/credential.png' => __DIR__ . '/../public/img/credential.png',
             ),
         ),
     ),
