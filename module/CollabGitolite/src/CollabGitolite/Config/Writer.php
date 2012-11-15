@@ -8,24 +8,25 @@
  * @package   Collaboratory
  */
 
-namespace CollabApplication\Entity;
+namespace CollabGitolite\Config;
 
-class Event
+class Writer
 {
-    private $id;
-    private $projectId;
-    private $userId;
-    private $action;
-    private $happenedOn;
-
-    public function getId()
+    public function create(Config $config)
     {
-        return $this->id;
+        $content = '';
+        foreach ($config->getRepositories() as $repository) {
+            $content .= 'repo ' . $repository->getName() . '' . PHP_EOL;
+        }
+        return $content;
     }
 
-    public function setId($id)
+    public function save($path, Config $config)
     {
-        $this->id = $id;
+        $content = $this->create($config);
+
+        //file_put_contents($path);
+
         return $this;
     }
 }

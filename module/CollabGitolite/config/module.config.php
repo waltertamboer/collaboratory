@@ -8,24 +8,12 @@
  * @package   Collaboratory
  */
 
-namespace CollabApplication\Entity;
+namespace CollabGitolite;
 
-class Event
-{
-    private $id;
-    private $projectId;
-    private $userId;
-    private $action;
-    private $happenedOn;
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
-}
+return array(
+    'service_manager' => array(
+        'invokables' => array(
+            'collabgitolite.service' => 'CollabGitolite\Service\GitoliteService'
+        ),
+    ),
+);

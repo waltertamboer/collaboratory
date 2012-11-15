@@ -18,6 +18,7 @@ return array(
         'CollabBootstrap',
         'CollabCalendar',
         'CollabCalendarDoctrineORM',
+        'CollabGitolite',
         'CollabIssue',
         'CollabIssueDoctrineORM',
         'CollabProject',

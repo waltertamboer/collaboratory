@@ -8,24 +8,23 @@
  * @package   Collaboratory
  */
 
-namespace CollabApplication\Entity;
+namespace CollabGitolite\Entity;
 
-class Event
+/**
+ * An access level.
+ */
+class Access
 {
-    private $id;
-    private $projectId;
-    private $userId;
-    private $action;
-    private $happenedOn;
+    private $permission;
 
-    public function getId()
+    public function getPermission()
     {
-        return $this->id;
+        return $this->permission;
     }
 
-    public function setId($id)
+    public function setPermission($permission)
     {
-        $this->id = $id;
+        $this->permission = $permission;
         return $this;
     }
 }
