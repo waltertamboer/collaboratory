@@ -93,7 +93,7 @@ class Module
             $action = $routeMatch->getParam('action');
 
             if ($controller == 'CollabUser\Controller\UserController' && $action == 'login' || $action == 'logout') {
-                $e->getTarget()->layout('layout/guest');
+                $e->getTarget()->layout('layout/empty');
             }
         }, 100);
     }
