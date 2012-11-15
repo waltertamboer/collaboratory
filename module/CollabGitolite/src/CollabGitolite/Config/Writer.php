@@ -17,6 +17,7 @@ class Writer
         $content = '';
         foreach ($config->getRepositories() as $repository) {
             $content .= 'repo ' . $repository->getName() . '' . PHP_EOL;
+            
         }
         return $content;
     }
