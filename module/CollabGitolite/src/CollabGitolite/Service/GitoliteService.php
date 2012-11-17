@@ -29,7 +29,42 @@ class GitoliteService implements ServiceManagerAwareInterface
     private function execute($command)
     {
         set_time_limit(0);
-        echo exec($command);
+        ignore_user_abort(true);
+
+        echo '<pre>';
+
+        $specs = array(
+            '0' => array('pipe', 'r'),
+            '1' => array('pipe', 'w'),
+            '2' => array('pipe', 'w'),
+        );
+
+        $cwd = __DIR__;
+
+        $handle = proc_open($command, $specs, $pipes, $cwd);
+        if ($handle) {
+            var_dump($handle);
+            stream_set_blocking($pipes[1], 0);
+            stream_set_blocking($pipes[2], 0);
+
+            do {
+                $status = proc_get_status($handle);
+            } while ($status['running']);
+
+            if (true) {
+                echo stream_get_contents($pipes[1]);
+                echo stream_get_contents($pipes[2]);
+            }
+
+            fclose($pipes[0]);
+            fclose($pipes[1]);
+            fclose($pipes[2]);
+
+            $exitCode = proc_close($handle);
+            echo '<p>Exit code: ' . $exitCode . '</p>';
+        } else {
+            echo 'No Handle!';
+        }
     }
 
     public function pull()
@@ -45,9 +80,6 @@ class GitoliteService implements ServiceManagerAwareInterface
             $this->execute('git clone ' . $remoteDir . ' ' . $localDir);
         }
     }
-
-
-
 
     private $config;
 
