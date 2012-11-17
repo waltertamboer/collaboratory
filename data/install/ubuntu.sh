@@ -45,7 +45,7 @@ sudo adduser --disabled-login --gecos 'collaboratory system' collaboratory
 # The next step is very important. Gitolite expects a SSH key of the administrator
 # and since we're using Collaboratory to manage the Git repositories, we need to
 # create one.
-sudo -H -u git ssh-keygen -q -N '' -t rsa -f /home/collaboratory/.ssh/id_rsa
+sudo -H -u collaboratory ssh-keygen -q -N '' -t rsa -f /home/collaboratory/.ssh/id_rsa
 
 # The next step is to actually install Gitolite. This needs to be done under the git user:
 cd /home/git
