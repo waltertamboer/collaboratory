@@ -34,7 +34,7 @@ sudo service mysql start
 # The package have been installed. During the installation the user was asked to
 # set the root password for MySQL, we need it for our instllation so let's ask him:
 while true; do
-    read -p "What is the MySQL root password? " MYSQL_COLLAB_ROOT_PASS
+    read "What is the MySQL root password? " MYSQL_COLLAB_ROOT_PASS
     if [ "$MYSQL_COLLAB_ROOT_PASS" != "" ]; then
         break;
     fi
