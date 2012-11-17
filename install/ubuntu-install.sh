@@ -24,18 +24,8 @@ sudo apt-get upgrade
 # PHP; We at least need PHP 5.3.3 to run Zend Framework 2.
 # MySQL; The application settings of Collaboratory are saved in a MySQL database.
 # Postfix; we need to send mails from within Collaboratory.
-sudo apt-get install -y git git-core subversion apache2 mysql-server php5 php5-mysql postfix
-
-# The package have been installed. During the installation the user was asked to
-# set the root password for MySQL, we need it for our instllation so let's ask him:
-while true; do
-    echo "What is the MySQL root password? "
-    read MYSQL_COLLAB_ROOT_PASS
-    if [ "$MYSQL_COLLAB_ROOT_PASS" != "" ]; then
-        break;
-    fi
-    echo "Please enter your MySQL root password."
-done
+# OpenSSH Server; we want users to connecto over SSH.
+sudo apt-get install -y git git-core subversion apache2 mysql-server php5 php5-mysql postfix openssh-server
 
 # People will be able to clone repositories with their own public keys. Gitolite
 # handles that for us. To do that we need to create a single which Gitolite will
@@ -85,18 +75,6 @@ sudo rm -rf /tmp/gitolite-admin
 # It's now time to install Collaboratory:
 cd /home/collaboratory
 sudo -H -u collaboratory git clone https://github.com/nextphp/collaboratory.git collaboratory
-
-# Copy over the database configuration file and set the correct values:
-cp collaboratory/config/doctrine_orm.production.php.dist collaboratory/config/doctrine_orm.production.php
-sed -i "s/collaboratory-database/$MYSQL_COLLAB_DATABASE/g" collaboratory/config/doctrine_orm.production.php
-sed -i "s/collaboratory-username/$MYSQL_COLLAB_USERNAME/g" collaboratory/config/doctrine_orm.production.php
-sed -i "s/collaboratory-password/$MYSQL_COLLAB_PASSWORD/g" collaboratory/config/doctrine_orm.production.php
-
-# Now actually create the MySQL database and user:
-mysql -u root -p$MYSQL_COLLAB_ROOT_PASS -e "CREATE DATABASE IF NOT EXISTS `$MYSQL_COLLAB_DATABASE` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_unicode_ci`;"
-mysql -u root -p$MYSQL_COLLAB_ROOT_PASS -e "CREATE USER '$MYSQL_COLLAB_USERNAME'@'localhost' IDENTIFIED BY '$MYSQL_COLLAB_PASSWORD';"
-mysql -u root -p$MYSQL_COLLAB_ROOT_PASS -e "GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER ON `$MYSQL_COLLAB_DATABASE`.* TO '$MYSQL_COLLAB_USERNAME'@'localhost';"
-mysql -u root -p$MYSQL_COLLAB_ROOT_PASS -e "FLUSH PRIVILEGES;"
 
 # We're done now. Step 2 of the installation is done through the webbrowser. Enjoy!
 IP_ADDRESS=`ifconfig | awk -F':' '/inet addr/&&!/127.0.0.1/{split($2,_," ");print _[1]}'`
