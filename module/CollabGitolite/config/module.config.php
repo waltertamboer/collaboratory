@@ -14,7 +14,7 @@ return array(
     'collaboratory' => array(
         'gitolite' => array(
             'tmp_path' => '/tmp/gitolite-admin',
-            'repository' => 'git@192.168.192.12:gitolite-admin.git',
+            'repository' => 'git@localhost:gitolite-admin.git',
         ),
     ),
     'service_manager' => array(

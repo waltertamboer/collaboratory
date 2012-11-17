@@ -14,6 +14,7 @@ use CollabGitolite\Config\Config;
 use CollabGitolite\Entity\User;
 use CollabGitolite\Entity\Group;
 use CollabGitolite\Entity\Repository;
+use CollabGitolite\Process\Process;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
 
