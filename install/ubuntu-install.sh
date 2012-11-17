@@ -7,15 +7,6 @@
 # First off, we exit when there is an error
 set -e
 
-# A function that starts a service:
-startService() {
-    if [[ `sudo service $1 status | grep running ` -eq 0 ]]; then
-        sudo service $1 stop
-    fi
-
-    sudo service $1 start
-}
-
 # The parameters that are used in the script:
 MYSQL_COLLAB_DATABASE="collaboratory"
 MYSQL_COLLAB_USERNAME="collaboratory"
@@ -36,9 +27,9 @@ sudo apt-get upgrade
 sudo apt-get install -y git git-core subversion apache2 mysql-server php5 php5-mysql postfix
 
 # Start the services:
-startService apache2
-startService mysql
-startService postfix
+sudo service apache2 start
+sudo service postfix start
+sudo service mysql start
 
 # The package have been installed. During the installation the user was asked to
 # set the root password for MySQL, we need it for our instllation so let's ask him:
