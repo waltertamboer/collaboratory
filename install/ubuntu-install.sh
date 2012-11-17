@@ -45,7 +45,7 @@ sudo adduser --disabled-login --gecos 'collaboratory system' collaboratory
 # The next step is very important. Gitolite expects a SSH key of the administrator
 # and since we're using Collaboratory to manage the Git repositories, we need to
 # create one.
-sudo -H -u collaboratory ssh-keygen -q -N '' -t rsa -f /home/collaboratory/.ssh/id_rsa
+sudo -H -u git ssh-keygen -q -N '' -t rsa -f /home/collaboratory/.ssh/id_rsa
 
 # The next step is to actually install Gitolite. This needs to be done under the git user:
 cd /home/git
@@ -76,6 +76,31 @@ sudo rm -rf /tmp/gitolite-admin
 cd /home/collaboratory
 sudo -H -u collaboratory git clone https://github.com/nextphp/collaboratory.git collaboratory
 
-# We're done now. Step 2 of the installation is done through the webbrowser. Enjoy!
+# Collaboratory uses Composer to install its dependencies, let's do so:
+cd collaboratory
+sudo -H -u collaboratory php composer.phar install
+
+# The IP address that should be used to browse to:
 IP_ADDRESS=`ifconfig | awk -F':' '/inet addr/&&!/127.0.0.1/{split($2,_," ");print _[1]}'`
+
+# Add a new virtual host so that apache can find Collaboratory:
+# todo
+echo "<virtualhost *:80>
+    # Server information:
+    ServerName $IP_ADDRESS
+
+    # The document index:
+    DirectoryIndex index.php
+    DocumentRoot /home/collaboratory/collaboratory/public
+
+    # Log information:
+    LogLevel warn
+    ErrorLog  /home/collaboratory/collaboratory/logs/error.log
+    CustomLog /home/collaboratory/collaboratory/logs/access.log combined
+</virtualhost>" > /etc/apache2/sites-available/collaboratory
+
+# Enable the new virtual host:
+sudo a2ensite collaboratory
+
+# We're done now. Step 2 of the installation is done through the webbrowser. Enjoy!
 echo "Installation was successful. Please visit http://$IP_ADDRESS"
