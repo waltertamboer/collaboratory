@@ -28,7 +28,7 @@ sudo apt-get install -y git git-core subversion apache2 mysql-server php5 php5-m
 
 # Start the services:
 sudo service apache2 start
-sudo service mysqld start
+sudo service mysql start
 sudo service postfix start
 
 # The package have been installed. During the installation the user was asked to
