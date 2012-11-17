@@ -19,7 +19,7 @@ sudo apt-get upgrade
 # MySQL; The application settings of Collaboratory are saved in a MySQL database.
 # Nginx; we need a web server, Nginx is perfect for us.
 # Postfix; we need to send mails.
-sudo apt-get install -y git git-core subversion nginx php5 mysql-server
+sudo apt-get install -y git git-core subversion nginx mysql-server php5 php5-mysql
 
 # People will be able to clone repositories with their own public keys. Gitolite
 # handles that for us. To do that we need to create a single which Gitolite will
