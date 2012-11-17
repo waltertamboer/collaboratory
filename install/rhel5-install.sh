@@ -68,7 +68,7 @@ su - $CL_GIT_USER -c "gitolite setup -pk ~/.ssh/id_rsa.pub"
 
 # Install Collaboratory:
 rm -rf $CL_ROOT_PATH
-git clone git://github.com/nextphp/collaboratory.git -b $CL_GITHUB_BRANCH $CL_ROOT_PATH
+git clone git://github.com/pixelpolishers/collaboratory.git -b $CL_GITHUB_BRANCH $CL_ROOT_PATH
 
 # Make sure that the group "git" is part of "apache":
 usermod -G $CL_GIT_USER apache
