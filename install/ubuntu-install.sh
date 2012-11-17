@@ -82,7 +82,10 @@ sed -i "s/collaboratory-username/$MYSQL_COLLAB_USERNAME/g" collaboratory/config/
 sed -i "s/collaboratory-password/$MYSQL_COLLAB_PASSWORD/g" collaboratory/config/doctrine_orm.production.php
 
 # Now actually create the MySQL database and user:
-echo "CREATE DATABASE IF NOT EXISTS `$MYSQL_COLLAB_DATABASE` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_unicode_ci`; CREATE USER '$MYSQL_COLLAB_USERNAME'@'localhost' IDENTIFIED BY '$MYSQL_COLLAB_PASSWORD'; FLUSH PRIVILEGES;" | mysql -u root -proot
+mysql -u root -proot -e "CREATE DATABASE IF NOT EXISTS `$MYSQL_COLLAB_DATABASE` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_unicode_ci`;"
+mysql -u root -proot -e "CREATE USER '$MYSQL_COLLAB_USERNAME'@'localhost' IDENTIFIED BY '$MYSQL_COLLAB_PASSWORD';"
+mysql -u root -proot -e "GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER ON `$MYSQL_COLLAB_DATABASE`.* TO '$MYSQL_COLLAB_USERNAME'@'localhost';"
+mysql -u root -proot -e "FLUSH PRIVILEGES;"
 
 # We're done now. Step 2 of the installation is done through the webbrowser. Enjoy!
 IP_ADDRESS=`ifconfig | awk -F':' '/inet addr/&&!/127.0.0.1/{split($2,_," ");print _[1]}'`
