@@ -93,7 +93,7 @@ echo "<virtualhost *:80>
     DocumentRoot /home/collaboratory/collaboratory/public
 
     # PHP settings:
-    php_value error_reporting
+    php_value error_reporting 32767
     php_flag display_errors on
     php_flag display_startup_errors on
 
