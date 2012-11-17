@@ -106,7 +106,7 @@ echo "<virtualhost *:80>
 # Enable the new virtual host:
 sudo a2ensite collaboratory
 sudo a2enmod rewrite
-sudo service apache2 reload
+sudo service apache2 restart
 
 # We're done now. Step 2 of the installation is done through the webbrowser. Enjoy!
 echo "Installation was successful. Please visit http://$IP_ADDRESS"
