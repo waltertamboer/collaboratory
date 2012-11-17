@@ -8,8 +8,7 @@
 set -e
 
 # A function that starts a service:
-function startService()
-{
+startService() {
     if [[ `sudo service $1 status | grep running ` -eq 0 ]]; then
         sudo service $1 stop
     fi
