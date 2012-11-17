@@ -7,6 +7,11 @@
 # First off, we exit when there is an error
 set -e
 
+# The parameters that are used in the script:
+MYSQL_COLLAB_DATABASE="collaboratory"
+MYSQL_COLLAB_USERNAME="collaboratory"
+MYSQL_COLLAB_PASSWORD=$(cat /dev/urandom | tr -cd [:alnum:] | head -c ${1:-16})
+
 # We assume that the target machine is a clean machine. Before we start the
 # installation we make sure the machine is up-to-date:
 sudo apt-get update
@@ -65,6 +70,19 @@ sudo chown -R git:git /home/git/repositories/
 # Let's clone the admin repo of Gitolite so that our key gets recognized:
 sudo -H -u collaboratory git clone git@localhost:gitolite-admin.git /tmp/gitolite-admin
 sudo rm -rf /tmp/gitolite-admin
+
+# It's now time to install Collaboratory:
+cd /home/collaboratory
+sudo -H -u collaboratory git clone https://github.com/nextphp/collaboratory.git collaboratory
+
+# Copy over the database configuration file and set the correct values:
+cp collaboratory/config/doctrine_orm.production.php.dist collaboratory/config/doctrine_orm.production.php
+sed -i "s/collaboratory-database/$MYSQL_COLLAB_DATABASE/g" collaboratory/config/doctrine_orm.production.php
+sed -i "s/collaboratory-username/$MYSQL_COLLAB_USERNAME/g" collaboratory/config/doctrine_orm.production.php
+sed -i "s/collaboratory-password/$MYSQL_COLLAB_PASSWORD/g" collaboratory/config/doctrine_orm.production.php
+
+# Now actually create the MySQL database and user:
+echo "CREATE DATABASE IF NOT EXISTS `$MYSQL_COLLAB_DATABASE` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_unicode_ci`; CREATE USER '$MYSQL_COLLAB_USERNAME'@'localhost' IDENTIFIED BY '$MYSQL_COLLAB_PASSWORD'; FLUSH PRIVILEGES;" | mysql -u root -proot
 
 # We're done now. Step 2 of the installation is done through the webbrowser. Enjoy!
 IP_ADDRESS=`ifconfig | awk -F':' '/inet addr/&&!/127.0.0.1/{split($2,_," ");print _[1]}'`
