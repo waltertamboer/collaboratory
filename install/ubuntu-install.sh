@@ -92,6 +92,11 @@ echo "<virtualhost *:80>
     DirectoryIndex index.php
     DocumentRoot /home/collaboratory/collaboratory/public
 
+    # PHP settings:
+    php_value error_reporting
+    php_flag display_errors on
+    php_flag display_startup_errors on
+
     # Log information:
     LogLevel warn
     ErrorLog  /home/collaboratory/collaboratory/logs/error.log
@@ -100,6 +105,7 @@ echo "<virtualhost *:80>
 
 # Enable the new virtual host:
 sudo a2ensite collaboratory
+sudo a2enmod rewrite
 sudo service apache2 reload
 
 # We're done now. Step 2 of the installation is done through the webbrowser. Enjoy!
