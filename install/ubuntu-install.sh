@@ -26,11 +26,6 @@ sudo apt-get upgrade
 # Postfix; we need to send mails from within Collaboratory.
 sudo apt-get install -y git git-core subversion apache2 mysql-server php5 php5-mysql postfix
 
-# Start the services:
-sudo service apache2 start
-sudo service postfix start
-sudo service mysql start
-
 # The package have been installed. During the installation the user was asked to
 # set the root password for MySQL, we need it for our instllation so let's ask him:
 while true; do
