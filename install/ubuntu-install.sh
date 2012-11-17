@@ -27,9 +27,9 @@ sudo apt-get upgrade
 sudo apt-get install -y git git-core subversion apache2 mysql-server php5 php5-mysql postfix
 
 # Start the services:
-service apache2 start
-service mysqld start
-service postfix start
+sudo service apache2 start
+sudo service mysqld start
+sudo service postfix start
 
 # The package have been installed. During the installation the user was asked to
 # set the root password for MySQL, we need it for our instllation so let's ask him:
