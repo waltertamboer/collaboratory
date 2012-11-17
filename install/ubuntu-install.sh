@@ -24,7 +24,17 @@ sudo apt-get upgrade
 # PHP; We at least need PHP 5.3.3 to run Zend Framework 2.
 # MySQL; The application settings of Collaboratory are saved in a MySQL database.
 # Postfix; we need to send mails from within Collaboratory.
-sudo apt-get install -y git git-core subversion apache2 mysql-server php5 php5-mysql
+sudo apt-get install -y git git-core subversion apache2 mysql-server php5 php5-mysql postfix
+
+# Make sure all the services start on system boot:
+chkconfig apache2 on
+chkconfig mysqld on
+chkconfig postfix on
+
+# Start the services:
+service apache2 start
+service mysqld start
+service postfix start
 
 # People will be able to clone repositories with their own public keys. Gitolite
 # handles that for us. To do that we need to create a single which Gitolite will
