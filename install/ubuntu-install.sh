@@ -15,11 +15,11 @@ sudo apt-get upgrade
 # Now we install all the needed packages. The following packages are needed:
 # Git; Collaboratory is able to manage git repositories.
 # Subversion; Collaboratory is able to manage subversion repositories.
+# Apache; we need a web server since we want to access Collaboratory through the web.
 # PHP; We at least need PHP 5.3.3 to run Zend Framework 2.
 # MySQL; The application settings of Collaboratory are saved in a MySQL database.
-# Nginx; we need a web server, Nginx is perfect for us.
-# Postfix; we need to send mails.
-sudo apt-get install -y git git-core subversion nginx mysql-server php5 php5-mysql
+# Postfix; we need to send mails from within Collaboratory.
+sudo apt-get install -y git git-core subversion apache2 mysql-server php5 php5-mysql
 
 # People will be able to clone repositories with their own public keys. Gitolite
 # handles that for us. To do that we need to create a single which Gitolite will
@@ -48,10 +48,23 @@ sudo -H -u git git clone git://github.com/sitaramc/gitolite.git /home/git/gitoli
 sudo -u git sh -c 'echo -e "PATH=\$PATH:/home/git/bin\nexport PATH" >> /home/git/.profile'
 sudo -u git sh -c 'gitolite/install -ln /home/git/bin'
 
+# Copy over the public key to the git home and then setup Gitolite:
+sudo cp /home/collaboratory/.ssh/id_rsa.pub /home/git/collaboratory.pub
+sudo chmod 0444 /home/git/collaboratory.pub
+sudo -u git -H sh -c "PATH=/home/git/bin:$PATH; gitolite setup -pk /home/git/collaboratory.pub"
+
 # We have two users now (git and collaboratory), we add them to each other's groups so
 # the system can easily manage each others directories:
 sudo usermod -a -G git collaboratory
 sudo usermod -a -G collaboratory git
+
+# Set up the permissions:
+sudo chmod -R g+rwX /home/git/repositories/
+sudo chown -R git:git /home/git/repositories/
+
+# Let's clone the admin repo of Gitolite so that our key gets recognized:
+sudo -H -u collaboratory git clone git@localhost:gitolite-admin.git /tmp/gitolite-admin
+sudo rm -rf /tmp/gitolite-admin
 
 # We're done now. Step 2 of the installation is done through the webbrowser. Enjoy!
 IP_ADDRESS=`ifconfig | awk -F':' '/inet addr/&&!/127.0.0.1/{split($2,_," ");print _[1]}'`
