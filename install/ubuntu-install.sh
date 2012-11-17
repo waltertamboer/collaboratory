@@ -84,7 +84,6 @@ sudo -H -u collaboratory php composer.phar install
 IP_ADDRESS=`ifconfig | awk -F':' '/inet addr/&&!/127.0.0.1/{split($2,_," ");print _[1]}'`
 
 # Add a new virtual host so that apache can find Collaboratory:
-# todo
 echo "<virtualhost *:80>
     # Server information:
     ServerName $IP_ADDRESS
@@ -97,10 +96,11 @@ echo "<virtualhost *:80>
     LogLevel warn
     ErrorLog  /home/collaboratory/collaboratory/logs/error.log
     CustomLog /home/collaboratory/collaboratory/logs/access.log combined
-</virtualhost>" > /etc/apache2/sites-available/collaboratory
+</virtualhost>" | sudo tee /etc/apache2/sites-available/collaboratory > /dev/null
 
 # Enable the new virtual host:
 sudo a2ensite collaboratory
+sudo service apache2 reload
 
 # We're done now. Step 2 of the installation is done through the webbrowser. Enjoy!
 echo "Installation was successful. Please visit http://$IP_ADDRESS"
