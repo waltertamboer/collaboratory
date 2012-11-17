@@ -25,7 +25,7 @@ sudo apt-get upgrade
 # MySQL; The application settings of Collaboratory are saved in a MySQL database.
 # Postfix; we need to send mails from within Collaboratory.
 # OpenSSH Server; we want users to connecto over SSH.
-sudo apt-get install -y git git-core subversion apache2 mysql-server php5 php5-mysql postfix openssh-server
+sudo apt-get install -y git git-core subversion apache2 mysql-server php5 php5-mysql php5-intl postfix openssh-server
 
 # People will be able to clone repositories with their own public keys. Gitolite
 # handles that for us. To do that we need to create a single which Gitolite will
