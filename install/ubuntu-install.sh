@@ -4,6 +4,9 @@
 # See http://pixelpolishers.com for more information.
 # Created by Walter Tamboer - Pixel Polishers
 
+# First off, we exit when there is an error
+set -e
+
 # We assume that the target machine is a clean machine. Before we start the
 # installation we make sure the machine is up-to-date:
 sudo apt-get update
@@ -15,7 +18,8 @@ sudo apt-get upgrade
 # PHP; We at least need PHP 5.3.3 to run Zend Framework 2.
 # MySQL; The application settings of Collaboratory are saved in a MySQL database.
 # Nginx; we need a web server, Nginx is perfect for us.
-sudo apt-get install git svn nginx php mysql
+# Postfix; we need to send mails.
+sudo apt-get install -y git git-core subversion nginx php5 mysql-server
 
 # People will be able to clone repositories with their own public keys. Gitolite
 # handles that for us. To do that we need to create a single which Gitolite will
@@ -51,4 +55,4 @@ sudo usermod -a -G collaboratory git
 
 # We're done now. Step 2 of the installation is done through the webbrowser. Enjoy!
 IP_ADDRESS=`ifconfig | awk -F':' '/inet addr/&&!/127.0.0.1/{split($2,_," ");print _[1]}'`
-echo "Installation was successful. Please visit http://$IP_ADDRESS to start using Collaboratory."
+echo "Installation was successful. Please visit http://$IP_ADDRESS"
