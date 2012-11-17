@@ -14,9 +14,41 @@ use CollabGitolite\Config\Config;
 use CollabGitolite\Entity\User;
 use CollabGitolite\Entity\Group;
 use CollabGitolite\Entity\Repository;
+use Zend\ServiceManager\ServiceManager;
+use Zend\ServiceManager\ServiceManagerAwareInterface;
 
-class GitoliteService
+class GitoliteService implements ServiceManagerAwareInterface
 {
+    private $serviceManager;
+
+    public function setServiceManager(ServiceManager $serviceManager)
+    {
+        $this->serviceManager = $serviceManager;
+    }
+
+    private function execute($command)
+    {
+        set_time_limit(0);
+        echo exec($command);
+    }
+
+    public function pull()
+    {
+        $config = $this->serviceManager->get('Config');
+
+        $localDir = $config['collaboratory']['gitolite']['tmp_path'];
+        $remoteDir = $config['collaboratory']['gitolite']['repository'];
+
+        if (is_dir($localDir)) {
+            $this->execute('git pull ' . $localDir);
+        } else {
+            $this->execute('git clone ' . $remoteDir . ' ' . $localDir);
+        }
+    }
+
+
+
+
     private $config;
 
     public function getConfig()

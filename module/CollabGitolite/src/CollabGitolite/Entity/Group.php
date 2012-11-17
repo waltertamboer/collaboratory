@@ -81,7 +81,6 @@ class Group
      */
     public function getUsers()
     {
-        $this->users[] = $user;
-        return $this;
+        return $this->users;
     }
 }

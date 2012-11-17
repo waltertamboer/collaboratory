@@ -11,6 +11,12 @@
 namespace CollabGitolite;
 
 return array(
+    'collaboratory' => array(
+        'gitolite' => array(
+            'tmp_path' => 'D:\gitolite-admin',
+            'repository' => 'git@192.168.192.12:gitolite-admin.git',
+        ),
+    ),
     'service_manager' => array(
         'invokables' => array(
             'collabgitolite.service' => 'CollabGitolite\Service\GitoliteService'

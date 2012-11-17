@@ -23,6 +23,13 @@ class Repository
     private $name;
 
     /**
+     * The options of this repository.
+     *
+     * @var string[]
+     */
+    private $options;
+
+    /**
      * The list with users that are related to this repository.
      *
      * @var User[]
@@ -35,6 +42,16 @@ class Repository
      * @var Group[]
      */
     private $groups;
+
+    /**
+     * Initializes a new instance of this class.
+     */
+    public function __construct()
+    {
+        $this->options = array();
+        $this->users = array();
+        $this->groups = array();
+    }
 
     /**
      * Gets the name of the repository.
@@ -59,26 +76,83 @@ class Repository
     }
 
     /**
+     * Gets the options of the repository.
+     *
+     * @return string[]
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
+     * Sets the option in the repository.
+     *
+     * @param string $name The name of the option to set.
+     * @param string $value The value of the option to set.
+     * @return Repository
+     */
+    public function setOption($name, $value)
+    {
+        $this->options[$name] = $value;
+        return $this;
+    }
+
+    /**
      * Adds the given user to this repository.
      *
      * @param User $user The user to add.
+     * @param Access $access The access that the user has.
      * @return Repository
      */
-    public function addUser(User $user)
+    public function addUser(User $user, Access $access)
     {
-        $this->users[$user->getUsername()] = $user;
+        $this->users[$user->getUsername()] = $access;
         return $this;
+    }
+
+    /**
+     * Gets the users that are related to this repository.
+     *
+     * @return User[]
+     */
+    public function getUsers()
+    {
+        return $this->users;
     }
 
     /**
      * Adds the given group to this repository.
      *
      * @param Group $group The group to add.
+     * @param Access $access The access that the group has.
      * @return Repository
      */
-    public function addGroup(Group $group)
+    public function addGroup(Group $group, Access $access)
     {
-        $this->groups[$group->getName()] = $group;
+        $this->groups[$group->getName()] = $access;
+        return $this;
+    }
+
+    /**
+     * Gets the groups that are related to this repository.
+     *
+     * @return Group[]
+     */
+    public function getGroups()
+    {
+        return $this->groups;
+    }
+
+    /**
+     * Sets the deny rules option.
+     *
+     * @param bool $denyRules Whether or not to deny the rules for this repository.
+     * @return Repository
+     */
+    public function setDenyRules($denyRules)
+    {
+        $this->setOption('deny-rules', $denyRules ? 1 : 0);
         return $this;
     }
 }
