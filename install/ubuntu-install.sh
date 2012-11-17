@@ -74,7 +74,7 @@ sudo rm -rf /tmp/gitolite-admin
 
 # It's now time to install Collaboratory:
 cd /home/collaboratory
-sudo -H -u collaboratory git clone https://github.com/nextphp/collaboratory.git collaboratory
+sudo -H -u collaboratory git clone https://github.com/pixelpolishers/collaboratory.git collaboratory
 
 # Collaboratory uses Composer to install its dependencies, let's do so:
 cd collaboratory
