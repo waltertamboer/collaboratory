@@ -26,15 +26,20 @@ sudo apt-get upgrade
 # Postfix; we need to send mails from within Collaboratory.
 sudo apt-get install -y git git-core subversion apache2 mysql-server php5 php5-mysql postfix
 
-# Make sure all the services start on system boot:
-chkconfig apache2 on
-chkconfig mysqld on
-chkconfig postfix on
-
 # Start the services:
 service apache2 start
 service mysqld start
 service postfix start
+
+# The package have been installed. During the installation the user was asked to
+# set the root password for MySQL, we need it for our instllation so let's ask him:
+while true; do
+    read -p "What is the MySQL root password? " MYSQL_COLLAB_ROOT_PASS
+    if [ "$MYSQL_COLLAB_ROOT_PASS" != "" ]; then
+        break;
+    fi
+    echo "Please enter your MySQL root password."
+done
 
 # People will be able to clone repositories with their own public keys. Gitolite
 # handles that for us. To do that we need to create a single which Gitolite will
@@ -92,10 +97,10 @@ sed -i "s/collaboratory-username/$MYSQL_COLLAB_USERNAME/g" collaboratory/config/
 sed -i "s/collaboratory-password/$MYSQL_COLLAB_PASSWORD/g" collaboratory/config/doctrine_orm.production.php
 
 # Now actually create the MySQL database and user:
-mysql -u root -proot -e "CREATE DATABASE IF NOT EXISTS `$MYSQL_COLLAB_DATABASE` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_unicode_ci`;"
-mysql -u root -proot -e "CREATE USER '$MYSQL_COLLAB_USERNAME'@'localhost' IDENTIFIED BY '$MYSQL_COLLAB_PASSWORD';"
-mysql -u root -proot -e "GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER ON `$MYSQL_COLLAB_DATABASE`.* TO '$MYSQL_COLLAB_USERNAME'@'localhost';"
-mysql -u root -proot -e "FLUSH PRIVILEGES;"
+mysql -u root -p$MYSQL_COLLAB_ROOT_PASS -e "CREATE DATABASE IF NOT EXISTS `$MYSQL_COLLAB_DATABASE` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_unicode_ci`;"
+mysql -u root -p$MYSQL_COLLAB_ROOT_PASS -e "CREATE USER '$MYSQL_COLLAB_USERNAME'@'localhost' IDENTIFIED BY '$MYSQL_COLLAB_PASSWORD';"
+mysql -u root -p$MYSQL_COLLAB_ROOT_PASS -e "GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER ON `$MYSQL_COLLAB_DATABASE`.* TO '$MYSQL_COLLAB_USERNAME'@'localhost';"
+mysql -u root -p$MYSQL_COLLAB_ROOT_PASS -e "FLUSH PRIVILEGES;"
 
 # We're done now. Step 2 of the installation is done through the webbrowser. Enjoy!
 IP_ADDRESS=`ifconfig | awk -F':' '/inet addr/&&!/127.0.0.1/{split($2,_," ");print _[1]}'`
