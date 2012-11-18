@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Create the logs directory so we can log this command:
+LOGS_DIR="/home/$USER/logs/git/$1/`date +%Y-%m-%d`"
+mkdir -p $LOGS_DIR
+
+# Create the log file:
+LOG_FILE="$LOGS_DIR/$1.log"
+
+# Log some information:
+echo "Date: `date`" >> $LOG_FILE
+echo "User: $USER" >> $LOG_FILE
+echo "Parameters: $@" >> $LOG_FILE
+echo "Connection: $SSH_CONNECTION" >> $LOG_FILE
+echo "Command: $SSH_ORIGINAL_COMMAND" >> $LOG_FILE
+
+# Parse the command:
+PARSED1=`echo "$SSH_ORIGINAL_COMMAND" | sed 's/\([^ ]*\).*/\1/g'`
+PARSED2=`echo "$SSH_ORIGINAL_COMMAND" | sed 's/[^ ]* \(.*\)/\1/g'`
+
+# Log the parsed parameters:
+echo "Parsed 1: $PARSED1" >> $LOG_FILE
+echo "Parsed 1: $PARSED2" >> $LOG_FILE
+
+# Execute the command:
+git shell -c "$PARSED1 $PARSED2"
+
+# Exit
+exit 0;
