@@ -37,11 +37,27 @@ sudo adduser \
 # Move to the new home directory:
 cd /home/git
 
+# Create the .ssh directory and authorized_keys file:
+sudo su - git mkdir /home/git/.ssh
+sudo su - git touch /home/git/.ssh/authorized_keys
+
 # Install Collaboratory in Git's home directory:
 sudo -H -u git git clone https://github.com/pixelpolishers/collaboratory.git /home/git
 
 # Collaboratory uses Composer to install its dependencies, let's do so:
 sudo -H -u git php composer.phar install
+
+# The .ssh directory should be writable:
+sudo chmod -R 0777 /home/git/.ssh
+
+# The shell should have executable rights:
+sudo chmod +x /home/git/data/shell/collaboratory-shell
+
+# The logs directory should be writable:
+sudo chmod -R 0666 /home/git/logs
+
+# The repositories directory should be writable as well:
+sudo chmod -R 0777 /home/git/data/repositories
 
 # The IP address that should be used to browse to:
 IP_ADDRESS=`ifconfig | awk -F':' '/inet addr/&&!/127.0.0.1/{split($2,_," ");print _[1]}'`
