@@ -97,4 +97,6 @@ echo "- Change the 'AllowUsers' value to 'AllowUsers $COLLABORATORY_GIT_USER'"
 echo "- Change the 'StrictModes' value to 'StrictModes no"
 echo "- Change the 'UsePAM' value to 'UsePAM no"
 echo
+echo "Don't forget to restart SSH: sudo service ssh restart"
+echo
 echo "When that is done, please visit http://$IP_ADDRESS"
