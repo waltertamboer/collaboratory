@@ -1,14 +1,16 @@
-#!/usr/bin/php
 <?php
 
 // Set the current timezone:
 date_default_timezone_set('Europe/Amsterdam');
 
-// The username that is active:
-$username = $_SERVER['argv'][1];
+// The parameters:
+$localUser = $_SERVER['argv'][1];
+$systemUser = $_SERVER['argv'][2];
+$sshOriginalCommand = $_SERVER['argv'][3];
+$sshConnection = $_SERVER['argv'][4];
 
 // The directory of today's logs:
-$logDirectory = '/home/' . $_SERVER['USER'] . '/logs/git/' . $username;
+$logDirectory = '/home/' . $systemUser . '/logs/git/' . $localUser;
 if (!is_dir($logDirectory)) {
 	mkdir($logDirectory, 0777, true);
 }
@@ -20,15 +22,14 @@ $logFile = $logDirectory . '/' . date('Y-m-d') . '.log';
 $f = fopen($logFile, 'a+');
 
 fwrite($f, 'Date: ' . date('Y-m-d H:i:s') . PHP_EOL);
-fwrite($f, 'System user: ' . $_SERVER['USER'] . PHP_EOL);
-fwrite($f, 'Local user: ' . $username . PHP_EOL);
-fwrite($f, 'Parameters: ' . implode(' ', $_SERVER['argv']) . PHP_EOL);
-fwrite($f, 'Connection: ' . $_SERVER['SSH_CONNECTION'] . PHP_EOL);
-fwrite($f, 'SSH Command: ' . $_SERVER['SSH_ORIGINAL_COMMAND'] . PHP_EOL);
+fwrite($f, 'System user: ' . $systemUser . PHP_EOL);
+fwrite($f, 'Local user: ' . $localUser . PHP_EOL);
+fwrite($f, 'Connection: ' . $sshConnection . PHP_EOL);
+fwrite($f, 'SSH Command: ' . $sshOriginalCommand . PHP_EOL);
 
-$sshCommand = $_SERVER['SSH_ORIGINAL_COMMAND'];
+$sshCommand = $sshOriginalCommand;
 
-if (preg_match("#^(git-upload-pack|git-receive-pack|git-upload-archive) '/?(.*?)(?:\.git(\d)?)?'$#i", $_SERVER['SSH_ORIGINAL_COMMAND'], $matches)) {
+if (preg_match("#^(git-upload-pack|git-receive-pack|git-upload-archive) '/?(.*?)(?:\.git(\d)?)?'$#i", $sshOriginalCommand, $matches)) {
 	$action = $matches[1];
 	$repository = $matches[2];
 	$traceLevel = isset($matches[3]) ? $matches[3] : '';
@@ -38,7 +39,7 @@ if (preg_match("#^(git-upload-pack|git-receive-pack|git-upload-archive) '/?(.*?)
 	fwrite($f, '- Trace level: ' . $traceLevel . PHP_EOL);
 
 	// Prefix the repository with the correct path:
-	$repository = '/home/' . $_SERVER['USER'] . '/data/repositories/' . $repository;
+	$repository = '/home/' . $systemUser . '/data/repositories/' . $repository;
 	$sshCommand = $action . " '" . $repository . "'";
 }
 
