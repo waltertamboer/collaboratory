@@ -43,4 +43,4 @@ if (preg_match("#^(git-upload-pack|git-receive-pack|git-upload-archive) '/?(.*?)
 fclose($f);
 
 // Output the shell command so it can be executed:
-echo 'git shell -c "' . $sshCommand . '"';
+echo $sshCommand;

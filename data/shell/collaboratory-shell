@@ -1,5 +1,9 @@
 #!/bin/bash
 
-`/usr/bin/php -f /home/$USER/data/shell/collaboratory-shell.php "$1"`
+RESULT="`/usr/bin/php -f /home/$USER/data/shell/collaboratory-shell.php \"$1\"`"
 
-exit 0;
+if [[ "$RESULT" =~ "git-upload-pack|git-receive-pack|git-upload-archive" ]]; then
+    git shell -c "$RESULT"
+else
+    echo "$RESULT" >&2
+fi
