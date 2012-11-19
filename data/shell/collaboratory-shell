@@ -9,7 +9,9 @@ $username = $_SERVER['argv'][1];
 
 // The directory of today's logs:
 $logDirectory = '/home/' . $_SERVER['USER'] . '/logs/git/' . $username;
-mkdir($logDirectory, 0777, true);
+if (!is_dir($logDirectory)) {
+	mkdir($logDirectory, 0777, true);
+}
 
 // The file to log to:
 $logFile = $logDirectory . '/' . date('Y-m-d') . '.log';
