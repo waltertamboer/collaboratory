@@ -7,6 +7,9 @@
 # First off, we exit when there is an error
 set -e
 
+# The git user that will be created:
+COLLABORATORY_GIT_USER="git"
+
 # We assume that the target machine is a clean machine. Before we start the
 # installation we make sure the machine is up-to-date:
 sudo apt-get update
@@ -31,33 +34,33 @@ sudo adduser \
     --gecos 'git version control' \
     --group \
     --disabled-password \
-    --home /home/git \
-    git
+    --home /home/$COLLABORATORY_GIT_USER \
+    $COLLABORATORY_GIT_USER
 
 # Move to the new home directory:
-cd /home/git
+cd /home/$COLLABORATORY_GIT_USER
 
 # Create the .ssh directory and authorized_keys file:
 sudo su - git mkdir /home/git/.ssh
 sudo su - git touch /home/git/.ssh/authorized_keys
 
 # Install Collaboratory in Git's home directory:
-sudo -H -u git git clone https://github.com/pixelpolishers/collaboratory.git /home/git
+sudo -H -u $COLLABORATORY_GIT_USER git clone https://github.com/pixelpolishers/collaboratory.git /home/$COLLABORATORY_GIT_USER
 
 # Collaboratory uses Composer to install its dependencies, let's do so:
-sudo -H -u git php composer.phar install
+sudo -H -u $COLLABORATORY_GIT_USER php composer.phar install
 
 # The .ssh directory should be writable:
-sudo chmod -R 0777 /home/git/.ssh
+sudo chmod -R 0777 /home/$COLLABORATORY_GIT_USER/.ssh
 
 # The shell should have executable rights:
-sudo chmod +x /home/git/data/shell/collaboratory-shell
+sudo chmod +x /home/$COLLABORATORY_GIT_USER/data/shell/collaboratory-shell
 
 # The logs directory should be writable:
-sudo chmod -R 0666 /home/git/logs
+sudo chmod -R 0666 /home/$COLLABORATORY_GIT_USER/logs
 
 # The repositories directory should be writable as well:
-sudo chmod -R 0777 /home/git/data/repositories
+sudo chmod -R 0777 /home/$COLLABORATORY_GIT_USER/data/repositories
 
 # The IP address that should be used to browse to:
 IP_ADDRESS=`ifconfig | awk -F':' '/inet addr/&&!/127.0.0.1/{split($2,_," ");print _[1]}'`
@@ -69,7 +72,7 @@ echo "<virtualhost *:80>
 
     # The document index:
     DirectoryIndex index.php
-    DocumentRoot /home/git/public
+    DocumentRoot /home/$COLLABORATORY_GIT_USER/public
 
     # PHP settings:
     php_value error_reporting 32767
@@ -78,8 +81,8 @@ echo "<virtualhost *:80>
 
     # Log information:
     LogLevel warn
-    ErrorLog  /home/git/logs/error.log
-    CustomLog /home/git/logs/access.log combined
+    ErrorLog  /home/$COLLABORATORY_GIT_USER/logs/error.log
+    CustomLog /home/$COLLABORATORY_GIT_USER/logs/access.log combined
 </virtualhost>" | sudo tee /etc/apache2/sites-available/collaboratory > /dev/null
 
 # Enable the new virtual host:
@@ -87,5 +90,13 @@ sudo a2ensite collaboratory
 sudo a2enmod rewrite
 sudo service apache2 restart
 
-# We're done now. Step 2 of the installation is done through the webbrowser. Enjoy!
-echo "Installation was successful. Please visit http://$IP_ADDRESS"
+# We're done now. Step 2 of the installation is done manually. Enjoy!
+echo
+echo "The setup of your system was successful but you're not done yet!"
+echo "Changes to sshd_config need to be made that we cannot and don't want to automate."
+echo
+echo "- Change the 'AllowUsers' value to 'AllowUsers $COLLABORATORY_GIT_USER'"
+echo "- Change the 'StrictModes' value to 'StrictModes no"
+echo "- Change the 'UsePAM' value to 'UsePAM no"
+echo
+echo "When that is done, please visit http://$IP_ADDRESS"
