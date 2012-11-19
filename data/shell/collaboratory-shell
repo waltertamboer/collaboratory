@@ -1,29 +1,33 @@
-#!/bin/bash
+#!/usr/bin/php
+<?php
 
-# Create the logs directory so we can log this command:
-LOGS_DIR="/home/$USER/logs/git/$1/`date +%Y-%m-%d`"
-mkdir -p $LOGS_DIR
+// Set the current timezone:
+date_default_timezone_set('Europe/Amsterdam');
 
-# Create the log file:
-LOG_FILE="$LOGS_DIR/$1.log"
+// The username that is active:
+$username = $_SERVER['argv'][1];
 
-# Log some information:
-echo "Date: `date`" >> $LOG_FILE
-echo "User: $USER" >> $LOG_FILE
-echo "Parameters: $@" >> $LOG_FILE
-echo "Connection: $SSH_CONNECTION" >> $LOG_FILE
-echo "Command: $SSH_ORIGINAL_COMMAND" >> $LOG_FILE
+// The directory of today's logs:
+$logDirectory = '/home/' . $_SERVER['USER'] . '/logs/git/' . $username;
+mkdir($logDirectory, 0777, true);
 
-# Parse the command:
-PARSED1=`echo "$SSH_ORIGINAL_COMMAND" | sed 's/\([^ ]*\).*/\1/g'`
-PARSED2=`echo "$SSH_ORIGINAL_COMMAND" | sed 's/[^ ]* \(.*\)/\1/g'`
+// The file to log to:
+$logFile = $logDirectory . '/' . date('Y-m-d') . '.log';
 
-# Log the parsed parameters:
-echo "Parsed 1: $PARSED1" >> $LOG_FILE
-echo "Parsed 1: $PARSED2" >> $LOG_FILE
+// Open the log file:
+$f = fopen($logFile, 'a+');
 
-# Execute the command:
-git shell -c "$PARSED1 $PARSED2"
+fwrite($f, 'Date: ' . date('Y-m-d H:i:s') . PHP_EOL);
+fwrite($f, 'System user: ' . $_SERVER['USER'] . PHP_EOL);
+fwrite($f, 'Local user: ' . $username . PHP_EOL);
+fwrite($f, 'Parameters: ' . implode(' ', $_SERVER['argv']) . PHP_EOL);
+fwrite($f, 'Connection: ' . $_SERVER['SSH_CONNECTION'] . PHP_EOL);
+fwrite($f, 'Command: ' . $_SERVER['SSH_ORIGINAL_COMMAND'] . PHP_EOL);
 
-# Exit
-exit 0;
+if (preg_match("/^git-upload-pack|git-receive-pack|git-upload-archive /?(.*?)(?:\.git(\d)?)?$/i", $_SERVER['SSH_ORIGINAL_COMMAND'], $matches)) {
+	fwrite($f, print_r($matches, true));
+}
+
+//git shell -c "$PARSED1 $PARSED2"
+
+fclose($f);
