@@ -8,28 +8,35 @@
  * @package   Collaboratory
  */
 
-namespace CollabGitolite\Config;
+namespace CollabScm\Config;
 
-use CollabGitolite\Entity\User;
-use CollabGitolite\Entity\Group;
-use CollabGitolite\Entity\Repository;
+use CollabScm\Entity\User;
+use CollabScm\Entity\Group;
+use CollabScm\Entity\Repository;
 
 class Config
 {
+    /**
+     * A list with regular expressions that match users.
+     *
+     * @var string[]
+     */
     private $users;
-    private $groups;
+
+    /**
+     * A list with regular expressions that match repositories.
+     *
+     * @var string[]
+     */
     private $repositories;
 
-    public function __construct($path = null)
+    /**
+     * Initializes a new instance of this class.
+     */
+    public function __construct()
     {
         $this->users = array();
-        $this->groups = array();
         $this->repositories = array();
-
-        if ($path) {
-            $reader = new Reader();
-            $reader->read($path, $this);
-        }
     }
 
     public function addUser(User $user)
@@ -45,21 +52,6 @@ class Config
     public function getUsers()
     {
         return $this->users;
-    }
-
-    public function addGroup(Group $group)
-    {
-        if (!$group->getName()) {
-            throw new \Exception('The group does not have a name.');
-        }
-
-        $this->groups[$group->getName()] = $group;
-        return $this;
-    }
-
-    public function getGroups()
-    {
-        return $this->groups;
     }
 
     public function addRepository(Repository $repository)
