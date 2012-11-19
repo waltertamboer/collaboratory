@@ -38,15 +38,12 @@ sudo adduser \
 # Move to the new home directory:
 cd /home/$COLLABORATORY_GIT_USER
 
-# Create the .ssh directory and authorized_keys file:
-sudo -H -u $COLLABORATORY_GIT_USER mkdir /home/$COLLABORATORY_GIT_USER/.ssh
-sudo -H -u $COLLABORATORY_GIT_USER touch /home/$COLLABORATORY_GIT_USER/.ssh/authorized_keys
-
 # Install Collaboratory in Git's home directory:
 sudo -H -u $COLLABORATORY_GIT_USER git clone https://github.com/pixelpolishers/collaboratory.git /home/$COLLABORATORY_GIT_USER
 
-# Collaboratory uses Composer to install its dependencies, let's do so:
-sudo -H -u $COLLABORATORY_GIT_USER php composer.phar install
+# Create the .ssh directory and authorized_keys file:
+sudo -H -u $COLLABORATORY_GIT_USER mkdir /home/$COLLABORATORY_GIT_USER/.ssh
+sudo -H -u $COLLABORATORY_GIT_USER touch /home/$COLLABORATORY_GIT_USER/.ssh/authorized_keys
 
 # The .ssh directory and authhorized_keys file should be writable:
 sudo chmod -R 0777 /home/$COLLABORATORY_GIT_USER/.ssh
@@ -59,6 +56,9 @@ sudo chmod -R 0666 /home/$COLLABORATORY_GIT_USER/logs
 
 # The repositories directory should be writable as well:
 sudo chmod -R 0777 /home/$COLLABORATORY_GIT_USER/data/repositories
+
+# Collaboratory uses Composer to install its dependencies, let's do so:
+sudo -H -u $COLLABORATORY_GIT_USER php composer.phar install
 
 # The IP address that should be used to browse to:
 IP_ADDRESS=`ifconfig | awk -F':' '/inet addr/&&!/127.0.0.1/{split($2,_," ");print _[1]}'`
@@ -91,8 +91,7 @@ sudo service apache2 restart
 # We're done now. Step 2 of the installation is done manually. Enjoy!
 echo
 echo "The setup of your system was successful but you're not done yet!"
-echo "Changes to sshd_config need to be made that we cannot and don't want to automate."
-echo
+echo "Changes to sshd_config need to be made that we cannot automate:"
 echo "- Change the 'AllowUsers' value to 'AllowUsers $COLLABORATORY_GIT_USER'"
 echo "- Change the 'StrictModes' value to 'StrictModes no"
 echo "- Change the 'UsePAM' value to 'UsePAM no"
