@@ -22,12 +22,21 @@ fwrite($f, 'System user: ' . $_SERVER['USER'] . PHP_EOL);
 fwrite($f, 'Local user: ' . $username . PHP_EOL);
 fwrite($f, 'Parameters: ' . implode(' ', $_SERVER['argv']) . PHP_EOL);
 fwrite($f, 'Connection: ' . $_SERVER['SSH_CONNECTION'] . PHP_EOL);
-fwrite($f, 'Command: ' . $_SERVER['SSH_ORIGINAL_COMMAND'] . PHP_EOL);
+fwrite($f, 'SSH Command: ' . $_SERVER['SSH_ORIGINAL_COMMAND'] . PHP_EOL);
 
-if (preg_match("/^git-upload-pack|git-receive-pack|git-upload-archive /?(.*?)(?:\.git(\d)?)?$/i", $_SERVER['SSH_ORIGINAL_COMMAND'], $matches)) {
-	fwrite($f, print_r($matches, true));
+$sshCommand = $_SERVER['SSH_ORIGINAL_COMMAND'];
+
+if (preg_match("#^(git-upload-pack|git-receive-pack|git-upload-archive) '/?(.*?)(?:\.git(\d)?)?'$#i", $_SERVER['SSH_ORIGINAL_COMMAND'], $matches)) {
+	fwrite($f, '- Action: ' . $matches[1]);
+	fwrite($f, '- Repository: ' . $matches[2]);
+	fwrite($f, '- Trace level: ' . isset($matches[3]) ? $matches[3] : '');
+
+	// Prefix the repository with the correct path:
+	$repository = '/home/' . $_SERVER['USER'] . '/data/repositories/' . $matches[2];
+	$sshCommand = $matches[1] . " '" . $repository . "'";
 }
 
-//git shell -c "$PARSED1 $PARSED2"
-
 fclose($f);
+
+// Output the shell command so it can be executed:
+echo 'git shell -c "' . $sshCommand . '"';
