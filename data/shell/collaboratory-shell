@@ -33,9 +33,9 @@ if (preg_match("#^(git-upload-pack|git-receive-pack|git-upload-archive) '/?(.*?)
 	$repository = $matches[2];
 	$traceLevel = isset($matches[3]) ? $matches[3] : '';
 
-	fwrite($f, '- Action: ' . $action);
-	fwrite($f, '- Repository: ' . $repository);
-	fwrite($f, '- Trace level: ' . $traceLevel);
+	fwrite($f, '- Action: ' . $action . PHP_EOL);
+	fwrite($f, '- Repository: ' . $repository . PHP_EOL);
+	fwrite($f, '- Trace level: ' . $traceLevel . PHP_EOL);
 
 	// Prefix the repository with the correct path:
 	$repository = '/home/' . $_SERVER['USER'] . '/data/repositories/' . $repository;
