@@ -39,8 +39,8 @@ sudo adduser \
 cd /home/$COLLABORATORY_GIT_USER
 
 # Create the .ssh directory and authorized_keys file:
-sudo su - $COLLABORATORY_GIT_USER mkdir /home/$COLLABORATORY_GIT_USER/.ssh
-sudo su - $COLLABORATORY_GIT_USER touch /home/$COLLABORATORY_GIT_USER/.ssh/authorized_keys
+sudo -H -u $COLLABORATORY_GIT_USER mkdir /home/$COLLABORATORY_GIT_USER/.ssh
+sudo -H -u $COLLABORATORY_GIT_USER touch /home/$COLLABORATORY_GIT_USER/.ssh/authorized_keys
 
 # Install Collaboratory in Git's home directory:
 sudo -H -u $COLLABORATORY_GIT_USER git clone https://github.com/pixelpolishers/collaboratory.git /home/$COLLABORATORY_GIT_USER
