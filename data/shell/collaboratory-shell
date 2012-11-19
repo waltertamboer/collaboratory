@@ -29,13 +29,17 @@ fwrite($f, 'SSH Command: ' . $_SERVER['SSH_ORIGINAL_COMMAND'] . PHP_EOL);
 $sshCommand = $_SERVER['SSH_ORIGINAL_COMMAND'];
 
 if (preg_match("#^(git-upload-pack|git-receive-pack|git-upload-archive) '/?(.*?)(?:\.git(\d)?)?'$#i", $_SERVER['SSH_ORIGINAL_COMMAND'], $matches)) {
-	fwrite($f, '- Action: ' . $matches[1]);
-	fwrite($f, '- Repository: ' . $matches[2]);
-	fwrite($f, '- Trace level: ' . isset($matches[3]) ? $matches[3] : '');
+	$action = $matches[1];
+	$repository = $matches[2];
+	$traceLevel = isset($matches[3]) ? $matches[3] : '';
+
+	fwrite($f, '- Action: ' . $action);
+	fwrite($f, '- Repository: ' . $repository);
+	fwrite($f, '- Trace level: ' . $traceLevel);
 
 	// Prefix the repository with the correct path:
-	$repository = '/home/' . $_SERVER['USER'] . '/data/repositories/' . $matches[2];
-	$sshCommand = $matches[1] . " '" . $repository . "'";
+	$repository = '/home/' . $_SERVER['USER'] . '/data/repositories/' . $repository;
+	$sshCommand = $action . " '" . $repository . "'";
 }
 
 fclose($f);
