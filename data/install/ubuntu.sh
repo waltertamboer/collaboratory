@@ -25,9 +25,7 @@ sudo apt-get upgrade
 # OpenSSH Server; we want users to connecto over SSH.
 sudo apt-get install -y git git-core subversion apache2 mysql-server php5 php5-mysql php5-intl postfix openssh-server
 
-# People will be able to clone repositories with their own public keys. Gitolite
-# handles that for us. To do that we need to create a single which Gitolite will
-# use to manage connections. We call this user "git".
+# People will be able to clone repositories with their own public keys using a single user:
 sudo adduser \
     --system \
     --shell /bin/sh \
@@ -41,8 +39,8 @@ sudo adduser \
 cd /home/$COLLABORATORY_GIT_USER
 
 # Create the .ssh directory and authorized_keys file:
-sudo su - git mkdir /home/git/.ssh
-sudo su - git touch /home/git/.ssh/authorized_keys
+sudo su - $COLLABORATORY_GIT_USER mkdir /home/$COLLABORATORY_GIT_USER/.ssh
+sudo su - $COLLABORATORY_GIT_USER touch /home/$COLLABORATORY_GIT_USER/.ssh/authorized_keys
 
 # Install Collaboratory in Git's home directory:
 sudo -H -u $COLLABORATORY_GIT_USER git clone https://github.com/pixelpolishers/collaboratory.git /home/$COLLABORATORY_GIT_USER
@@ -50,7 +48,7 @@ sudo -H -u $COLLABORATORY_GIT_USER git clone https://github.com/pixelpolishers/c
 # Collaboratory uses Composer to install its dependencies, let's do so:
 sudo -H -u $COLLABORATORY_GIT_USER php composer.phar install
 
-# The .ssh directory should be writable:
+# The .ssh directory and authhorized_keys file should be writable:
 sudo chmod -R 0777 /home/$COLLABORATORY_GIT_USER/.ssh
 
 # The shell should have executable rights:
