@@ -52,7 +52,7 @@ sudo chmod -R 0777 /home/$COLLABORATORY_GIT_USER/.ssh
 sudo chmod +x /home/$COLLABORATORY_GIT_USER/data/shell/collaboratory-shell
 
 # The logs directory should be writable:
-sudo chmod -R 0666 /home/$COLLABORATORY_GIT_USER/logs
+sudo chmod -R 0777 /home/$COLLABORATORY_GIT_USER/logs
 
 # The repositories directory should be writable as well:
 sudo chmod -R 0777 /home/$COLLABORATORY_GIT_USER/data/repositories
