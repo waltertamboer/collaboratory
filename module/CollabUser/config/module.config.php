@@ -24,6 +24,12 @@ return array(
                 'route' => 'account/overview',
             ),
         ),
+        'profile' => array(
+            'user/profile' => array(
+                'label' => 'Profile',
+                'route' => 'account/profile',
+            ),
+        ),
     ),
     'router' => array(
         'routes' => array(

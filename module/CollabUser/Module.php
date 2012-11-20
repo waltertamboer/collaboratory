@@ -86,14 +86,26 @@ class Module
     public function onBootstrap($e)
     {
         $eventManager = $e->getApplication()->getEventManager();
+
+        $sm = $e->getApplication()->getServiceManager();
+        $authService = $sm->get('collabuser.authservice');
+
         $sharedManager = $eventManager->getSharedManager();
-        $sharedManager->attach('Zend\Mvc\Controller\AbstractActionController', 'dispatch', function($e) {
+        $sharedManager->attach('Zend\Mvc\Controller\AbstractActionController', 'dispatch', function($e) use ($authService) {
             $routeMatch = $e->getRouteMatch();
             $controller = $routeMatch->getParam('controller');
             $action = $routeMatch->getParam('action');
 
-            if ($controller == 'CollabUser\Controller\UserController' && $action == 'login' || $action == 'logout') {
+            $identity = $authService->getIdentity();
+
+            $publicPages = array();
+            $publicPages['CollabUser\Controller\UserController'] = array('login', 'logout');
+
+            if (array_key_exists($controller, $publicPages) && in_array($action, $publicPages[$controller])) {
                 $e->getTarget()->layout('layout/empty');
+            } elseif (!$identity) {
+                $controller = $e->getTarget();
+                return $controller->redirect()->toRoute('user/login');
             }
         }, 100);
     }
