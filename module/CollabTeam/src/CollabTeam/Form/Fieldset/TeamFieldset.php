@@ -10,11 +10,11 @@
 
 namespace CollabTeam\Form\Fieldset;
 
-use CollabTeam\Entity\Team as TeamEntity;
 use Zend\InputFilter\InputFilterProviderInterface;
 use Zend\Form\Fieldset;
 use Zend\Form\Element\Collection;
 use Zend\Form\Element\MultiCheckbox;
+use Zend\Form\Element\Submit;
 use Zend\Form\Element\Text;
 use Zend\Form\Element\Textarea;
 use Zend\Stdlib\Hydrator\ClassMethods as ClassMethodsHydrator;
@@ -67,6 +67,11 @@ class TeamFieldset extends Fieldset implements InputFilterProviderInterface
             'type' => 'CollabTeam\Form\Fieldset\TeamProjectFieldset'
         ));
         $this->add($members);
+
+        $save = new Text('save');
+        $save->setLabel('Save');
+        $save->setValue('Save');
+        $this->add($save);
     }
 
     public function getInputFilterSpecification()

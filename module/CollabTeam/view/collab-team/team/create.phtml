@@ -6,83 +6,16 @@ $form = $this->form;
 $form->prepare();
 
 $teamFieldset = $form->get('team');
-?>
 
-<div id="menu-tabs" class="container">
-    <?php echo $this->navigation('navigation/main')->menu()->escapeLabels(false); ?>
-</div>
-
-<?php echo $this->form()->openTag($form->setAttribute('autocomplete', 'off')); ?>
-<div class="main-content container">
-    <div class="row">
-        <div class="span6">
-            <div>
-                <?php echo $this->formLabel($teamFieldset->get('name')); ?>
-                <?php echo $this->formText($teamFieldset->get('name')->setAttribute('class', 'span6')); ?>
-                <?php echo $this->formElementErrors($teamFieldset->get('name')); ?>
-                <div class="example" style="margin-top: 10px;">(e.g. Programmers, Concept Artists, Managers)</div>
-            </div>
-
-            <div>
-                <?php echo $this->formLabel($teamFieldset->get('description')); ?>
-                <?php echo $this->formTextarea($teamFieldset->get('description')->setAttribute('class', 'span6')); ?>
-                <?php echo $this->formElementErrors($teamFieldset->get('description')); ?>
-            </div>
-        </div>
-        <div class="span6">
-            <h2>Permissions</h2>
-
-            <?php echo $this->formMultiCheckbox($teamFieldset->get('permissions')); ?>
-        </div>
-    </div>
-    <div class="row">
-        <div class="span6" id="team-members-list">
-            <h2>Members</h2>
-
-            <ul class="small-list">
-                <?php foreach ($this->teamMembers as $member) { ?>
-                    <li>
-                        <input type="hidden" name="team[members][][id]" value="<?php echo $member->getId(); ?>" />
-                        <?php echo $this->userDisplayName($member); ?>
-                        <a href="" class="delete">(remove)</a>
-                    </li>
-                <?php } ?>
-            </ul>
-
-            <div class="form-add-box">
-                <input type="text" name="" value="" id="team-members-ajax" />
-                <button>Add</button>
-
-                <div class="clearfix"></div>
-            </div>
-        </div>
-        <div class="span6" id="team-projects-list">
-            <h2>Projects</h2>
-
-            <ul class="small-list">
-                <?php foreach ($this->teamProjects as $project) { ?>
-                    <li>
-                        <input type="hidden" name="team[projects][][id]" value="<?php echo $project->getId(); ?>" />
-                        <?php echo $project->getName(); ?>
-                        <a href="" class="delete">(remove)</a>
-                    </li>
-                <?php } ?>
-            </ul>
-
-            <div class="form-add-box">
-                <input type="text" name="" value="" id="team-projects-ajax" />
-                <button onclick="return false;">Add</button>
-
-                <div class="clearfix"></div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="span12">
-            <div class="form-actions">
-                <button type="submit" class="positive">Save</button>
-            </div>
-        </div>
-    </div>
-</div>
-<?php echo $this->form()->closeTag(); ?>
+echo $this->form()->openTag($form->setAttribute('autocomplete', 'off'));
+echo $this->formRow($teamFieldset->get('name'));
+echo $this->formRow($teamFieldset->get('description'));
+echo '<hr />';
+echo $this->formCollection($teamFieldset->get('members'));
+echo $this->formCollection($teamFieldset->get('projects'));
+echo '<hr />';
+echo $this->formMultiCheckbox($teamFieldset->get('permissions'));
+echo '<hr />';
+echo $this->formSubmit($teamFieldset->get('save'));
+echo '<a href="' . $this->url('team/overview') . '">Cancel</a>';
+echo $this->form()->closeTag();
