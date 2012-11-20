@@ -17,12 +17,9 @@ $logFile = $logDirectory . '/' . date('Y-m-d') . '.log';
 
 // Open the log file:
 $f = fopen($logFile, 'a+');
-
-fwrite($f, 'Date: ' . date('Y-m-d H:i:s') . PHP_EOL);
-fwrite($f, 'System user: ' . $_SERVER['USER'] . PHP_EOL);
-fwrite($f, 'Local user: ' . $username . PHP_EOL);
-fwrite($f, 'Connection: ' . $_SERVER['SSH_CONNECTION'] . PHP_EOL);
-fwrite($f, 'SSH Command: ' . $_SERVER['SSH_ORIGINAL_COMMAND'] . PHP_EOL);
+fwrite($f, '[' . date('Y-m-d H:i:s') . '][' . $_SERVER['USER'] . '][' . $username . '][' . $_SERVER['SSH_CONNECTION'] . '][' . $_SERVER['SSH_ORIGINAL_COMMAND'] . ']');
+fwrite($f, PHP_EOL);
+fclose($f);
 
 $sshCommand = $_SERVER['SSH_ORIGINAL_COMMAND'];
 
@@ -31,16 +28,12 @@ if (preg_match("#^(git-upload-pack|git-receive-pack|git-upload-archive) '/?(.*?)
 	$repository = $matches[2];
 	$traceLevel = isset($matches[3]) ? $matches[3] : '';
 
-	fwrite($f, '- Action: ' . $action . PHP_EOL);
-	fwrite($f, '- Repository: ' . $repository . PHP_EOL);
-	fwrite($f, '- Trace level: ' . $traceLevel . PHP_EOL);
-
 	// Prefix the repository with the correct path:
 	$repository = '/home/' . $_SERVER['USER'] . '/data/repositories/' . $repository;
-	$sshCommand = $action . " '" . $repository . "'";
+
+	// Output the shell command so it can be executed:
+	echo sprintf('git shell -c "%s \'%s\'"', $action, $repository);
+} else {
+	die('No repository found.');
 }
 
-fclose($f);
-
-// Output the shell command so it can be executed:
-echo 'git shell -c "' . $sshCommand . '"';
