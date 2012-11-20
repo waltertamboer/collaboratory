@@ -12,12 +12,15 @@ namespace CollabUser\Service;
 
 use CollabUser\Entity\User;
 use Zend\Crypt\Password\Bcrypt;
+use Zend\EventManager\EventManagerAwareInterface;
+use Zend\EventManager\EventManagerInterface;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
 
-class UserService implements ServiceManagerAwareInterface
+class UserService implements ServiceManagerAwareInterface, EventManagerAwareInterface
 {
     private $mapper;
+    private $eventManager;
     private $serviceManager;
 
     private function getMapper()
@@ -58,18 +61,52 @@ class UserService implements ServiceManagerAwareInterface
 
     public function persist(User $user)
     {
+        $oldKey = $key->getId() ? $this->findById($key->getId()) : null;
+
+        $eventArgsCreate = array('user' => $user);
+        $eventArgsUpdate = array('old' => $oldKey, 'new' => user);
+
+        if ($oldKey) {
+            $this->eventManager->trigger('collab.user.key.update.pre', $this, $eventArgsUpdate);
+        } else {
+            $this->eventManager->trigger('collab.user.key.create.pre', $this, $eventArgsCreate);
+        }
+
+        $this->eventManager->trigger('collab.user.key.persist.pre', $this, $eventArgsCreate);
         $this->getMapper()->persist($user);
+        $this->eventManager->trigger('collab.user.key.persist.post', $this, $eventArgsCreate);
+
+        if ($oldKey) {
+            $this->eventManager->trigger('collab.user.key.update.post', $this, $eventArgsUpdate);
+        } else {
+            $this->eventManager->trigger('collab.user.key.create.post', $this, $eventArgsCreate);
+        }
         return $this;
     }
 
     public function remove(User $user)
     {
+        $eventArgs = array('user' => $user);
+
+        $this->eventManager->trigger('collab.user.key.delete.pre', $this, $eventArgs);
         $this->getMapper()->remove($user);
+        $this->eventManager->trigger('collab.user.key.delete.post', $this, $eventArgs);
         return $this;
     }
 
     public function setServiceManager(ServiceManager $serviceManager)
     {
         $this->serviceManager = $serviceManager;
+    }
+
+    public function getEventManager()
+    {
+        return $this->eventManager;
+    }
+
+    public function setEventManager(EventManagerInterface $eventManager)
+    {
+        $this->eventManager = $eventManager;
+        return $this;
     }
 }
