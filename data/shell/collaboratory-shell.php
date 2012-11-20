@@ -32,7 +32,7 @@ if (preg_match("#^(git-upload-pack|git-receive-pack|git-upload-archive) '/?(.*?)
 	$repository = '/home/' . $_SERVER['USER'] . '/data/repositories/' . $repository;
 
 	// Output the shell command so it can be executed:
-	echo sprintf('git shell -c "%s \'%s\'"', $action, $repository);
+	echo $action . "'" . $repository . "'";
 } else {
 	die('No repository found.');
 }
