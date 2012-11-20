@@ -2,13 +2,13 @@
 
 Master: [![Build Status](https://secure.travis-ci.org/pixelpolishers/collaboratory.png?branch=master)](http://travis-ci.org/pixelpolishers/collaboratory)
 
-An open source application that enables software developers to manager their projects.
+An open source application that enables software developers and project managers to manager their projects.
 
 ## What is Collaboratory?
 
 Collaboratory is a project management package that helps project managers as well as developers to 
 manage and develop projects. By providing support for various software development methods, Collaboratory 
-tries is truly the ultimate Agile Software Development tool.
+is truly the ultimate Agile Software Development tool.
 
 ## Features
 
@@ -38,17 +38,26 @@ Collaboratory contains a lot of features. The most important ones:
 
 ## Installing
 
-To installation of Collaboratory exists out of 5 steps:
+Currently Collaboratory only works on Ubuntu. We assume you have a clean machine to work with.
+The installation of Collaboratory exists out of 3 steps:
 
-1. Install and update the needed packages
-2. Install [Gitolite](https://github.com/sitaramc/gitolite)
-3. Configure the system by creating the needed users.
-4. Install Collaboratory
-5. Access Collaboratory through the webbroser and finish the installation.
+### 1. Install Collaboratory
 
-To simplify these steps we have created an installation script that can be executed as follow:
+First run following script:
 
 `$ curl https://raw.github.com/pixelpolishers/collaboratory/master/data/install/ubuntu.sh | sh`
+
+This updates your system to the latest version and installs the needed packages such as Apache, MySQL and PHP.
+
+### 2. Manually configure SSH if needed.
+
+The installation script will finish and tells you to update some SSH settings, do this manually in
+
+`/etc/ssh/sshd_config`
+
+### 3. Access Collaboratory through the webbrowser and finish the installation.
+
+Last you need to configure Collaboratory. Here you will enter your database information and create your user account.
 
 ## Acknowledgements
 
