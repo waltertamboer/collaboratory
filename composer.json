@@ -5,7 +5,7 @@
         "php": ">=5.3.3",
         "zendframework/zend-developer-tools": "dev-master",
         "zendframework/zendframework": "dev-develop as 2.0.x-dev",
-        "doctrine/doctrine-orm-module": "0.*",
+        "doctrine/doctrine-orm-module": "0.*"
     },
     "autoload": {
         "psr-0": {
@@ -14,17 +14,17 @@
             "CollabBootstrap": "module/CollabBootstrap/src",
             "CollabCalendar": "module/CollabCalendar/src",
             "CollabCalendarDoctrineORM": "module/CollabCalendarDoctrineORM/src",
-            "CollabScm": "module/CollabScm/src",
             "CollabIssue": "module/CollabIssue/src",
             "CollabIssueDoctrineORM": "module/CollabIssueDoctrineORM/src",
             "CollabProject": "module/CollabProject/src",
             "CollabProjectDoctrineORM": "module/CollabProjectDoctrineORM/src",
+            "CollabScm": "module/CollabScm/src",
             "CollabSnippet": "module/CollabSnippet/src",
             "CollabSnippetDoctrineORM": "module/CollabSnippetDoctrineORM/src",
+            "CollabSsh": "module/CollabUser/src",
+            "CollabSshDoctrineORM": "module/CollabUserDoctrineORM/src",
             "CollabTeam": "module/CollabTeam/src",
             "CollabTeamDoctrineORM": "module/CollabTeamDoctrineORM/src",
-            "CollabTodo": "module/CollabTodo/src",
-            "CollabTodoDoctrineORM": "module/CollabTodoDoctrineORM/src",
             "CollabUser": "module/CollabUser/src",
             "CollabUserDoctrineORM": "module/CollabUserDoctrineORM/src"
         }

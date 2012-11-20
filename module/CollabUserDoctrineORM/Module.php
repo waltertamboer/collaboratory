@@ -10,6 +10,7 @@
 
 namespace CollabUserDoctrineORM;
 
+use CollabSshDoctrineORM\Mapper\KeysMapper;
 use CollabUserDoctrineORM\Mapper\UserMapper;
 use CollabUserDoctrineORM\Validator\UniqueIdentity;
 
@@ -28,6 +29,10 @@ class Module
                     $entityManager = $sm->get('doctrine.entitymanager.orm_default');
 
                     return new UniqueIdentity($entityManager);
+                },
+                'CollabSsh\Mapper\KeysMapper' => function($sm) {
+                    $entityManager = $sm->get('doctrine.entitymanager.orm_default');
+                    return new KeysMapper($entityManager);
                 },
                 'collabuser.usermapper' => function($sm) {
                     $entityManager = $sm->get('doctrine.entitymanager.orm_default');

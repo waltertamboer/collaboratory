@@ -8,13 +8,14 @@
  * @package   Collaboratory
  */
 
-namespace Application\Service;
+namespace CollabSsh\Service;
 
-use Application\Entity\SshKey;
+use CollabSsh\Entity\SshKey;
+use CollabUser\Entity\User;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
 
-class SshService implements ServiceManagerAwareInterface
+class KeysService implements ServiceManagerAwareInterface
 {
     private $mapper;
     private $serviceManager;
@@ -22,9 +23,24 @@ class SshService implements ServiceManagerAwareInterface
     private function getMapper()
     {
         if ($this->mapper === null) {
-            $this->mapper = $this->serviceManager->get('ssh.mapper');
+            $this->mapper = $this->serviceManager->get('CollabSsh\Mapper\KeysMapper');
         }
         return $this->mapper;
+    }
+
+    public function findAll()
+    {
+        return $this->getMapper()->findAll();
+    }
+
+    public function findById($id)
+    {
+        return $this->getMapper()->findById($id);
+    }
+
+    public function findForUser(User $user)
+    {
+        return $this->getMapper()->findForUser($user);
     }
 
     public function persist(SshKey $key)

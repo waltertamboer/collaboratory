@@ -8,22 +8,24 @@
  * @package   Collaboratory
  */
 
-namespace Application\Form;
+namespace CollabSsh\Form;
 
+use CollabSsh\InputFilter\SshKeyInputFilter;
 use Zend\Form\Element\Text;
 use Zend\Form\Element\Textarea;
 use Zend\Form\Element\Submit;
 use Zend\Form\Form;
 use Zend\Stdlib\Hydrator\ClassMethods as ClassMethodsHydrator;
 
-class AddSshForm extends Form
+class SshForm extends Form
 {
     public function __construct()
     {
-        parent::__construct('addSsh');
+        parent::__construct('sshkey');
 
-        $this->setAttribute('method', 'post')
-             ->setHydrator(new ClassMethodsHydrator(false));
+        $this->setAttribute('method', 'post');
+        $this->setHydrator(new ClassMethodsHydrator(false));
+        $this->setInputFilter(new SshKeyInputFilter());
 
         $name = new Text('name');
         $name->setLabel('Name');

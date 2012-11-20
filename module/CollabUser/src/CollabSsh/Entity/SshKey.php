@@ -8,7 +8,7 @@
  * @package   Collaboratory
  */
 
-namespace CollabUser\Entity;
+namespace CollabSsh\Entity;
 
 class SshKey
 {

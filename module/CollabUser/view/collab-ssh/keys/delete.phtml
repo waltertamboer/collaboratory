@@ -1,0 +1,12 @@
+<?php $this->headTitle('Delete SSH Key'); ?>
+
+<p>
+    Are you sure you want to delete the SSH key "<?php echo $this->sshKey->getName(); ?>"?
+</p>
+
+<?php
+
+echo $this->form()->openTag($form);
+echo $this->formSubmit($form->get('yes'));
+echo '<a href="' . $this->url('ssh/overview') . '">No</a>';
+echo $this->form()->closeTag();

@@ -8,12 +8,16 @@
  * @package   Collaboratory
  */
 
-namespace CollabUser\Mapper;
+namespace CollabSsh\Mapper;
 
-use CollabUser\Entity\SshKey;
+use CollabSsh\Entity\SshKey;
+use CollabUser\Entity\User;
 
-interface SshMapperInterface
+interface KeysMapperInterface
 {
+    public function findAll();
+    public function findById($id);
+    public function findForUser(User $user);
     public function persist(SshKey $key);
     public function remove(SshKey $key);
 }

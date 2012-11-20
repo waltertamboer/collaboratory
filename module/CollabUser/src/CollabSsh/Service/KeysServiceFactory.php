@@ -8,15 +8,15 @@
  * @package   Collaboratory
  */
 
-namespace Application\Service;
+namespace CollabSsh\Service;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class SshServiceFactory implements FactoryInterface
+class KeysServiceFactory implements FactoryInterface
 {
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return new SshService();
+        return new KeysService();
     }
 }

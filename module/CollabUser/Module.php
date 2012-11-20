@@ -50,6 +50,7 @@ class Module
                     return $service;
                 },
                 'collabuser.userservice' => 'CollabUser\Service\UserServiceFactory',
+                'CollabSsh\Service\KeysService' => 'CollabSsh\Service\KeysServiceFactory',
             ),
         );
     }

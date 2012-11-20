@@ -13,6 +13,7 @@ namespace CollabUser;
 return array(
     'controllers' => array(
         'invokables' => array(
+            'CollabSsh\Controller\KeysController' => 'CollabSsh\Controller\KeysController',
             'CollabUser\Controller\AccountController' => 'CollabUser\Controller\AccountController',
             'CollabUser\Controller\UserController' => 'CollabUser\Controller\UserController',
         ),
@@ -24,12 +25,6 @@ return array(
                 'route' => 'account/overview',
             ),
         ),
-        'profile' => array(
-            'user/profile' => array(
-                'label' => 'Profile',
-                'route' => 'account/profile',
-            ),
-        ),
     ),
     'router' => array(
         'routes' => array(
@@ -39,6 +34,61 @@ return array(
                     'route' => '/account',
                     'defaults' => array(
                         'controller' => 'CollabUser\Controller\AccountController',
+                        'action' => 'index',
+                    ),
+                ),
+                'may_terminate' => false,
+                'child_routes' => array(
+                    'overview' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => array(
+                            'route' => '/overview',
+                            'defaults' => array(
+                                'action' => 'index',
+                            ),
+                        ),
+                    ),
+                    'create' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => array(
+                            'route' => '/create',
+                            'defaults' => array(
+                                'action' => 'create',
+                            ),
+                        ),
+                    ),
+                    'update' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                        'options' => array(
+                            'route' => '/update/:id',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'action' => 'update',
+                            ),
+                        ),
+                    ),
+                    'delete' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                        'options' => array(
+                            'route' => '/delete/:id',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'action' => 'delete',
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+            'ssh' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/ssh',
+                    'defaults' => array(
+                        'controller' => 'CollabSsh\Controller\KeysController',
                         'action' => 'index',
                     ),
                 ),

@@ -20,7 +20,8 @@ return array(
             ),
             'orm_default' => array(
                 'drivers' => array(
-                    'CollabUser\Entity' => __NAMESPACE__
+                    'CollabSsh\Entity' => __NAMESPACE__,
+                    'CollabUser\Entity' => __NAMESPACE__,
                 )
             ),
         ),

@@ -1,14 +1,14 @@
 <?php $this->headTitle('Profile'); ?>
 
-<?php echo $this->navigation('navigation/profile')->menu(); ?>
-
 <ul>
     <li><a href="<?php echo $this->url('user/profile'); ?>">Profile</a></li>
+    <li><a href="<?php echo $this->url('ssh/overview'); ?>">SSH Keys</a></li>
 </ul>
 
 <hr />
 
 <?php
+
 echo $this->form()->openTag($form);
 echo $this->formRow($form->get('displayName'));
 echo $this->formSubmit($form->get('save'));

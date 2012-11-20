@@ -1,0 +1,25 @@
+<?php $this->headTitle('SSH Keys'); ?>
+
+<p><a href="<?php echo $this->url('ssh/create'); ?>">New Key</a></p>
+
+<?php if (count($keys)) { ?>
+    <ul>
+        <?php foreach ($keys as $sshKey) { ?>
+            <li>
+                <h2>
+                    <a href="<?php echo $this->url('ssh/update', array('id' => $sshKey->getId())); ?>">
+                        <?php echo $sshKey->getName(); ?>
+                    </a>
+                </h2>
+
+                <ul>
+                    <li><a href="<?php echo $this->url('ssh/delete', array('id' => $sshKey->getId())); ?>">Remove</a></li>
+                </ul>
+            </li>
+        <?php } ?>
+    </ul>
+<?php } else { ?>
+    <p>You don't have any SSH keys yet, would you like to add one?</p>
+<?php } ?>
+
+<p><a href="<?php echo $this->url('ssh/create'); ?>">New Key</a></p>

@@ -1,0 +1,13 @@
+<?php
+
+$this->headTitle('Add SSH Key');
+
+$form = $this->form;
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formRow($form->get('name'));
+echo $this->formRow($form->get('content'));
+echo $this->formSubmit($form->get('save'));
+echo '<a href="' . $this->url('ssh/overview') . '">Cancel</a>';
+echo $this->form()->closeTag();
