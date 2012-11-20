@@ -11,16 +11,6 @@
 namespace CollabUser;
 
 return array(
-    'asset_manager' => array(
-        'resolver_configs' => array(
-            'map' => array(
-                'js/user.js' => __DIR__ . '/../public/js/user.js',
-                'user/css/login.css' => __DIR__ . '/../public/css/login.css',
-                'user/img/identity.png' => __DIR__ . '/../public/img/identity.png',
-                'user/img/credential.png' => __DIR__ . '/../public/img/credential.png',
-            ),
-        ),
-    ),
     'controllers' => array(
         'invokables' => array(
             'CollabUser\Controller\AccountController' => 'CollabUser\Controller\AccountController',
@@ -109,15 +99,6 @@ return array(
                             'route' => '/profile',
                             'defaults' => array(
                                 'action' => 'profile',
-                            ),
-                        ),
-                    ),
-                    'ssh' => array(
-                        'type' => 'Zend\Mvc\Router\Http\Literal',
-                        'options' => array(
-                            'route' => '/ssh',
-                            'defaults' => array(
-                                'action' => 'ssh',
                             ),
                         ),
                     ),

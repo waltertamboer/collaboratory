@@ -12,7 +12,6 @@ return array(
     'modules' => array(
         'DoctrineModule',
         'DoctrineORMModule',
-        'AssetManager',
         'CollabApplication',
         'CollabApplicationDoctrineORM',
         'CollabCalendar',

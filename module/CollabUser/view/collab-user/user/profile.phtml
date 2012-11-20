@@ -1,35 +1,13 @@
 <?php $this->headTitle('Profile'); ?>
 
-<div class="main-content grid_6">
-    <div class="box">
-        <a class="title" href="<?php echo $this->url('user/profile'); ?>">
-            <?php echo $this->userAvatar(); ?>
-            <?php echo $this->userDisplayName(); ?>
-        </a>
-        <ul class="menu">
-            <li class="selected"><a href="<?php echo $this->url('user/profile'); ?>">Profile</a></li>
-            <li><a href="<?php echo $this->url('user/ssh'); ?>">SSH Keys</a></li>
-        </ul>
-    </div>
-</div>
+<ul>
+    <li><a href="<?php echo $this->url('user/profile'); ?>">Profile</a></li>
+</ul>
 
-<?php echo $this->form()->openTag($form); ?>
-<div class="main-content grid_17 push_1">
-    <div class="box">
-        <h3 class="title">Profile</h3>
-        <div class="content">
-            <dl>
-                <dt><?php echo $this->formLabel($form->get('displayName')); ?></dt>
-                <dd>
-                    <?php echo $this->formText($form->get('displayName')); ?>
-                    <?php echo $this->formElementErrors($form->get('displayName')); ?>
-                </dd>
-            </dl>
-        </div>
-    </div>
+<hr />
 
-    <div class="tar">
-        <?php echo $this->formSubmit($form->get('save')->setAttribute('class', 'button positive')); ?>
-    </div>
-</div>
-<?php echo $this->form()->closeTag(); ?>
+<?php
+echo $this->form()->openTag($form);
+echo $this->formRow($form->get('displayName'));
+echo $this->formSubmit($form->get('save'));
+echo $this->form()->closeTag();

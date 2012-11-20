@@ -11,32 +11,6 @@
 namespace CollabApplication;
 
 return array(
-    'asset_manager' => array(
-        'resolver_configs' => array(
-            'collections' => array(
-                'application/css/layout.css' => array(
-                    'application/css/base.css',
-                    'application/css/data-list.css',
-                    'application/css/forms.css',
-                    'application/css/menu-tabs.css',
-                    'application/css/news.css',
-                    'application/css/tips.css',
-                ),
-                'application/css/layout-responsive.css' => array(
-                    'application/css/base-responsive.css',
-                ),
-            ),
-            'map' => array(
-                'application/css/base.css' => __DIR__ . '/../public/css/base.css',
-                'application/css/base-responsive.css' => __DIR__ . '/../public/css/base-responsive.css',
-                'application/css/data-list.css' => __DIR__ . '/../public/css/data-list.css',
-                'application/css/forms.css' => __DIR__ . '/../public/css/forms.css',
-                'application/css/menu-tabs.css' => __DIR__ . '/../public/css/menu-tabs.css',
-                'application/css/news.css' => __DIR__ . '/../public/css/news.css',
-                'application/css/tips.css' => __DIR__ . '/../public/css/tips.css',
-            ),
-        ),
-    ),
     'controllers' => array(
         'invokables' => array(
             'CollabApplication\Controller\DashboardController' => 'CollabApplication\Controller\DashboardController',

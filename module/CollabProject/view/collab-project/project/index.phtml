@@ -1,9 +1,9 @@
 <?php $this->headTitle('Projects'); ?>
 
-<p><a href="<?php echo $this->url('project/create'); ?>" class="btn">New Project</a></p>
+<p><a href="<?php echo $this->url('project/create'); ?>">New Project</a></p>
 
 <?php if (count($this->projects)) { ?>
-    <ul class="data-list">
+    <ul>
         <?php foreach ($this->projects as $project) { ?>
             <li>
                 <h2>
@@ -15,7 +15,7 @@
                 <p><?php echo $project->getDescription(); ?></p>
 
                 <ul>
-                    <li><a class="btn btn-danger btn-small" href="<?php echo $this->url('project/delete', array('id' => $project->getId())); ?>">Remove</a></li>
+                    <li><a href="<?php echo $this->url('project/delete', array('id' => $project->getId())); ?>">Remove</a></li>
                 </ul>
             </li>
         <?php } ?>
@@ -24,4 +24,4 @@
     <p>There are no projects yet, would you like to create one?</p>
 <?php } ?>
 
-<p><a href="<?php echo $this->url('project/create'); ?>" class="btn">New Project</a></p>
+<p><a href="<?php echo $this->url('project/create'); ?>">New Project</a></p>

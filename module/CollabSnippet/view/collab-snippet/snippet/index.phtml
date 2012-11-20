@@ -1,6 +1,6 @@
 <?php $this->headTitle('Snippets'); ?>
 
-<p><a href="<?php echo $this->url('snippet/create'); ?>" class="button">New Snippet</a></p>
+<p><a href="<?php echo $this->url('snippet/create'); ?>">New Snippet</a></p>
 
 <?php if (count($snippets)) { ?>
     <ul>
@@ -17,7 +17,7 @@
         echo $this->url('snippet/delete', array(
             'id' => $snippet->getId()
         ));
-            ?>" class="button negative">Remove</a></li>
+            ?>">Remove</a></li>
                 </ul>
             </li>
     <?php } ?>
@@ -27,4 +27,4 @@
 <?php } ?>
 
 
-<p><a href="<?php echo $this->url('snippet/create'); ?>" class="button">New Snippet</a></p>
+<p><a href="<?php echo $this->url('snippet/create'); ?>">New Snippet</a></p>
