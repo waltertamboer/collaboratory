@@ -1,47 +1,31 @@
 <?php $this->headTitle('Accounts'); ?>
 
-<div id="menu-tabs" class="container">
-    <?php echo $this->navigation('navigation/main')->menu()->escapeLabels(false); ?>
-</div>
+<p><a href="<?php echo $this->url('account/create'); ?>">New User</a></p>
 
-<div class="main-content container">
-    <div class="row">
-        <div class="span8">
+<?php if (count($accounts)) { ?>
+    <ul>
+        <?php foreach ($accounts as $account) { ?>
+            <li>
+                <h2>
+                    <a href="<?php echo $this->url('account/update', array('id' => $account->getId())); ?>">
+                        <?php echo $this->userDisplayName($account); ?>
+                    </a>
+                </h2>
 
-            <?php if (count($accounts)) { ?>
-                <ul class="data-list">
-                    <?php foreach ($accounts as $account) { ?>
-                        <li>
-                            <div class="title">
-                                <a href="<?php echo $this->url('account/update', array('id' => $account->getId())); ?>">
-                                    <?php echo $this->userDisplayName($account); ?>
-                                </a>
-                            </div>
-                            <div class="description">
-                                <?php echo $account->getIdentity(); ?>
-                            </div>
-                            <?php if ($account->getId() != $this->userIdentity()->getId()) { ?>
-                                <ul class="actions">
-                                    <li><a class="btn btn-danger btn-small" href="<?php echo $this->url('account/delete', array('id' => $account->getId())); ?>">Remove</a></li>
-                                </ul>
-                            <?php } ?>
-                        </li>
-                    <?php } ?>
-                </ul>
-            <?php } else { ?>
-                <p>There are no users yet, would you like to create one?</p>
-            <?php } ?>
+                <p class="description">
+                    <?php echo $account->getIdentity(); ?>
+                </p>
+                
+                <?php if ($account->getId() != $this->userIdentity()->getId()) { ?>
+                    <ul>
+                        <li><a href="<?php echo $this->url('account/delete', array('id' => $account->getId())); ?>">Remove</a></li>
+                    </ul>
+                <?php } ?>
+            </li>
+        <?php } ?>
+    </ul>
+<?php } else { ?>
+    <p>There are no users yet, would you like to create one?</p>
+<?php } ?>
 
-            <div class="form-actions">
-                <a href="<?php echo $this->url('account/create'); ?>" class="btn">New User</a>
-            </div>
-        </div>
-        <div class="span4">
-            <div class="tip">
-                <h3>Owners</h3>
-
-                <p>You cannot remove the owners team. People in that team have full access rights.</p>
-            </div>
-        </div>
-    </div>
-</div>
+<p><a href="<?php echo $this->url('account/create'); ?>">New User</a></p>

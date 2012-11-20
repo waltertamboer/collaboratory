@@ -1,74 +1,18 @@
 <?php
-$this->headTitle('Create Account');
-$this->headScript()->appendFile($this->basePath() . '/js/user.js');
+
+$this->headTitle('Create User');
 
 $form = $this->form;
 $form->prepare();
-?>
 
-
-<div id="menu-tabs" class="container">
-    <?php echo $this->navigation('navigation/main')->menu()->escapeLabels(false); ?>
-</div>
-
-<?php echo $this->form()->openTag($form->setAttribute('autocomplete', 'off')); ?>
-<div class="main-content container">
-    <div class="row">
-        <div class="span6">
-            <h2>Profile</h2>
-
-            <div>
-                <?php echo $this->formLabel($form->get('identity')); ?>
-                <?php echo $this->formText($form->get('identity')->setAttribute('class', 'span6')); ?>
-                <?php echo $this->formElementErrors($form->get('identity')); ?>
-            </div>
-
-            <div>
-                <?php echo $this->formLabel($form->get('credential')); ?>
-                <?php echo $this->formPassword($form->get('credential')); ?>
-                <?php echo $this->formElementErrors($form->get('credential')); ?>
-            </div>
-
-            <div>
-                <?php echo $this->formLabel($form->get('validation')); ?>
-                <?php echo $this->formPassword($form->get('validation')); ?>
-                <?php echo $this->formElementErrors($form->get('validation')); ?>
-            </div>
-
-            <div>
-                <?php echo $this->formLabel($form->get('displayName')); ?>
-                <?php echo $this->formText($form->get('displayName')); ?>
-                <?php echo $this->formElementErrors($form->get('displayName')); ?>
-            </div>
-
-        </div>
-        <div class="span6" id="user-teams-list">
-            <h2>Teams</h2>
-
-            <ul class="small-list">
-                <?php foreach ($this->userTeams as $team) { ?>
-                    <li>
-                        <input type="hidden" name="teams[][id]" value="<?php echo $team->getId(); ?>" />
-                        <?php echo $team->getName(); ?>
-                        <a href="" class="delete">(remove)</a>
-                    </li>
-                <?php } ?>
-            </ul>
-
-            <div class="form-add-box">
-                <input type="text" name="" value="" id="user-teams-ajax" />
-                <button onclick="return false;">Add</button>
-
-                <div class="clearfix"></div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="span12">
-            <div class="form-actions">
-                <?php echo $this->formSubmit($form->get('save')->setAttribute('class', 'btn btn-success')); ?>
-            </div>
-        </div>
-    </div>
-</div>
-<?php echo $this->form()->closeTag(); ?>
+echo $this->form()->openTag($form);
+echo $this->formRow($form->get('identity'));
+echo $this->formRow($form->get('credential'));
+echo $this->formRow($form->get('validation'));
+echo $this->formRow($form->get('displayName'));
+echo '<hr />';
+echo $this->formCollection($form->get('teams'));
+echo '<hr />';
+echo $this->formSubmit($form->get('save'));
+echo '<a href="' . $this->url('account/overview') . '">Cancel</a>';
+echo $this->form()->closeTag();

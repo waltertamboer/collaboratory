@@ -1,20 +1,12 @@
 <?php $this->headTitle('Delete User'); ?>
 
-<div class="main-content container">
-    <div class="row">
-        <div class="span6">
-            <div class="alert-box">
-                <p>
-                    Are you sure you want to delete the user "<?php echo $this->userDisplayName($this->user); ?>"?
-                </p>
+<p>
+    Are you sure you want to delete the user "<?php echo $this->userDisplayName($this->user); ?>"?
+</p>
 
-                <div class="form-actions">
-                    <?php echo $this->form()->openTag($form); ?>
-                    <?php echo $this->formSubmit($form->get('yes')->setAttribute('class', 'btn btn-danger')); ?>
-                    <?php echo $this->formSubmit($form->get('no')->setAttribute('class', 'btn')); ?>
-                    <?php echo $this->form()->closeTag(); ?>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<?php
+
+echo $this->form()->openTag($form);
+echo $this->formSubmit($form->get('yes')->setAttribute('class', 'btn btn-danger'));
+echo '<a href="' . $this->url('account/overview') . '">Cancel</a>';
+echo $this->form()->closeTag();
