@@ -15,7 +15,6 @@ return array(
         'AssetManager',
         'CollabApplication',
         'CollabApplicationDoctrineORM',
-        'CollabBootstrap',
         'CollabCalendar',
         'CollabCalendarDoctrineORM',
         'CollabScm',

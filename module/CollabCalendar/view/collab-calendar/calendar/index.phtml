@@ -1,10 +1,3 @@
 <?php $this->headTitle('Calendar'); ?>
-<?php $this->headLink()->offsetSetStylesheet(100, $this->basePath() . '/css/layout-calendar.css'); ?>
 
-<div id="menu-tabs" class="grid_24">
-    <?php echo $this->navigation('navigation/main')->menu()->escapeLabels(false); ?>
-</div>
-
-<div id="menu-tabs" class="grid_24">
-    <?php echo $this->calendar(); ?>
-</div>
+<?php echo $this->calendar(); ?>

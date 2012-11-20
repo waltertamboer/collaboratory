@@ -20,6 +20,12 @@
             <li><a href="<?php echo $this->url('user/logout'); ?>">Logout</a></li>
         </ul>
 
+        <hr />
+
+        <?php echo $this->navigation('navigation/main')->menu()->escapeLabels(false); ?>
+
+        <hr />
+
         <?php echo $this->content; ?>
 
     </body>
