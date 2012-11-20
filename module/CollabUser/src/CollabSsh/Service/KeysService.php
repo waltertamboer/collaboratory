@@ -133,10 +133,5 @@ class KeysService implements ServiceManagerAwareInterface, EventManagerAwareInte
             fwrite($f, $content);
             fclose($f);
         }
-
-
-        echo '<pre>';
-        echo file_get_contents($path);
-        exit;
     }
 }
