@@ -5,6 +5,17 @@ $this->headTitle('Add SSH Key');
 $form = $this->form;
 $form->prepare();
 
+?>
+
+<ul>
+    <li><a href="<?php echo $this->url('user/profile'); ?>">Profile</a></li>
+    <li><a href="<?php echo $this->url('ssh/overview'); ?>">SSH Keys</a></li>
+</ul>
+
+<hr />
+
+<?php
+
 echo $this->form()->openTag($form);
 echo $this->formRow($form->get('name'));
 echo $this->formRow($form->get('content'));

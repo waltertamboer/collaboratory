@@ -1,16 +1,19 @@
 <?php $this->headTitle('SSH Keys'); ?>
 
+<ul>
+    <li><a href="<?php echo $this->url('user/profile'); ?>">Profile</a></li>
+    <li><a href="<?php echo $this->url('ssh/overview'); ?>">SSH Keys</a></li>
+</ul>
+
+<hr />
+
 <p><a href="<?php echo $this->url('ssh/create'); ?>">New Key</a></p>
 
 <?php if (count($keys)) { ?>
     <ul>
         <?php foreach ($keys as $sshKey) { ?>
             <li>
-                <h2>
-                    <a href="<?php echo $this->url('ssh/update', array('id' => $sshKey->getId())); ?>">
-                        <?php echo $sshKey->getName(); ?>
-                    </a>
-                </h2>
+                <h2><?php echo $sshKey->getName(); ?></h2>
 
                 <ul>
                     <li><a href="<?php echo $this->url('ssh/delete', array('id' => $sshKey->getId())); ?>">Remove</a></li>
