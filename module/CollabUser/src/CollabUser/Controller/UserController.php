@@ -69,7 +69,7 @@ class UserController extends AbstractActionController
 
             if (isset($_POST['reset'])) {
                 unlink($keyFile);
-                
+
                 exit;
             }
 
@@ -143,7 +143,7 @@ class UserController extends AbstractActionController
     {
         $this->userAuthentication()->logout();
 
-        return $this->redirect()->toRoute('user/login');
+        return array();
     }
 
     public function sshAction()

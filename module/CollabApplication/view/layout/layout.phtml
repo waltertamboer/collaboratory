@@ -3,91 +3,24 @@
     <head>
         <?php echo $this->headMeta()->setCharset('utf-8'); ?>
         <?php echo $this->headTitle('Collaboratory')->setSeparator(' - ')->setAutoEscape(false); ?>
-
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-
-        <?php
-        echo $this->headLink()
-            ->appendAlternate(array(
-                'rel' => 'shortcut icon',
-                'type' => 'image/vnd.microsoft.icon',
-                'href' => $this->basePath() . '/images/favicon.ico'
-            ))
-            ->offsetSetStylesheet(0, $this->basePath() . '/bootstrap/css/bootstrap.min.css')
-            ->offsetSetStylesheet(1, $this->basePath() . '/bootstrap/css/bootstrap-responsive.min.css')
-            ->offsetSetStylesheet(10, $this->basePath() . '/application/css/layout.css')
-            ->offsetSetStylesheet(11, $this->basePath() . '/application/css/layout-responsive.css');
-        ?>
-
-        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
-        <link href="<?php echo $this->basePath(); ?>/css/font-awesome.css" rel="stylesheet">
-    </head>
-    <body>
-
-        <div id="header">
-            <div class="container">
-                <div class="navbar">
-                    <div class="navbar-inner">
-                        <div class="container">
-                            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </a>
-
-                            <a class="brand" href="<?php echo $this->url('dashboard'); ?>">Collaboratory</a>
-
-                            <div class="nav-collapse">
-                                <ul class="nav pull-right">
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                            <?php echo $this->userAvatar(); ?>
-                                            <?php echo $this->userDisplayName(); ?>
-                                            <b class="caret"></b>
-                                        </a>
-
-                                        <ul class="dropdown-menu">
-                                            <li><a href="<?php echo $this->url('user/profile'); ?>">Account Settings</a></li>
-                                            <li><a href="https://github.com/pixelpolishers">Help</a></li>
-                                            <li class="divider"></li>
-                                            <li><a href="<?php echo $this->url('user/logout'); ?>">Logout</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-
-                                <form class="navbar-search pull-right">
-                                    <input type="text" class="search-query" placeholder="Search">
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <?php echo $this->content; ?>
-
-        <div id="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="span12">
-                        Copyright &copy; 2012
-                        <a href="https://github.com/pixelpolishers">Pixel Polishers</a>
-                        -
-                        All rights reserved
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <?php
         echo $this->headScript()
-            ->prependFile($this->basePath() . '/bootstrap/js/bootstrap.js')
             ->prependFile('http://code.jquery.com/jquery-1.8.2.min.js');
 
         echo $this->inlineScript();
         ?>
+    </head>
+    <body>
+
+        <h1><a href="<?php echo $this->url('dashboard'); ?>">Collaboratory</a></h1>
+
+        <ul>
+            <li><?php echo $this->userAvatar(); ?> <?php echo $this->userDisplayName(); ?></li>
+            <li><a href="<?php echo $this->url('user/profile'); ?>">Account</a></li>
+            <li><a href="<?php echo $this->url('user/logout'); ?>">Logout</a></li>
+        </ul>
+
+        <?php echo $this->content; ?>
 
     </body>
 </html>

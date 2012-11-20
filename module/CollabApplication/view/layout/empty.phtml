@@ -3,28 +3,15 @@
     <head>
         <?php echo $this->headMeta()->setCharset('utf-8'); ?>
         <?php echo $this->headTitle('Collaboratory')->setSeparator(' - ')->setAutoEscape(false); ?>
-
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-
         <?php
-        echo $this->headLink()
-            ->appendAlternate(array(
-                'rel' => 'shortcut icon',
-                'type' => 'image/vnd.microsoft.icon',
-                'href' => $this->basePath() . '/images/favicon.ico'
-            ))
-            ->offsetSetStylesheet(0, $this->basePath() . '/bootstrap/css/bootstrap.min.css')
-            ->offsetSetStylesheet(1, $this->basePath() . '/bootstrap/css/bootstrap-responsive.min.css')
-            ->offsetSetStylesheet(10, $this->basePath() . '/application/css/layout.css')
-            ->offsetSetStylesheet(11, $this->basePath() . '/application/css/layout-responsive.css');
-        ?>
+        echo $this->headScript()
+            ->prependFile('http://code.jquery.com/jquery-1.8.2.min.js');
 
-        <link href="<?php echo $this->basePath(); ?>/css/font-awesome.css" rel="stylesheet">
-        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
+        echo $this->inlineScript();
+        ?>
     </head>
     <body>
-        
+
         <?php echo $this->content; ?>
 
     </body>
