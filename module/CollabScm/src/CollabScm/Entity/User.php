@@ -8,7 +8,7 @@
  * @package   Collaboratory
  */
 
-namespace CollabGitolite\Entity;
+namespace CollabScm\Entity;
 
 /**
  * The representation of a user within Gitolite.

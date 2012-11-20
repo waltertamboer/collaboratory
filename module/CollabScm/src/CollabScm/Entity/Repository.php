@@ -8,10 +8,10 @@
  * @package   Collaboratory
  */
 
-namespace CollabGitolite\Entity;
+namespace CollabScm\Entity;
 
 /**
- * The representation of a repository in Gitolite.
+ * The representation of a repository.
  */
 class Repository
 {
@@ -37,20 +37,12 @@ class Repository
     private $users;
 
     /**
-     * The list with groups that are related to this repository.
-     *
-     * @var Group[]
-     */
-    private $groups;
-
-    /**
      * Initializes a new instance of this class.
      */
     public function __construct()
     {
         $this->options = array();
         $this->users = array();
-        $this->groups = array();
     }
 
     /**
@@ -119,40 +111,5 @@ class Repository
     public function getUsers()
     {
         return $this->users;
-    }
-
-    /**
-     * Adds the given group to this repository.
-     *
-     * @param Group $group The group to add.
-     * @param Access $access The access that the group has.
-     * @return Repository
-     */
-    public function addGroup(Group $group, Access $access)
-    {
-        $this->groups[$group->getName()] = $access;
-        return $this;
-    }
-
-    /**
-     * Gets the groups that are related to this repository.
-     *
-     * @return Group[]
-     */
-    public function getGroups()
-    {
-        return $this->groups;
-    }
-
-    /**
-     * Sets the deny rules option.
-     *
-     * @param bool $denyRules Whether or not to deny the rules for this repository.
-     * @return Repository
-     */
-    public function setDenyRules($denyRules)
-    {
-        $this->setOption('deny-rules', $denyRules ? 1 : 0);
-        return $this;
     }
 }

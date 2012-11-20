@@ -91,10 +91,12 @@ sudo service apache2 restart
 # We're done now. Step 2 of the installation is done manually. Enjoy!
 echo
 echo "The setup of your system was successful but you're not done yet!"
-echo "Changes to sshd_config need to be made that we cannot automate:"
-echo "- Change the 'AllowUsers' value to 'AllowUsers $COLLABORATORY_GIT_USER'"
-echo "- Change the 'StrictModes' value to 'StrictModes no"
-echo "- Change the 'UsePAM' value to 'UsePAM no"
+echo "Changes to sshd_config need to be made that we cannot automate."
+echo "Please set the following values in /etc/ssh/sshd_config"
+echo "- AllowUsers $COLLABORATORY_GIT_USER"
+echo "- StrictModes no"
+echo "- PasswordAuthentication no"
+echo "- UsePAM no"
 echo
 echo "Don't forget to restart SSH: sudo service ssh restart"
 echo

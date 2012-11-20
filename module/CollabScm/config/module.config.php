@@ -8,10 +8,12 @@
  * @package   Collaboratory
  */
 
-namespace CollabGitolite\Process;
+namespace CollabScm;
 
-use RuntimeException;
-
-class ProcessException extends RuntimeException
-{
-}
+return array(
+    'service_manager' => array(
+        'invokables' => array(
+            'CollabScm\Service\Synchronizer' => 'CollabScm\Service\Synchronizer'
+        ),
+    ),
+);
