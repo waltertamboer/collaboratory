@@ -14,6 +14,7 @@
             "CollabBootstrap": "module/CollabBootstrap/src",
             "CollabCalendar": "module/CollabCalendar/src",
             "CollabCalendarDoctrineORM": "module/CollabCalendarDoctrineORM/src",
+            "CollabInstall": "module/CollabInstall/src",
             "CollabIssue": "module/CollabIssue/src",
             "CollabIssueDoctrineORM": "module/CollabIssueDoctrineORM/src",
             "CollabProject": "module/CollabProject/src",

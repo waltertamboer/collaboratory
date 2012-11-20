@@ -102,6 +102,7 @@ class Module
 
             $publicPages = array();
             $publicPages['CollabUser\Controller\UserController'] = array('login', 'logout');
+            $publicPages['CollabInstall\Controller\InstallController'] = array('index');
 
             if (array_key_exists($controller, $publicPages) && in_array($action, $publicPages[$controller])) {
                 $e->getTarget()->layout('layout/empty');
