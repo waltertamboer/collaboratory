@@ -5,45 +5,11 @@ $this->headTitle('Update Snippet');
 $form = $this->form;
 $form->prepare();
 
-?>
-
-<div id="menu-tabs" class="grid_24">
-    <?php echo $this->navigation('navigation/main')->menu()->escapeLabels(false); ?>
-</div>
-
-<?php echo $this->form()->openTag($form); ?>
-    <div class="main-content grid_11">
-        <dl>
-            <dt><?php echo $this->formLabel($form->get('name')); ?></dt>
-            <dd>
-                <?php echo $this->formText($form->get('name')); ?>
-                <?php echo $this->formElementErrors($form->get('name')); ?>
-            </dd>
-
-            <dt><?php echo $this->formLabel($form->get('description')); ?></dt>
-            <dd>
-                <?php echo $this->formTextarea($form->get('description')); ?>
-                <?php echo $this->formElementErrors($form->get('description')); ?>
-            </dd>
-
-            <dt><?php echo $this->formLabel($form->get('syntax')); ?></dt>
-            <dd>
-                <?php echo $this->formText($form->get('syntax')); ?>
-                <?php echo $this->formElementErrors($form->get('syntax')); ?>
-            </dd>
-
-            <dt><?php echo $this->formLabel($form->get('content')); ?></dt>
-            <dd>
-                <?php echo $this->formTextarea($form->get('content')); ?>
-                <?php echo $this->formElementErrors($form->get('content')); ?>
-            </dd>
-        </dl>
-    </div>
-
-    <hr class="grid_24" />
-
-    <div class="grid_24 tar">
-        <?php echo $this->formSubmit($form->get('save')->setAttribute('class', 'button positive')); ?>
-    </div>
-
-<?php echo $this->form()->closeTag(); ?>
+echo $this->form()->openTag($form);
+echo $this->formRow($form->get('name'));
+echo $this->formRow($form->get('description'));
+echo $this->formRow($form->get('syntax'));
+echo $this->formRow($form->get('content'));
+echo $this->formSubmit($form->get('save'));
+echo '<a href="' . $this->url('snippet/overview') . '">Cancel</a>';
+echo $this->form()->closeTag();

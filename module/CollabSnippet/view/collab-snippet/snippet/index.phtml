@@ -1,39 +1,30 @@
 <?php $this->headTitle('Snippets'); ?>
 
-<div id="menu-tabs" class="grid_24">
-    <?php echo $this->navigation('navigation/main')->menu()->escapeLabels(false); ?>
-</div>
+<p><a href="<?php echo $this->url('snippet/create'); ?>" class="button">New Snippet</a></p>
 
-<div class="main-content grid_13">
-    <?php if (count($snippets)) { ?>
-    <ul class="collection">
+<?php if (count($snippets)) { ?>
+    <ul>
         <?php foreach ($snippets as $snippet) { ?>
-        <li>
-            <h3><a href="<?php echo $this->url('snippet/update', array(
-                'id' => $snippet->getId()
-            )); ?>"><?php echo $snippet->getName(); ?></a></h3>
-            <p><?php echo $snippet->getDescription(); ?></p>
-            <ul class="actions">
-                <li><a href="<?php echo $this->url('snippet/delete', array(
-                    'id' => $snippet->getId()
-                )); ?>" class="button negative">Remove</a></li>
-            </ul>
-        </li>
-        <?php } ?>
-    </ul>
-    <?php } else { ?>
-    <p>There are no snippets yet, would you like to create one?</p>
+            <li>
+                <h3><a href="<?php
+        echo $this->url('snippet/update', array(
+            'id' => $snippet->getId()
+        ));
+        ?>"><?php echo $snippet->getName(); ?></a></h3>
+                <p><?php echo $snippet->getDescription(); ?></p>
+                <ul>
+                    <li><a href="<?php
+        echo $this->url('snippet/delete', array(
+            'id' => $snippet->getId()
+        ));
+            ?>" class="button negative">Remove</a></li>
+                </ul>
+            </li>
     <?php } ?>
+    </ul>
+<?php } else { ?>
+    <p>There are no snippets yet, would you like to create one?</p>
+<?php } ?>
 
-    <div class="tar">
-        <a href="<?php echo $this->url('snippet/create'); ?>" class="button">New Snippet</a>
-    </div>
-</div>
 
-<div class="main-content grid_10 push_1">
-    <div class="tip">
-        <h3>Share!</h3>
-
-        <p>Share snippets with your team and help each other out!</p>
-    </div>
-</div>
+<p><a href="<?php echo $this->url('snippet/create'); ?>" class="button">New Snippet</a></p>

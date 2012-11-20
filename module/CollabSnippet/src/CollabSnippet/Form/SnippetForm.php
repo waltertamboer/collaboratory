@@ -15,6 +15,8 @@ use Zend\Form\Element\Submit;
 use Zend\Form\Element\Text;
 use Zend\Form\Element\Textarea;
 use Zend\Form\Form;
+use Zend\InputFilter\Input;
+use Zend\InputFilter\InputFilter;
 use Zend\Stdlib\Hydrator\ClassMethods as ClassMethodsHydrator;
 
 class SnippetForm extends Form
@@ -23,22 +25,45 @@ class SnippetForm extends Form
     {
         parent::__construct('snippet');
 
-        $this->setAttribute('method', 'post')
-            ->setHydrator(new ClassMethodsHydrator(false))
-            ->setObject(new Snippet());
+        $this->setAttribute('method', 'post');
+        $this->setHydrator(new ClassMethodsHydrator(false));
+        $this->setObject(new Snippet());
+
+        $inputFilter = new InputFilter();
+        $this->setInputFilter($inputFilter);
+
+        $input = new Input();
+        $input->setName('name');
+        $input->setRequired(true);
+        $inputFilter->add($input);
 
         $name = new Text('name');
         $name->setLabel('Name');
         $this->add($name);
+
+        $input = new Input();
+        $input->setName('description');
+        $input->setRequired(false);
+        $inputFilter->add($input);
 
         $description = new Textarea();
         $description->setName('description');
         $description->setLabel('Description');
         $this->add($description);
 
+        $input = new Input();
+        $input->setName('syntax');
+        $input->setRequired(true);
+        $inputFilter->add($input);
+
         $syntax = new Text('syntax');
         $syntax->setLabel('Syntax');
         $this->add($syntax);
+
+        $input = new Input();
+        $input->setName('content');
+        $input->setRequired(true);
+        $inputFilter->add($input);
 
         $content = new Textarea();
         $content->setName('content');
@@ -51,4 +76,5 @@ class SnippetForm extends Form
         $submitButton->setValue('Save');
         $this->add($submitButton);
     }
+
 }
