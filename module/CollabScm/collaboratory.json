@@ -1,1 +1,0 @@
-{"users":[{"username":"walter.tamboer","email":"walter.tamboer@live.com"},{"username":"test1","email":null},{"username":"test2","email":null}],"repositories":{"repo1":{"options":[],"users":{"test1":"R"}},"repo2":{"options":[],"users":{"walter.tamboer":"R","test1":"R"}}}}

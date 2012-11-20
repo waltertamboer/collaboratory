@@ -10,18 +10,19 @@
 
 namespace CollabScm\Entity;
 
+/**
+ * The access that a user or group can have to a repository.
+ */
 class Access
 {
-    const PERMISSION_D = '-';
-    const PERMISSION_R = 'R';
-    const PERMISSION_RW = 'RW';
-    const PERMISSION_RWP = 'RW+';
-    const PERMISSION_RWC = 'RWC';
-    const PERMISSION_RWPC = 'RW+C';
-    const PERMISSION_RWD = 'RWD';
-    const PERMISSION_RWPD = 'RW+D';
-    const PERMISSION_RWCD = 'RWCD';
-    const PERMISSION_RWPCD = 'RW+CD';
+	/** Permission denied. */
+    const DENY = 0;
+
+	/** Permission to read. */
+    const READ = 1;
+
+	/** Permission to write. */
+    const WRITE = 2;
 
     /**
      * The permission.
@@ -30,38 +31,74 @@ class Access
      */
     private $permission;
 
-    /**
-     * The optional refex. See http://sitaramc.github.com/gitolite/refex.html
-     *
-     * @var string
-     */
-    private $refex;
-
-    public function __construct($permission, $refex = '')
+	/**
+	 * Initializes a new instance of this class.
+	 *
+	 * @param int $permission The permission to set.
+	 */
+    public function __construct($permission)
     {
         $this->permission = $permission;
-        $this->refex = $refex;
     }
 
+	/**
+	 * Gets the permission level.
+	 *
+	 * @return int
+	 */
     public function getPermission()
     {
         return $this->permission;
     }
 
+	/**
+	 * Sets the permission level.
+	 *
+	 * @param int $permission The permission to set.
+	 * @return Access
+	 */
     public function setPermission($permission)
     {
         $this->permission = $permission;
         return $this;
     }
 
-    public function getRefex()
-    {
-        return $this->refex;
-    }
+	/**
+	 * A helper function to see if the given permission is allowed.
+	 *
+	 * @param int $permission The permission to check for.
+	 * @return bool
+	 */
+	public function isAllowed($permission)
+	{
+		return ($this->permission & $permission) == $permission;
+	}
 
-    public function setRefex($refex)
-    {
-        $this->refex = $refex;
-        return $this;
-    }
+	/**
+	 * A helper function to deny all permissions.
+	 *
+	 * @return Access
+	 */
+	public function deny()
+	{
+		$this->permission = self::DENY;
+		return $this;
+	}
+
+	/**
+	 * A helper function to allow a permission (or not).
+	 *
+	 * @param int $permission The permission to allow.
+	 * @param bool $allowed Whether or not the permission is set.
+	 * @return Access
+	 */
+	public function setAllowed($permission, $allowed = true)
+	{
+		if ($allowed) {
+			$this->permission |= $permission;
+		} else {
+			$this->permission &= ~$permission;
+		}
+		return $this;
+	}
 }

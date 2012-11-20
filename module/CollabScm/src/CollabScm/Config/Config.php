@@ -10,21 +10,28 @@
 
 namespace CollabScm\Config;
 
-use CollabScm\Entity\User;
 use CollabScm\Entity\Group;
 use CollabScm\Entity\Repository;
+use CollabScm\Entity\User;
 
 class Config
 {
+	/**
+     * A list with groups that exist.
+     *
+     * @var string[]
+     */
+    private $groups;
+
     /**
-     * A list with regular expressions that match users.
+     * A list with users that exist.
      *
      * @var string[]
      */
     private $users;
 
     /**
-     * A list with regular expressions that match repositories.
+     * A list with repositories that exist.
      *
      * @var string[]
      */
@@ -35,37 +42,186 @@ class Config
      */
     public function __construct()
     {
+        $this->groups = array();
         $this->users = array();
         $this->repositories = array();
     }
 
-    public function addUser(User $user)
+	/**
+	 * Adds the given group.
+	 *
+	 * @param Group $group The group to add.
+	 * @return Config
+	 */
+    public function addGroup(Group $group)
     {
-        if (!$user->getUsername()) {
-            throw new \Exception('The user does not have a username.');
-        }
-
-        $this->users[$user->getUsername()] = $user;
+        $this->groups[$group->getRawName()] = $group;
         return $this;
     }
 
+	/**
+	 * Clears all the groups.
+	 *
+	 * @return Config
+	 */
+	public function clearGroups()
+	{
+		$this->groups = array();
+		return $this;
+	}
+
+	/**
+	 * Gets a group by the given name.
+	 *
+	 * @param string $name The name of the group to get.
+	 * @return Config
+	 */
+    public function getGroup($name)
+    {
+        return isset($this->groups[$name]) ? $this->groups[$name] : null;
+    }
+
+	/**
+	 * Gets all the groups.
+	 *
+	 * @return Group[]
+	 */
+    public function getGroups()
+    {
+        return $this->groups;
+    }
+
+	/**
+	 * Removes the given group.
+	 *
+	 * @param string $group The group to remove.
+	 * @return Config
+	 */
+	public function removeGroup($group)
+	{
+		if ($group instanceof Group) {
+			$group = $group->getName();
+		}
+
+		if (isset($this->groups[$group])) {
+			unset($this->groups[$group]);
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Adds the given repository.
+	 *
+	 * @param Repository $repository The repository to add.
+	 * @return Config
+	 */
+    public function addRepository(Repository $repository)
+    {
+        $this->repositories[$repository->getName()] = $repository;
+        return $this;
+    }
+
+	/**
+	 * Clears all the repositories.
+	 *
+	 * @return Config
+	 */
+	public function clearRepositories()
+	{
+		$this->repositories = array();
+		return $this;
+	}
+
+	/**
+	 * Gets all the repositories.
+	 *
+	 * @return Repository[]
+	 */
+    public function getRepositories()
+    {
+        return $this->repositories;
+    }
+
+	/**
+	 * Removes the given repository.
+	 *
+	 * @param Repository|string $repository The repository to remove.
+	 * @return Config
+	 */
+	public function removeRepository($repository)
+	{
+		if ($repository instanceof Repository) {
+			$repository = $repository->getName();
+		}
+
+		if (isset($this->repositories[$repository])) {
+			unset($this->repositories[$repository]);
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Adds the given user.
+	 *
+	 * @param User $user The user to add.
+	 * @return Config
+	 */
+    public function addUser(User $user)
+    {
+        $this->users[$user->getRawName()] = $user;
+        return $this;
+    }
+
+	/**
+	 * Clears all the users.
+	 *
+	 * @return Config
+	 */
+	public function clearUsers()
+	{
+		$this->users = array();
+		return $this;
+	}
+
+	/**
+	 * Gets the user with the given name.
+	 *
+	 * @param string $name The name of the user.
+	 * @return Config
+	 */
+    public function getUser($name)
+    {
+        return isset($this->users[$name]) ? $this->users[$name] : null;
+    }
+
+	/**
+	 * Gets all the users.
+	 *
+	 * @return User[]
+	 */
     public function getUsers()
     {
         return $this->users;
     }
 
-    public function addRepository(Repository $repository)
-    {
-        if (!$repository->getName()) {
-            throw new \Exception('The repository does not have a name.');
-        }
+	/**
+	 * Removes the given user.
+	 *
+	 * @param User|string $user
+	 * @return Config
+	 */
+	public function removeUser($user)
+	{
+		if ($user instanceof User) {
+			$user = $user->getName();
+		}
 
-        $this->repositories[$repository->getName()] = $repository;
-        return $this;
-    }
+		if (isset($this->users[$user])) {
+			unset($this->users[$user]);
+		}
 
-    public function getRepositories()
-    {
-        return $this->repositories;
-    }
+		return $this;
+	}
 }

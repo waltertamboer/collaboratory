@@ -17,46 +17,45 @@ class Module
         return include __DIR__ . '/config/module.config.php';
     }
 
-
-    public function onBootstrap($e)
-    {
-        $path = __DIR__ . '/collaboratory.json';
-
-        $sm = $e->getApplication()->getServiceManager();
-
-        $synchronizer = $sm->get('CollabScm\Service\Synchronizer');
-
-        $config = $synchronizer->load($path);
-
-        var_dump($config);
-
-        $user1 = new Entity\User();
-        $user1->setUsername('walter.tamboer');
-        $user1->setEmail('walter.tamboer@live.com');
-        $config->addUser($user1);
-
-        $user2 = new Entity\User();
-        $user2->setUsername('test1');
-        $config->addUser($user2);
-
-        $user3 = new Entity\User();
-        $user3->setUsername('test2');
-        $config->addUser($user3);
-
-        $repository1 = new Entity\Repository();
-        $repository1->setName('repo1');
-        $repository1->addUser($user2, new Entity\Access(Entity\Access::PERMISSION_R));
-        $config->addRepository($repository1);
-
-        $repository2 = new Entity\Repository();
-        $repository2->setName('repo2');
-        $repository2->addUser($user1, new Entity\Access(Entity\Access::PERMISSION_RWPCD, 'dev'));
-        $repository2->addUser($user2, new Entity\Access(Entity\Access::PERMISSION_RWD));
-        $config->addRepository($repository2);
-
-        $synchronizer->save($config, $path);
-
-        var_dump($config);
-        exit;
-    }
+//    public function onBootstrap($e)
+//    {
+//        $path = __DIR__ . '/collaboratory.json';
+//
+//        $sm = $e->getApplication()->getServiceManager();
+//        $synchronizer = $sm->get('CollabScm\Service\Synchronizer');
+//
+//        $config = $synchronizer->load($path);
+//
+//		$user1 = new Entity\User();
+//		$user1->setName('user1');
+//		$config->addUser($user1);
+//
+//		$user2 = new Entity\User();
+//		$user2->setName('user2');
+//		$config->addUser($user2);
+//
+//		$user3 = new Entity\User();
+//		$user3->setName('user3');
+//		$config->addUser($user3);
+//
+//		$user4 = new Entity\User();
+//		$user4->setName('user4');
+//		$config->addUser($user4);
+//
+//		$group1 = new Entity\Group();
+//		$group1->setName('group1');
+//		$group1->addEntity($user1);
+//		$group1->addEntity($user2);
+//		$config->addGroup($group1);
+//
+//		$repository = new Entity\Repository();
+//		$repository->setName('repo');
+//		$repository->setAccess($user1, new Entity\Access(Entity\Access::READ | Entity\Access::WRITE));
+//		$repository->setAccess($user2, new Entity\Access(Entity\Access::READ | Entity\Access::WRITE));
+//		$repository->setAccess($user3, new Entity\Access(Entity\Access::READ));
+//		$repository->setAccess($group1, new Entity\Access(Entity\Access::WRITE));
+//		$config->addRepository($repository);
+//
+//        $synchronizer->save($config, $path);
+//    }
 }
