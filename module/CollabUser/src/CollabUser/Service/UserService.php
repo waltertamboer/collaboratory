@@ -61,10 +61,10 @@ class UserService implements ServiceManagerAwareInterface, EventManagerAwareInte
 
     public function persist(User $user)
     {
-        $oldKey = $key->getId() ? $this->findById($key->getId()) : null;
+        $oldKey = $user->getId() ? $this->findById($user->getId()) : null;
 
         $eventArgsCreate = array('user' => $user);
-        $eventArgsUpdate = array('old' => $oldKey, 'new' => user);
+        $eventArgsUpdate = array('old' => $oldKey, 'new' => $user);
 
         if ($oldKey) {
             $this->eventManager->trigger('collab.user.key.update.pre', $this, $eventArgsUpdate);

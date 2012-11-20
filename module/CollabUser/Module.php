@@ -86,11 +86,12 @@ class Module
 
     public function onBootstrap($e)
     {
-        $eventManager = $e->getApplication()->getEventManager();
+        $application = $e->getApplication();
 
         $sm = $e->getApplication()->getServiceManager();
         $authService = $sm->get('collabuser.authservice');
 
+        $eventManager = $application->getEventManager();
         $sharedManager = $eventManager->getSharedManager();
         $sharedManager->attach('Zend\Mvc\Controller\AbstractActionController', 'dispatch', function($e) use ($authService) {
             $routeMatch = $e->getRouteMatch();

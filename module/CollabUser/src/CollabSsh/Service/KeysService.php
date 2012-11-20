@@ -68,6 +68,8 @@ class KeysService implements ServiceManagerAwareInterface, EventManagerAwareInte
         } else {
             $this->eventManager->trigger('collab.ssh.key.create.post', $this, $eventArgsCreate);
         }
+
+        $this->synchronize();
         return $this;
     }
 
@@ -79,6 +81,7 @@ class KeysService implements ServiceManagerAwareInterface, EventManagerAwareInte
         $this->getMapper()->remove($key);
         $this->eventManager->trigger('collab.ssh.key.delete.post', $this, $eventArgs);
 
+        $this->synchronize();
         return $this;
     }
 
@@ -96,5 +99,44 @@ class KeysService implements ServiceManagerAwareInterface, EventManagerAwareInte
     public function setServiceManager(ServiceManager $serviceManager)
     {
         $this->serviceManager = $serviceManager;
+    }
+
+    public function synchronize()
+    {
+        $currDir = \getcwd();
+        $path = $currDir . DIRECTORY_SEPARATOR . 'authorized_keys';
+
+        $content = '';
+        $content .= '#collaboratory' . PHP_EOL;
+        foreach ($this->getMapper()->findAll() as $sshKey) {
+            $createdBy = $sshKey->getCreatedBy();
+            $username = $createdBy->getId();
+
+            $parameters = array();
+            $parameters[] = 'command="' . $currDir . '/data/shell/ssh-shell ' . $username . '"';
+            $parameters[] = 'no-port-forwarding';
+            $parameters[] = 'no-x11-forwarding';
+            $parameters[] = 'no-agent-forwarding';
+            $parameters[] = 'no-pty';
+
+            $content .= implode(',', $parameters) . ' ' . $sshKey->getContent() . PHP_EOL;
+        }
+        $content .= '#collaboratory' . PHP_EOL;
+
+        if (is_file($path)) {
+            $original = file_get_contents($path);
+
+            $content = preg_replace('/#collaboratory.*?#collaboratory\s*/sim', $content, $original);
+            file_put_contents($path, $content);
+        } else {
+            $f = fopen($path, 'a');
+            fwrite($f, $content);
+            fclose($f);
+        }
+
+
+        echo '<pre>';
+        echo file_get_contents($path);
+        exit;
     }
 }
