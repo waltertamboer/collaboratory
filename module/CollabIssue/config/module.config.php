@@ -19,7 +19,7 @@ return array(
     'navigation' => array(
         'default' => array(
             'issue/overview' => array(
-                'label' => 'Issues <span class="counter">0</span>',
+                'label' => 'Issues',
                 'route' => 'issue/overview',
             ),
         ),

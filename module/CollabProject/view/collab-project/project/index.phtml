@@ -1,46 +1,27 @@
 <?php $this->headTitle('Projects'); ?>
 
-<div id="menu-tabs" class="container">
-    <?php echo $this->navigation('navigation/main')->menu()->escapeLabels(false); ?>
-</div>
+<p><a href="<?php echo $this->url('project/create'); ?>" class="btn">New Project</a></p>
 
-<div class="main-content container">
-    <div class="row">
-        <div class="span8">
-            <?php if (count($this->projects)) { ?>
-                <ul class="data-list">
-                    <?php foreach ($this->projects as $project) { ?>
-                        <li>
-                            <div class="title">
-                                <a href="<?php echo $this->url('project/update', array('id' => $project->getId())); ?>">
-                                    <?php echo $project->getName(); ?>
-                                </a>
-                            </div>
-                            <div class="description">
-                                <?php echo $project->getDescription(); ?>
-                            </div>
+<?php if (count($this->projects)) { ?>
+    <ul class="data-list">
+        <?php foreach ($this->projects as $project) { ?>
+            <li>
+                <h2>
+                    <a href="<?php echo $this->url('project/update', array('id' => $project->getId())); ?>">
+                        <?php echo $project->getName(); ?>
+                    </a>
+                </h2>
 
-                            <ul class="actions">
-                                <li><a class="btn btn-danger btn-small" href="<?php echo $this->url('project/delete', array('id' => $project->getId())); ?>">Remove</a></li>
-                            </ul>
-                        </li>
-                    <?php } ?>
+                <p><?php echo $project->getDescription(); ?></p>
+
+                <ul>
+                    <li><a class="btn btn-danger btn-small" href="<?php echo $this->url('project/delete', array('id' => $project->getId())); ?>">Remove</a></li>
                 </ul>
-            <?php } else { ?>
-                <p>There are no projects yet, would you like to create one?</p>
-            <?php } ?>
+            </li>
+        <?php } ?>
+    </ul>
+<?php } else { ?>
+    <p>There are no projects yet, would you like to create one?</p>
+<?php } ?>
 
-            <div class="form-actions">
-                <a href="<?php echo $this->url('project/create'); ?>" class="btn">New Project</a>
-            </div>
-        </div>
-
-        <div class="span4">
-            <div class="tip">
-                <h3>Owners</h3>
-
-                <p>You cannot remove the owners team. People in that team have full access rights.</p>
-            </div>
-        </div>
-    </div>
-</div>
+<p><a href="<?php echo $this->url('project/create'); ?>" class="btn">New Project</a></p>

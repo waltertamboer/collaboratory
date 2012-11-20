@@ -107,5 +107,4 @@ class ProjectController extends AbstractActionController
         $viewModel->setVariable('project', $project);
         return $viewModel;
     }
-
 }

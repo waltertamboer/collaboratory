@@ -1,35 +1,12 @@
 <?php
-$this->headTitle('Create Team');
+$this->headTitle('Create Project');
 
 $form = $this->form;
 $form->prepare();
-?>
 
-<div id="menu-tabs" class="container">
-    <?php echo $this->navigation('navigation/main')->menu()->escapeLabels(false); ?>
-</div>
-
-<div class="main-content container">
-    <div class="row">
-        <div class="span6">
-            <?php echo $this->form()->openTag($form); ?>
-
-            <div>
-                <?php echo $this->formLabel($form->get('name')); ?>
-                <?php echo $this->formText($form->get('name')->setAttribute('class', 'span6')); ?>
-                <?php echo $this->formElementErrors($form->get('name')); ?>
-            </div>
-
-            <div>
-                <?php echo $this->formLabel($form->get('description')); ?>
-                <?php echo $this->formTextarea($form->get('description')->setAttribute('class', 'span6')); ?>
-                <?php echo $this->formElementErrors($form->get('description')); ?>
-            </div>
-
-            <div class="form-actions">
-                <?php echo $this->formSubmit($form->get('save')->setAttribute('class', 'btn btn-success')); ?>
-            </div>
-            <?php echo $this->form()->closeTag(); ?>
-        </div>
-    </div>
-</div>
+echo $this->form()->openTag($form);
+echo $this->formRow($form->get('name'));
+echo $this->formRow($form->get('description'));
+echo $this->formSubmit($form->get('save'));
+echo '<a href="' . $this->url('project/overview') . '">Cancel</a>';
+echo $this->form()->closeTag();

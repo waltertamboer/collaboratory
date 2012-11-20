@@ -11,26 +11,36 @@
 namespace CollabProject\Form;
 
 use CollabProject\Entity\Project;
+use Zend\InputFilter\Input;
 use Zend\InputFilter\InputFilter;
-use Zend\InputFilter\InputFilterProviderInterface;
 use Zend\Form\Element\Submit;
 use Zend\Form\Element\Text;
 use Zend\Form\Element\Textarea;
 use Zend\Form\Form;
 use Zend\Stdlib\Hydrator\ClassMethods as ClassMethodsHydrator;
 
-class ProjectForm extends Form implements InputFilterProviderInterface
+class ProjectForm extends Form
 {
-    private $serviceManager;
-
     public function __construct()
     {
         parent::__construct('team');
 
-        $this->setAttribute('method', 'post')
-             ->setHydrator(new ClassMethodsHydrator(false))
-             ->setObject(new Project())
-             ->setInputFilter(new InputFilter());
+        $this->setAttribute('method', 'post');
+        $this->setHydrator(new ClassMethodsHydrator(false));
+        $this->setObject(new Project());
+
+        $inputFilter = new InputFilter();
+        $this->setInputFilter($inputFilter);
+
+        $inputName = new Input();
+        $inputName->setName('name');
+        $inputName->setRequired(true);
+        $inputFilter->add($inputName);
+
+        $inputName = new Input();
+        $inputName->setName('description');
+        $inputName->setRequired(true);
+        $inputFilter->add($inputName);
 
         $name = new Text('name');
         $name->setLabel('Project name');
@@ -46,17 +56,5 @@ class ProjectForm extends Form implements InputFilterProviderInterface
         $submitButton->setLabel('Save');
         $submitButton->setValue('Save');
         $this->add($submitButton);
-    }
-
-    public function getInputFilterSpecification()
-    {
-        return array(
-            'name' => array(
-                'required' => true,
-            ),
-            'description' => array(
-                'required' => true,
-            ),
-        );
     }
 }
