@@ -10,6 +10,12 @@ set -e
 # The git user that will be created:
 COLLABORATORY_GIT_USER="git"
 
+# The directory to install Collaboratory in.
+COLLABORATORY_HOME="/home/$COLLABORATORY_GIT_USER/collaboratory"
+
+# The file of the virtual host file:
+COLLABORATORY_VHOST="/etc/apache2/sites-available/collaboratory"
+
 # We assume that the target machine is a clean machine. Before we start the
 # installation we make sure the machine is up-to-date:
 sudo apt-get update
@@ -26,66 +32,79 @@ sudo apt-get upgrade
 sudo apt-get install -y git git-core subversion apache2 mysql-server php5 php5-mysql php5-intl postfix openssh-server
 
 # People will be able to clone repositories with their own public keys using a single user:
-sudo adduser \
-    --system \
-    --shell /bin/sh \
-    --gecos 'git version control' \
-    --group \
-    --disabled-password \
-    --home /home/$COLLABORATORY_GIT_USER \
-    $COLLABORATORY_GIT_USER
+if [ -z "$(getent passwd $COLLABORATORY_GIT_USER)" ]; then
+	sudo adduser \
+		--system \
+		--shell /bin/sh \
+		--gecos 'git version control' \
+		--group \
+		--disabled-password \
+		--home /home/$COLLABORATORY_GIT_USER \
+		$COLLABORATORY_GIT_USER
 
-# Move to the new home directory:
-cd /home/$COLLABORATORY_GIT_USER
+	# Create the .ssh directory and authorized_keys file:
+	sudo -H -u $COLLABORATORY_GIT_USER mkdir /home/$COLLABORATORY_GIT_USER/.ssh
+	sudo -H -u $COLLABORATORY_GIT_USER touch /home/$COLLABORATORY_GIT_USER/.ssh/authorized_keys
 
-# Install Collaboratory in Git's home directory:
-sudo -H -u $COLLABORATORY_GIT_USER git clone https://github.com/pixelpolishers/collaboratory.git /home/$COLLABORATORY_GIT_USER
+	# The .ssh directory and authhorized_keys file should be writable:
+	sudo chmod -R 0777 /home/$COLLABORATORY_GIT_USER/.ssh
+fi
 
-# Create the .ssh directory and authorized_keys file:
-sudo -H -u $COLLABORATORY_GIT_USER mkdir /home/$COLLABORATORY_GIT_USER/.ssh
-sudo -H -u $COLLABORATORY_GIT_USER touch /home/$COLLABORATORY_GIT_USER/.ssh/authorized_keys
+# Install or update Collaboratory:
+if [ -d "$COLLABORATORY_HOME" ]; then
+	# Update Collaboratory:
+	sudo -H -u $COLLABORATORY_GIT_USER cd $COLLABORATORY_HOME && git pull origin
 
-# The .ssh directory and authhorized_keys file should be writable:
-sudo chmod -R 0777 /home/$COLLABORATORY_GIT_USER/.ssh
+	# Collaboratory uses Composer to install its dependencies, let's do so:
+	sudo -H -u $COLLABORATORY_GIT_USER cd $COLLABORATORY_HOME && php composer.phar update
+else
+	# Install Collaboratory in the user's home directory:
+	sudo -H -u $COLLABORATORY_GIT_USER git clone https://github.com/pixelpolishers/collaboratory.git $COLLABORATORY_HOME
 
-# The shell should have executable rights:
-sudo chmod +x /home/$COLLABORATORY_GIT_USER/data/shell/collaboratory-shell
+	# The shell should have executable rights:
+	sudo chmod +x $COLLABORATORY_HOME/data/shell/ssh-shell
 
-# The logs directory should be writable:
-sudo chmod -R 0777 /home/$COLLABORATORY_GIT_USER/logs
+	# The logs directory should be writable:
+	sudo chmod -R 0777 $COLLABORATORY_HOME/logs
 
-# The repositories directory should be writable as well:
-sudo chmod -R 0777 /home/$COLLABORATORY_GIT_USER/data/repositories
+	# The repositories directory should be writable as well:
+	sudo chmod -R 0777 $COLLABORATORY_HOME/data/projects
 
-# Collaboratory uses Composer to install its dependencies, let's do so:
-sudo -H -u $COLLABORATORY_GIT_USER php composer.phar install
+	# Collaboratory uses Composer to install its dependencies, let's do so:
+	sudo -H -u $COLLABORATORY_GIT_USER cd $COLLABORATORY_HOME && php composer.phar install
+fi
 
 # The IP address that should be used to browse to:
 IP_ADDRESS=`ifconfig | awk -F':' '/inet addr/&&!/127.0.0.1/{split($2,_," ");print _[1]}'`
 
-# Add a new virtual host so that apache can find Collaboratory:
-echo "<virtualhost *:80>
-    # Server information:
-    ServerName $IP_ADDRESS
+# Add the virtual host:
+if [ -f "$COLLABORATORY_VHOST" ]; then
+	# Add a new virtual host so that apache can find Collaboratory:
+	echo "<virtualhost *:80>
+		# Server information:
+		ServerName $IP_ADDRESS
 
-    # The document index:
-    DirectoryIndex index.php
-    DocumentRoot /home/$COLLABORATORY_GIT_USER/public
+		# The document index:
+		DirectoryIndex index.php
+		DocumentRoot $COLLABORATORY_HOME/public
 
-    # PHP settings:
-    php_value error_reporting 32767
-    php_flag display_errors on
-    php_flag display_startup_errors on
+		# PHP settings:
+		php_value error_reporting 32767
+		php_flag display_errors on
+		php_flag display_startup_errors on
 
-    # Log information:
-    LogLevel warn
-    ErrorLog  /home/$COLLABORATORY_GIT_USER/logs/error.log
-    CustomLog /home/$COLLABORATORY_GIT_USER/logs/access.log combined
-</virtualhost>" | sudo tee /etc/apache2/sites-available/collaboratory > /dev/null
+		# Log information:
+		LogLevel warn
+		ErrorLog  $COLLABORATORY_HOME/logs/error.log
+		CustomLog $COLLABORATORY_HOME/logs/access.log combined
+	</virtualhost>" | sudo tee $COLLABORATORY_VHOST > /dev/null
 
-# Enable the new virtual host:
-sudo a2ensite collaboratory
-sudo a2enmod rewrite
+	# Enable the new virtual host:
+	sudo a2ensite collaboratory
+	sudo a2enmod rewrite
+fi
+
+# Restart Apache to make sure the latest changes are loaded:
 sudo service apache2 restart
 
 # We're done now. Step 2 of the installation is done manually. Enjoy!
