@@ -52,11 +52,13 @@ fi
 
 # Install or update Collaboratory:
 if [ -d "$COLLABORATORY_HOME" ]; then
+	cd $COLLABORATORY_HOME
+
 	# Update Collaboratory:
-	sudo -H -u $COLLABORATORY_GIT_USER cd $COLLABORATORY_HOME && git pull origin
+	sudo -H -u $COLLABORATORY_GIT_USER git pull origin
 
 	# Collaboratory uses Composer to install its dependencies, let's do so:
-	sudo -H -u $COLLABORATORY_GIT_USER cd $COLLABORATORY_HOME && php composer.phar update
+	sudo -H -u $COLLABORATORY_GIT_USER php composer.phar update
 else
 	# Install Collaboratory in the user's home directory:
 	sudo -H -u $COLLABORATORY_GIT_USER git clone https://github.com/pixelpolishers/collaboratory.git $COLLABORATORY_HOME
