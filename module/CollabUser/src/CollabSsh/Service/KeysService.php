@@ -104,16 +104,15 @@ class KeysService implements ServiceManagerAwareInterface, EventManagerAwareInte
     public function synchronize()
     {
         $currDir = \getcwd();
-        $path = $currDir . DIRECTORY_SEPARATOR . 'authorized_keys';
+        $path = $currDir . '/.ssh/authorized_keys';
 
         $content = '';
         $content .= '#collaboratory' . PHP_EOL;
         foreach ($this->getMapper()->findAll() as $sshKey) {
             $createdBy = $sshKey->getCreatedBy();
-            $username = $createdBy->getId();
 
             $parameters = array();
-            $parameters[] = 'command="' . $currDir . '/data/shell/ssh-shell ' . $username . '"';
+            $parameters[] = 'command="' . $currDir . '/data/shell/ssh-shell ' . $createdBy->getId() . '"';
             $parameters[] = 'no-port-forwarding';
             $parameters[] = 'no-x11-forwarding';
             $parameters[] = 'no-agent-forwarding';
