@@ -21,3 +21,5 @@ echo '<a href="' . $this->url('install') . '">Back to the previous step</a>';
 echo $this->form()->closeTag();
 
 ?>
+
+<?php if (isset($error)) { echo '<p>' . $error . '</p>'; } ?>

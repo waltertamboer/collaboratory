@@ -15,14 +15,7 @@ use Zend\ServiceManager\ServiceManager;
 
 class Installer
 {
-	private $entityManager;
-
-	public function __construct(ServiceManager $serviceManager)
-	{
-		$this->entityManager = $serviceManager->get('doctrine.entitymanager.orm_default');
-	}
-
-	private function createConfigFile($database)
+	public function createConfigFile($database)
 	{
 		$configFile = realpath('./config/autoload') . '/doctrine_orm.global.php';
 
@@ -36,20 +29,19 @@ class Installer
 		file_put_contents($configFile, $content);
 	}
 
-	private function createDatabaseStructure($metaData)
+	public function createDatabase($entityManager)
 	{
-		$tool = new \Doctrine\ORM\Tools\SchemaTool($this->entityManager);
+        $classes = $entityManager->getMetaDataFactory()->getAllMetadata();
+
+		$tool = new \Doctrine\ORM\Tools\SchemaTool($entityManager);
 		$tool->dropDatabase();
-		$tool->createSchema($metaData);
-	}
+		$tool->createSchema($classes);
 
-	private function createDatabaseProxies($metaData)
-	{
 		$destPath = getcwd() . '/data/DoctrineORMModule/Proxy';
-		$this->entityManager->getProxyFactory()->generateProxyClasses($metaData, $destPath);
+		$entityManager->getProxyFactory()->generateProxyClasses($classes, $destPath);
 	}
 
-	private function createAccount($account)
+	public function createAccount($entityManager, $account)
 	{
         $bcrypt = new Bcrypt();
         $bcrypt->setCost(14);
@@ -60,17 +52,25 @@ class Installer
 		$adminUser->setCredential($credential);
 		$adminUser->setDisplayName($account['displayName']);
 
-		$this->entityManager->persist($adminUser);
-		$this->entityManager->flush();
+		$entityManager->persist($adminUser);
+		$entityManager->flush();
 	}
 
-	public function run($database, $account)
-	{
-		$metaData = $this->entityManager->getMetadataFactory()->getAllMetadata();
+    public function createConnection($data)
+    {
+        $config = new \Doctrine\DBAL\Configuration();
+        $params = array(
+            'driver' => 'pdo_mysql',
+            'host' => $data['host'],
+            'port' => $data['port'],
+            'user' => $data['username'],
+            'password' => $data['password'],
+            'dbname' => $data['dbname'],
+        );
 
-		$this->createConfigFile($database);
-		$this->createDatabaseStructure($metaData);
-		$this->createDatabaseProxies($metaData);
-		$this->createAccount($account);
-	}
+        $connection = \Doctrine\DBAL\DriverManager::getConnection($params, $config);
+        $connection->connect();
+
+        return $connection;
+    }
 }

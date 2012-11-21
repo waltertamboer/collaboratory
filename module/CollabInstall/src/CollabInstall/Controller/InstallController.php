@@ -15,83 +15,109 @@ use CollabInstall\Form\AccountForm;
 use CollabInstall\Form\DatabaseForm;
 use CollabInstall\Form\FinishForm;
 use CollabInstall\Service\Installer;
-use CollabInstall\Service\SystemPathChecker;
+use CollabInstall\Service\SettingsChecker;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 class InstallController extends AbstractActionController
 {
-	private $session;
 
-	public function getSession()
-	{
-		if (!$this->session) {
-			$this->session = new \Zend\Session\Container('installer');
-		}
-		return $this->session;
-	}
+    private $session;
+    private $installer;
 
-	public function indexAction()
-	{
-		$systemPathChecker = new SystemPathChecker();
+    private function getInstaller()
+    {
+        if (!$this->installer) {
+            $this->installer = new Installer();
+        }
+        return $this->installer;
+    }
 
-		$viewModel = new ViewModel();
-		$viewModel->setVariable('systemSettings', $systemPathChecker->getSettings());
-		$viewModel->setVariable('canContinue', true);
-		return $viewModel;
-	}
+    private function getSession()
+    {
+        if (!$this->session) {
+            $this->session = new \Zend\Session\Container('installer');
+        }
+        return $this->session;
+    }
 
-	public function databaseAction()
-	{
-		$session = $this->getSession();
+    public function indexAction()
+    {
+        $session = $this->getSession();
+        $session['step'] = 0;
+
+        $settingsChecker = new SettingsChecker();
+
+        $viewModel = new ViewModel();
+        $viewModel->setVariable('systemSettings', $settingsChecker->getSettings());
+        $viewModel->setVariable('canContinue', true);
+
+        return $viewModel;
+    }
+
+    public function databaseAction()
+    {
+        $session = $this->getSession();
+        $session['step'] = 0;
+
+        $viewModel = new ViewModel();
         $form = new DatabaseForm();
 
-		$sessionData = $session['database'];
-		if (!$sessionData instanceof ArrayObject) {
-			$sessionData = new ArrayObject();
-			$sessionData['host'] = 'localhost';
-			$sessionData['port'] = '3306';
-			$sessionData['username'] = 'root';
-			$sessionData['password'] = 'root';
-			$sessionData['dbname'] = 'collaboratory';
-		}
+        $sessionData = $session['database'];
+        if (!$sessionData instanceof ArrayObject) {
+            $sessionData = new ArrayObject();
+            $sessionData['host'] = 'localhost';
+            $sessionData['port'] = '3306';
+            $sessionData['username'] = 'root';
+            $sessionData['password'] = 'root';
+            $sessionData['dbname'] = 'collaboratory';
+        }
 
-		$form->bind($sessionData);
+        $form->bind($sessionData);
 
         $request = $this->getRequest();
         if ($request->isPost()) {
             $form->setData($request->getPost());
 
             if ($form->isValid()) {
-				$session['database'] = new ArrayObject();
-				$session['database']->exchangeArray($form->getData());
+                $data = $form->getData();
 
-                return $this->redirect()->toRoute('install/account');
+                try {
+                    $installer = $this->getInstaller();
+                    $installer->createConnection($data);
+
+                    $session['database'] = new ArrayObject();
+                    $session['database']->exchangeArray($data);
+
+                    return $this->redirect()->toRoute('install/account');
+                } catch (\Exception $e) {
+                    $viewModel->setVariable('error', $e->getMessage());
+                }
             }
         }
 
-        $viewModel = new ViewModel();
         $viewModel->setVariable('form', $form);
         $viewModel->setTerminal($request->isXmlHttpRequest());
         return $viewModel;
+    }
 
-	}
+    public function accountAction()
+    {
+        $session = $this->getSession();
+        $session['step'] = 0;
 
-	public function accountAction()
-	{
-		$session = $this->getSession();
         $form = new AccountForm();
 
-		$sessionData = $session['account'] instanceof ArrayObject ? $session['account'] : new ArrayObject();
-		$form->bind($sessionData);
+        $sessionData = $session['account'] instanceof ArrayObject ? $session['account'] : new ArrayObject();
+        $form->bind($sessionData);
 
         $request = $this->getRequest();
         if ($request->isPost()) {
             $form->setData($request->getPost());
 
             if ($form->isValid()) {
-				$session['account'] = new ArrayObject();
-				$session['account']->exchangeArray($form->getData());
+                $session['account'] = new ArrayObject();
+                $session['account']->exchangeArray($form->getData());
 
                 return $this->redirect()->toRoute('install/finish');
             }
@@ -101,22 +127,48 @@ class InstallController extends AbstractActionController
         $viewModel->setVariable('form', $form);
         $viewModel->setTerminal($request->isXmlHttpRequest());
         return $viewModel;
-	}
+    }
 
-	public function finishAction()
-	{
+    public function finishConfigAction()
+    {
+        $session = $this->getSession();
+
+        $installer = $this->getInstaller();
+        $installer->createConfigFile($session['database']);
+    }
+
+    public function finishAction()
+    {
         $form = new FinishForm();
-		$session = $this->getSession();
+        $session = $this->getSession();
+
+        switch ($session['step']) {
+            case 1: {
+                    $session['step'] = 2;
+
+                    $installer = $this->getInstaller();
+                    $installer->createConfigFile($session['database']);
+
+                    return $this->redirect()->toRoute('install/finish');
+                }
+            case 2: {
+                    $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+
+                    $installer = $this->getInstaller();
+                    $installer->createDatabase($entityManager);
+                    $installer->createAccount($entityManager, $session['account']);
+
+                    return $this->redirect()->toRoute('dashboard');
+                }
+        }
 
         $request = $this->getRequest();
         if ($request->isPost()) {
             $form->setData($request->getPost());
 
             if ($form->isValid()) {
-				$installer = new Installer($this->getServiceLocator());
-				$installer->run($session['database'], $session['account']);
-
-                return $this->redirect()->toRoute('dashboard');
+                $session['step'] = 1;
+                return $this->redirect()->toRoute('install/finish');
             }
         }
 
@@ -124,7 +176,7 @@ class InstallController extends AbstractActionController
         $viewModel->setVariable('form', $form);
         $viewModel->setVariable('database', $session['database']);
         $viewModel->setVariable('account', $session['account']);
-        $viewModel->setTerminal($request->isXmlHttpRequest());
         return $viewModel;
-	}
+    }
+
 }
