@@ -1,0 +1,22 @@
+<?php $this->headTitle('Install'); ?>
+
+<h1>Installer</h1>
+
+<h2>Account</h2>
+
+<p>
+	In order to log in, you need an account. Please create one here:
+</p>
+
+<?php
+
+echo $this->form()->openTag($this->form);
+echo $this->formRow($this->form->get('identity'));
+echo $this->formRow($this->form->get('credential'));
+echo $this->formRow($this->form->get('validation'));
+echo $this->formRow($this->form->get('displayName'));
+echo $this->formSubmit($this->form->get('save'));
+echo '<a href="' . $this->url('install/database') . '">Back to the previous step</a>';
+echo $this->form()->closeTag();
+
+?>

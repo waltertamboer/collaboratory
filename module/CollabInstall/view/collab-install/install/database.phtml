@@ -1,0 +1,23 @@
+<?php $this->headTitle('Install'); ?>
+
+<h1>Installer</h1>
+
+<h2>Database</h2>
+
+<p>
+	Collaboratory will create a new database and user for you. Please provide the needed information to do so:
+</p>
+
+<?php
+
+echo $this->form()->openTag($this->form);
+echo $this->formRow($this->form->get('host'));
+echo $this->formRow($this->form->get('port'));
+echo $this->formRow($this->form->get('username'));
+echo $this->formRow($this->form->get('password'));
+echo $this->formRow($this->form->get('dbname'));
+echo $this->formSubmit($this->form->get('save'));
+echo '<a href="' . $this->url('install') . '">Back to the previous step</a>';
+echo $this->form()->closeTag();
+
+?>

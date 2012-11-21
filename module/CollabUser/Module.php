@@ -88,28 +88,33 @@ class Module
     {
         $application = $e->getApplication();
 
-        $sm = $e->getApplication()->getServiceManager();
-        $authService = $sm->get('collabuser.authservice');
-
         $eventManager = $application->getEventManager();
         $sharedManager = $eventManager->getSharedManager();
-        $sharedManager->attach('Zend\Mvc\Controller\AbstractActionController', 'dispatch', function($e) use ($authService) {
+        $sharedManager->attach('Zend\Mvc\Controller\AbstractActionController', 'dispatch', function($e) {
             $routeMatch = $e->getRouteMatch();
             $controller = $routeMatch->getParam('controller');
             $action = $routeMatch->getParam('action');
 
-            $identity = $authService->getIdentity();
+            $path = 'config/autoload/doctrine_orm.global.php';
+            if (is_file($path)) {
+				$sm = $e->getTarget()->getServiceLocator();
+				$authService = $sm->get('collabuser.authservice');
 
-            $publicPages = array();
-            $publicPages['CollabUser\Controller\UserController'] = array('login', 'logout');
-            $publicPages['CollabInstall\Controller\InstallController'] = array('index');
+				$identity = $authService->getIdentity();
 
-            if (array_key_exists($controller, $publicPages) && in_array($action, $publicPages[$controller])) {
-                $e->getTarget()->layout('layout/empty');
-            } elseif (!$identity) {
-                $controller = $e->getTarget();
-                return $controller->redirect()->toRoute('user/login');
-            }
+				$publicPages = array();
+				$publicPages['CollabUser\Controller\UserController'] = array('login', 'logout');
+				$publicPages['CollabInstall\Controller\InstallController'] = array('index', 'database', 'account', 'finish');
+
+				if (array_key_exists($controller, $publicPages) && in_array($action, $publicPages[$controller])) {
+					$e->getTarget()->layout('layout/empty');
+				} elseif (!$identity) {
+					$controller = $e->getTarget();
+					return $controller->redirect()->toRoute('user/login');
+				}
+			} else {
+				$e->getTarget()->layout('layout/empty');
+			}
         }, 100);
     }
 }

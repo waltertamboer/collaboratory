@@ -26,16 +26,6 @@ return array(
     ),
     'router' => array(
         'routes' => array(
-            'db' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
-                'options' => array(
-                    'route' => '/create/database',
-                    'defaults' => array(
-                        'controller' => 'CollabApplication\Controller\DashboardController',
-                        'action' => 'db',
-                    ),
-                ),
-            ),
             'dashboard' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(

@@ -26,11 +26,11 @@ class Module
         $sharedManager->attach('Zend\Mvc\Controller\AbstractActionController', 'dispatch', function($e) {
             $routeName = $e->getRouteMatch()->getMatchedRouteName();
 
-            $path = 'config/autoload/doctrine_orm.production.php';
+            $path = 'config/autoload/doctrine_orm.global.php';
             if (!is_file($path)) {
-                if ($routeName != 'install') {
+                if (!preg_match('/^install/i', $routeName)) {
                     return $e->getTarget()->redirect()->toRoute('install');
-                }
+				}
             } else if ($routeName == 'install') {
                 return $e->getTarget()->redirect()->toRoute('dashboard');
             }

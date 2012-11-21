@@ -14,8 +14,8 @@ return array(
         'connection' => array(
             'orm_default' => array(
                 'params' => array(
-                    'host' => 'localhost',
-                    'port' => '3306',
+                    'host' => 'collaboratory-host',
+                    'port' => 'collaboratory-port',
                     'user' => 'collaboratory-username',
                     'password' => 'collaboratory-password',
                     'dbname' => 'collaboratory-database',
