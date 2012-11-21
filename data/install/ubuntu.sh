@@ -78,7 +78,7 @@ fi
 IP_ADDRESS=`ifconfig | awk -F':' '/inet addr/&&!/127.0.0.1/{split($2,_," ");print _[1]}'`
 
 # Add the virtual host:
-if [ -f "$COLLABORATORY_VHOST" ]; then
+if [ !(-f "$COLLABORATORY_VHOST") ]; then
 	# Add a new virtual host so that apache can find Collaboratory:
 	echo "<virtualhost *:80>
 		# Server information:
