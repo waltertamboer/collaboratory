@@ -7,7 +7,7 @@
         <?php foreach ($this->projects as $project) { ?>
             <li>
                 <h2>
-                    <a href="<?php echo $this->url('project/update', array('id' => $project->getId())); ?>">
+                    <a href="<?php echo $this->url('project/view', array('id' => $project->getId())); ?>">
                         <?php echo $project->getName(); ?>
                     </a>
                 </h2>

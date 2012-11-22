@@ -9,5 +9,7 @@ echo $this->form()->openTag($form);
 echo $this->formRow($form->get('name'));
 echo $this->formRow($form->get('description'));
 echo $this->formSubmit($form->get('save'));
-echo '<a href="' . $this->url('project/overview') . '">Cancel</a>';
+echo '<a href="' . $this->url('project/view', array(
+    'id' => $this->project->getId(),
+)) . '">Cancel</a>';
 echo $this->form()->closeTag();

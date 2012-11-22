@@ -14,6 +14,7 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'CollabProject\Controller\ProjectController' => 'CollabProject\Controller\ProjectController',
+            'CollabProject\Controller\RepositoryController' => 'CollabProject\Controller\RepositoryController',
         ),
     ),
     'navigation' => array(
@@ -26,6 +27,31 @@ return array(
     ),
     'router' => array(
         'routes' => array(
+            'repository' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/project/repository',
+                    'defaults' => array(
+                        'controller' => 'CollabProject\Controller\ProjectController',
+                        'action' => 'index',
+                    ),
+                ),
+                'may_terminate' => false,
+                'child_routes' => array(
+                    'create' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                        'options' => array(
+                            'route' => '/create/:id',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'action' => 'update',
+                            ),
+                        ),
+                    ),
+                ),
+            ),
             'project' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
@@ -64,6 +90,18 @@ return array(
                             ),
                             'defaults' => array(
                                 'action' => 'update',
+                            ),
+                        ),
+                    ),
+                    'view' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                        'options' => array(
+                            'route' => '/view/:id',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'action' => 'view',
                             ),
                         ),
                     ),
