@@ -14,7 +14,7 @@ echo '<h3>Repositories</h3>';
 
 echo '<ul>';
 echo '<li><a href="' . $this->url('scm/create', array(
-    'id' => $this->project->getId()
+    'project' => $this->project->getId()
 )) . '">Create</a></li>';
 echo '</ul>';
 

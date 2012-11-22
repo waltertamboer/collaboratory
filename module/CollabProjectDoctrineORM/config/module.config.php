@@ -28,6 +28,7 @@ return array(
     'service_manager' => array(
         'factories' => array(
             'project.mapper' => 'CollabProjectDoctrineORM\Mapper\ProjectMapperFactory',
+            'CollabProject\Mapper\Repository' => 'CollabProjectDoctrineORM\Mapper\RepositoryMapperFactory',
         ),
     ),
 );

@@ -1,0 +1,14 @@
+<?php
+$this->headTitle('Create Repository');
+
+$form = $this->form;
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formRow($form->get('name'));
+echo $this->formRow($form->get('description'));
+echo $this->formSubmit($form->get('save'));
+echo '<a href="' . $this->url('project/view', array(
+    'id' => $this->project->getId(),
+)) . '">Cancel</a>';
+echo $this->form()->closeTag();

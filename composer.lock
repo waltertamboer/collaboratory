@@ -1,5 +1,5 @@
 {
-    "hash": "f207edca4e9e6c3e86260b66d2c61a33",
+    "hash": "7190396ea8b761a2c0a828bdd0178762",
     "packages": [
         {
             "name": "doctrine/common",
@@ -7,18 +7,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/common",
-                "reference": "30b8cea3bfe22f5eb58b5b0165f21df750aeb2e2"
+                "reference": "a836c86c13e964051549e234250cf665a5f5a190"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/common/archive/30b8cea3bfe22f5eb58b5b0165f21df750aeb2e2.zip",
-                "reference": "30b8cea3bfe22f5eb58b5b0165f21df750aeb2e2",
+                "url": "https://github.com/doctrine/common/archive/a836c86c13e964051549e234250cf665a5f5a190.zip",
+                "reference": "a836c86c13e964051549e234250cf665a5f5a190",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2"
             },
-            "time": "1352815365",
+            "time": "1353613273",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -117,19 +117,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal",
-                "reference": "3af9edb2c603275dc3dbbb8a5a1797602f941ab6"
+                "reference": "c125e229ef5c90736d6309ba258dfc7c705175ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/dbal/archive/3af9edb2c603275dc3dbbb8a5a1797602f941ab6.zip",
-                "reference": "3af9edb2c603275dc3dbbb8a5a1797602f941ab6",
+                "url": "https://github.com/doctrine/dbal/archive/c125e229ef5c90736d6309ba258dfc7c705175ea.zip",
+                "reference": "c125e229ef5c90736d6309ba258dfc7c705175ea",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
                 "doctrine/common": ">=2.3-dev,<2.5-dev"
             },
-            "time": "1352833472",
+            "time": "1353598721",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -375,12 +375,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/doctrine/doctrine2.git",
-                "reference": "d0428df9bda1025f019438403bfe0ed1ed0e6a74"
+                "reference": "697e7b1ca560369faa4e0343d86fc76c5091f973"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/doctrine2/archive/d0428df9bda1025f019438403bfe0ed1ed0e6a74.zip",
-                "reference": "d0428df9bda1025f019438403bfe0ed1ed0e6a74",
+                "url": "https://github.com/doctrine/doctrine2/archive/697e7b1ca560369faa4e0343d86fc76c5091f973.zip",
+                "reference": "697e7b1ca560369faa4e0343d86fc76c5091f973",
                 "shasum": ""
             },
             "require": {
@@ -392,7 +392,7 @@
             "suggest": {
                 "symfony/yaml": "If you want to use YAML Metadata Mapping Driver"
             },
-            "time": "1353005534",
+            "time": "1353598799",
             "bin": [
                 "bin/doctrine",
                 "bin/doctrine.php"
@@ -440,178 +440,24 @@
             ]
         },
         {
-            "name": "kriswallsmith/assetic",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "http://github.com/kriswallsmith/assetic.git",
-                "reference": "d6203098559cf9fc90e2890c10533d0adad33bd0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/kriswallsmith/assetic/archive/d6203098559cf9fc90e2890c10533d0adad33bd0.zip",
-                "reference": "d6203098559cf9fc90e2890c10533d0adad33bd0",
-                "shasum": ""
-            },
-            "require": {
-                "symfony/process": ">=2.1.0,<2.3-dev",
-                "php": ">=5.3.1"
-            },
-            "require-dev": {
-                "twig/twig": ">=1.6.0,<2.0",
-                "leafo/lessphp": "*",
-                "leafo/scssphp": "*",
-                "ptachoire/cssembed": "*",
-                "leafo/scssphp-compass": "*"
-            },
-            "suggest": {
-                "twig/twig": "Assetic provides the integration with the Twig templating engine",
-                "leafo/lessphp": "Assetic provides the integration with the lessphp LESS compiler",
-                "leafo/scssphp": "Assetic provides the integration with the scssphp SCSS compiler",
-                "ptachoire/cssembed": "Assetic provides the integration with phpcssembed to embed data uris",
-                "leafo/scssphp-compass": "Assetic provides the integration with the SCSS compass plugin"
-            },
-            "time": "1352285252",
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.1-dev"
-                }
-            },
-            "installation-source": "source",
-            "autoload": {
-                "psr-0": {
-                    "Assetic": "src/"
-                },
-                "files": [
-                    "src/functions.php"
-                ]
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Kris Wallsmith",
-                    "email": "kris.wallsmith@gmail.com",
-                    "homepage": "http://kriswallsmith.net/"
-                }
-            ],
-            "description": "Asset Management for PHP",
-            "homepage": "https://github.com/kriswallsmith/assetic",
-            "keywords": [
-                "assets",
-                "compression",
-                "minification"
-            ]
-        },
-        {
-            "name": "leafo/lessphp",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "http://github.com/leafo/lessphp",
-                "reference": "da15f54506ce5023eaeb9ad9cae83470ffe018a1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/leafo/lessphp/archive/da15f54506ce5023eaeb9ad9cae83470ffe018a1.zip",
-                "reference": "da15f54506ce5023eaeb9ad9cae83470ffe018a1",
-                "shasum": ""
-            },
-            "time": "1351965034",
-            "type": "library",
-            "installation-source": "source",
-            "autoload": {
-                "classmap": [
-                    "lessc.inc.php"
-                ]
-            },
-            "license": [
-                "MIT",
-                "GPL-3.0"
-            ],
-            "authors": [
-                {
-                    "name": "Leaf Corcoran",
-                    "email": "leafot@gmail.com",
-                    "homepage": "http://leafo.net"
-                }
-            ],
-            "description": "lessphp is a compiler for LESS written in PHP.",
-            "homepage": "http://leafo.net/lessphp/"
-        },
-        {
-            "name": "rwoverdijk/assetmanager",
-            "version": "1.2.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/RWOverdijk/AssetManager",
-                "reference": "1.2.5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/RWOverdijk/AssetManager/zipball/1.2.5",
-                "reference": "1.2.5",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3",
-                "zendframework/zendframework": "2.0.*",
-                "kriswallsmith/assetic": ">=v1.1.0-alpha1"
-            },
-            "time": "2012-11-02 13:50:39",
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-0": {
-                    "AssetManager": "src/"
-                }
-            },
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Marco Pivetta",
-                    "email": "ocramius@gmail.com",
-                    "homepage": "http://ocramius.github.com/",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Wesley Overdijk",
-                    "email": "r.w.overdijk@gmail.com",
-                    "homepage": "http://blog.spoonx.nl/"
-                }
-            ],
-            "description": "An assetmanager module for Zend Framework 2.",
-            "homepage": "https://github.com/RWOverdijk/AssetManager",
-            "keywords": [
-                "asset",
-                "zf2",
-                "zend framework 2",
-                "asset manager"
-            ]
-        },
-        {
             "name": "symfony/console",
             "version": "dev-master",
             "target-dir": "Symfony/Component/Console",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console",
-                "reference": "6da537054e8f9f795e64a5b02eb7f9646c9b59e7"
+                "reference": "003a487a674175a1d2e62f205ecd91ffe85554b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/Console/archive/6da537054e8f9f795e64a5b02eb7f9646c9b59e7.zip",
-                "reference": "6da537054e8f9f795e64a5b02eb7f9646c9b59e7",
+                "url": "https://github.com/symfony/Console/archive/003a487a674175a1d2e62f205ecd91ffe85554b1.zip",
+                "reference": "003a487a674175a1d2e62f205ecd91ffe85554b1",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "1352815684",
+            "time": "1353329932",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -638,53 +484,6 @@
                 }
             ],
             "description": "Symfony Console Component",
-            "homepage": "http://symfony.com"
-        },
-        {
-            "name": "symfony/process",
-            "version": "dev-master",
-            "target-dir": "Symfony/Component/Process",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/Process",
-                "reference": "a11b312f99a5a8bf88c0ea5e7660c13af79f964f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/symfony/Process/archive/a11b312f99a5a8bf88c0ea5e7660c13af79f964f.zip",
-                "reference": "a11b312f99a5a8bf88c0ea5e7660c13af79f964f",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "time": "1352815684",
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.2-dev"
-                }
-            },
-            "installation-source": "source",
-            "autoload": {
-                "psr-0": {
-                    "Symfony\\Component\\Process\\": ""
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony Process Component",
             "homepage": "http://symfony.com"
         },
         {
@@ -748,12 +547,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/zendframework/zf2.git",
-                "reference": "8943900b8db3b65c8f767dca9c9bd3c0100200f1"
+                "reference": "3c1f3216f71c86602f940e513fccc61dfedb3ced"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/zendframework/zf2/archive/8943900b8db3b65c8f767dca9c9bd3c0100200f1.zip",
-                "reference": "8943900b8db3b65c8f767dca9c9bd3c0100200f1",
+                "url": "https://github.com/zendframework/zf2/archive/3c1f3216f71c86602f940e513fccc61dfedb3ced.zip",
+                "reference": "3c1f3216f71c86602f940e513fccc61dfedb3ced",
                 "shasum": ""
             },
             "require": {
@@ -819,7 +618,7 @@
                 "zendframework/zendpdf": "ZendPdf for creating PDF representations of barcodes",
                 "zendframework/zendservice-recaptcha": "ZendService\\ReCaptcha for rendering ReCaptchas in Zend\\Captcha and/or Zend\\Form"
             },
-            "time": "1352971962",
+            "time": "1353530023",
             "bin": [
                 "bin/classmap_generator.php"
             ],
@@ -846,243 +645,6 @@
                 "framework",
                 "zf2"
             ]
-        },
-        {
-            "name": "zf-commons/zfc-admin",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ZF-Commons/ZfcAdmin",
-                "reference": "a42d266149d9444d27528e3c3253295d80d59bf6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/ZF-Commons/ZfcAdmin/archive/a42d266149d9444d27528e3c3253295d80d59bf6.zip",
-                "reference": "a42d266149d9444d27528e3c3253295d80d59bf6",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3",
-                "zendframework/zendframework": "2.*"
-            },
-            "suggest": {
-                "bjyoungblood/bjy-authorize": "Access control to protect ZfcAdmin against unauthorized users"
-            },
-            "time": "1351583931",
-            "type": "library",
-            "installation-source": "source",
-            "autoload": {
-                "psr-0": {
-                    "ZfcAdmin": "src/"
-                },
-                "classmap": [
-                    "./Module.php"
-                ]
-            },
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Jurian Sluiman ",
-                    "email": "jurian@juriansluiman.nl",
-                    "homepage": "http://juriansluiman.nl/en/"
-                },
-                {
-                    "name": "Martin Shwalbe",
-                    "email": "martin.shwalbe@gmail.com"
-                }
-            ],
-            "description": "A generic Admin module for ZF2.",
-            "homepage": "https://github.com/juriansluiman/ZfcAdmin",
-            "keywords": [
-                "zf2"
-            ]
-        },
-        {
-            "name": "zf-commons/zfc-base",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "git://github.com/ZF-Commons/ZfcBase.git",
-                "reference": "38990ad5f51002dd271ab676b90a3d59728190e2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/ZF-Commons/ZfcBase/archive/38990ad5f51002dd271ab676b90a3d59728190e2.zip",
-                "reference": "38990ad5f51002dd271ab676b90a3d59728190e2",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3",
-                "zendframework/zendframework": "2.*"
-            },
-            "time": "1351100548",
-            "type": "library",
-            "installation-source": "source",
-            "autoload": {
-                "psr-0": {
-                    "ZfcBase": "src/"
-                },
-                "classmap": [
-                    "./Module.php"
-                ]
-            },
-            "authors": [
-                {
-                    "name": "Kyle Spraggs",
-                    "email": "theman@spiffyjr.me",
-                    "homepage": "http://www.spiffyjr.me/"
-                },
-                {
-                    "name": "Evan Coury",
-                    "email": "me@evancoury.com",
-                    "homepage": "http://blog.evan.pro/"
-                }
-            ],
-            "description": "A set of genetic (abstract) classes which are commonly used across multiple modules.",
-            "homepage": "https://github.com/ZF-Commons/ZfcBase",
-            "keywords": [
-                "zf2"
-            ]
-        },
-        {
-            "name": "zf-commons/zfc-rbac",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ZF-Commons/ZfcRbac",
-                "reference": "999c2a911c053f5d57acfe12b3027275c8140f96"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/ZF-Commons/ZfcRbac/archive/999c2a911c053f5d57acfe12b3027275c8140f96.zip",
-                "reference": "999c2a911c053f5d57acfe12b3027275c8140f96",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3",
-                "zendframework/zendframework": "2.1.x-dev"
-            },
-            "time": "1352816849",
-            "type": "library",
-            "installation-source": "source",
-            "autoload": {
-                "psr-0": {
-                    "ZfcRbac\\": "src/"
-                }
-            },
-            "authors": [
-                {
-                    "name": "Kyle Spraggs",
-                    "email": "theman@spiffyjr.me",
-                    "homepage": "http://www.spiffyjr.me/"
-                }
-            ],
-            "description": "Zend Framework 2 Module that provides a layer of features of Zend\\Permissions\\Rbac",
-            "homepage": "http://www.github.com/ZF-Commons/ZfcRbac/",
-            "keywords": [
-                "zf2",
-                "module"
-            ]
-        },
-        {
-            "name": "zf-commons/zfc-user",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "git://github.com/ZF-Commons/ZfcUser.git",
-                "reference": "5787eb8bcbc974308d8c31eb1da7a6b5044e7715"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/ZF-Commons/ZfcUser/archive/5787eb8bcbc974308d8c31eb1da7a6b5044e7715.zip",
-                "reference": "5787eb8bcbc974308d8c31eb1da7a6b5044e7715",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3",
-                "zf-commons/zfc-base": "dev-master",
-                "zendframework/zendframework": "2.*"
-            },
-            "time": "1352735726",
-            "type": "library",
-            "installation-source": "source",
-            "autoload": {
-                "psr-0": {
-                    "ZfcUser": "src/"
-                },
-                "classmap": [
-                    "./Module.php"
-                ]
-            },
-            "authors": [
-                {
-                    "name": "Kyle Spraggs",
-                    "email": "theman@spiffyjr.me",
-                    "homepage": "http://www.spiffyjr.me/"
-                },
-                {
-                    "name": "Evan Coury",
-                    "email": "me@evancoury.com",
-                    "homepage": "http://blog.evan.pro/"
-                }
-            ],
-            "description": "A generic user registration and authentication module for ZF2. Supports Zend\\Db and Doctrine2.",
-            "homepage": "https://github.com/ZF-Commons/ZfcUser",
-            "keywords": [
-                "zf2"
-            ]
-        },
-        {
-            "name": "zf-commons/zfc-user-doctrine-orm",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "git://github.com/ZF-Commons/ZfcUserDoctrineORM.git",
-                "reference": "9007c8b29ed38763ffea433e30b31e5ee22645f2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/ZF-Commons/ZfcUserDoctrineORM/archive/9007c8b29ed38763ffea433e30b31e5ee22645f2.zip",
-                "reference": "9007c8b29ed38763ffea433e30b31e5ee22645f2",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3",
-                "zf-commons/zfc-base": "dev-master",
-                "zf-commons/zfc-user": "dev-master",
-                "zendframework/zendframework": "2.*",
-                "doctrine/doctrine-orm-module": "0.*"
-            },
-            "time": "1351713523",
-            "type": "library",
-            "installation-source": "source",
-            "autoload": {
-                "psr-0": {
-                    "ZfcUserDoctrineORM": "src/"
-                },
-                "classmap": [
-                    "./"
-                ]
-            },
-            "authors": [
-                {
-                    "name": "Kyle Spraggs",
-                    "email": "theman@spiffyjr.me",
-                    "homepage": "http://www.spiffyjr.me/"
-                },
-                {
-                    "name": "Evan Coury",
-                    "email": "me@evancoury.com",
-                    "homepage": "http://blog.evan.pro/"
-                }
-            ],
-            "description": "Doctrine2 ORM storage adapter for ZfcUser.",
-            "homepage": "https://github.com/ZF-Commons/ZfcUserDoctrineORM",
-            "keywords": [
-                "zf2"
-            ]
         }
     ],
     "packages-dev": null,
@@ -1097,9 +659,6 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "zendframework/zend-developer-tools": 20,
-        "zendframework/zendframework": 20,
-        "zf-commons/zfc-admin": 20,
-        "zf-commons/zfc-rbac": 20,
-        "zf-commons/zfc-user-doctrine-orm": 20
+        "zendframework/zendframework": 20
     }
 }

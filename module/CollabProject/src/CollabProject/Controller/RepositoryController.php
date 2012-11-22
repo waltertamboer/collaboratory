@@ -12,13 +12,15 @@ namespace CollabProject\Controller;
 
 use CollabApplication\Form\DeleteForm;
 use CollabProject\Entity\Project;
-use CollabProject\Form\ProjectForm;
+use CollabProject\Entity\Repository;
+use CollabProject\Form\RepositoryForm;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-class ProjectController extends AbstractActionController
+class RepositoryController extends AbstractActionController
 {
     private $projectService;
+    private $repositoryService;
 
     private function getProjectService()
     {
@@ -26,6 +28,14 @@ class ProjectController extends AbstractActionController
             $this->projectService = $this->getServiceLocator()->get('project.service');
         }
         return $this->projectService;
+    }
+
+    private function getRepositoryService()
+    {
+        if ($this->repositoryService === null) {
+            $this->repositoryService = $this->getServiceLocator()->get('CollabProject\Service\Repository');
+        }
+        return $this->repositoryService;
     }
 
     public function indexAction()
@@ -37,85 +47,30 @@ class ProjectController extends AbstractActionController
 
     public function createAction()
     {
-        $form = new ProjectForm();
+        $project = $this->getProjectService()->getById($this->params('project'));
+        if (!$project) {
+            return $this->redirect()->toRoute('project/overview');
+        }
+
+        $form = new RepositoryForm();
 
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $project = new Project();
-            $form->bind($project);
+            $repository = new Repository();
 
+            $form->bind($repository);
             $form->setData($request->getPost());
 
             if ($form->isValid()) {
-                $this->getProjectService()->persist($project);
-                return $this->redirect()->toRoute('project/overview');
+                $this->getRepositoryService()->persist($repository);
+                return $this->redirect()->toRoute('project/view', array(
+                    'project' => $project->getId()
+                ));
             }
         }
 
         $viewModel = new ViewModel();
         $viewModel->setVariable('form', $form);
-        $viewModel->setTerminal($request->isXmlHttpRequest());
-        return $viewModel;
-    }
-
-    public function updateAction()
-    {
-        $project = $this->getProjectService()->getById($this->params('id'));
-        if (!$project) {
-            return $this->redirect()->toRoute('project/overview');
-        }
-
-        $form = new ProjectForm();
-        $form->bind($project);
-
-        $request = $this->getRequest();
-        if ($request->isPost()) {
-            $form->setData($request->getPost());
-
-            if ($form->isValid()) {
-                $this->getProjectService()->persist($project);
-                return $this->redirect()->toRoute('project/overview');
-            }
-        }
-
-        $viewModel = new ViewModel();
-        $viewModel->setVariable('form', $form);
-        $viewModel->setVariable('project', $project);
-        $viewModel->setTerminal($request->isXmlHttpRequest());
-        return $viewModel;
-    }
-
-    public function deleteAction()
-    {
-        $project = $this->getProjectService()->getById($this->params('id'));
-        if (!$project) {
-            return $this->redirect()->toRoute('project/overview');
-        }
-
-        $form = new DeleteForm();
-
-        $request = $this->getRequest();
-        if ($request->isPost()) {
-            if ($request->getPost('yes') != null) {
-                $this->getProjectService()->remove($project);
-            }
-            return $this->redirect()->toRoute('project/overview');
-        }
-
-        $viewModel = new ViewModel();
-        $viewModel->setVariable('form', $form);
-        $viewModel->setVariable('project', $project);
-        return $viewModel;
-    }
-
-    public function viewAction()
-    {
-        $project = $this->getProjectService()->getById($this->params('id'));
-        if (!$project) {
-            return $this->redirect()->toRoute('project/overview');
-        }
-
-        $viewModel = new ViewModel();
         $viewModel->setVariable('project', $project);
         return $viewModel;
     }

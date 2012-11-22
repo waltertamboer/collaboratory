@@ -1,0 +1,10 @@
+<?php $this->headTitle('Delete Repository'); ?>
+
+<p>
+    Are you sure you want to delete the repository "<?php echo $this->repository->getName(); ?>"?
+</p>
+
+<?php echo $this->form()->openTag($this->form); ?>
+<?php echo $this->formSubmit($this->form->get('yes')); ?>
+<a href="<?php echo $this->url('project/overview'); ?>">No</a>
+<?php echo $this->form()->closeTag(); ?>

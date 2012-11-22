@@ -27,12 +27,12 @@ return array(
     ),
     'router' => array(
         'routes' => array(
-            'repository' => array(
+            'scm' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route' => '/project/repository',
+                    'route' => '/repository',
                     'defaults' => array(
-                        'controller' => 'CollabProject\Controller\ProjectController',
+                        'controller' => 'CollabProject\Controller\RepositoryController',
                         'action' => 'index',
                     ),
                 ),
@@ -41,12 +41,36 @@ return array(
                     'create' => array(
                         'type' => 'Zend\Mvc\Router\Http\Segment',
                         'options' => array(
-                            'route' => '/create/:id',
+                            'route' => '/create/:project',
+                            'constraints' => array(
+                                'project' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'action' => 'create',
+                            ),
+                        ),
+                    ),
+                    'update' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                        'options' => array(
+                            'route' => '/update/:id',
                             'constraints' => array(
                                 'id' => '[0-9]+',
                             ),
                             'defaults' => array(
                                 'action' => 'update',
+                            ),
+                        ),
+                    ),
+                    'delete' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                        'options' => array(
+                            'route' => '/delete/:id',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'action' => 'delete',
                             ),
                         ),
                     ),
@@ -124,6 +148,7 @@ return array(
     'service_manager' => array(
         'factories' => array(
             'project.service' => 'CollabProject\Service\ProjectServiceFactory',
+            'CollabProject\Service\Repository' => 'CollabProject\Service\RepositoryServiceFactory',
         ),
     ),
     'view_manager' => array(
