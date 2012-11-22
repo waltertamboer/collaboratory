@@ -39,25 +39,39 @@ Collaboratory contains a lot of features. The most important ones:
 ## Installing
 
 Currently Collaboratory only works on Ubuntu. We assume you have a clean machine to work with.
-The installation of Collaboratory exists out of 3 steps:
+The installation of Collaboratory exists out of 4 steps:
 
 ### 1. Install Collaboratory
 
 First run following script:
 
-`$ curl https://raw.github.com/pixelpolishers/collaboratory/master/data/install/ubuntu.sh | sh`
+    $ curl https://raw.github.com/pixelpolishers/collaboratory/master/data/install/ubuntu.sh | sh
 
 This updates your system to the latest version and installs the needed packages such as Apache, MySQL and PHP.
 
-### 2. Manually configure SSH if needed.
+### 2. Configure SSH
 
-The installation script will finish and tells you to update some SSH settings, do this manually in
+The installation script will finish and tells you to update some SSH settings, do this manually:
 
-`/etc/ssh/sshd_config`
+    $ sudo vi /etc/ssh/sshd_config
 
-### 3. Access Collaboratory through the webbrowser and finish the installation.
+### 3. Setup MySQL
 
-Last you need to configure Collaboratory. Here you will enter your database information and create your user account.
+    # First you need to log in to MySQL:
+    $ mysql -u root -p
+
+    # Create the database:
+    mysql> CREATE DATABASE IF NOT EXISTS `collaboratory` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_unicode_ci`;
+
+    # Create a new MySQL user, do not forget to set a password:
+    mysql> CREATE USER 'collaboratory'@'localhost' IDENTIFIED BY 'MyPassword';
+
+    # And last we give the new user access to the created database:
+    mysql> GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER ON `collaboratory`.* TO 'collaboratory'@'localhost';
+
+### 4. Configure Collaboratory
+
+Last you need to configure Collaboratory. Here you will enter the database information from the step before. Here you will also create your user account.
 
 ## Acknowledgements
 
