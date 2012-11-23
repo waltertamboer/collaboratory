@@ -14,6 +14,7 @@ use CollabProject\Entity\Repository;
 
 interface RepositoryMapperInterface
 {
+    public function findBy(array $criteria);
     public function findById($id);
     public function persist(Repository $repository);
     public function remove(Repository $repository);

@@ -62,9 +62,10 @@ class RepositoryController extends AbstractActionController
             $form->setData($request->getPost());
 
             if ($form->isValid()) {
+				$repository->setProject($project);
                 $this->getRepositoryService()->persist($repository);
                 return $this->redirect()->toRoute('project/view', array(
-                    'project' => $project->getId()
+                    'id' => $project->getId()
                 ));
             }
         }

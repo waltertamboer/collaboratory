@@ -39,7 +39,7 @@ class RepositoryForm extends Form
 
         $inputName = new Input();
         $inputName->setName('description');
-        $inputName->setRequired(true);
+        $inputName->setRequired(false);
         $inputFilter->add($inputName);
 
         $name = new Text('name');

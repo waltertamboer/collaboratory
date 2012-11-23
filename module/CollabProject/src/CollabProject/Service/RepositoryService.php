@@ -27,6 +27,11 @@ class RepositoryService implements ServiceManagerAwareInterface
         return $this->mapper;
     }
 
+    public function findBy(array $criteria)
+    {
+        return $this->getMapper()->findBy($criteria);
+    }
+
     public function findById($id)
     {
         return $this->getMapper()->findById($id);

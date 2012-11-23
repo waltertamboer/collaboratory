@@ -19,6 +19,7 @@ use Zend\View\Model\ViewModel;
 class ProjectController extends AbstractActionController
 {
     private $projectService;
+    private $repositoryService;
 
     private function getProjectService()
     {
@@ -26,6 +27,14 @@ class ProjectController extends AbstractActionController
             $this->projectService = $this->getServiceLocator()->get('project.service');
         }
         return $this->projectService;
+    }
+
+    private function getRepositoryService()
+    {
+        if ($this->repositoryService === null) {
+            $this->repositoryService = $this->getServiceLocator()->get('CollabProject\Service\Repository');
+        }
+        return $this->repositoryService;
     }
 
     public function indexAction()
@@ -117,6 +126,9 @@ class ProjectController extends AbstractActionController
 
         $viewModel = new ViewModel();
         $viewModel->setVariable('project', $project);
+        $viewModel->setVariable('repositories', $this->getRepositoryService()->findBy(array(
+			'project' => $project
+		)));
         return $viewModel;
     }
 }

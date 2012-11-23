@@ -34,6 +34,13 @@ class Repository
     private $description;
 
     /**
+     * The project to which the repository belongs.
+     *
+     * @var Project
+     */
+    private $project;
+
+    /**
      * Gets the id of the repository.
      *
      * @return int
@@ -54,7 +61,6 @@ class Repository
         $this->id = $id;
         return $this;
     }
-
 
     /**
      * Gets the name of the repository.
@@ -78,7 +84,6 @@ class Repository
         return $this;
     }
 
-
     /**
      * Gets the description of the repository.
      *
@@ -98,6 +103,28 @@ class Repository
     public function setDescription($description)
     {
         $this->description = $description;
+        return $this;
+    }
+
+    /**
+     * Gets the project of the repository.
+     *
+     * @return Project
+     */
+    public function getProject()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Sets the project of the repository.
+     *
+     * @param null|Project $project The project to set.
+     * @return Repository
+     */
+    public function setProject(Project $project = null)
+    {
+        $this->project = $project;
         return $this;
     }
 }
