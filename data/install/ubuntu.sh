@@ -82,6 +82,9 @@ fi
 # The IP address that should be used to browse to:
 IP_ADDRESS=`ifconfig | awk -F':' '/inet addr/&&!/127.0.0.1/{split($2,_," ");print _[1]}'`
 
+# The current time zone to set:
+TIMEZONE=`cat /etc/timezone`
+
 # Add the virtual host:
 if [ -f "$COLLABORATORY_VHOST" ]; then
 	echo "Skipped creation of virtual host since it already exists."
@@ -96,6 +99,7 @@ else
 		DocumentRoot $COLLABORATORY_HOME/public
 
 		# PHP settings:
+		php_value date.timezone $TIMEZONE
 		php_value error_reporting 32767
 		php_flag display_errors on
 		php_flag display_startup_errors on
