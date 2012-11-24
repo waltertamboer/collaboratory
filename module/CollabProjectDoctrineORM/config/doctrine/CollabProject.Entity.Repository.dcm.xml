@@ -6,6 +6,8 @@
 		</id>
 		<field name="name" type="string" column="name" nullable="true" precision="0" scale="0" />
 		<field name="description" type="string" column="description" nullable="true" precision="0" scale="0" />
-		<many-to-one field="project" target-entity="CollabProject\Entity\Project" />
+		<many-to-one field="project" target-entity="CollabProject\Entity\Project">
+            <join-column name="project_id" referenced-column-name="id" on-delete="CASCADE" />
+        </many-to-one>
 	</entity>
 </doctrine-mapping>
