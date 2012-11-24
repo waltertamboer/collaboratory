@@ -1,7 +1,7 @@
 <?php
 
 // Set the timezone in case there is none.
-if (!date_default_timezone_get()) {
+if (!ini_get('date.timezone')) {
     date_default_timezone_set('Europe/Amsterdam');
 }
 
