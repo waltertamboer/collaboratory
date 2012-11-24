@@ -63,6 +63,9 @@ else
 	# Install Collaboratory in the user's home directory:
 	sudo -H -u $COLLABORATORY_GIT_USER git clone https://github.com/pixelpolishers/collaboratory.git $COLLABORATORY_HOME
 
+    # We want git to ignore file mode changes:
+    sudo -H -u $COLLABORATORY_GIT_USER git config core.filemode false
+
 	# The shell should have executable rights:
 	sudo chmod +x $COLLABORATORY_HOME/data/shell/ssh-shell
 
