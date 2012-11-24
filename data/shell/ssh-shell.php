@@ -28,14 +28,22 @@ fclose($f);
 
 if (preg_match("#^(git-upload-pack|git-receive-pack|git-upload-archive) '/?(.*?)(?:\.git(\d)?)?'$#i", $_SERVER['SSH_ORIGINAL_COMMAND'], $matches)) {
 	$action = $matches[1];
-	$repository = $matches[2];
+	$repositoryLine = $matches[2];
 
-	// Prefix the repository with the correct path:
-	$repository = $homePath . '/data/repositories/' . $repository;
-    if (is_dir($repository)) {
-        $output = $action . " '" . $repository . "'";
+    // Split the repository, we expect the form: "project/repository/tree/a/b/c"
+    if (preg_match('#^([a-z0-9-]+)/([a-z0-9-/]+)$#semi', $repositoryLine, $matches)) {
+        $projectName = $matches[1];
+        $repository = preg_replace('#/+#', '/', $matches[2]);
+
+        // Prefix the repository with the correct path:
+        $repository = $homePath . '/data/projects/' . $projectName . '/repositories/' . $repository;
+        if (is_dir($repository)) {
+            $output = $action . " '" . $repository . "'";
+        } else {
+            $output = 'The repository "' . $repositoryLine . '" does not exist.';
+        }
     } else {
-        $output = 'The repository "' . $repository . '" does not exist.';
+        $output = 'The repository "' . $repositoryLine . '" does not exist.';
     }
 } else {
 	$output = 'No repository found.';
