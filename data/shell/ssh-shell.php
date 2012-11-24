@@ -1,5 +1,10 @@
 <?php
 
+// Set the timezone in case there is none.
+if (!date_default_timezone_get()) {
+    date_default_timezone_set('Europe/Amsterdam');
+}
+
 // The username that is active:
 $username = $_SERVER['argv'][1];
 
