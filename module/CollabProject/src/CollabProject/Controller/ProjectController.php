@@ -46,7 +46,8 @@ class ProjectController extends AbstractActionController
 
     public function createAction()
     {
-        $form = new ProjectForm();
+        $uniqueNameValidator = $this->getServiceLocator()->create('CollabProject\Validator\ProjectName');
+        $form = new ProjectForm($uniqueNameValidator);
 
         $request = $this->getRequest();
         if ($request->isPost()) {
@@ -74,7 +75,10 @@ class ProjectController extends AbstractActionController
             return $this->redirect()->toRoute('project/overview');
         }
 
-        $form = new ProjectForm();
+        $uniqueNameValidator = $this->getServiceLocator()->create('CollabProject\Validator\ProjectName');
+        $uniqueNameValidator->addException($project->getName());
+        
+        $form = new ProjectForm($uniqueNameValidator);
         $form->bind($project);
 
         $request = $this->getRequest();

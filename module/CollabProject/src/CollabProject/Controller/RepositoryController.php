@@ -52,7 +52,8 @@ class RepositoryController extends AbstractActionController
             return $this->redirect()->toRoute('project/overview');
         }
 
-        $form = new RepositoryForm();
+        $uniqueNameValidator = $this->getServiceLocator()->create('CollabProject\Validator\RepositoryName');
+        $form = new RepositoryForm($uniqueNameValidator);
 
         $request = $this->getRequest();
         if ($request->isPost()) {

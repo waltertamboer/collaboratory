@@ -10,6 +10,7 @@
 
 namespace CollabProject\Form;
 
+use CollabApplication\Validator\AbstractUnique;
 use CollabProject\Entity\Project;
 use Zend\InputFilter\Input;
 use Zend\InputFilter\InputFilter;
@@ -21,7 +22,7 @@ use Zend\Stdlib\Hydrator\ClassMethods as ClassMethodsHydrator;
 
 class RepositoryForm extends Form
 {
-    public function __construct()
+    public function __construct(AbstractUnique $uniqueNameValidator)
     {
         parent::__construct('repository');
 
@@ -35,6 +36,7 @@ class RepositoryForm extends Form
         $inputName = new Input();
         $inputName->setName('name');
         $inputName->setRequired(true);
+        $inputName->getValidatorChain()->addValidator($uniqueNameValidator);
         $filters = $inputName->getFilterChain();
         $filters->attachByName('StringToLower');
         $filters->attachByName('PregReplace', array(

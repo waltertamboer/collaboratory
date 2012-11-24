@@ -149,6 +149,14 @@ return array(
         'factories' => array(
             'project.service' => 'CollabProject\Service\ProjectServiceFactory',
             'CollabProject\Service\Repository' => 'CollabProject\Service\RepositoryServiceFactory',
+            'CollabProject\Validator\ProjectName' => function ($sm) {
+                $entityManager = $sm->get('doctrine.entitymanager.orm_default');
+                return new \CollabApplicationDoctrineORM\Validator\UniqueEntity($entityManager, 'CollabProject\Entity\Project', 'name', 'getName');
+            },
+            'CollabProject\Validator\RepositoryName' => function ($sm) {
+                $entityManager = $sm->get('doctrine.entitymanager.orm_default');
+                return new \CollabApplicationDoctrineORM\Validator\UniqueEntity($entityManager, 'CollabProject\Entity\Repository', 'name', 'getName');
+            },
         ),
     ),
     'view_manager' => array(
