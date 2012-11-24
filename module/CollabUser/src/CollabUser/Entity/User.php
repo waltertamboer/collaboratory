@@ -121,6 +121,7 @@ class User
     {
         $this->clearTeams();
         foreach ($teams as $team) {
+            var_dump($teams);exit;
             $this->addTeam($team);
             $team->addMember($this);
         }

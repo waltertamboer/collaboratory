@@ -1,13 +1,13 @@
 <?php
 
-// Set the current timezone:
-date_default_timezone_set('Europe/Amsterdam');
-
 // The username that is active:
 $username = $_SERVER['argv'][1];
 
+// The home path on the system:
+$homePath = '/home/' . $_SERVER['USER'] . '/collaboratory';
+
 // The directory of today's logs:
-$logDirectory = '/home/' . $_SERVER['USER'] . '/logs/git/' . $username;
+$logDirectory = $homePath . '/logs/git/' . $username;
 if (!is_dir($logDirectory)) {
 	mkdir($logDirectory, 0777, true);
 }
@@ -21,19 +21,19 @@ fwrite($f, '[' . date('Y-m-d H:i:s') . '][' . $_SERVER['USER'] . '][' . $usernam
 fwrite($f, PHP_EOL);
 fclose($f);
 
-$sshCommand = $_SERVER['SSH_ORIGINAL_COMMAND'];
-
 if (preg_match("#^(git-upload-pack|git-receive-pack|git-upload-archive) '/?(.*?)(?:\.git(\d)?)?'$#i", $_SERVER['SSH_ORIGINAL_COMMAND'], $matches)) {
 	$action = $matches[1];
 	$repository = $matches[2];
-	$traceLevel = isset($matches[3]) ? $matches[3] : '';
 
 	// Prefix the repository with the correct path:
-	$repository = '/home/' . $_SERVER['USER'] . '/data/repositories/' . $repository;
-
-	// Output the shell command so it can be executed:
-	echo $action . "'" . $repository . "'";
+	$repository = $homePath . '/data/projects/' . $repository;
+    if (is_dir($repository)) {
+        $output = $action . "'" . $repository . "'";
+    } else {
+        $output = 'The repository "' . $repository . '" does not exist.';
+    }
 } else {
-	die('No repository found.');
+	$output = 'No repository found.';
 }
 
+echo $output;

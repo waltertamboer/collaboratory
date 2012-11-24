@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RESULT="`/usr/bin/php -f /home/$USER/data/shell/ssh-shell.php \"$1\"`"
+RESULT="`/usr/bin/php -f /home/$USER/collaboratory/data/shell/ssh-shell.php \"$1\"`"
 
 if [[ "$RESULT" =~ "git-upload-pack|git-receive-pack|git-upload-archive" ]]; then
     git shell -c "$RESULT"

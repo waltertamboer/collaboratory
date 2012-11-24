@@ -38,6 +38,7 @@ class UserTeamsStrategy implements \Zend\Stdlib\Hydrator\Strategy\StrategyInterf
         $result = $value;
         if (is_array($value)) {
             $result = array();
+            var_dump($value);exit;
             foreach ($value as $entity) {
                 $result[] = $this->teamService->getById($entity->getId());
             }
