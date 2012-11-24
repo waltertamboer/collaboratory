@@ -75,4 +75,29 @@ class RepositoryController extends AbstractActionController
         $viewModel->setVariable('project', $project);
         return $viewModel;
     }
+
+    public function deleteAction()
+    {
+        $repository = $this->getRepositoryService()->findById($this->params('id'));
+        if (!$repository) {
+            return $this->redirect()->toRoute('project/overview');
+        }
+
+        $form = new DeleteForm();
+
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            if ($request->getPost('yes') != null) {
+                $this->getRepositoryService()->remove($repository);
+            }
+            return $this->redirect()->toRoute('project/view', array(
+                'id' => $repository->getProject()->getId()
+            ));
+        }
+
+        $viewModel = new ViewModel();
+        $viewModel->setVariable('form', $form);
+        $viewModel->setVariable('repository', $repository);
+        return $viewModel;
+    }
 }

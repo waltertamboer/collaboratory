@@ -27,7 +27,7 @@ return array(
     ),
     'router' => array(
         'routes' => array(
-            'scm' => array(
+            'repository' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
                     'route' => '/repository',

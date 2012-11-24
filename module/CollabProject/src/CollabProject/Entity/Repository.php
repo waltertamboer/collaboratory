@@ -113,7 +113,7 @@ class Repository
      */
     public function getProject()
     {
-        return $this->description;
+        return $this->project;
     }
 
     /**

@@ -35,6 +35,12 @@ class RepositoryForm extends Form
         $inputName = new Input();
         $inputName->setName('name');
         $inputName->setRequired(true);
+        $filters = $inputName->getFilterChain();
+        $filters->attachByName('StringToLower');
+        $filters->attachByName('PregReplace', array(
+            'pattern' => '/[^a-z0-9-]+/i',
+            'replacement' => ''
+        ));
         $inputFilter->add($inputName);
 
         $inputName = new Input();

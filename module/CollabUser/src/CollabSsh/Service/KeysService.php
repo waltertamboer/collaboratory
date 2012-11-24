@@ -104,7 +104,17 @@ class KeysService implements ServiceManagerAwareInterface, EventManagerAwareInte
     public function synchronize()
     {
         $currDir = \getcwd();
-        $path = $currDir . '/.ssh/authorized_keys';
+        $path = realpath($currDir . '/..');
+
+        // Make sure the SSH directory exists:
+        $sshPath = $path . '/.ssh';
+        if (!is_dir($sshPath)) {
+            mkdir($sshPath, 0777);
+            chmod($sshPath, 0777);
+        }
+
+        // The path to the authorized_keys file:
+        $authorizedKeysPath = $sshPath . '/authorized_keys';
 
         $content = '';
         $content .= '#collaboratory' . PHP_EOL;
@@ -112,7 +122,7 @@ class KeysService implements ServiceManagerAwareInterface, EventManagerAwareInte
             $createdBy = $sshKey->getCreatedBy();
 
             $parameters = array();
-            $parameters[] = 'command="' . $currDir . '/data/shell/ssh-shell ' . $createdBy->getId() . '"';
+            $parameters[] = 'command="' . realpath($currDir . '/data/shell/ssh-shell') . ' ' . $createdBy->getId() . '"';
             $parameters[] = 'no-port-forwarding';
             $parameters[] = 'no-x11-forwarding';
             $parameters[] = 'no-agent-forwarding';
@@ -122,13 +132,13 @@ class KeysService implements ServiceManagerAwareInterface, EventManagerAwareInte
         }
         $content .= '#collaboratory' . PHP_EOL;
 
-        if (is_file($path)) {
-            $original = file_get_contents($path);
+        if (is_file($authorizedKeysPath)) {
+            $original = file_get_contents($authorizedKeysPath);
 
             $content = preg_replace('/#collaboratory.*?#collaboratory\s*/sim', $content, $original);
-            file_put_contents($path, $content);
+            file_put_contents($authorizedKeysPath, $content);
         } else {
-            $f = fopen($path, 'a');
+            $f = fopen($authorizedKeysPath, 'a');
             fwrite($f, $content);
             fclose($f);
         }

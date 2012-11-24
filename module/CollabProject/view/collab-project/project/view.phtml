@@ -13,7 +13,7 @@ echo '</ul>';
 echo '<h3>Repositories</h3>';
 
 echo '<ul>';
-echo '<li><a href="' . $this->url('scm/create', array(
+echo '<li><a href="' . $this->url('repository/create', array(
     'project' => $this->project->getId()
 )) . '">Create</a></li>';
 echo '</ul>';
@@ -23,7 +23,13 @@ if (!$this->repositories) {
 } else {
     echo '<ul>';
     foreach ($this->repositories as $repository) {
-        echo '<li><a href="">' . $repository->getName() . '</a></li>';
+        echo '<li>';
+        echo '<h4>' . $repository->getName() . '</h4>';
+        echo '<p>' . $repository->getDescription() . '</p>';
+        echo '<ul>
+            <li><a href="' . $this->url('repository/delete', array('id' => $repository->getId())) . '">Remove</a></li>
+        </ul>';
+        echo '</li>';
     }
     echo '</ul>';
 }
