@@ -14,6 +14,7 @@ class Project
 {
     private $id;
     private $name;
+    private $previousName;
     private $description;
     private $teams;
     private $snippets;
@@ -40,8 +41,14 @@ class Project
         return $this->name;
     }
 
+    public function getPreviousName()
+    {
+        return $this->previousName;
+    }
+
     public function setName($name)
     {
+        $this->previousName = $this->name;
         $this->name = $name;
         return $this;
     }

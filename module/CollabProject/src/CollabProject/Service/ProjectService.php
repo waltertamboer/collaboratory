@@ -44,13 +44,43 @@ class ProjectService implements ServiceManagerAwareInterface
 
     public function persist(Project $project)
     {
+        // We are going to create the project directory. It could be that we are
+        // renaming the project. There for we get it first:
+        $oldProjectName = $project->getPreviousName();
+
         $this->getMapper()->persist($project);
+
+        $projectPath = getcwd() . '/data/projects/' . preg_replace('/[^a-z0-9-]+/i', '', $project->getName());
+
+        if ($oldProjectName != $project->getName()) {
+            $oldProjectPath = getcwd() . '/data/projects/' . preg_replace('/[^a-z0-9-]+/i', '', $oldProjectName);
+            if (is_dir($oldProjectPath)) {
+                rename($oldProjectPath, $projectPath);
+            } else {
+                mkdir($projectPath, 0777);
+                chmod($projectPath, 0777);
+            }
+        } else if (!is_dir($projectPath)) {
+            mkdir($projectPath, 0777);
+            chmod($projectPath, 0777);
+        }
+
         return $this;
     }
 
     public function remove(Project $project)
     {
+        // Delete the project path:
+        $path = getcwd() . '/data/projects/' . preg_replace('/[^a-z0-9-]+/i', '', $project->getName());
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            $command = 'rmdir /Q /S ' . $path;
+        } else {
+            $command = 'rm -rf ' . $path;
+        }
+        exec($command);
+
         $this->getMapper()->remove($project);
+
         return $this;
     }
 
