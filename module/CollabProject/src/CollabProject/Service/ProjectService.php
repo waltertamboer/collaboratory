@@ -42,6 +42,13 @@ class ProjectService implements ServiceManagerAwareInterface
         return $this->getMapper()->getById($id);
     }
 
+    public function getProjectPath($name)
+    {
+        $projectName = preg_replace('/[^a-z0-9-]+/i', '', $name);
+
+        return getcwd() . '/data/projects/' . strtolower($projectName);
+    }
+
     public function persist(Project $project)
     {
         // We are going to create the project directory. It could be that we are
@@ -50,10 +57,10 @@ class ProjectService implements ServiceManagerAwareInterface
 
         $this->getMapper()->persist($project);
 
-        $projectPath = getcwd() . '/data/projects/' . preg_replace('/[^a-z0-9-]+/i', '', $project->getName());
+        $projectPath = $this->getProjectPath($project->getName());
 
-        if ($oldProjectName != $project->getName()) {
-            $oldProjectPath = getcwd() . '/data/projects/' . preg_replace('/[^a-z0-9-]+/i', '', $oldProjectName);
+        if ($oldProjectName && $oldProjectName != $project->getName()) {
+            $oldProjectPath = $this->getProjectPath($oldProjectName);
             if (is_dir($oldProjectPath)) {
                 rename($oldProjectPath, $projectPath);
             } else {
@@ -71,13 +78,15 @@ class ProjectService implements ServiceManagerAwareInterface
     public function remove(Project $project)
     {
         // Delete the project path:
-        $path = getcwd() . '/data/projects/' . preg_replace('/[^a-z0-9-]+/i', '', $project->getName());
-        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-            $command = 'rmdir /Q /S ' . $path;
-        } else {
-            $command = 'rm -rf ' . $path;
+        $path = realpath($this->getProjectPath($project->getName()));
+        if (is_dir($path)) {
+            if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+                $command = 'rmdir /Q /S ' . $path;
+            } else {
+                $command = 'rm -rf ' . $path;
+            }
+            exec($command);
         }
-        exec($command);
 
         $this->getMapper()->remove($project);
 
