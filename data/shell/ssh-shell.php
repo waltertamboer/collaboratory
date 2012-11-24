@@ -31,7 +31,7 @@ if (preg_match("#^(git-upload-pack|git-receive-pack|git-upload-archive) '/?(.*?)
 	$repository = $matches[2];
 
 	// Prefix the repository with the correct path:
-	$repository = $homePath . '/data/projects/' . $repository;
+	$repository = $homePath . '/data/repositories/' . $repository;
     if (is_dir($repository)) {
         $output = $action . " '" . $repository . "'";
     } else {

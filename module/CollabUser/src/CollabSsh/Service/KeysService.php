@@ -103,7 +103,7 @@ class KeysService implements ServiceManagerAwareInterface, EventManagerAwareInte
 
     public function synchronize()
     {
-        $currDir = \getcwd();
+        $currDir = getcwd();
         $path = realpath($currDir . '/..');
 
         // Make sure the SSH directory exists:
