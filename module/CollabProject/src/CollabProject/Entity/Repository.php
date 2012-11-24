@@ -27,6 +27,13 @@ class Repository
     private $name;
 
     /**
+     * The previous name of the repository.
+     *
+     * @var string
+     */
+    private $previousName;
+
+    /**
      * The description of the repository.
      *
      * @var string
@@ -73,6 +80,16 @@ class Repository
     }
 
     /**
+     * Gets the previous name of the repository.
+     *
+     * @return string
+     */
+    public function getPreviousName()
+    {
+        return $this->previousName;
+    }
+
+    /**
      * Sets the name of the repository.
      *
      * @param string $name The name of the repository.
@@ -80,6 +97,7 @@ class Repository
      */
     public function setName($name)
     {
+        $this->previousName = $name;
         $this->name = $name;
         return $this;
     }

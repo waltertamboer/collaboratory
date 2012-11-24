@@ -40,11 +40,61 @@ class RepositoryService implements ServiceManagerAwareInterface
     public function persist(Repository $repository)
     {
         $this->getMapper()->persist($repository);
+
+        $projectName = $repository->getProject()->getName();
+        $projectPath = $this->getProjectPath($projectName);
+
+        if (!is_dir($projectPath)) {
+            mkdir($projectPath, 0777);
+            chmod($projectPath, 0777);
+        }
+
+        $projectPath = realpath($projectPath);
+
+        $oldRepositoryName = $repository->getPreviousName();
+        $repositoryPath = $this->getRepositoryPath($projectPath, $repository->getName());
+
+        $shouldInitialize = false;
+
+        if ($oldRepositoryName && $oldRepositoryName != $repository->getName()) {
+            $oldRepositoryPath = $this->getRepositoryPath($projectName, $oldRepositoryName);
+            if (is_dir($oldRepositoryPath)) {
+                rename($oldRepositoryPath, $repositoryPath);
+            } else {
+                mkdir($repositoryPath, 0777);
+                chmod($repositoryPath, 0777);
+                $shouldInitialize = true;
+            }
+        } else if (!is_dir($repositoryPath)) {
+            mkdir($repositoryPath, 0777);
+            chmod($repositoryPath, 0777);
+            $shouldInitialize = true;
+        }
+
+        if ($shouldInitialize) {
+            $command = 'git --bare init ' . realpath($repositoryPath);
+            exec($command);
+        }
+
         return $this;
     }
 
     public function remove(Repository $repository)
     {
+        // Delete the repository on the file system:
+        $projectName = $repository->getProject()->getName();
+        $projectPath = $this->getProjectPath($projectName);
+        $path = realpath($this->getRepositoryPath($projectPath, $repository->getName()));
+
+        if (is_dir($path)) {
+            if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+                $command = 'rmdir /Q /S ' . $path;
+            } else {
+                $command = 'rm -rf ' . $path;
+            }
+            exec($command);
+        }
+
         $this->getMapper()->remove($repository);
         return $this;
     }
@@ -52,5 +102,19 @@ class RepositoryService implements ServiceManagerAwareInterface
     public function setServiceManager(ServiceManager $serviceManager)
     {
         $this->serviceManager = $serviceManager;
+    }
+
+    public function getProjectPath($name)
+    {
+        $projectName = preg_replace('/[^a-z0-9-]+/i', '', $name);
+
+        return getcwd() . '/data/projects/' . strtolower($projectName) . '/repositories/';
+    }
+
+    private function getRepositoryPath($projectPath, $name)
+    {
+        $repoName = preg_replace('/[^a-z0-9-]+/i', '', $name);
+
+        return $projectPath . '/' . strtolower($repoName);
     }
 }

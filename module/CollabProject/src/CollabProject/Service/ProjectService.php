@@ -42,21 +42,11 @@ class ProjectService implements ServiceManagerAwareInterface
         return $this->getMapper()->getById($id);
     }
 
-    public function getProjectPath($name)
-    {
-        $projectName = preg_replace('/[^a-z0-9-]+/i', '', $name);
-
-        return getcwd() . '/data/projects/' . strtolower($projectName);
-    }
-
     public function persist(Project $project)
     {
-        // We are going to create the project directory. It could be that we are
-        // renaming the project. There for we get it first:
-        $oldProjectName = $project->getPreviousName();
-
         $this->getMapper()->persist($project);
 
+        $oldProjectName = $project->getPreviousName();
         $projectPath = $this->getProjectPath($project->getName());
 
         if ($oldProjectName && $oldProjectName != $project->getName()) {
@@ -77,7 +67,7 @@ class ProjectService implements ServiceManagerAwareInterface
 
     public function remove(Project $project)
     {
-        // Delete the project path:
+        // Delete the project on the file system:
         $path = realpath($this->getProjectPath($project->getName()));
         if (is_dir($path)) {
             if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
@@ -96,5 +86,12 @@ class ProjectService implements ServiceManagerAwareInterface
     public function setServiceManager(ServiceManager $serviceManager)
     {
         $this->serviceManager = $serviceManager;
+    }
+
+    public function getProjectPath($name)
+    {
+        $projectName = preg_replace('/[^a-z0-9-]+/i', '', $name);
+
+        return getcwd() . '/data/projects/' . strtolower($projectName);
     }
 }

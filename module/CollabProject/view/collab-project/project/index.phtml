@@ -15,6 +15,7 @@
                 <p><?php echo $project->getDescription(); ?></p>
 
                 <ul>
+                    <li><a href="<?php echo $this->url('project/update', array('id' => $project->getId())); ?>">Update</a></li>
                     <li><a href="<?php echo $this->url('project/delete', array('id' => $project->getId())); ?>">Remove</a></li>
                 </ul>
             </li>
