@@ -28,6 +28,13 @@ class DashboardController extends AbstractActionController
 
     public function indexAction()
     {
+//        $command = new \CollabScmGit\Command\LsTree();
+//        $command->setPath('.');
+//        $result = $command->execute();
+//
+//        var_dump($result);
+//        exit;
+
         $viewModel = new ViewModel();
         $viewModel->setVariable('applicationEvents', $this->getApplicationEvents()->findDashboard(25));
         return $viewModel;
