@@ -19,6 +19,7 @@ use Zend\View\Model\ViewModel;
 
 class KeysController extends AbstractActionController
 {
+
     private $sshService;
 
     private function getSshService()
@@ -41,6 +42,11 @@ class KeysController extends AbstractActionController
 
     public function createAction()
     {
+        $access = $this->getServiceLocator()->get('CollabUser\Access');
+        if (!$access->isGranted('ssh_create')) {
+            return $this->redirect()->toRoute('ssh/overview');
+        }
+
         $form = new SshForm();
 
         $request = $this->getRequest();
@@ -87,4 +93,5 @@ class KeysController extends AbstractActionController
         $viewModel->setVariable('sshKey', $sshKey);
         return $viewModel;
     }
+
 }
