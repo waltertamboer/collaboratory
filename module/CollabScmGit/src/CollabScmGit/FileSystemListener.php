@@ -8,7 +8,7 @@
  * @package   Collaboratory
  */
 
-namespace CollabScmSvn;
+namespace CollabScmGit;
 
 use Zend\EventManager\Event;
 use Zend\EventManager\EventManagerInterface;
@@ -53,9 +53,9 @@ class FileSystemListener implements ListenerAggregateInterface
     public function onPersistPost(Event $e)
     {
         $repository = $e->getParam('repository');
-        if ($repository->getType() == 'svn' && $e->getParam('shouldInitialize')) {
+        if ($repository->getType() == 'git' && $e->getParam('shouldInitialize')) {
             $path = $e->getParam('repositoryPath');
-            $command = 'svnadmin create "' . realpath($path) . '"';
+            $command = 'git --bare init "' . realpath($path) . '"';
             exec($command);
         }
     }

@@ -103,7 +103,7 @@ class Installer
     public function getEventManager()
     {
         if (!$this->eventManager) {
-            $this->eventManager = new EventManager(__CLASS__);
+            $this->eventManager = new EventManager('CollabInstall');
         }
         return $this->eventManager;
     }

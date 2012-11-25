@@ -12,4 +12,21 @@ namespace CollabScmGit;
 
 class Module
 {
+    public function getServiceConfig()
+    {
+        return array(
+            'invokables' => array(
+                'CollabScmGit\FileSystemListener' => 'CollabScmGit\FileSystemListener',
+            ),
+        );
+    }
+
+    public function onBootstrap($e)
+    {
+        $application = $e->getApplication();
+        $sm = $application->getServiceManager();
+
+        $eventManager = $application->getEventManager();
+        $eventManager->attachAggregate($sm->get('CollabScmGit\FileSystemListener'));
+    }
 }

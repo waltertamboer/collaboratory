@@ -55,7 +55,7 @@ class Module
         $eventManager->attachAggregate($sm->get('CollabScm\Handler\FileSystem'));
 
         $sharedManager = $eventManager->getSharedManager();
-        $sharedManager->attach('CollabInstall\Service\Installer', 'initializePermissions', function($e) {
+        $sharedManager->attach('CollabInstall', 'initializePermissions', function($e) {
                 $installer = $e->getTarget();
                 $installer->addPermission('repository_create');
                 $installer->addPermission('repository_update');

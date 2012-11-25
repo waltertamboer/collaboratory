@@ -35,7 +35,7 @@ class Module
         $eventManager->attachAggregate($sm->get('CollabSnippet\Service\Logger'));
 
         $sharedManager = $eventManager->getSharedManager();
-        $sharedManager->attach('CollabInstall\Service\Installer', 'initializePermissions', function($e) {
+        $sharedManager->attach('CollabInstall', 'initializePermissions', function($e) {
             $installer = $e->getTarget();
             $installer->addPermission('snippet_create');
             $installer->addPermission('snippet_update');

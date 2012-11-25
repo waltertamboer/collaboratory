@@ -44,7 +44,7 @@ class Module
         $eventManager->attachAggregate($sm->get('CollabProject\Events\ProjectLogger'));
 
         $sharedManager = $eventManager->getSharedManager();
-        $sharedManager->attach('CollabInstall\Service\Installer', 'initializePermissions', function($e) {
+        $sharedManager->attach('CollabInstall', 'initializePermissions', function($e) {
             $installer = $e->getTarget();
             $installer->addPermission('project_create');
             $installer->addPermission('project_update');

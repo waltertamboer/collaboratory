@@ -49,12 +49,6 @@ class RepositoryService implements ServiceManagerAwareInterface
 
     public function persist(Repository $repository)
     {
-        $eventArg = array('repository' => $repository, 'isNew' => !$repository->getId());
-
-        $this->getEventManager()->trigger('persist.pre', $this, $eventArg);
-        $this->getMapper()->persist($repository);
-        $this->getEventManager()->trigger('persist.post', $this, $eventArg);
-
         $projectName = $repository->getProject()->getName();
         $projectPath = $this->getProjectPath($projectName);
 
@@ -85,10 +79,16 @@ class RepositoryService implements ServiceManagerAwareInterface
             $shouldInitialize = true;
         }
 
-        if ($shouldInitialize) {
-            $command = 'git --bare init ' . realpath($repositoryPath);
-            exec($command);
-        }
+        $eventArgs = array(
+            'repository' => $repository,
+            'isNew' => !$repository->getId(),
+            'shouldInitialize' => $shouldInitialize,
+            'repositoryPath' => realpath($repositoryPath),
+        );
+
+        $this->getEventManager()->trigger('persist.pre', $this, $eventArgs);
+        $this->getMapper()->persist($repository);
+        $this->getEventManager()->trigger('persist.post', $this, $eventArgs);
 
         return $this;
     }
