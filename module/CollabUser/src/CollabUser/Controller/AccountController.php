@@ -48,6 +48,10 @@ class AccountController extends AbstractActionController
 
     public function createAction()
     {
+        if (!$this->userAccess('user_create')) {
+            return $this->redirect()->toRoute('account/overview');
+        }
+
         $request = $this->getRequest();
         if ($request->isXmlHttpRequest()) {
 
@@ -70,7 +74,7 @@ class AccountController extends AbstractActionController
 
             if ($form->isValid()) {
                 $userService = $this->getUserService();
-                
+
                 $credential = $user->getCredential();
                 $credential = $userService->encryptCredential($credential);
                 $user->setCredential($credential);
@@ -108,6 +112,10 @@ class AccountController extends AbstractActionController
         $userService = $this->getUserService();
         $user = $userService->findById($this->params('id'));
         if (!$user) {
+            return $this->redirect()->toRoute('account/overview');
+        }
+
+        if (!$this->userAccess('user_update')) {
             return $this->redirect()->toRoute('account/overview');
         }
 

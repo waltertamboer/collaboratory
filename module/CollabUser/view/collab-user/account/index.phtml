@@ -1,22 +1,28 @@
 <?php $this->headTitle('Accounts'); ?>
 
+<?php if ($this->userAccess('user_create')) { ?>
 <p><a href="<?php echo $this->url('account/create'); ?>">New User</a></p>
+<?php } ?>
 
 <?php if (count($accounts)) { ?>
     <ul>
         <?php foreach ($accounts as $account) { ?>
             <li>
                 <h2>
-                    <a href="<?php echo $this->url('account/update', array('id' => $account->getId())); ?>">
+                    <?php if ($this->userAccess('user_update')) { ?>
+                        <a href="<?php echo $this->url('account/update', array('id' => $account->getId())); ?>">
+                    <?php } ?>
                         <?php echo $this->userDisplayName($account); ?>
-                    </a>
+                    <?php if ($this->userAccess('user_update')) { ?>
+                        </a>
+                    <?php } ?>
                 </h2>
 
                 <p>
                     <?php echo $account->getIdentity(); ?>
                 </p>
 
-                <?php if ($account->getId() != $this->userIdentity()->getId()) { ?>
+                <?php if ($this->userAccess('user_delete') && $account->getId() != $this->userIdentity()->getId()) { ?>
                     <ul>
                         <li><a href="<?php echo $this->url('account/delete', array('id' => $account->getId())); ?>">Remove</a></li>
                     </ul>
@@ -28,4 +34,6 @@
     <p>There are no users yet, would you like to create one?</p>
 <?php } ?>
 
+<?php if ($this->userAccess('user_create')) { ?>
 <p><a href="<?php echo $this->url('account/create'); ?>">New User</a></p>
+<?php } ?>

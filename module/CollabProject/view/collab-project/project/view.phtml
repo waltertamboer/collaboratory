@@ -26,9 +26,11 @@ if (!$this->repositories) {
         echo '<li>';
         echo '<h4>' . $repository->getName() . '</h4>';
         echo '<p>' . $repository->getDescription() . '</p>';
-        echo '<ul>
-            <li><a href="' . $this->url('repository/delete', array('id' => $repository->getId())) . '">Remove</a></li>
-        </ul>';
+        echo '<ul>';
+        if ($this->userAccess('repository_delete')) {
+            echo '<li><a href="' . $this->url('repository/delete', array('id' => $repository->getId())) . '">Remove</a></li>';
+        }
+        echo '</ul>';
         echo '</li>';
     }
     echo '</ul>';
