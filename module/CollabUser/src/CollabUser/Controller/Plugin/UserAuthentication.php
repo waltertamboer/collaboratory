@@ -30,6 +30,14 @@ class UserAuthentication extends AbstractPlugin implements ServiceManagerAwareIn
         return $this->getAuthService()->hasIdentity();
     }
 
+    public function getId()
+    {
+        if ($this->getAuthService()->hasIdentity()) {
+            return $this->getAuthService()->getIdentity()->getId();
+        }
+        return null;
+    }
+
     public function getIdentity()
     {
         return $this->getAuthService()->getIdentity();

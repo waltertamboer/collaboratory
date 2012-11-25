@@ -10,11 +10,21 @@
 
 namespace CollabInstall\Service;
 
+use Doctrine\ORM\EntityManager;
 use Zend\Crypt\Password\Bcrypt;
-use Zend\ServiceManager\ServiceManager;
+use Zend\EventManager\EventManager;
+use CollabUser\Entity\Permission;
 
 class Installer
 {
+    private $entityManager;
+    private $eventManager;
+
+    public function __construct(EntityManager $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
 	public function createConfigFile($database)
 	{
 		$configFile = realpath('./config/autoload') . '/doctrine_orm.global.php';
@@ -29,19 +39,19 @@ class Installer
 		file_put_contents($configFile, $content);
 	}
 
-	public function createDatabase($entityManager)
+	public function createDatabase()
 	{
-        $classes = $entityManager->getMetaDataFactory()->getAllMetadata();
+        $classes = $this->entityManager->getMetaDataFactory()->getAllMetadata();
 
-		$tool = new \Doctrine\ORM\Tools\SchemaTool($entityManager);
+		$tool = new \Doctrine\ORM\Tools\SchemaTool($this->entityManager);
 		$tool->dropDatabase();
 		$tool->createSchema($classes);
 
 		$destPath = getcwd() . '/data/DoctrineORMModule/Proxy';
-		$entityManager->getProxyFactory()->generateProxyClasses($classes, $destPath);
+		$this->entityManager->getProxyFactory()->generateProxyClasses($classes, $destPath);
 	}
 
-	public function createAccount($entityManager, $account)
+	public function createEntities($account)
 	{
         $bcrypt = new Bcrypt();
         $bcrypt->setCost(14);
@@ -52,8 +62,11 @@ class Installer
 		$adminUser->setCredential($credential);
 		$adminUser->setDisplayName($account['displayName']);
 
-		$entityManager->persist($adminUser);
-		$entityManager->flush();
+		$this->entityManager->persist($adminUser);
+		$this->entityManager->flush();
+
+        $this->getEventManager()->trigger('initialize', $this);
+        $this->entityManager->flush();
 	}
 
     public function createConnection($data)
@@ -72,5 +85,29 @@ class Installer
         $connection->connect();
 
         return $connection;
+    }
+
+    public function getEventManager()
+    {
+        if (!$this->eventManager) {
+            $this->eventManager = new EventManager(__CLASS__);
+        }
+        return $this->eventManager;
+    }
+
+    public function addPermission($permission)
+    {
+        if (is_string($permission)) {
+            $name = $permission;
+
+            $permission = new Permission();
+            $permission->setName($name);
+        }
+
+        if (!$permission instanceof Permission) {
+            throw new \RuntimeException('Expected a permission.');
+        }
+
+        $this->entityManager->persist($permission);
     }
 }

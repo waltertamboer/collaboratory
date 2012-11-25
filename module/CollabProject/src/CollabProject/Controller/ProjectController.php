@@ -46,6 +46,10 @@ class ProjectController extends AbstractActionController
 
     public function createAction()
     {
+        if (!$this->userAccess('project_create')) {
+            return $this->redirect()->toRoute('project/overview');
+        }
+
         $uniqueNameValidator = $this->getServiceLocator()->create('CollabProject\Validator\ProjectName');
         $form = new ProjectForm($uniqueNameValidator);
 
@@ -70,6 +74,10 @@ class ProjectController extends AbstractActionController
 
     public function updateAction()
     {
+        if (!$this->userAccess('project_update')) {
+            return $this->redirect()->toRoute('project/overview');
+        }
+
         $project = $this->getProjectService()->getById($this->params('id'));
         if (!$project) {
             return $this->redirect()->toRoute('project/overview');
@@ -77,7 +85,7 @@ class ProjectController extends AbstractActionController
 
         $uniqueNameValidator = $this->getServiceLocator()->create('CollabProject\Validator\ProjectName');
         $uniqueNameValidator->addException($project->getName());
-        
+
         $form = new ProjectForm($uniqueNameValidator);
         $form->bind($project);
 
@@ -100,6 +108,10 @@ class ProjectController extends AbstractActionController
 
     public function deleteAction()
     {
+        if (!$this->userAccess('project_delete')) {
+            return $this->redirect()->toRoute('project/overview');
+        }
+
         $project = $this->getProjectService()->getById($this->params('id'));
         if (!$project) {
             return $this->redirect()->toRoute('project/overview');

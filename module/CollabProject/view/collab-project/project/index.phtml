@@ -15,8 +15,12 @@
                 <p><?php echo $project->getDescription(); ?></p>
 
                 <ul>
+                    <?php if ($this->userAccess('project_update')) { ?>
                     <li><a href="<?php echo $this->url('project/update', array('id' => $project->getId())); ?>">Update</a></li>
+                    <?php } ?>
+                    <?php if ($this->userAccess('project_delete')) { ?>
                     <li><a href="<?php echo $this->url('project/delete', array('id' => $project->getId())); ?>">Remove</a></li>
+                    <?php } ?>
                 </ul>
             </li>
         <?php } ?>

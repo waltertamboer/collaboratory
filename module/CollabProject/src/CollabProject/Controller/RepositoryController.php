@@ -52,6 +52,12 @@ class RepositoryController extends AbstractActionController
             return $this->redirect()->toRoute('project/overview');
         }
 
+        if (!$this->userAccess('repository_create')) {
+            return $this->redirect()->toRoute('project/view', array(
+                'id' => $project->getId()
+            ));
+        }
+
         $uniqueNameValidator = $this->getServiceLocator()->create('CollabProject\Validator\RepositoryName');
         $form = new RepositoryForm($uniqueNameValidator);
 
@@ -82,6 +88,12 @@ class RepositoryController extends AbstractActionController
         $repository = $this->getRepositoryService()->findById($this->params('id'));
         if (!$repository) {
             return $this->redirect()->toRoute('project/overview');
+        }
+
+        if (!$this->userAccess('repository_delete')) {
+            return $this->redirect()->toRoute('project/view', array(
+                'id' => $repository->getProject()->getId()
+            ));
         }
 
         $form = new DeleteForm();

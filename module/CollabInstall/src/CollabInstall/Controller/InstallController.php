@@ -14,24 +14,14 @@ use ArrayObject;
 use CollabInstall\Form\AccountForm;
 use CollabInstall\Form\DatabaseForm;
 use CollabInstall\Form\FinishForm;
-use CollabInstall\Service\Installer;
-use CollabInstall\Service\SettingsChecker;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 class InstallController extends AbstractActionController
 {
-
     private $session;
     private $installer;
-
-    private function getInstaller()
-    {
-        if (!$this->installer) {
-            $this->installer = new Installer();
-        }
-        return $this->installer;
-    }
+    private $settingsChecker;
 
     private function getSession()
     {
@@ -41,15 +31,29 @@ class InstallController extends AbstractActionController
         return $this->session;
     }
 
+    private function getInstaller()
+    {
+        if (!$this->installer) {
+            $this->installer = $this->getServiceLocator()->get('CollabInstall\Installer');
+        }
+        return $this->installer;
+    }
+
+    private function getSettingsChecker()
+    {
+        if (!$this->settingsChecker) {
+            $this->settingsChecker = $this->getServiceLocator()->get('CollabInstall\SettingsChecker');
+        }
+        return $this->settingsChecker;
+    }
+
     public function indexAction()
     {
         $session = $this->getSession();
         $session['step'] = 0;
 
-        $settingsChecker = new SettingsChecker();
-
         $viewModel = new ViewModel();
-        $viewModel->setVariable('systemSettings', $settingsChecker->getSettings());
+        $viewModel->setVariable('systemSettings', $this->getSettingsChecker()->getSettings());
         $viewModel->setVariable('canContinue', true);
 
         return $viewModel;
@@ -152,11 +156,9 @@ class InstallController extends AbstractActionController
                     return $this->redirect()->toRoute('install/finish');
                 }
             case 2: {
-                    $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
-
                     $installer = $this->getInstaller();
-                    $installer->createDatabase($entityManager);
-                    $installer->createAccount($entityManager, $session['account']);
+                    $installer->createDatabase();
+                    $installer->createEntities($session['account']);
 
                     return $this->redirect()->toRoute('dashboard');
                 }

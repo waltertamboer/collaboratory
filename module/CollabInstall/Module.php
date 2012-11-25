@@ -19,6 +19,22 @@ class Module
         return include __DIR__ . '/config/module.config.php';
     }
 
+    public function getServiceConfig()
+    {
+        return array(
+            'invokables' => array(
+                'CollabInstall\SettingsChecker' => 'CollabInstall\Service\SettingsChecker',
+            ),
+            'factories' => array(
+                'CollabInstall\Installer' => function($sm) {
+                    $entityManager = $sm->get('doctrine.entitymanager.orm_default');
+
+                    return new Service\Installer($entityManager);
+                },
+            ),
+        );
+    }
+
     public function onBootstrap(MvcEvent $e)
     {
         $eventManager = $e->getTarget()->getEventManager();

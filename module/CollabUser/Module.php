@@ -12,8 +12,10 @@ namespace CollabUser;
 
 use CollabUser\Access\Access;
 use CollabUser\Authentication\AuthenticationService;
+use CollabUser\Controller\Plugin\UserAccess;
 use CollabUser\Controller\Plugin\UserAuthentication;
 use CollabUser\Service\PermissionService;
+use CollabUser\View\Helper\UserAccess as UserAccessViewHelper;
 use CollabUser\View\Helper\UserAvatar;
 use CollabUser\View\Helper\UserDisplayName;
 use CollabUser\View\Helper\UserIdentity;
@@ -29,6 +31,11 @@ class Module
     {
         return array(
             'factories' => array(
+                'userAccess' => function($sm) {
+                    $instance = new UserAccess();
+                    $instance->setServiceManager($sm);
+                    return $instance;
+                },
                 'userAuthentication' => function($sm) {
                     $instance = new UserAuthentication();
                     $instance->setServiceManager($sm);
@@ -72,6 +79,13 @@ class Module
     {
         return array(
             'factories' => array(
+                'userAccess' => function ($sm) {
+                    $locator = $sm->getServiceLocator();
+
+                    $viewHelper = new UserAccessViewHelper();
+                    $viewHelper->setAccess($locator->get('CollabUser\Access'));
+                    return $viewHelper;
+                },
                 'userAvatar' => function ($sm) {
                     $locator = $sm->getServiceLocator();
 
@@ -100,9 +114,19 @@ class Module
     public function onBootstrap($e)
     {
         $application = $e->getApplication();
-
         $eventManager = $application->getEventManager();
         $sharedManager = $eventManager->getSharedManager();
+
+        $sharedManager->attach('CollabInstall\Service\Installer', 'initialize', function($e) {
+            $installer = $e->getTarget();
+            $installer->addPermission('user_create');
+            $installer->addPermission('user_update');
+            $installer->addPermission('user_delete');
+            $installer->addPermission('sshkey_create');
+            $installer->addPermission('sshkey_delete_any');
+            $installer->addPermission('sshkey_delete_own');
+        });
+
         $sharedManager->attach('Zend\Mvc\Controller\AbstractActionController', 'dispatch', function($e) {
             $routeMatch = $e->getRouteMatch();
             $controller = $routeMatch->getParam('controller');

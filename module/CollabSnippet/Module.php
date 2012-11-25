@@ -16,4 +16,17 @@ class Module
     {
         return include __DIR__ . '/config/module.config.php';
     }
+
+    public function onBootstrap($e)
+    {
+        $application = $e->getApplication();
+
+        $sharedManager = $application->getEventManager()->getSharedManager();
+        $sharedManager->attach('CollabInstall\Service\Installer', 'initialize', function($e) {
+            $installer = $e->getTarget();
+            $installer->addPermission('snippet_create');
+            $installer->addPermission('snippet_update');
+            $installer->addPermission('snippet_delete');
+        });
+    }
 }

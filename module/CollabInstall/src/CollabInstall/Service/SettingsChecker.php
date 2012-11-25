@@ -11,9 +11,13 @@
 namespace CollabInstall\Service;
 
 use CollabInstall\Entity\SystemSetting;
+use Zend\EventManager\EventManagerInterface;
+use Zend\EventManager\EventManagerAwareInterface;
 
-class SettingsChecker
+class SettingsChecker implements EventManagerAwareInterface
 {
+    private $eventManager;
+
 	private function checkPHPVersion()
 	{
 		$name = 'PHP Version';
@@ -58,4 +62,14 @@ class SettingsChecker
 		$systemSettings[] = $this->checkMySQL();
 		return $systemSettings;
 	}
+
+    public function getEventManager()
+    {
+        return $this->eventManager;
+    }
+
+    public function setEventManager(EventManagerInterface $eventManager)
+    {
+        $this->eventManager = $eventManager;
+    }
 }

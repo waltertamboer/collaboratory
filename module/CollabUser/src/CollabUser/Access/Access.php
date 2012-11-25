@@ -40,7 +40,6 @@ class Access
                 }
                 $this->rbac->addRole($role);
             }
-            var_dump($this->rbac);
         }
     }
 

@@ -19,7 +19,6 @@ use Zend\View\Model\ViewModel;
 
 class KeysController extends AbstractActionController
 {
-
     private $sshService;
 
     private function getSshService()
@@ -42,8 +41,7 @@ class KeysController extends AbstractActionController
 
     public function createAction()
     {
-        $access = $this->getServiceLocator()->get('CollabUser\Access');
-        if (!$access->isGranted('ssh_create')) {
+        if (!$this->userAccess('sshkey_create')) {
             return $this->redirect()->toRoute('ssh/overview');
         }
 
@@ -76,6 +74,12 @@ class KeysController extends AbstractActionController
         $sshKey = $this->getSshService()->findById($this->params('id'));
         if (!$sshKey) {
             return $this->redirect()->toRoute('ssh/overview');
+        }
+
+        if (!$this->userAccess('sshkey_delete_any')) {
+            if (!$this->userAccess('sshkey_delete_own') || $this->userAuthentication()->getId() != $sshKey->getCreatedBy()->getId()) {
+                return $this->redirect()->toRoute('ssh/overview');
+            }
         }
 
         $form = new DeleteForm();
