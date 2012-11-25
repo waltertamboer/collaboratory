@@ -10,10 +10,10 @@
 
 namespace CollabUser\View\Helper;
 
-class UserAccess extends AbstractUserAccess
+class UserIsRoot extends AbstractUserAccess
 {
-    public function __invoke($permission, $assert = null)
+    public function __invoke()
     {
-        return $this->isGranted($permission, $assert);
+        return $this->getAccess()->isRoot();
     }
 }

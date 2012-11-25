@@ -107,6 +107,13 @@ class Module
                     $viewHelper->setAuthService($locator->get('collabuser.authservice'));
                     return $viewHelper;
                 },
+                'userIsRoot' => function ($sm) {
+                    $locator = $sm->getServiceLocator();
+
+                    $viewHelper = new View\Helper\UserIsRoot();
+                    $viewHelper->setAccess($locator->get('CollabUser\Access'));
+                    return $viewHelper;
+                },
             ),
         );
     }
@@ -117,7 +124,7 @@ class Module
         $eventManager = $application->getEventManager();
         $sharedManager = $eventManager->getSharedManager();
 
-        $sharedManager->attach('CollabInstall\Service\Installer', 'initialize', function($e) {
+        $sharedManager->attach('CollabInstall\Service\Installer', 'initializePermissions', function($e) {
             $installer = $e->getTarget();
             $installer->addPermission('user_create');
             $installer->addPermission('user_update');

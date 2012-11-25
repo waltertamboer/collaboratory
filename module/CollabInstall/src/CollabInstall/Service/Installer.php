@@ -57,16 +57,29 @@ class Installer
         $bcrypt->setCost(14);
         $credential = $bcrypt->create($account['credential']);
 
-		$adminUser = new \CollabUser\Entity\User();
-		$adminUser->setIdentity($account['identity']);
-		$adminUser->setCredential($credential);
-		$adminUser->setDisplayName($account['displayName']);
+        // Create the root user:
+		$rootUser = new \CollabUser\Entity\User();
+		$rootUser->setIdentity($account['identity']);
+		$rootUser->setCredential($credential);
+		$rootUser->setDisplayName($account['displayName']);
 
-		$this->entityManager->persist($adminUser);
+		$this->entityManager->persist($rootUser);
 		$this->entityManager->flush();
 
-        $this->getEventManager()->trigger('initialize', $this);
+        // Initialize the permissions:
+        $this->getEventManager()->trigger('initializePermissions', $this);
         $this->entityManager->flush();
+
+        // Create the owners team:
+        $ownersTeam = new \CollabTeam\Entity\Team();
+        $ownersTeam->setRoot(true);
+        $ownersTeam->setName('Owners');
+        $ownersTeam->setDescription('The people in this team are maintainers of Collaboratory.');
+        $ownersTeam->addMember($rootUser);
+        $ownersTeam->setCreatedBy($rootUser);
+
+		$this->entityManager->persist($ownersTeam);
+		$this->entityManager->flush();
 	}
 
     public function createConnection($data)

@@ -38,12 +38,6 @@ return array(
             ),
         ),
     ),
-    'service_manager' => array(
-        'factories' => array(
-            'navigation/main' => 'Zend\Navigation\Service\DefaultNavigationFactory',
-            'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',
-        ),
-    ),
     'view_manager' => array(
         'display_not_found_reason' => true,
         'display_exceptions' => true,

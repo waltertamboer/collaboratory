@@ -12,7 +12,6 @@ namespace CollabUser\Access;
 
 use CollabUser\Entity\User;
 use Zend\Permissions\Rbac\Rbac;
-use Zend\Permissions\Rbac\Role;
 
 class Access
 {
@@ -39,7 +38,7 @@ class Access
 
             // Get the teams for the current user:
             foreach ($this->user->getTeams() as $team) {
-                $role = new Role($team->getName());
+                $role = new Role($team->getName(), $team->isRoot());
                 foreach ($team->getPermissions() as $permission) {
                     $role->addPermission($permission->getName());
                 }
@@ -48,17 +47,28 @@ class Access
         }
     }
 
+    public function isRoot()
+    {
+        $this->load();
+        
+        foreach ($this->rbac as $role) {
+            if ($role->isRoot()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public function isGranted($permission, $assert = null)
     {
         $this->load();
 
-        $result = false;
+        // When the user is part of a root team, access is granted:
         foreach ($this->rbac as $role) {
-            if ($this->rbac->isGranted($role, $permission, $assert)) {
-                $result = true;
-                break;
+            if ($role->isRoot() || $this->rbac->isGranted($role, $permission, $assert)) {
+                return true;
             }
         }
-        return $result;
+        return false;
     }
 }

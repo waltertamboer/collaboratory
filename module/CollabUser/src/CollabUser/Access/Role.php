@@ -10,55 +10,20 @@
 
 namespace CollabUser\Access;
 
-use CollabUser\Entity\User;
-use Zend\Permissions\Rbac\Rbac;
-use Zend\Permissions\Rbac\Role;
+use Zend\Permissions\Rbac\Role as AbstractRole;
 
-class Access
+class Role extends AbstractRole
 {
-    private $rbac;
-    private $loaded;
-    private $user;
+    private $root;
 
-    public function __construct(User $user)
+    public function __construct($name, $root)
     {
-        $this->loaded = false;
-        $this->user = $user;
+        parent::__construct($name);
+        $this->root = $root;
     }
 
-    public function getRbac()
+    public function isRoot()
     {
-        return $this->rbac;
-    }
-
-    private function load()
-    {
-        if (!$this->loaded) {
-            $this->loaded = true;
-            $this->rbac = new Rbac();
-
-            // Get the teams for the current user:
-            foreach ($this->user->getTeams() as $team) {
-                $role = new Role($team->getName());
-                foreach ($team->getPermissions() as $permission) {
-                    $role->addPermission($permission->getName());
-                }
-                $this->rbac->addRole($role);
-            }
-        }
-    }
-
-    public function isGranted($permission, $assert = null)
-    {
-        $this->load();
-
-        $result = false;
-        foreach ($this->rbac as $role) {
-            if ($this->rbac->isGranted($role, $permission, $assert)) {
-                $result = true;
-                break;
-            }
-        }
-        return $result;
+        return $this->root;
     }
 }

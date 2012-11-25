@@ -22,7 +22,7 @@ class Module
         $application = $e->getApplication();
 
         $sharedManager = $application->getEventManager()->getSharedManager();
-        $sharedManager->attach('CollabInstall\Service\Installer', 'initialize', function($e) {
+        $sharedManager->attach('CollabInstall\Service\Installer', 'initializePermissions', function($e) {
             $installer = $e->getTarget();
             $installer->addPermission('snippet_create');
             $installer->addPermission('snippet_update');

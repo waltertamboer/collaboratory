@@ -8,24 +8,13 @@
  * @package   Collaboratory
  */
 
-namespace CollabApplication\Entity;
+namespace CollabApplication\Mapper;
 
-class Event
+use CollabApplication\Entity\ApplicationEvent;
+
+interface ApplicationEventsMapperInterface
 {
-    private $id;
-    private $projectId;
-    private $userId;
-    private $action;
-    private $happenedOn;
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
+    public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null);
+    public function persist(ApplicationEvent $applicationEvent);
+    public function remove(ApplicationEvent $applicationEvent);
 }

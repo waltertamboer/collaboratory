@@ -16,7 +16,9 @@ use DateTime;
 class Team
 {
     private $id;
+    private $root;
     private $name;
+    private $previousName;
     private $description;
     private $createdBy;
     private $createdOn;
@@ -43,13 +45,30 @@ class Team
         return $this;
     }
 
+    public function isRoot()
+    {
+        return $this->root;
+    }
+
+    public function setRoot($root)
+    {
+        $this->root = $root ? true : false;
+        return $this;
+    }
+
     public function getName()
     {
         return $this->name;
     }
 
+    public function getPreviousName()
+    {
+        return $this->previousName;
+    }
+
     public function setName($name)
     {
+        $this->previousName = $this->name;
         $this->name = $name;
         return $this;
     }

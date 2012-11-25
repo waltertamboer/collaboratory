@@ -12,10 +12,18 @@ namespace CollabTeam;
 
 class Module
 {
-
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
+    }
+
+    public function getServiceConfig()
+    {
+        return array(
+            'invokables' => array(
+                'CollabTeam\Events\Logger' => 'CollabTeam\Events\Logger',
+            ),
+        );
     }
 
     public function getViewHelperConfig()
@@ -50,14 +58,18 @@ class Module
     public function onBootstrap($e)
     {
         $application = $e->getApplication();
+        $sm = $application->getServiceManager();
 
-        $sharedManager = $application->getEventManager()->getSharedManager();
-        $sharedManager->attach('CollabInstall\Service\Installer', 'initialize', function($e) {
-                $installer = $e->getTarget();
-                $installer->addPermission('team_create');
-                $installer->addPermission('team_update');
-                $installer->addPermission('team_delete');
-            });
+        $eventManager = $application->getEventManager();
+        $eventManager->attachAggregate($sm->get('CollabTeam\Events\Logger'));
+
+        $sharedManager = $eventManager->getSharedManager();
+        $sharedManager->attach('CollabInstall\Service\Installer', 'initializePermissions', function($e) {
+            $installer = $e->getTarget();
+            $installer->addPermission('team_create');
+            $installer->addPermission('team_update');
+            $installer->addPermission('team_delete');
+        });
     }
 
 }

@@ -12,9 +12,11 @@ echo $this->formRow($teamFieldset->get('name'));
 echo $this->formRow($teamFieldset->get('description'));
 echo '<hr />';
 echo $this->formCollection($teamFieldset->get('members'));
-echo $this->formCollection($teamFieldset->get('projects'));
-echo '<hr />';
-echo $this->formMultiCheckbox($teamFieldset->get('permissions'));
+if (!$this->team->isRoot()) {
+    echo $this->formCollection($teamFieldset->get('projects'));
+    echo '<hr />';
+    echo $this->formMultiCheckbox($teamFieldset->get('permissions'));
+}
 echo '<hr />';
 echo $this->formSubmit($teamFieldset->get('save'));
 echo '<a href="' . $this->url('team/overview') . '">Cancel</a>';

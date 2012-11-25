@@ -11,13 +11,23 @@
 namespace CollabTeam\Service;
 
 use CollabTeam\Entity\Team;
+use Zend\EventManager\EventManager;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
 
 class TeamService implements ServiceManagerAwareInterface
 {
+    private $eventManager;
     private $mapper;
     private $serviceManager;
+
+    public function getEventManager()
+    {
+        if (!$this->eventManager) {
+            $this->eventManager = new EventManager('CollabTeam');
+        }
+        return $this->eventManager;
+    }
 
     private function getMapper()
     {
@@ -44,13 +54,23 @@ class TeamService implements ServiceManagerAwareInterface
 
     public function persist(Team $team)
     {
+        $eventArgs = array('team' => $team, 'newTeam' => !$team->getId());
+
+        $this->getEventManager()->trigger('persist.pre', $this, $eventArgs);
         $this->getMapper()->persist($team);
+        $this->getEventManager()->trigger('persist.post', $this, $eventArgs);
+
         return $this;
     }
 
     public function remove(Team $team)
     {
+        $eventArgs = array('team' => $team);
+
+        $this->getEventManager()->trigger('remove.pre', $this, $eventArgs);
         $this->getMapper()->remove($team);
+        $this->getEventManager()->trigger('remove.post', $this, $eventArgs);
+
         return $this;
     }
 

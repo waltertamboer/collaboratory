@@ -15,8 +15,21 @@ use Zend\View\Model\ViewModel;
 
 class DashboardController extends AbstractActionController
 {
+    private $applicationEvents;
+
+    public function getApplicationEvents()
+    {
+        if (!$this->applicationEvents) {
+            $name = 'CollabApplication\Service\ApplicationEvents';
+            $this->applicationEvents = $this->getServiceLocator()->get($name);
+        }
+        return $this->applicationEvents;
+    }
+
     public function indexAction()
     {
-        return new ViewModel();
+        $viewModel = new ViewModel();
+        $viewModel->setVariable('applicationEvents', $this->getApplicationEvents()->findAll());
+        return $viewModel;
     }
 }

@@ -16,7 +16,6 @@ class CanUpdateTeam extends AbstractUserAccess
 {
     public function __invoke()
     {
-        var_dump($this->getAccess()->getRbac()->getChildren());
         return $this->isGranted('team_update');
     }
 }

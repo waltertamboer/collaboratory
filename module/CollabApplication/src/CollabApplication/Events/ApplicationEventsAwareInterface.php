@@ -8,15 +8,11 @@
  * @package   Collaboratory
  */
 
-namespace CollabTeam\View\Helper;
+namespace CollabApplication\Events;
 
-use CollabTeam\Entity\Team;
-use CollabUser\View\Helper\AbstractUserAccess;
+use CollabApplication\Service\ApplicationEvents;
 
-class CanRemoveTeam extends AbstractUserAccess
+interface ApplicationEventsAwareInterface
 {
-    public function __invoke(Team $team)
-    {
-        return !$team->isRoot() && $this->isGranted('update_delete');
-    }
+    public function setApplicationEvents(ApplicationEvents $applicationEvents);
 }

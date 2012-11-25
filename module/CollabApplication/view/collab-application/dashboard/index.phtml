@@ -1,3 +1,7 @@
 <?php $this->headTitle('News Feed'); ?>
 
-<p>This still needs to be implemented</p>
+<ul>
+    <?php foreach ($this->applicationEvents as $event) { ?>
+    <li><?php echo $this->formatApplicationEvent($event); ?></li>
+    <?php } ?>
+</ul>

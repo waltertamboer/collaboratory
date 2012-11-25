@@ -2,17 +2,15 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
     <entity name="CollabTeam\Entity\Team" table="team">
         <id name="id" type="bigint" column="id">
-            <generator strategy="IDENTITY"/>
+            <generator strategy="IDENTITY" />
         </id>
-        <field name="name" type="string" column="name" nullable="true" precision="0" scale="0"/>
-        <field name="description" type="string" column="description" nullable="true" precision="0" scale="0"/>
+        <field name="root" type="boolean" column="root" nullable="true" precision="0" scale="0" />
+        <field name="name" type="string" column="name" nullable="true" precision="0" scale="0" />
+        <field name="description" type="string" column="description" nullable="true" precision="0" scale="0" />
 
-        <one-to-one field="createdBy" target-entity="CollabUser\Entity\User">
-            <cascade>
-                <cascade-all />
-            </cascade>
+        <many-to-one field="createdBy" target-entity="CollabUser\Entity\User">
             <join-column name="createdBy" referenced-column-name="id" on-delete="CASCADE" on-update="CASCADE" />
-        </one-to-one>
+        </many-to-one>
 
         <field name="createdOn" type="datetime" column="createdOn" nullable="false" precision="0" scale="0" />
 
