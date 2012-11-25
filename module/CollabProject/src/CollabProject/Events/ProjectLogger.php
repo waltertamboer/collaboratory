@@ -71,8 +71,15 @@ class ProjectLogger implements ListenerAggregateInterface, ApplicationEventsAwar
         $project = $e->getParam('project');
 
         $event = $this->applicationEvents->create();
-        $event->setType('collabproject.created');
         $event->setParameter('name', $project->getName());
+        if ($isNew) {
+            $event->setType('collabproject.created');
+        } else if ($project->getName() != $project->getPreviousName()) {
+            $event->setType('collabproject.renamed');
+            $event->setParameter('oldName', $project->getPreviousName());
+        } else {
+            $event->setType('collabproject.updated');
+        }
         $this->applicationEvents->persist($event);
     }
 

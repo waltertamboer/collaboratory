@@ -54,7 +54,7 @@ class TeamService implements ServiceManagerAwareInterface
 
     public function persist(Team $team)
     {
-        $eventArgs = array('team' => $team, 'newTeam' => !$team->getId());
+        $eventArgs = array('team' => $team, 'isNew' => !$team->getId());
 
         $this->getEventManager()->trigger('persist.pre', $this, $eventArgs);
         $this->getMapper()->persist($team);

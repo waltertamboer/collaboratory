@@ -67,7 +67,7 @@ class Logger implements ListenerAggregateInterface, ApplicationEventsAwareInterf
 
     public function onPersistPost(Event $e)
     {
-        $isNew = $e->getParam('newTeam');
+        $isNew = $e->getParam('isNew');
         $team = $e->getParam('team');
 
         $event = $this->applicationEvents->create();
@@ -75,13 +75,11 @@ class Logger implements ListenerAggregateInterface, ApplicationEventsAwareInterf
 
         if ($isNew) {
             $event->setType('collabteam.created');
+        } else if ($team->getName() != $team->getPreviousName()) {
+            $event->setType('collabteam.renamed');
+            $event->setParameter('oldName', $team->getPreviousName());
         } else {
-            if ($team->getName() != $team->getPreviousName()) {
-                $event->setType('collabteam.renamed');
-                $event->setParameter('oldName', $team->getPreviousName());
-            } else {
-                $event->setType('collabteam.updated');
-            }
+            $event->setType('collabteam.updated');
         }
         $this->applicationEvents->persist($event);
     }

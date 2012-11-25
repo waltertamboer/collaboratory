@@ -29,7 +29,7 @@ class DashboardController extends AbstractActionController
     public function indexAction()
     {
         $viewModel = new ViewModel();
-        $viewModel->setVariable('applicationEvents', $this->getApplicationEvents()->findAll());
+        $viewModel->setVariable('applicationEvents', $this->getApplicationEvents()->findDashboard(25));
         return $viewModel;
     }
 }

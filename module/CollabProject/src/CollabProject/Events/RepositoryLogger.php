@@ -67,10 +67,31 @@ class RepositoryLogger implements ListenerAggregateInterface, ApplicationEventsA
 
     public function onPersistPost(Event $e)
     {
+        $isNew = $e->getParam('isNew');
+        $repository = $e->getParam('repository');
+
+        $event = $this->applicationEvents->create();
+        $event->setParameter('name', $repository->getName());
+        $event->setParameter('projectName', $repository->getProject()->getName());
+        if ($isNew) {
+            $event->setType('collabscm.created');
+        } else if ($repository->getName() != $repository->getPreviousName()) {
+            $event->setType('collabscm.renamed');
+            $event->setParameter('oldName', $repository->getPreviousName());
+        } else {
+            $event->setType('collabscm.updated');
+        }
+        $this->applicationEvents->persist($event);
     }
 
     public function onRemovePost(Event $e)
     {
-    }
+        $repository = $e->getParam('repository');
 
+        $event = $this->applicationEvents->create();
+        $event->setType('collabscm.removed');
+        $event->setParameter('name', $repository->getName());
+        $event->setParameter('projectName', $repository->getProject()->getName());
+        $this->applicationEvents->persist($event);
+    }
 }

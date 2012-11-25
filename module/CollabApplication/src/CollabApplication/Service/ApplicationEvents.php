@@ -39,6 +39,13 @@ class ApplicationEvents
         ));
     }
 
+    public function findDashboard($limit, $offset = 0)
+    {
+        return $this->getMapper()->findBy(array(), array(
+            'creationDate' => 'desc'
+        ), $limit, $offset);
+    }
+
     public function persist(ApplicationEvent $event)
     {
         $this->getMapper()->persist($event);
