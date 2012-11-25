@@ -1,22 +1,30 @@
 <?php $this->headTitle('Teams'); ?>
 
+<?php if ($this->canCreateTeam()) { ?>
 <p><a href="<?php echo $this->url('team/create'); ?>">New Team</a></p>
+<?php } ?>
 
 <?php if (count($teams)) { ?>
     <ul>
         <?php foreach ($teams as $team) { ?>
             <li>
                 <h2>
+                    <?php if ($this->canUpdateTeam($team)) { ?>
                     <a href="<?php echo $this->url('team/update', array('id' => $team->getId())); ?>">
+                    <?php } ?>
                         <?php echo $team->getName(); ?>
+                    <?php if ($this->canUpdateTeam($team)) { ?>
                     </a>
+                    <?php } ?>
                 </h2>
 
                 <p><?php echo $team->getDescription(); ?></p>
 
+                <?php if ($this->canRemoveTeam($team)) { ?>
                 <ul>
                     <li><a href="<?php echo $this->url('team/delete', array('id' => $team->getId())); ?>">Remove</a></li>
                 </ul>
+                <?php } ?>
             </li>
         <?php } ?>
     </ul>
@@ -24,4 +32,6 @@
     <p>There are no teams yet, would you like to create one?</p>
 <?php } ?>
 
+<?php if ($this->canCreateTeam()) { ?>
 <p><a href="<?php echo $this->url('team/create'); ?>">New Team</a></p>
+<?php } ?>

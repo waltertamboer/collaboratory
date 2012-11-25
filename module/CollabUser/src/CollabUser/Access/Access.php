@@ -26,6 +26,11 @@ class Access
         $this->user = $user;
     }
 
+    public function getRbac()
+    {
+        return $this->rbac;
+    }
+
     private function load()
     {
         if (!$this->loaded) {

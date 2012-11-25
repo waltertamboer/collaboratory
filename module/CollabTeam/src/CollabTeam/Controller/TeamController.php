@@ -66,6 +66,10 @@ class TeamController extends AbstractActionController
 
     public function createAction()
     {
+        if (!$this->userAccess('team_create')) {
+            return $this->redirect()->toRoute('team/overview');
+        }
+
         $request = $this->getRequest();
         if ($request->isXmlHttpRequest()) {
 
@@ -121,6 +125,10 @@ class TeamController extends AbstractActionController
     {
         $team = $this->getTeamService()->getById($this->params('id'));
         if (!$team) {
+            return $this->redirect()->toRoute('team/overview');
+        }
+
+        if (!$this->userAccess('team_update')) {
             return $this->redirect()->toRoute('team/overview');
         }
 
@@ -180,6 +188,10 @@ class TeamController extends AbstractActionController
     {
         $team = $this->getTeamService()->getById($this->params('id'));
         if (!$team) {
+            return $this->redirect()->toRoute('team/overview');
+        }
+
+        if (!$this->userAccess('team_delete')) {
             return $this->redirect()->toRoute('team/overview');
         }
 

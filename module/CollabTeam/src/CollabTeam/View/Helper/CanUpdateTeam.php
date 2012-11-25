@@ -8,12 +8,15 @@
  * @package   Collaboratory
  */
 
-namespace CollabUser\View\Helper;
+namespace CollabTeam\View\Helper;
 
-class UserAccess extends AbstractUserAccess
+use CollabUser\View\Helper\AbstractUserAccess;
+
+class CanUpdateTeam extends AbstractUserAccess
 {
-    public function __invoke($permission, $assert = null)
+    public function __invoke()
     {
-        return $this->isGranted($permission, $assert);
+        var_dump($this->getAccess()->getRbac()->getChildren());
+        return $this->isGranted('team_update');
     }
 }

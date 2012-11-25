@@ -8,12 +8,14 @@
  * @package   Collaboratory
  */
 
-namespace CollabUser\View\Helper;
+namespace CollabTeam\View\Helper;
 
-class UserAccess extends AbstractUserAccess
+use CollabUser\View\Helper\AbstractUserAccess;
+
+class CanCreateTeam extends AbstractUserAccess
 {
-    public function __invoke($permission, $assert = null)
+    public function __invoke()
     {
-        return $this->isGranted($permission, $assert);
+        return $this->isGranted('team_create');
     }
 }

@@ -10,10 +10,25 @@
 
 namespace CollabUser\View\Helper;
 
-class UserAccess extends AbstractUserAccess
+use CollabUser\Access\Access;
+use Zend\View\Helper\AbstractHelper;
+
+class AbstractUserAccess extends AbstractHelper
 {
-    public function __invoke($permission, $assert = null)
+    private $access;
+    
+    public function isGranted($permission, $assert = null)
     {
-        return $this->isGranted($permission, $assert);
+        return $this->access->isGranted($permission, $assert);
+    }
+
+    public function getAccess()
+    {
+        return $this->access;
+    }
+
+    public function setAccess(Access $access)
+    {
+        $this->access = $access;
     }
 }

@@ -12,9 +12,39 @@ namespace CollabTeam;
 
 class Module
 {
+
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
+    }
+
+    public function getViewHelperConfig()
+    {
+        return array(
+            'factories' => array(
+                'canCreateTeam' => function ($sm) {
+                    $sl = $sm->getServiceLocator();
+
+                    $viewHelper = new View\Helper\CanCreateTeam();
+                    $viewHelper->setAccess($sl->get('CollabUser\Access'));
+                    return $viewHelper;
+                },
+                'canUpdateTeam' => function ($sm) {
+                    $sl = $sm->getServiceLocator();
+
+                    $viewHelper = new View\Helper\CanUpdateTeam();
+                    $viewHelper->setAccess($sl->get('CollabUser\Access'));
+                    return $viewHelper;
+                },
+                'canRemoveTeam' => function ($sm) {
+                    $sl = $sm->getServiceLocator();
+
+                    $viewHelper = new View\Helper\CanRemoveTeam();
+                    $viewHelper->setAccess($sl->get('CollabUser\Access'));
+                    return $viewHelper;
+                }
+            ),
+        );
     }
 
     public function onBootstrap($e)
@@ -23,9 +53,11 @@ class Module
 
         $sharedManager = $application->getEventManager()->getSharedManager();
         $sharedManager->attach('CollabInstall\Service\Installer', 'initialize', function($e) {
-            $installer = $e->getTarget();
-            $installer->addPermission('team_create');
-            $installer->addPermission('team_delete');
-        });
+                $installer = $e->getTarget();
+                $installer->addPermission('team_create');
+                $installer->addPermission('team_update');
+                $installer->addPermission('team_delete');
+            });
     }
+
 }
