@@ -11,13 +11,23 @@
 namespace CollabSnippet\Service;
 
 use CollabSnippet\Entity\Snippet;
+use Zend\EventManager\EventManager;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
 
 class SnippetService implements ServiceManagerAwareInterface
 {
+    private $eventManager;
     private $mapper;
     private $serviceManager;
+
+    private function getEventManager()
+    {
+        if (!$this->eventManager) {
+            $this->eventManager = new EventManager('CollabSnippet');
+        }
+        return $this->eventManager;
+    }
 
     private function getMapper()
     {
@@ -37,15 +47,23 @@ class SnippetService implements ServiceManagerAwareInterface
         return $this->getMapper()->getById($id);
     }
 
-    public function persist(Snippet $team)
+    public function persist(Snippet $snippet)
     {
-        $this->getMapper()->persist($team);
+        $eventArgs = array('snippet' => $snippet);
+
+        $this->getEventManager()->trigger('persist.pre', $this, $eventArgs);
+        $this->getMapper()->persist($snippet);
+        $this->getEventManager()->trigger('persist.post', $this, $eventArgs);
         return $this;
     }
 
-    public function remove(Snippet $team)
+    public function remove(Snippet $snippet)
     {
-        $this->getMapper()->remove($team);
+        $eventArgs = array('snippet' => $snippet);
+
+        $this->getEventManager()->trigger('remove.pre', $this, $eventArgs);
+        $this->getMapper()->remove($snippet);
+        $this->getEventManager()->trigger('remove.post', $this, $eventArgs);
         return $this;
     }
 

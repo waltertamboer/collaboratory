@@ -14,6 +14,7 @@ class Snippet
 {
     private $id;
     private $name;
+    private $previousName;
     private $description;
     private $syntax;
     private $content;
@@ -38,8 +39,14 @@ class Snippet
         return $this->name;
     }
 
+    public function getPreviousName()
+    {
+        return $this->previousName;
+    }
+
     public function setName($name)
     {
+        $this->previousName = $this->name;
         $this->name = $name;
         return $this;
     }

@@ -17,11 +17,24 @@ class Module
         return include __DIR__ . '/config/module.config.php';
     }
 
+    public function getServiceConfig()
+    {
+        return array(
+            'invokables' => array(
+                'CollabSnippet\Service\Logger' => 'CollabSnippet\Service\Logger',
+            ),
+        );
+    }
+
     public function onBootstrap($e)
     {
         $application = $e->getApplication();
+        $sm = $application->getServiceManager();
 
-        $sharedManager = $application->getEventManager()->getSharedManager();
+        $eventManager = $application->getEventManager();
+        $eventManager->attachAggregate($sm->get('CollabSnippet\Service\Logger'));
+
+        $sharedManager = $eventManager->getSharedManager();
         $sharedManager->attach('CollabInstall\Service\Installer', 'initializePermissions', function($e) {
             $installer = $e->getTarget();
             $installer->addPermission('snippet_create');
