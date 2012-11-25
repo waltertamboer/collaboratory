@@ -51,6 +51,7 @@ class Module
             'invokables' => array(
                 'collabuser.adapter' => 'CollabUser\Authentication\Adapter\DbAdapter',
                 'collabuser.storage' => 'Zend\Authentication\Storage\Session',
+                'CollabUser\Events\Logger' => 'CollabUser\Events\Logger',
             ),
             'factories' => array(
                 'collabuser.authservice' => function ($sm) {
@@ -121,9 +122,12 @@ class Module
     public function onBootstrap($e)
     {
         $application = $e->getApplication();
-        $eventManager = $application->getEventManager();
-        $sharedManager = $eventManager->getSharedManager();
+        $sm = $application->getServiceManager();
 
+        $eventManager = $application->getEventManager();
+        $eventManager->attachAggregate($sm->get('CollabUser\Events\Logger'));
+
+        $sharedManager = $eventManager->getSharedManager();
         $sharedManager->attach('CollabInstall\Service\Installer', 'initializePermissions', function($e) {
             $installer = $e->getTarget();
             $installer->addPermission('user_create');

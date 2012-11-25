@@ -12,12 +12,11 @@ namespace CollabUser\Service;
 
 use CollabUser\Entity\User;
 use Zend\Crypt\Password\Bcrypt;
-use Zend\EventManager\EventManagerAwareInterface;
-use Zend\EventManager\EventManagerInterface;
+use Zend\EventManager\EventManager;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
 
-class UserService implements ServiceManagerAwareInterface, EventManagerAwareInterface
+class UserService implements ServiceManagerAwareInterface
 {
     private $mapper;
     private $eventManager;
@@ -61,26 +60,13 @@ class UserService implements ServiceManagerAwareInterface, EventManagerAwareInte
 
     public function persist(User $user)
     {
-        $oldKey = $user->getId() ? $this->findById($user->getId()) : null;
+        $isNew = !$user->getId();
+        $eventArgs = array('user' => $user, 'isNew' => $isNew);
 
-        $eventArgsCreate = array('user' => $user);
-        $eventArgsUpdate = array('old' => $oldKey, 'new' => $user);
-
-        if ($oldKey) {
-            $this->eventManager->trigger('collab.user.key.update.pre', $this, $eventArgsUpdate);
-        } else {
-            $this->eventManager->trigger('collab.user.key.create.pre', $this, $eventArgsCreate);
-        }
-
-        $this->eventManager->trigger('collab.user.key.persist.pre', $this, $eventArgsCreate);
+        $this->getEventManager()->trigger('persist.pre', $this, $eventArgs);
         $this->getMapper()->persist($user);
-        $this->eventManager->trigger('collab.user.key.persist.post', $this, $eventArgsCreate);
+        $this->getEventManager()->trigger('persist.post', $this, $eventArgs);
 
-        if ($oldKey) {
-            $this->eventManager->trigger('collab.user.key.update.post', $this, $eventArgsUpdate);
-        } else {
-            $this->eventManager->trigger('collab.user.key.create.post', $this, $eventArgsCreate);
-        }
         return $this;
     }
 
@@ -88,9 +74,9 @@ class UserService implements ServiceManagerAwareInterface, EventManagerAwareInte
     {
         $eventArgs = array('user' => $user);
 
-        $this->eventManager->trigger('collab.user.key.delete.pre', $this, $eventArgs);
+        $this->getEventManager()->trigger('remove.pre', $this, $eventArgs);
         $this->getMapper()->remove($user);
-        $this->eventManager->trigger('collab.user.key.delete.post', $this, $eventArgs);
+        $this->getEventManager()->trigger('remove.post', $this, $eventArgs);
         return $this;
     }
 
@@ -101,12 +87,9 @@ class UserService implements ServiceManagerAwareInterface, EventManagerAwareInte
 
     public function getEventManager()
     {
+        if (!$this->eventManager) {
+            $this->eventManager = new EventManager('CollabUser');
+        }
         return $this->eventManager;
-    }
-
-    public function setEventManager(EventManagerInterface $eventManager)
-    {
-        $this->eventManager = $eventManager;
-        return $this;
     }
 }

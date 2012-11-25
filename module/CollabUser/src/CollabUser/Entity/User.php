@@ -18,6 +18,7 @@ class User
     private $identity;
     private $credential;
     private $displayName;
+    private $previousDisplayName;
     private $snippets;
     private $teams;
     private $sshKeys;
@@ -67,8 +68,14 @@ class User
         return $this->displayName;
     }
 
+    public function getPreviousDisplayName()
+    {
+        return $this->previousDisplayName;
+    }
+
     public function setDisplayName($displayName)
     {
+        $this->previousDisplayName = $this->displayName;
         $this->displayName = $displayName;
         return $this;
     }
