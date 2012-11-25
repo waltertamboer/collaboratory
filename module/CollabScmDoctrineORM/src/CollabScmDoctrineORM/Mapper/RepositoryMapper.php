@@ -8,10 +8,10 @@
  * @package   Collaboratory
  */
 
-namespace CollabProjectDoctrineORM\Mapper;
+namespace CollabScmDoctrineORM\Mapper;
 
-use CollabProject\Entity\Repository;
-use CollabProject\Mapper\RepositoryMapperInterface;
+use CollabScm\Entity\Repository;
+use CollabScm\Mapper\RepositoryMapperInterface;
 use Doctrine\ORM\EntityManager;
 
 class RepositoryMapper implements RepositoryMapperInterface
@@ -25,14 +25,14 @@ class RepositoryMapper implements RepositoryMapperInterface
 
     public function findBy(array $criteria)
 	{
-        $repository = $this->entityManager->getRepository('CollabProject\Entity\Repository');
+        $repository = $this->entityManager->getRepository('CollabScm\Entity\Repository');
 
         return $repository->findBy($criteria);
 	}
 
     public function findById($id)
     {
-        $repository = $this->entityManager->getRepository('CollabProject\Entity\Repository');
+        $repository = $this->entityManager->getRepository('CollabScm\Entity\Repository');
 
         return $repository->find($id);
     }

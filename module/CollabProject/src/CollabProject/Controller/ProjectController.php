@@ -32,7 +32,7 @@ class ProjectController extends AbstractActionController
     private function getRepositoryService()
     {
         if ($this->repositoryService === null) {
-            $this->repositoryService = $this->getServiceLocator()->get('CollabProject\Service\Repository');
+            $this->repositoryService = $this->getServiceLocator()->get('CollabScm\Service\Repository');
         }
         return $this->repositoryService;
     }

@@ -10,124 +10,170 @@
 
 namespace CollabScm\Entity;
 
-/**
- * The representation of a repository.
- */
-class Repository extends AbstractEntity
+use CollabProject\Entity\Project;
+
+class Repository
 {
     /**
-     * The options of this repository.
+     * The id of the repository.
      *
-     * @var string[]
+     * @var int
      */
-    private $options;
+    private $id;
 
     /**
-     * A list with all entities and their access. This is a key/value list.
+     * The name of the repository.
      *
-     * @var string[]
+     * @var string
      */
-    private $accessList;
+    private $name;
 
     /**
-     * Initializes a new instance of this class.
+     * The previous name of the repository.
+     *
+     * @var string
      */
-    public function __construct()
+    private $previousName;
+
+    /**
+     * The description of the repository.
+     *
+     * @var string
+     */
+    private $description;
+
+    /**
+     * The type of the repository (e.g. subversion or git).
+     *
+     * @var string
+     */
+    private $type;
+
+    /**
+     * The project to which the repository belongs.
+     *
+     * @var Project
+     */
+    private $project;
+
+    /**
+     * Gets the id of the repository.
+     *
+     * @return int
+     */
+    public function getId()
     {
-        $this->options = array();
-        $this->accessList = array();
+        return $this->id;
     }
 
     /**
-     * Gets the options of the repository.
+     * Sets the id of the repository.
      *
-     * @return string[]
-     */
-    public function getOptions()
-    {
-        return $this->options;
-    }
-
-    /**
-     * Sets the option in the repository.
-     *
-     * @param string $name The name of the option to set.
-     * @param string $value The value of the option to set.
+     * @param int $id The id of the repository.
      * @return Repository
      */
-    public function setOption($name, $value)
+    public function setId($id)
     {
-        $this->options[$name] = $value;
+        $this->id = $id;
         return $this;
     }
 
-	/**
-	 * Clears the access list.
-	 *
-	 * @return Repository
-	 */
-	public function clearAccess()
-	{
-		$this->accessList = array();
-		return $this;
-	}
-
-	/**
-	 * Sets access for the given entity.
-	 *
-	 * @param AbstractEntity|string $entity The entity to set access for.
-	 * @param Access $access The access to set.
-	 * @return Repository
-	 */
-    public function setAccess($entity, Access $access)
+    /**
+     * Gets the name of the repository.
+     *
+     * @return string
+     */
+    public function getName()
     {
-		if ($entity instanceof AbstractEntity) {
-			$entity = $entity->getName();
-		}
-        $this->accessList[$entity] = $access;
+        return $this->name;
+    }
+
+    /**
+     * Gets the previous name of the repository.
+     *
+     * @return string
+     */
+    public function getPreviousName()
+    {
+        return $this->previousName;
+    }
+
+    /**
+     * Sets the name of the repository.
+     *
+     * @param string $name The name of the repository.
+     * @return Repository
+     */
+    public function setName($name)
+    {
+        $this->previousName = $name;
+        $this->name = $name;
         return $this;
     }
 
-	/**
-	 * Gets the access for the entity.
-	 *
-	 * @param AbstractEntity|string $entity The entity to get the access for.
-	 * @return Repository
-	 */
-    public function getAccess($entity)
+    /**
+     * Gets the description of the repository.
+     *
+     * @return string
+     */
+    public function getDescription()
     {
-		if ($entity instanceof AbstractEntity) {
-			$entity = $entity->getName();
-		}
-        return isset($this->accessList[$entity]) ? $this->accessList[$entity] : null;
+        return $this->description;
     }
 
-	/**
-	 * Gets the access list.
-	 *
-	 * @return Access[]
-	 */
-    public function getAccessList()
+    /**
+     * Sets the description of the repository.
+     *
+     * @param string $description The description of the repository.
+     * @return Repository
+     */
+    public function setDescription($description)
     {
-        return $this->accessList;
+        $this->description = $description;
+        return $this;
     }
 
-	/**
-	 * Removes the acess for the given entity.
-	 *
-	 * @param AbstractEntity|string $group The entity to remove access for.
-	 * @return Repository
-	 */
-	public function removeAccess($entity)
-	{
-		if ($entity instanceof AbstractEntity) {
-			$entity = $entity->getName();
-		}
+    /**
+     * Gets the type of the repository.
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
 
-		if (isset($this->accessList[$entity])) {
-			unset($this->accessList[$entity]);
-		}
+    /**
+     * Sets the type of the repository.
+     *
+     * @param string $type The type of the repository.
+     * @return Repository
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+        return $this;
+    }
 
-		return $this;
-	}
+    /**
+     * Gets the project of the repository.
+     *
+     * @return Project
+     */
+    public function getProject()
+    {
+        return $this->project;
+    }
+
+    /**
+     * Sets the project of the repository.
+     *
+     * @param null|Project $project The project to set.
+     * @return Repository
+     */
+    public function setProject(Project $project = null)
+    {
+        $this->project = $project;
+        return $this;
+    }
 }

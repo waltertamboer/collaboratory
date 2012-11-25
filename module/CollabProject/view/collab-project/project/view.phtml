@@ -13,7 +13,7 @@ echo '</ul>';
 echo '<h3>Repositories</h3>';
 
 echo '<ul>';
-echo '<li><a href="' . $this->url('repository/create', array(
+echo '<li><a href="' . $this->url('scm/create', array(
     'project' => $this->project->getId()
 )) . '">Create</a></li>';
 echo '</ul>';
@@ -28,7 +28,7 @@ if (!$this->repositories) {
         echo '<p>' . $repository->getDescription() . '</p>';
         echo '<ul>';
         if ($this->userAccess('repository_delete')) {
-            echo '<li><a href="' . $this->url('repository/delete', array('id' => $repository->getId())) . '">Remove</a></li>';
+            echo '<li><a href="' . $this->url('scm/delete', array('id' => $repository->getId())) . '">Remove</a></li>';
         }
         echo '</ul>';
         echo '</li>';

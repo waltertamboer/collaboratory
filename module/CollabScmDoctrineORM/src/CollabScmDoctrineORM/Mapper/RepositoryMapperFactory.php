@@ -8,15 +8,16 @@
  * @package   Collaboratory
  */
 
-namespace CollabProject\Service;
+namespace CollabScmDoctrineORM\Mapper;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class RepositoryServiceFactory implements FactoryInterface
+class RepositoryMapperFactory implements FactoryInterface
 {
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return new RepositoryService();
+        $entityManager = $serviceLocator->get('doctrine.entitymanager.orm_default');
+        return new RepositoryMapper($entityManager);
     }
 }

@@ -8,13 +8,14 @@
  * @package   Collaboratory
  */
 
-namespace CollabProject\Form;
+namespace CollabScm\Form;
 
 use CollabApplication\Validator\AbstractUnique;
 use CollabProject\Entity\Project;
 use Zend\InputFilter\Input;
 use Zend\InputFilter\InputFilter;
 use Zend\Form\Element\Submit;
+use Zend\Form\Element\Select;
 use Zend\Form\Element\Text;
 use Zend\Form\Element\Textarea;
 use Zend\Form\Form;
@@ -34,6 +35,11 @@ class RepositoryForm extends Form
         $this->setInputFilter($inputFilter);
 
         $inputName = new Input();
+        $inputName->setName('type');
+        $inputName->setRequired(true);
+        $inputFilter->add($inputName);
+
+        $inputName = new Input();
         $inputName->setName('name');
         $inputName->setRequired(true);
         $inputName->getValidatorChain()->addValidator($uniqueNameValidator);
@@ -49,6 +55,15 @@ class RepositoryForm extends Form
         $inputName->setName('description');
         $inputName->setRequired(false);
         $inputFilter->add($inputName);
+
+        $type = new Select('type');
+        $type->setLabel('Type');
+        $type->setEmptyOption('---');
+        $type->setValueOptions(array(
+            'git' => 'Git',
+            'svn' => 'Subversion',
+        ));
+        $this->add($type);
 
         $name = new Text('name');
         $name->setLabel('Name');

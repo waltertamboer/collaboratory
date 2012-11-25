@@ -4,9 +4,13 @@ $this->headTitle('Create Repository');
 $form = $this->form;
 $form->prepare();
 
+echo '<h3>Create a new repository for project ' . $this->project->getName() . '</h3>';
+
 echo $this->form()->openTag($form);
+echo $this->formRow($form->get('type'));
 echo $this->formRow($form->get('name'));
 echo $this->formRow($form->get('description'));
+echo '<hr />';
 echo $this->formSubmit($form->get('save'));
 echo '<a href="' . $this->url('project/view', array(
     'id' => $this->project->getId(),

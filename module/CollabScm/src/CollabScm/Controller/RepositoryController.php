@@ -8,12 +8,11 @@
  * @package   Collaboratory
  */
 
-namespace CollabProject\Controller;
+namespace CollabScm\Controller;
 
 use CollabApplication\Form\DeleteForm;
-use CollabProject\Entity\Project;
-use CollabProject\Entity\Repository;
-use CollabProject\Form\RepositoryForm;
+use CollabScm\Entity\Repository;
+use CollabScm\Form\RepositoryForm;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -33,7 +32,7 @@ class RepositoryController extends AbstractActionController
     private function getRepositoryService()
     {
         if ($this->repositoryService === null) {
-            $this->repositoryService = $this->getServiceLocator()->get('CollabProject\Service\Repository');
+            $this->repositoryService = $this->getServiceLocator()->get('CollabScm\Service\Repository');
         }
         return $this->repositoryService;
     }
@@ -58,7 +57,7 @@ class RepositoryController extends AbstractActionController
             ));
         }
 
-        $uniqueNameValidator = $this->getServiceLocator()->create('CollabProject\Validator\RepositoryName');
+        $uniqueNameValidator = $this->getServiceLocator()->create('CollabScm\Validator\RepositoryName');
         $form = new RepositoryForm($uniqueNameValidator);
 
         $request = $this->getRequest();

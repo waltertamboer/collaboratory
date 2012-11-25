@@ -8,14 +8,8 @@
  * @package   Collaboratory
  */
 
-namespace CollabProject\Entity;
+namespace CollabScmGit;
 
-class Milestone
+class Module
 {
-    private $id;
-    private $projectId;
-    private $name;
-    private $description;
-    private $createdOn;
-    private $dueDate;
 }

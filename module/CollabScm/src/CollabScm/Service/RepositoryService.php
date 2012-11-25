@@ -8,9 +8,9 @@
  * @package   Collaboratory
  */
 
-namespace CollabProject\Service;
+namespace CollabScm\Service;
 
-use CollabProject\Entity\Repository;
+use CollabScm\Entity\Repository;
 use Zend\EventManager\EventManager;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
@@ -32,7 +32,7 @@ class RepositoryService implements ServiceManagerAwareInterface
     private function getMapper()
     {
         if ($this->mapper === null) {
-            $this->mapper = $this->serviceManager->get('CollabProject\Mapper\Repository');
+            $this->mapper = $this->serviceManager->get('CollabScm\Mapper\Repository');
         }
         return $this->mapper;
     }

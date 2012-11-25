@@ -8,14 +8,21 @@
  * @package   Collaboratory
  */
 
-namespace CollabProject\Mapper;
+namespace CollabScmDoctrineORM;
 
-use CollabProject\Entity\Repository;
-
-interface RepositoryMapperInterface
+class Module
 {
-    public function findBy(array $criteria);
-    public function findById($id);
-    public function persist(Repository $repository);
-    public function remove(Repository $repository);
+    public function getConfig()
+    {
+        return include __DIR__ . '/config/module.config.php';
+    }
+
+    public function getServiceConfig()
+    {
+        return array(
+            'factories' => array(
+                'CollabScm\Mapper\Repository' => 'CollabScmDoctrineORM\Mapper\RepositoryMapperFactory',
+            ),
+        );
+    }
 }

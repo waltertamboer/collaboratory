@@ -8,7 +8,7 @@
  * @package   Collaboratory
  */
 
-namespace CollabProject\Events;
+namespace CollabScm\Events;
 
 use CollabApplication\Events\ApplicationEventsAwareInterface;
 use CollabApplication\Service\ApplicationEvents;

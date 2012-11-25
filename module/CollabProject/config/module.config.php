@@ -11,12 +11,6 @@
 namespace CollabProject;
 
 return array(
-    'controllers' => array(
-        'invokables' => array(
-            'CollabProject\Controller\ProjectController' => 'CollabProject\Controller\ProjectController',
-            'CollabProject\Controller\RepositoryController' => 'CollabProject\Controller\RepositoryController',
-        ),
-    ),
     'navigation' => array(
         'default' => array(
             'project/overview' => array(
@@ -27,55 +21,6 @@ return array(
     ),
     'router' => array(
         'routes' => array(
-            'repository' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
-                'options' => array(
-                    'route' => '/repository',
-                    'defaults' => array(
-                        'controller' => 'CollabProject\Controller\RepositoryController',
-                        'action' => 'index',
-                    ),
-                ),
-                'may_terminate' => false,
-                'child_routes' => array(
-                    'create' => array(
-                        'type' => 'Zend\Mvc\Router\Http\Segment',
-                        'options' => array(
-                            'route' => '/create/:project',
-                            'constraints' => array(
-                                'project' => '[0-9]+',
-                            ),
-                            'defaults' => array(
-                                'action' => 'create',
-                            ),
-                        ),
-                    ),
-                    'update' => array(
-                        'type' => 'Zend\Mvc\Router\Http\Segment',
-                        'options' => array(
-                            'route' => '/update/:id',
-                            'constraints' => array(
-                                'id' => '[0-9]+',
-                            ),
-                            'defaults' => array(
-                                'action' => 'update',
-                            ),
-                        ),
-                    ),
-                    'delete' => array(
-                        'type' => 'Zend\Mvc\Router\Http\Segment',
-                        'options' => array(
-                            'route' => '/delete/:id',
-                            'constraints' => array(
-                                'id' => '[0-9]+',
-                            ),
-                            'defaults' => array(
-                                'action' => 'delete',
-                            ),
-                        ),
-                    ),
-                ),
-            ),
             'project' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
@@ -148,14 +93,9 @@ return array(
     'service_manager' => array(
         'factories' => array(
             'project.service' => 'CollabProject\Service\ProjectServiceFactory',
-            'CollabProject\Service\Repository' => 'CollabProject\Service\RepositoryServiceFactory',
             'CollabProject\Validator\ProjectName' => function ($sm) {
                 $entityManager = $sm->get('doctrine.entitymanager.orm_default');
                 return new \CollabApplicationDoctrineORM\Validator\UniqueEntity($entityManager, 'CollabProject\Entity\Project', 'name', 'getName');
-            },
-            'CollabProject\Validator\RepositoryName' => function ($sm) {
-                $entityManager = $sm->get('doctrine.entitymanager.orm_default');
-                return new \CollabApplicationDoctrineORM\Validator\UniqueEntity($entityManager, 'CollabProject\Entity\Repository', 'name', 'getName');
             },
         ),
     ),

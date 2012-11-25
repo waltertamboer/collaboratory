@@ -17,12 +17,29 @@ class Module
         return include __DIR__ . '/config/module.config.php';
     }
 
+    public function getControllerConfig()
+    {
+        return array(
+            'invokables' => array(
+                'CollabScm\Controller\RepositoryController' => 'CollabScm\Controller\RepositoryController',
+            ),
+        );
+    }
+
     public function getServiceConfig()
     {
         return array(
             'invokables' => array(
+                'CollabScm\Events\RepositoryLogger' => 'CollabScm\Events\RepositoryLogger',
                 'CollabScm\Handler\ConfigSynchronizer' => 'CollabScm\Handler\ConfigSynchronizer',
                 'CollabScm\Handler\FileSystem' => 'CollabScm\Handler\FileSystem',
+            ),
+            'factories' => array(
+                'CollabScm\Service\Repository' => 'CollabScm\Service\RepositoryServiceFactory',
+                'CollabScm\Validator\RepositoryName' => function ($sm) {
+                    $entityManager = $sm->get('doctrine.entitymanager.orm_default');
+                    return new \CollabApplicationDoctrineORM\Validator\UniqueEntity($entityManager, 'CollabScm\Entity\Repository', 'name', 'getName');
+                },
             ),
         );
     }
@@ -33,8 +50,17 @@ class Module
         $sm = $application->getServiceManager();
 
         $eventManager = $application->getEventManager();
+        $eventManager->attachAggregate($sm->get('CollabScm\Events\RepositoryLogger'));
         $eventManager->attachAggregate($sm->get('CollabScm\Handler\ConfigSynchronizer'));
         $eventManager->attachAggregate($sm->get('CollabScm\Handler\FileSystem'));
+
+        $sharedManager = $eventManager->getSharedManager();
+        $sharedManager->attach('CollabInstall\Service\Installer', 'initializePermissions', function($e) {
+                $installer = $e->getTarget();
+                $installer->addPermission('repository_create');
+                $installer->addPermission('repository_update');
+                $installer->addPermission('repository_delete');
+            });
     }
 
 //    public function onBootstrap($e)

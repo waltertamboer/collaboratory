@@ -20,14 +20,9 @@ return array(
             ),
             'orm_default' => array(
                 'drivers' => array(
-                    'CollabProject\Entity' => __NAMESPACE__
+                    'CollabScm\Entity' => __NAMESPACE__
                 )
             ),
-        ),
-    ),
-    'service_manager' => array(
-        'factories' => array(
-            'project.mapper' => 'CollabProjectDoctrineORM\Mapper\ProjectMapperFactory',
         ),
     ),
 );

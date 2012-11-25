@@ -4,8 +4,8 @@
         <id name="id" type="bigint" column="id">
             <generator strategy="IDENTITY"/>
         </id>
-        <field name="name" type="string" column="name" nullable="true" precision="0" scale="0"/>
-        <field name="description" type="string" column="description" nullable="true" precision="0" scale="0"/>
+        <field name="name" type="string" column="name" nullable="true" precision="0" scale="0" />
+        <field name="description" type="string" column="description" nullable="true" precision="0" scale="0" />
 
         <many-to-many field="snippets" mapped-by="projects" target-entity="CollabSnippet\Entity\Snippet" />
 

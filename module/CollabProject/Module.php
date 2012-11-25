@@ -17,12 +17,20 @@ class Module
         return include __DIR__ . '/config/module.config.php';
     }
 
+    public function getControllerConfig()
+    {
+        return array(
+            'invokables' => array(
+                'CollabProject\Controller\ProjectController' => 'CollabProject\Controller\ProjectController',
+            ),
+        );
+    }
+
     public function getServiceConfig()
     {
         return array(
             'invokables' => array(
                 'CollabProject\Events\ProjectLogger' => 'CollabProject\Events\ProjectLogger',
-                'CollabProject\Events\RepositoryLogger' => 'CollabProject\Events\RepositoryLogger',
             ),
         );
     }
@@ -34,7 +42,6 @@ class Module
 
         $eventManager = $application->getEventManager();
         $eventManager->attachAggregate($sm->get('CollabProject\Events\ProjectLogger'));
-        $eventManager->attachAggregate($sm->get('CollabProject\Events\RepositoryLogger'));
 
         $sharedManager = $eventManager->getSharedManager();
         $sharedManager->attach('CollabInstall\Service\Installer', 'initializePermissions', function($e) {
@@ -42,9 +49,6 @@ class Module
             $installer->addPermission('project_create');
             $installer->addPermission('project_update');
             $installer->addPermission('project_delete');
-            $installer->addPermission('repository_create');
-            $installer->addPermission('repository_update');
-            $installer->addPermission('repository_delete');
         });
     }
 }
