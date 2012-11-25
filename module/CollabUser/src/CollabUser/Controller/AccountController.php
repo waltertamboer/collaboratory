@@ -69,7 +69,13 @@ class AccountController extends AbstractActionController
             $form->setData($request->getPost());
 
             if ($form->isValid()) {
-                $this->getUserService()->persist($user);
+                $userService = $this->getUserService();
+                
+                $credential = $user->getCredential();
+                $credential = $userService->encryptCredential($credential);
+                $user->setCredential($credential);
+
+                $userService->persist($user);
                 return $this->redirect()->toRoute('account/overview');
             }
 

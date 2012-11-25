@@ -13,8 +13,8 @@ namespace CollabTeam\Form\Fieldset;
 use Zend\InputFilter\InputFilterProviderInterface;
 use Zend\Form\Fieldset;
 use Zend\Form\Element\Collection;
-use Zend\Form\Element\MultiCheckbox;
-use Zend\Form\Element\Submit;
+//use Zend\Form\Element\MultiCheckbox;
+use DoctrineORMModule\Form\Element\EntityMultiCheckbox;
 use Zend\Form\Element\Text;
 use Zend\Form\Element\Textarea;
 use Zend\Stdlib\Hydrator\ClassMethods as ClassMethodsHydrator;
@@ -36,16 +36,8 @@ class TeamFieldset extends Fieldset implements InputFilterProviderInterface
         $description->setLabel('Description');
         $this->add($description);
 
-        $permissions = new MultiCheckbox();
+        $permissions = new EntityMultiCheckbox();
         $permissions->setName('permissions');
-        $permissions->setValueOptions(array(
-            'Can create teams',
-            'Can delete teams',
-            'Can create projects',
-            'Can delete projects',
-            'Can create issues',
-            'Can delete issues',
-        ));
         $this->add($permissions);
 
         $members = new Collection();
@@ -90,6 +82,9 @@ class TeamFieldset extends Fieldset implements InputFilterProviderInterface
                 'required' => false,
             ),
             'projects' => array(
+                'required' => false,
+            ),
+            'permissions' => array(
                 'required' => false,
             ),
         );

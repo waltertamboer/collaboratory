@@ -11,68 +11,17 @@
 namespace CollabTeam\Form;
 
 use CollabTeam\Form\Fieldset\TeamFieldset;
+use CollabTeam\Form\Hydrator\TeamMembersStrategy;
+use CollabTeam\Form\Hydrator\TeamPermissionsStrategy;
+use CollabTeam\Form\Hydrator\TeamProjectsStrategy;
 use CollabTeam\InputFilter\TeamInputFilter;
 use Zend\Form\Element\Submit;
 use Zend\Form\Form;
 use Zend\Stdlib\Hydrator\ClassMethods as ClassMethodsHydrator;
 
-class TeamMembersStrategy implements \Zend\Stdlib\Hydrator\Strategy\StrategyInterface
-{
-    private $userService;
-
-    public function __construct($userService)
-    {
-        $this->userService = $userService;
-    }
-
-    public function extract($value)
-    {
-        return $value;
-    }
-
-    public function hydrate($value)
-    {
-        $result = $value;
-        if (is_array($value)) {
-            $result = array();
-            foreach ($value as $member) {
-                $result[] = $this->userService->findById($member->getId());
-            }
-        }
-        return $result;
-    }
-}
-
-class TeamProjectsStrategy implements \Zend\Stdlib\Hydrator\Strategy\StrategyInterface
-{
-    private $projectsService;
-
-    public function __construct($userService)
-    {
-        $this->projectsService = $userService;
-    }
-
-    public function extract($value)
-    {
-        return $value;
-    }
-
-    public function hydrate($value)
-    {
-        $result = $value;
-        if (is_array($value)) {
-            $result = array();
-            foreach ($value as $entity) {
-                $result[] = $this->projectsService->getById($entity->getId());
-            }
-        }
-        return $result;
-    }
-}
-
 class TeamForm extends Form
 {
-    public function __construct($userService, $projectsService)
+    public function __construct($userService, $permissionsService, $projectsService)
     {
         parent::__construct('team');
 
@@ -86,6 +35,7 @@ class TeamForm extends Form
 
         $hydrator = $fieldset->getHydrator();
         $hydrator->addStrategy('members', new TeamMembersStrategy($userService));
+        $hydrator->addStrategy('permissions', new TeamPermissionsStrategy($permissionsService));
         $hydrator->addStrategy('projects', new TeamProjectsStrategy($projectsService));
 
         $submitButton = new Submit();

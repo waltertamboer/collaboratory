@@ -22,12 +22,14 @@ class Team
     private $createdOn;
     private $members;
     private $projects;
+    private $permissions;
 
     public function __construct()
     {
         $this->createdOn = new DateTime();
         $this->members = new \Doctrine\Common\Collections\ArrayCollection();
         $this->projects = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->permissions = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function getId()
@@ -141,6 +143,17 @@ class Team
                 $this->projects->add($project);
             }
         }
+        return $this;
+    }
+
+    public function getPermissions()
+    {
+        return $this->permissions;
+    }
+
+    public function setPermissions($permissions)
+    {
+        $this->permissions = $permissions;
         return $this;
     }
 }

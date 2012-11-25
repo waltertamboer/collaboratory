@@ -10,8 +10,10 @@
 
 namespace CollabUser;
 
+use CollabUser\Access\Access;
 use CollabUser\Authentication\AuthenticationService;
 use CollabUser\Controller\Plugin\UserAuthentication;
+use CollabUser\Service\PermissionService;
 use CollabUser\View\Helper\UserAvatar;
 use CollabUser\View\Helper\UserDisplayName;
 use CollabUser\View\Helper\UserIdentity;
@@ -51,6 +53,17 @@ class Module
                 },
                 'collabuser.userservice' => 'CollabUser\Service\UserServiceFactory',
                 'CollabSsh\Service\KeysService' => 'CollabSsh\Service\KeysServiceFactory',
+                'CollabUser\Access' => function ($sm) {
+                    $authService = $sm->get('collabuser.authservice');
+                    $currentUser = $authService->getIdentity();
+
+                    return new Access($currentUser);
+                },
+                'CollabUser\Service\Permission' => function ($sm) {
+                    $mapper = $sm->get('CollabUser\Mapper\Permission');
+
+                    return new PermissionService($mapper);
+                },
             ),
         );
     }
@@ -97,21 +110,21 @@ class Module
 
             $path = 'config/autoload/doctrine_orm.global.php';
             if (is_file($path)) {
-				$sm = $e->getTarget()->getServiceLocator();
-				$authService = $sm->get('collabuser.authservice');
-
-				$identity = $authService->getIdentity();
-
 				$publicPages = array();
 				$publicPages['CollabUser\Controller\UserController'] = array('login', 'logout');
 				$publicPages['CollabInstall\Controller\InstallController'] = array('index', 'database', 'account', 'finish');
 
 				if (array_key_exists($controller, $publicPages) && in_array($action, $publicPages[$controller])) {
 					$e->getTarget()->layout('layout/empty');
-				} elseif (!$identity) {
-					$controller = $e->getTarget();
-					return $controller->redirect()->toRoute('user/login');
-				}
+				} else {
+                    $sm = $e->getTarget()->getServiceLocator();
+                    $authService = $sm->get('collabuser.authservice');
+
+                    if (!$authService->getIdentity()) {
+                        $controller = $e->getTarget();
+                        return $controller->redirect()->toRoute('user/login');
+                    }
+                }
 			} else {
 				$e->getTarget()->layout('layout/empty');
 			}

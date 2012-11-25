@@ -19,6 +19,7 @@ use Zend\View\Model\ViewModel;
 class TeamController extends AbstractActionController
 {
     private $teamService;
+    private $permissionsService;
     private $projectService;
     private $userService;
 
@@ -28,6 +29,14 @@ class TeamController extends AbstractActionController
             $this->teamService = $this->getServiceLocator()->get('team.service');
         }
         return $this->teamService;
+    }
+
+    private function getPermissionsService()
+    {
+        if ($this->permissionsService === null) {
+            $this->permissionsService = $this->getServiceLocator()->get('CollabUser\Service\Permission');
+        }
+        return $this->permissionsService;
     }
 
     private function getProjectService()
@@ -70,7 +79,14 @@ class TeamController extends AbstractActionController
             die(json_encode($data));
         }
 
-        $form = new TeamForm($this->getUserService(), $this->getProjectService());
+        $form = new TeamForm($this->getUserService(),
+            $this->getPermissionsService(), $this->getProjectService());
+
+        $teamFieldset = $form->get('team');
+        $permissions = $teamFieldset->get('permissions')->getProxy();
+        $permissions->setObjectManager($this->getServiceLocator()->get('doctrine.entitymanager.orm_default'));
+        $permissions->setTargetClass('CollabUser\Entity\Permission');
+        $permissions->setProperty('name');
 
         $teamMembers = array();
         if ($request->isPost()) {
@@ -121,7 +137,15 @@ class TeamController extends AbstractActionController
             die(json_encode($data));
         }
 
-        $form = new TeamForm($this->getUserService(), $this->getProjectService());
+        $form = new TeamForm($this->getUserService(),
+            $this->getPermissionsService(), $this->getProjectService());
+
+        $teamFieldset = $form->get('team');
+        $permissions = $teamFieldset->get('permissions')->getProxy();
+        $permissions->setObjectManager($this->getServiceLocator()->get('doctrine.entitymanager.orm_default'));
+        $permissions->setTargetClass('CollabUser\Entity\Permission');
+        $permissions->setProperty('name');
+
         $form->bind($team);
 
         $teamMembers = $team->getMembers();

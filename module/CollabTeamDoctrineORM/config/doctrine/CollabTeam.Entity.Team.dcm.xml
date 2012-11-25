@@ -28,5 +28,16 @@
         </many-to-many>
 
         <many-to-many field="projects" mapped-by="teams" target-entity="CollabProject\Entity\Project" />
+
+        <many-to-many field="permissions" inversed-by="teams" target-entity="CollabUser\Entity\Permission">
+            <join-table name="team_permission">
+                <join-columns>
+                    <join-column name="team_id" referenced-column-name="id" on-delete="CASCADE" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="permission_id" referenced-column-name="id" on-delete="CASCADE" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
     </entity>
 </doctrine-mapping>

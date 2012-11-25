@@ -121,9 +121,10 @@ class User
     {
         $this->clearTeams();
         foreach ($teams as $team) {
-            var_dump($teams);exit;
-            $this->addTeam($team);
-            $team->addMember($this);
+            if ($team instanceof Team) {
+                $this->addTeam($team);
+                $team->addMember($this);
+            }
         }
         return $this;
     }
@@ -135,6 +136,7 @@ class User
 
     public function setSshKeys($sshKeys)
     {
+        $this->sshKeys = $sshKeys;
         return $this;
     }
 }
