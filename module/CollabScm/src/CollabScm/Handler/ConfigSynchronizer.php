@@ -8,16 +8,39 @@
  * @package   Collaboratory
  */
 
-namespace CollabScm\Service;
+namespace CollabScm\Handler;
 
 use CollabScm\Config\Config;
 use CollabScm\Entity\Access;
 use CollabScm\Entity\User;
 use CollabScm\Entity\Group;
 use CollabScm\Entity\Repository;
+use Zend\EventManager\EventManagerInterface;
+use Zend\EventManager\ListenerAggregateInterface;
 
-class Synchronizer
+class ConfigSynchronizer implements ListenerAggregateInterface
 {
+    /**
+     * Attach one or more listeners
+     *
+     * Implementors may add an optional $priority argument; the EventManager
+     * implementation will pass this to the aggregate.
+     *
+     * @param EventManagerInterface $events
+     */
+    public function attach(EventManagerInterface $events)
+    {
+    }
+
+    /**
+     * Detach all previously attached listeners
+     *
+     * @param EventManagerInterface $events
+     */
+    public function detach(EventManagerInterface $events)
+    {
+    }
+
 	public function create(Config $config)
 	{
 		$data = array();
@@ -122,7 +145,7 @@ class Synchronizer
 					} else {
 						$child = $config->getUser($name);
 					}
-					
+
 					if ($child) {
 						$access = new Access($permission);
 						$entity->setAccess($child, $access);

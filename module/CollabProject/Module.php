@@ -17,11 +17,26 @@ class Module
         return include __DIR__ . '/config/module.config.php';
     }
 
+    public function getServiceConfig()
+    {
+        return array(
+            'invokables' => array(
+                'CollabProject\Events\ProjectLogger' => 'CollabProject\Events\ProjectLogger',
+                'CollabProject\Events\RepositoryLogger' => 'CollabProject\Events\RepositoryLogger',
+            ),
+        );
+    }
+
     public function onBootstrap($e)
     {
         $application = $e->getApplication();
+        $sm = $application->getServiceManager();
 
-        $sharedManager = $application->getEventManager()->getSharedManager();
+        $eventManager = $application->getEventManager();
+        $eventManager->attachAggregate($sm->get('CollabProject\Events\ProjectLogger'));
+        $eventManager->attachAggregate($sm->get('CollabProject\Events\RepositoryLogger'));
+
+        $sharedManager = $eventManager->getSharedManager();
         $sharedManager->attach('CollabInstall\Service\Installer', 'initializePermissions', function($e) {
             $installer = $e->getTarget();
             $installer->addPermission('project_create');

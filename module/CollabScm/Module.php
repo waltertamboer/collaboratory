@@ -17,6 +17,26 @@ class Module
         return include __DIR__ . '/config/module.config.php';
     }
 
+    public function getServiceConfig()
+    {
+        return array(
+            'invokables' => array(
+                'CollabScm\Handler\ConfigSynchronizer' => 'CollabScm\Handler\ConfigSynchronizer',
+                'CollabScm\Handler\FileSystem' => 'CollabScm\Handler\FileSystem',
+            ),
+        );
+    }
+
+    public function onBootstrap($e)
+    {
+        $application = $e->getApplication();
+        $sm = $application->getServiceManager();
+
+        $eventManager = $application->getEventManager();
+        $eventManager->attachAggregate($sm->get('CollabScm\Handler\ConfigSynchronizer'));
+        $eventManager->attachAggregate($sm->get('CollabScm\Handler\FileSystem'));
+    }
+
 //    public function onBootstrap($e)
 //    {
 //        $path = __DIR__ . '/collaboratory.json';

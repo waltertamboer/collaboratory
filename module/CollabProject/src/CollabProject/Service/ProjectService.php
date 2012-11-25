@@ -11,13 +11,23 @@
 namespace CollabProject\Service;
 
 use CollabProject\Entity\Project;
+use Zend\EventManager\EventManager;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
 
 class ProjectService implements ServiceManagerAwareInterface
 {
+    private $eventManager;
     private $mapper;
     private $serviceManager;
+
+    private function getEventManager()
+    {
+        if (!$this->eventManager) {
+            $this->eventManager = new EventManager('CollabProject');
+        }
+        return $this->eventManager;
+    }
 
     private function getMapper()
     {
@@ -44,7 +54,11 @@ class ProjectService implements ServiceManagerAwareInterface
 
     public function persist(Project $project)
     {
+        $eventArg = array('project' => $project, 'isNew' => !$project->getId());
+
+        $this->getEventManager()->trigger('persist.pre', $this, $eventArg);
         $this->getMapper()->persist($project);
+        $this->getEventManager()->trigger('persist.post', $this, $eventArg);
 
         $oldProjectName = $project->getPreviousName();
         $projectPath = $this->getProjectPath($project->getName());
@@ -78,7 +92,11 @@ class ProjectService implements ServiceManagerAwareInterface
             exec($command);
         }
 
+        $eventArg = array('project' => $project);
+
+        $this->getEventManager()->trigger('remove.pre', $this, $eventArg);
         $this->getMapper()->remove($project);
+        $this->getEventManager()->trigger('remove.post', $this, $eventArg);
 
         return $this;
     }
