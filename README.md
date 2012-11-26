@@ -2,6 +2,8 @@
 
 Master: [![Build Status](https://secure.travis-ci.org/pixelpolishers/collaboratory.png?branch=master)](http://travis-ci.org/pixelpolishers/collaboratory)
 
+**WARNING: THIS PRODUCT IS NOT PRODUCTION READY YET**
+
 An open source application that enables software developers and project managers to manager their projects.
 
 ## What is Collaboratory?
