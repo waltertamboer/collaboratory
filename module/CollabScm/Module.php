@@ -26,6 +26,16 @@ class Module
         );
     }
 
+    public function getControllerPluginConfig()
+    {
+        return array(
+            'invokables' => array(
+                'ScmPath' => 'CollabScm\Controller\Plugin\ScmPath',
+                'ScmRepositoryTree' => 'CollabScm\Controller\Plugin\ScmRepositoryTree',
+            ),
+        );
+    }
+
     public function getServiceConfig()
     {
         return array(

@@ -24,7 +24,11 @@ if (!$this->repositories) {
     echo '<ul>';
     foreach ($this->repositories as $repository) {
         echo '<li>';
-        echo '<h4>' . $repository->getName() . '</h4>';
+        if ($repository->getType() == 'git') {
+            echo '<h4><a href="' . $this->url('scm/view/tree', array('id' => $repository->getId())) . '">' . $repository->getName() . '</a></h4>';
+        } else {
+            echo '<h4>' . $repository->getName() . '</h4>';
+        }
         echo '<p>' . $repository->getDescription() . '</p>';
         echo '<ul>';
         if ($this->userAccess('repository_delete')) {

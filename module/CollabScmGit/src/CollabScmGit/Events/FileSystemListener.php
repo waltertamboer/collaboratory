@@ -8,7 +8,7 @@
  * @package   Collaboratory
  */
 
-namespace CollabScmGit;
+namespace CollabScmGit\Events;
 
 use Zend\EventManager\Event;
 use Zend\EventManager\EventManagerInterface;

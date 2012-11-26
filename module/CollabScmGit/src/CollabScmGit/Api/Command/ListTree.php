@@ -8,9 +8,9 @@
  * @package   Collaboratory
  */
 
-namespace CollabScmGit\Command;
+namespace CollabScmGit\Api\Command;
 
-class LsTree extends AbstractCommand
+class ListTree extends AbstractCommand
 {
     private $path;
     private $treeIsh;

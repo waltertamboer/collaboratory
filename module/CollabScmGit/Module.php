@@ -16,7 +16,7 @@ class Module
     {
         return array(
             'invokables' => array(
-                'CollabScmGit\FileSystemListener' => 'CollabScmGit\FileSystemListener',
+                'CollabScmGit\Events\FileSystemListener' => 'CollabScmGit\Events\FileSystemListener',
             ),
         );
     }
@@ -27,6 +27,6 @@ class Module
         $sm = $application->getServiceManager();
 
         $eventManager = $application->getEventManager();
-        $eventManager->attachAggregate($sm->get('CollabScmGit\FileSystemListener'));
+        $eventManager->attachAggregate($sm->get('CollabScmGit\Events\FileSystemListener'));
     }
 }

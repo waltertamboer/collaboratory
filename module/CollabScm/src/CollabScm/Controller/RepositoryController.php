@@ -112,4 +112,18 @@ class RepositoryController extends AbstractActionController
         $viewModel->setVariable('repository', $repository);
         return $viewModel;
     }
+
+    public function viewTreeAction()
+    {
+        $repository = $this->getRepositoryService()->findById($this->params('id'));
+        if (!$repository) {
+            return $this->redirect()->toRoute('project/overview');
+        }
+
+        $viewModel = new ViewModel();
+        $viewModel->setVariable('repository', $repository);
+        $viewModel->setVariable('repositoryTree', $this->scmRepositoryTree($repository));
+        return $viewModel;
+
+    }
 }

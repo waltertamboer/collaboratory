@@ -65,6 +65,61 @@ return array(
                             ),
                         ),
                     ),
+                    'view' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                        'options' => array(
+                            'route' => '/view/:id',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'action' => 'update',
+                            ),
+                        ),
+                        'may_terminate' => false,
+                        'child_routes' => array(
+                            'blob' => array(
+                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                'options' => array(
+                                    'route' => '/blob/:branch',
+                                    'defaults' => array(
+                                        'branch' => 'master',
+                                        'action' => 'viewTree',
+                                    ),
+                                ),
+                                'may_terminate' => true,
+                                'child_routes' => array(
+                                    'path' => array(
+                                        'type' => 'Zend\Mvc\Router\Http\Regex',
+                                        'options' => array(
+                                            'regex' => '/(?<path>.+)',
+                                            'spec' => '/%path%',
+                                        ),
+                                    ),
+                                ),
+                            ),
+                            'tree' => array(
+                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                'options' => array(
+                                    'route' => '/tree/:branch',
+                                    'defaults' => array(
+                                        'branch' => 'master',
+                                        'action' => 'viewTree',
+                                    ),
+                                ),
+                                'may_terminate' => true,
+                                'child_routes' => array(
+                                    'path' => array(
+                                        'type' => 'Zend\Mvc\Router\Http\Regex',
+                                        'options' => array(
+                                            'regex' => '/(?<path>.+)',
+                                            'spec' => '/%path%',
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
                 ),
             ),
         ),

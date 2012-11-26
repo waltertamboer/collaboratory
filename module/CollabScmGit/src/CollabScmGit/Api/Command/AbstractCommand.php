@@ -8,7 +8,7 @@
  * @package   Collaboratory
  */
 
-namespace CollabScmGit\Command;
+namespace CollabScmGit\Api\Command;
 
 abstract class AbstractCommand
 {
@@ -45,7 +45,6 @@ abstract class AbstractCommand
         $shellCommand = array_merge($arguments, $this->getArguments());
 
 		$command = implode(' ', $shellCommand);
-		var_dump($command);
         $output = shell_exec($command);
         return $this->parse($output);
     }

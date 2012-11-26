@@ -1,0 +1,30 @@
+<?php $this->headTitle('Repository Tree'); ?>
+
+<h2>
+    <a href="<?php echo $this->url('project/view', array(
+        'id' => $this->repository->getProject()->getId(),
+    )); ?>"><?php echo $this->repository->getProject()->getName(); ?></a>
+    /
+    <a href="<?php echo $this->url('scm/view/tree', array(
+        'id' => $this->repository->getId(),
+        'branch' => 'master',
+    )); ?>"><?php echo $this->repository->getName(); ?></a>
+</h2>
+
+<ul>
+    <?php foreach ($this->repositoryTree as $entry) {
+        if ($entry['type'] == 'tree') {
+            echo '<li><a href="' . $this->url('scm/view/tree/path', array(
+                'id' => $this->repository->getId(),
+                'branch' => 'master',
+                'path' => $entry['path'],
+            )) . '">' . $entry['path'] . '</a></li>';
+        } else {
+            echo '<li><a href="' . $this->url('scm/view/blob/path', array(
+                'id' => $this->repository->getId(),
+                'branch' => 'master',
+                'path' => $entry['path'],
+            )) . '">' . $entry['path'] . '</a></li>';
+        }
+    } ?>
+</ul>
