@@ -38,13 +38,15 @@ abstract class AbstractCommand
         $arguments = array();
         $arguments[] = $this->getExecutable();
         if ($this->getRepository()) {
-            $arguments[] = '--git-dir=' . $this->getRepository();
+            $arguments[] = '--git-dir=' . realpath($this->getRepository());
         }
         $arguments[] = $this->getCommand();
 
         $shellCommand = array_merge($arguments, $this->getArguments());
 
-        $output = shell_exec(implode(' ', $shellCommand));
+		$command = implode(' ', $shellCommand);
+		var_dump($command);
+        $output = shell_exec($command);
         return $this->parse($output);
     }
 }

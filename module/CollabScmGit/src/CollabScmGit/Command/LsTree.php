@@ -13,10 +13,22 @@ namespace CollabScmGit\Command;
 class LsTree extends AbstractCommand
 {
     private $path;
+    private $treeIsh;
+
+	public function __construct()
+	{
+		$this->treeIsh = 'HEAD';
+	}
 
     public function setPath($path)
     {
         $this->path = $path;
+        return $this;
+    }
+
+    public function setTreeIsh($treeIsh)
+    {
+        $this->treeIsh = $treeIsh;
         return $this;
     }
 
@@ -28,9 +40,10 @@ class LsTree extends AbstractCommand
     public function getArguments()
     {
         $args = array();
-        $args[] = '-l';
         $args[] = '--full-name';
-        $args[] = 'HEAD';
+        $args[] = '-l';
+		$args[] = '-t';
+        $args[] = $this->treeIsh;
         $args[] = $this->path;
 
         return $args;
