@@ -54,9 +54,15 @@ class FileSystemListener implements ListenerAggregateInterface
     {
         $repository = $e->getParam('repository');
         if ($repository->getType() == 'git' && $e->getParam('shouldInitialize')) {
-            $path = $e->getParam('repositoryPath');
-            $command = 'git --bare init "' . realpath($path) . '"';
+            $path = realpath($e->getParam('repositoryPath'));
+
+            // Create the repository:
+            $command = 'git --bare init "' . $path . '"';
             exec($command);
+
+            // Since the httpd user created the apache, we need to make sure that
+            // permissions are set correct:
+            exec('chmod -R 0777 "' . $path . '"');
         }
     }
 }
