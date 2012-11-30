@@ -10,6 +10,7 @@
 
 namespace CollabScm\Service;
 
+use CollabScm\Entity\Repository;
 use CollabScm\Entity\RepositoryTeam;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
@@ -25,6 +26,12 @@ class RepositoryTeamService implements ServiceManagerAwareInterface
             $this->mapper = $this->serviceManager->get('CollabScm\Mapper\RepositoryTeam');
         }
         return $this->mapper;
+    }
+
+    public function clearForRepository(Repository $repository)
+    {
+        $this->getMapper()->clearForRepository($repository);
+        return $this;
     }
 
     public function findBy(array $criteria)

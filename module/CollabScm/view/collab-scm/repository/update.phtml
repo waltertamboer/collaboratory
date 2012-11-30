@@ -1,0 +1,20 @@
+<?php
+$this->headTitle('Update Repository');
+
+$form = $this->form;
+$form->prepare();
+
+echo '<h3>Update ' . $this->repository->getName() . '</h3>';
+
+echo $this->form()->openTag($form);
+echo $this->formRow($form->get('type'));
+echo $this->formRow($form->get('name'));
+echo $this->formRow($form->get('description'));
+echo '<hr />';
+echo $this->formRow($form->get('teams'));
+echo '<hr />';
+echo $this->formSubmit($form->get('save'));
+echo '<a href="' . $this->url('project/view', array(
+    'id' => $this->repository->getProject()->getId(),
+)) . '">Cancel</a>';
+echo $this->form()->closeTag();

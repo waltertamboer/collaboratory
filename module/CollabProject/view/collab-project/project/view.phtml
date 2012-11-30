@@ -31,6 +31,9 @@ if (!$this->repositories) {
         }
         echo '<p>' . $repository->getDescription() . '</p>';
         echo '<ul>';
+        if ($this->userAccess('repository_update')) {
+            echo '<li><a href="' . $this->url('scm/update', array('id' => $repository->getId())) . '">Update</a></li>';
+        }
         if ($this->userAccess('repository_delete')) {
             echo '<li><a href="' . $this->url('scm/delete', array('id' => $repository->getId())) . '">Remove</a></li>';
         }

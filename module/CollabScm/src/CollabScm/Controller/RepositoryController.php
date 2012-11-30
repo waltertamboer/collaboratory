@@ -117,6 +117,58 @@ class RepositoryController extends AbstractActionController
         return $viewModel;
     }
 
+    public function updateAction()
+    {
+        $repository = $this->getRepositoryService()->findById($this->params('id'));
+        if (!$repository) {
+            return $this->redirect()->toRoute('project/overview');
+        }
+
+        if (!$this->userAccess('repository_update')) {
+            return $this->redirect()->toRoute('project/view', array(
+                'id' => $repository->getProject()->getId()
+            ));
+        }
+
+        $uniqueNameValidator = $this->getServiceLocator()->create('CollabScm\Validator\RepositoryName');
+        $uniqueNameValidator->addException($repository->getName());
+
+        $form = new RepositoryForm($uniqueNameValidator);
+        $form->bind($repository);
+
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $form->setData($request->getPost());
+
+            if ($form->isValid()) {
+                $this->getRepositoryService()->persist($repository);
+
+                // Create the teams manually:
+                $this->getRepositoryTeamService()->clearForRepository($repository);
+                $teamService = $this->getTeamService();
+                foreach ($request->getPost('teams') as $teamData) {
+                    if ($teamData['id']) {
+                        $repositoryTeam = new RepositoryTeam();
+                        $repositoryTeam->setRepository($repository);
+                        $repositoryTeam->setTeam($teamService->getById($teamData['id']));
+                        $repositoryTeam->setPermission($teamData['permission']);
+
+                        $this->getRepositoryTeamService()->persist($repositoryTeam);
+                    }
+                }
+
+                return $this->redirect()->toRoute('project/view', array(
+                    'id' => $repository->getProject()->getId()
+                ));
+            }
+        }
+
+        $viewModel = new ViewModel();
+        $viewModel->setVariable('form', $form);
+        $viewModel->setVariable('repository', $repository);
+        return $viewModel;
+    }
+
     public function deleteAction()
     {
         $repository = $this->getRepositoryService()->findById($this->params('id'));

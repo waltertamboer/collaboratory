@@ -10,6 +10,7 @@
 
 namespace CollabScmDoctrineORM\Mapper;
 
+use CollabScm\Entity\Repository;
 use CollabScm\Entity\RepositoryTeam;
 use CollabScm\Mapper\RepositoryTeamMapperInterface;
 use Doctrine\ORM\EntityManager;
@@ -21,6 +22,16 @@ class RepositoryTeamMapper implements RepositoryTeamMapperInterface
     public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
+    }
+
+    public function clearForRepository(Repository $repository)
+    {
+        $dql = "DELETE FROM CollabScm\Entity\RepositoryTeam rt WHERE rt.repository = " . $repository->getId();
+
+        $query = $this->entityManager->createQuery($dql);
+        $query->execute();
+
+        return $this;
     }
 
     public function findBy(array $criteria)
