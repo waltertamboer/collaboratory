@@ -22,6 +22,7 @@ class Module
         return array(
             'factories' => array(
                 'CollabScm\Mapper\Repository' => 'CollabScmDoctrineORM\Mapper\RepositoryMapperFactory',
+                'CollabScm\Mapper\RepositoryTeam' => 'CollabScmDoctrineORM\Mapper\RepositoryTeamMapperFactory',
             ),
         );
     }

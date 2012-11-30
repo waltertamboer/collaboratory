@@ -46,6 +46,7 @@ class Module
             ),
             'factories' => array(
                 'CollabScm\Service\Repository' => 'CollabScm\Service\RepositoryServiceFactory',
+                'CollabScm\Service\RepositoryTeam' => 'CollabScm\Service\RepositoryTeamServiceFactory',
                 'CollabScm\Validator\RepositoryName' => function ($sm) {
                     $entityManager = $sm->get('doctrine.entitymanager.orm_default');
                     return new \CollabApplicationDoctrineORM\Validator\UniqueEntity($entityManager, 'CollabScm\Entity\Repository', 'name', 'getName');

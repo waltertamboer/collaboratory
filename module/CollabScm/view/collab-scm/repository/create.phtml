@@ -11,6 +11,8 @@ echo $this->formRow($form->get('type'));
 echo $this->formRow($form->get('name'));
 echo $this->formRow($form->get('description'));
 echo '<hr />';
+echo $this->formRow($form->get('teams'));
+echo '<hr />';
 echo $this->formSubmit($form->get('save'));
 echo '<a href="' . $this->url('project/view', array(
     'id' => $this->project->getId(),

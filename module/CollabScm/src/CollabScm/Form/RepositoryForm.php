@@ -11,9 +11,9 @@
 namespace CollabScm\Form;
 
 use CollabApplication\Validator\AbstractUnique;
-use CollabProject\Entity\Project;
-use Zend\InputFilter\Input;
-use Zend\InputFilter\InputFilter;
+use CollabScm\Entity\Repository;
+use CollabScm\InputFilter\RepositoryInputFilter;
+use Zend\Form\Element\Collection;
 use Zend\Form\Element\Submit;
 use Zend\Form\Element\Select;
 use Zend\Form\Element\Text;
@@ -29,32 +29,8 @@ class RepositoryForm extends Form
 
         $this->setAttribute('method', 'post');
         $this->setHydrator(new ClassMethodsHydrator(false));
-        $this->setObject(new Project());
-
-        $inputFilter = new InputFilter();
-        $this->setInputFilter($inputFilter);
-
-        $inputName = new Input();
-        $inputName->setName('type');
-        $inputName->setRequired(true);
-        $inputFilter->add($inputName);
-
-        $inputName = new Input();
-        $inputName->setName('name');
-        $inputName->setRequired(true);
-        $inputName->getValidatorChain()->addValidator($uniqueNameValidator);
-        $filters = $inputName->getFilterChain();
-        $filters->attachByName('StringToLower');
-        $filters->attachByName('PregReplace', array(
-            'pattern' => '/[^a-z0-9-]+/i',
-            'replacement' => ''
-        ));
-        $inputFilter->add($inputName);
-
-        $inputName = new Input();
-        $inputName->setName('description');
-        $inputName->setRequired(false);
-        $inputFilter->add($inputName);
+        $this->setObject(new Repository());
+        $this->setInputFilter(new RepositoryInputFilter($uniqueNameValidator));
 
         $type = new Select('type');
         $type->setLabel('Type');
@@ -73,6 +49,16 @@ class RepositoryForm extends Form
         $description->setName('description');
         $description->setLabel('Description');
         $this->add($description);
+
+        $teams = new Collection();
+        $teams->setName('teams');
+        $teams->setLabel('Teams');
+        $teams->setAllowAdd(true);
+        $teams->setShouldCreateTemplate(true);
+        $teams->setTargetElement(array(
+            'type' => 'CollabScm\Form\Fieldset\TeamFieldset'
+        ));
+        $this->add($teams);
 
         $submitButton = new Submit();
         $submitButton->setName('save');

@@ -12,6 +12,7 @@ namespace CollabScm\Controller;
 
 use CollabApplication\Form\DeleteForm;
 use CollabScm\Entity\Repository;
+use CollabScm\Entity\RepositoryTeam;
 use CollabScm\Form\RepositoryForm;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -19,7 +20,9 @@ use Zend\View\Model\ViewModel;
 class RepositoryController extends AbstractActionController
 {
     private $projectService;
+    private $teamService;
     private $repositoryService;
+    private $repositoryTeamService;
 
     private function getProjectService()
     {
@@ -29,12 +32,28 @@ class RepositoryController extends AbstractActionController
         return $this->projectService;
     }
 
+    private function getTeamService()
+    {
+        if ($this->teamService === null) {
+            $this->teamService = $this->getServiceLocator()->get('team.service');
+        }
+        return $this->teamService;
+    }
+
     private function getRepositoryService()
     {
         if ($this->repositoryService === null) {
             $this->repositoryService = $this->getServiceLocator()->get('CollabScm\Service\Repository');
         }
         return $this->repositoryService;
+    }
+
+    private function getRepositoryTeamService()
+    {
+        if ($this->repositoryTeamService === null) {
+            $this->repositoryTeamService = $this->getServiceLocator()->get('CollabScm\Service\RepositoryTeam');
+        }
+        return $this->repositoryTeamService;
     }
 
     public function indexAction()
@@ -69,7 +88,23 @@ class RepositoryController extends AbstractActionController
 
             if ($form->isValid()) {
 				$repository->setProject($project);
+
+                // Create the repository:
                 $this->getRepositoryService()->persist($repository);
+
+                // Create the teams manually:
+                $teamService = $this->getTeamService();
+                foreach ($request->getPost('teams') as $teamData) {
+                    if ($teamData['id']) {
+                        $repositoryTeam = new RepositoryTeam();
+                        $repositoryTeam->setRepository($repository);
+                        $repositoryTeam->setTeam($teamService->getById($teamData['id']));
+                        $repositoryTeam->setPermission($teamData['permission']);
+
+                        $this->getRepositoryTeamService()->persist($repositoryTeam);
+                    }
+                }
+
                 return $this->redirect()->toRoute('project/view', array(
                     'id' => $project->getId()
                 ));
