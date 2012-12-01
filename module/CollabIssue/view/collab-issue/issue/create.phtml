@@ -1,66 +1,13 @@
 <?php $this->headTitle('Issues'); ?>
 
-<p><a href="<?php echo $this->url('issue/create'); ?>">New Issue</a></p>
+<h2>New Issue</h2>
 
-<hr />
+<?php
 
-<p>
-    <label>
-        Assigned to
-        <select>
-            <option value="">Anyone</option>
-            <option value="">Walter Tamboer</option>
-        </select>
-    </label>
-</p>
-
-<p>
-    <label>
-        Status
-        <select>
-            <option value="">All</option>
-            <option value="">New</option>
-            <option value="">Feedback</option>
-            <option value="">Confirmed</option>
-            <option value="">Assigned</option>
-            <option value="">Resolved</option>
-            <option value="">Closed</option>
-        </select>
-    </label>
-
-</p>
-
-<p>
-    <label>
-        Category
-        <select>
-            <option value="">All</option>
-            <option value="">Category A</option>
-            <option value="">Category B</option>
-            <option value="">Category C</option>
-            <option value="">Category D</option>
-        </select>
-    </label>
-
-</p>
-
-<p>
-    <label>
-        Priority
-        <select>
-            <option value="">All</option>
-            <option value="">None</option>
-            <option value="">Low</option>
-            <option value="">Normal</option>
-            <option value="">High</option>
-            <option value="">Immediate</option>
-        </select>
-    </label>
-
-</p>
-
-<p>
-    <button>Apply</button>
-</p>
-
-<p>No issues found.</p>
+echo $this->form()->openTag($this->form);
+echo $this->formRow($this->form->get('title'));
+echo $this->formRow($this->form->get('description'));
+echo '<hr />';
+echo $this->formSubmit($this->form->get('save'));
+echo '<a href="' . $this->url('issue/overview') . '">Cancel</a>';
+echo $this->form()->closeTag();

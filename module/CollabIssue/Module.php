@@ -10,10 +10,25 @@
 
 namespace CollabIssue;
 
+use CollabIssue\Service\IssueService;
+
 class Module
 {
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
+    }
+
+    public function getServiceConfig()
+    {
+        return array(
+            'factories' => array(
+                'CollabIssue\Service\IssueService' => function ($sl) {
+                    $mapper = $sl->get('CollabIssue\Mapper\MapperInterface');
+
+                    return new IssueService($mapper);
+                },
+            )
+        );
     }
 }

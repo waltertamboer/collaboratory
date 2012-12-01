@@ -73,7 +73,12 @@ class Issue
 
     public function setCreationDate($creationDate)
     {
-        $this->creationDate = new DateTime($creationDate);
+        if ($creationDate instanceof DateTime) {
+            $this->creationDate = $creationDate;
+        } else {
+            $this->creationDate = new DateTime($creationDate);
+        }
+
         return $this;
     }
 

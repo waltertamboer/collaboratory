@@ -10,10 +10,24 @@
 
 namespace CollabIssueDoctrineORM;
 
+use CollabIssueDoctrineORM\Mapper\IssueMapper;
+
 class Module
 {
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
+    }
+
+    public function getServiceConfig()
+    {
+        return array(
+            'factories' => array(
+                'CollabIssue\Mapper\MapperInterface' => function ($sm) {
+                    $em = $sm->get('doctrine.entitymanager.orm_default');
+                    return new IssueMapper($em);
+                },
+            ),
+        );
     }
 }
