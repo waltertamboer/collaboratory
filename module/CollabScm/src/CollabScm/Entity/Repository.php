@@ -106,7 +106,7 @@ class Repository
      */
     public function setName($name)
     {
-        $this->previousName = $name;
+        $this->previousName = $this->name;
         $this->name = $name;
         return $this;
     }
