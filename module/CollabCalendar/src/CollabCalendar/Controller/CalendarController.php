@@ -18,14 +18,6 @@ class CalendarController extends AbstractActionController
 {
     public function indexAction()
     {
-        $address = 'https://www.google.com/calendar/ical/walter.tamboer%40gmail.com/private-fafcabe34162fe4fbb676d7b27ccc011/basic.ics';
-
-        $reader = new Reader();
-        $calendar = $reader->readFromUrl($address);
-
-        echo '<pre>';
-        print_r($calendar);
-        exit;
         return new ViewModel();
     }
 
