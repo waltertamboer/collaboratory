@@ -10,6 +10,18 @@ echo '<li><a href="' . $this->url('project/update', array(
     )) . '">Update</a></li>';
 echo '</ul>';
 
+echo '<hr />';
+
+echo '<h3>Issues</h3>';
+
+if (!$this->issues) {
+    echo '<p>There are no issues for this project.</p>';
+} else {
+
+}
+
+echo '<hr />';
+
 echo '<h3>Repositories</h3>';
 
 echo '<ul>';
