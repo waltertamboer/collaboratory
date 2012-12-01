@@ -8,16 +8,19 @@
  * @package   Collaboratory
  */
 
-namespace CollabCalendar\Entity;
+namespace CollabCalendar\iCal;
 
-class Calendar
+class PropertyContainer
 {
-    private $id;
-    private $name;
-    private $events;
+    private $properties;
 
     public function __construct()
     {
-        $this->events = array();
+        $this->properties = array();
+    }
+
+    public function setProperty($name, $value)
+    {
+        $this->properties[$name] = $value;
     }
 }

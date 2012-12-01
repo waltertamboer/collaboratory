@@ -8,16 +8,26 @@
  * @package   Collaboratory
  */
 
-namespace CollabCalendar\Entity;
+namespace CollabCalendar\iCal;
 
-class Calendar
+class Property
 {
-    private $id;
     private $name;
-    private $events;
+    private $value;
 
-    public function __construct()
+    public function __construct($name, $value)
     {
-        $this->events = array();
+        $this->name = $name;
+        $this->value = $value;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getValue()
+    {
+        return $this->value;
     }
 }

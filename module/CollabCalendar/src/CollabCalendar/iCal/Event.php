@@ -8,16 +8,8 @@
  * @package   Collaboratory
  */
 
-namespace CollabCalendar\Entity;
+namespace CollabCalendar\iCal;
 
-class Calendar
+class Event extends PropertyContainer
 {
-    private $id;
-    private $name;
-    private $events;
-
-    public function __construct()
-    {
-        $this->events = array();
-    }
 }
