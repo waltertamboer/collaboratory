@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="CollabIssue\Entity\Bug" table="bug">
+        <field name="reproducibility" type="string" column="reproducibility" nullable="true" precision="0" scale="0" />
+
+        <many-to-one target-entity="CollabIssue\Entity\BugPriority" field="priority">
+            <join-column name="priority" on-delete="CASCADE" />
+        </many-to-one>
+
+        <many-to-one target-entity="CollabIssue\Entity\BugStatus" field="status">
+            <join-column name="status" on-delete="CASCADE" />
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

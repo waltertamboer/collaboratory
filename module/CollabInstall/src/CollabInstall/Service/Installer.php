@@ -66,10 +66,6 @@ class Installer
 		$this->entityManager->persist($rootUser);
 		$this->entityManager->flush();
 
-        // Initialize the permissions:
-        $this->getEventManager()->trigger('initializePermissions', $this);
-        $this->entityManager->flush();
-
         // Create the owners team:
         $ownersTeam = new \CollabTeam\Entity\Team();
         $ownersTeam->setRoot(true);
@@ -80,6 +76,14 @@ class Installer
 
 		$this->entityManager->persist($ownersTeam);
 		$this->entityManager->flush();
+
+        // Initialize the permissions:
+        $this->getEventManager()->trigger('initializePermissions', $this);
+        $this->entityManager->flush();
+
+        // Create any entities that modules require:
+        $this->getEventManager()->trigger('initializeEntities', $this);
+        $this->entityManager->flush();
 	}
 
     public function createConnection($data)
@@ -106,6 +110,11 @@ class Installer
             $this->eventManager = new EventManager('CollabInstall');
         }
         return $this->eventManager;
+    }
+
+    public function addEntity($entity)
+    {
+        $this->entityManager->persist($entity);
     }
 
     public function addPermission($permission)

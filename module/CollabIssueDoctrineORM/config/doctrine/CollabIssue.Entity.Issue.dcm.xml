@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-    <entity name="CollabIssue\Entity\Issue" table="issue">
+    <entity name="CollabIssue\Entity\Issue" table="issue" inheritance-type="JOINED">
+        <discriminator-column name="type" type="string" />
+
         <id name="id" type="bigint" column="id">
             <generator strategy="IDENTITY" />
         </id>
 
-        <field name="title" type="string" column="name" nullable="false" precision="0" scale="0" />
+        <field name="title" type="string" column="title" nullable="false" precision="0" scale="0" />
         <field name="description" type="string" column="description" nullable="false" precision="0" scale="0" />
         <field name="creationDate" type="datetime" column="creationDate" nullable="false" precision="0" scale="0" />
 
@@ -16,5 +18,20 @@
         <many-to-one target-entity="CollabUser\Entity\User" field="createdBy">
             <join-column name="createdBy" on-delete="CASCADE" />
         </many-to-one>
+
+        <one-to-one target-entity="CollabUser\Entity\User" field="assignedTo">
+            <join-column name="assignedTo" nullable="true" on-delete="CASCADE" />
+        </one-to-one>
+
+        <many-to-many target-entity="CollabIssue\Entity\IssueLabel" field="labels">
+            <join-table name="issue_labels">
+                <join-columns>
+                    <join-column name="issue" referenced-column-name="id" on-delete="CASCADE" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="label" referenced-column-name="id" on-delete="CASCADE" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
     </entity>
 </doctrine-mapping>

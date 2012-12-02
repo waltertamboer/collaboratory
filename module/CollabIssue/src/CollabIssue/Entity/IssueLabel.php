@@ -8,15 +8,32 @@
  * @package   Collaboratory
  */
 
-namespace CollabTeam\View\Helper;
+namespace CollabIssue\Entity;
 
-use CollabTeam\Entity\Team;
-use CollabUser\View\Helper\AbstractUserAccess;
-
-class CanRemoveTeam extends AbstractUserAccess
+class IssueLabel
 {
-    public function __invoke(Team $team)
+    private $id;
+    private $name;
+
+    public function getId()
     {
-        return !$team->isRoot() && $this->isGranted('team_delete');
+        return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
     }
 }
