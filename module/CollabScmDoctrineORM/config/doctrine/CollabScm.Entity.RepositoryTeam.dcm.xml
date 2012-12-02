@@ -7,10 +7,11 @@
 		<field name="permission" type="string" column="permission" nullable="false" precision="0" scale="0" />
 
         <many-to-one target-entity="CollabScm\Entity\Repository" field="repository">
-            <join-column name="repository" on-delete="CASCADE" />
+            <join-column name="repository_id" on-delete="CASCADE" />
         </many-to-one>
+
         <many-to-one target-entity="CollabTeam\Entity\Team" field="team">
-            <join-column name="team" on-delete="CASCADE" />
+            <join-column name="team_id" on-delete="CASCADE" />
         </many-to-one>
 	</entity>
 </doctrine-mapping>

@@ -5,14 +5,14 @@ if (!ini_get('date.timezone')) {
     date_default_timezone_set('Europe/Amsterdam');
 }
 
-// The username that is active:
-$username = $_SERVER['argv'][1];
+// The id of the user that does the request:
+$userId = $_SERVER['argv'][1];
 
 // The home path on the system:
 $homePath = '/home/' . $_SERVER['USER'] . '/collaboratory';
 
 // The directory of today's logs:
-$logDirectory = $homePath . '/logs/git/' . $username;
+$logDirectory = $homePath . '/logs/git/' . $userId;
 if (!is_dir($logDirectory)) {
 	mkdir($logDirectory, 0777, true);
 }
@@ -22,31 +22,74 @@ $logFile = $logDirectory . '/' . date('Y-m-d') . '.log';
 
 // Open the log file:
 $f = fopen($logFile, 'a+');
-fwrite($f, '[' . date('Y-m-d H:i:s') . '][' . $_SERVER['USER'] . '][' . $username . '][' . $_SERVER['SSH_CONNECTION'] . '][' . $_SERVER['SSH_ORIGINAL_COMMAND'] . ']');
+fwrite($f, '[' . date('Y-m-d H:i:s') . '][' . $_SERVER['USER'] . '][' . $userId . '][' . $_SERVER['SSH_CONNECTION'] . '][' . $_SERVER['SSH_ORIGINAL_COMMAND'] . ']');
 fwrite($f, PHP_EOL);
 fclose($f);
 
-if (preg_match("#^(git-upload-pack|git-receive-pack|git-upload-archive) '/?(.*?)(?:\.git(\d)?)?'$#i", $_SERVER['SSH_ORIGINAL_COMMAND'], $matches)) {
-	$action = $matches[1];
-	$repositoryLine = $matches[2];
-
-    // Split the repository, we expect the form: "project/repository/tree/a/b/c"
-    if (preg_match('#^([a-z0-9-]+)/([a-z0-9-/]+)$#semi', $repositoryLine, $matches)) {
-        $projectName = $matches[1];
-        $repository = preg_replace('#/+#', '/', $matches[2]);
-
-        // Prefix the repository with the correct path:
-        $repository = $homePath . '/data/projects/' . $projectName . '/repositories/' . $repository;
-        if (is_dir($repository)) {
-            $output = $action . " '" . $repository . "'";
-        } else {
-            $output = 'The repository "' . $repositoryLine . '" does not exist.';
-        }
-    } else {
-        $output = 'The repository "' . $repositoryLine . '" does not exist.';
-    }
-} else {
-	$output = 'No repository found.';
+if (!preg_match("#^(git-upload-pack|git-receive-pack|git-upload-archive) '/?(.*?)(?:\.git(\d)?)?'$#i", $_SERVER['SSH_ORIGINAL_COMMAND'], $matches)) {
+	echo 'No repository found.';
+    exit;
 }
 
-echo $output;
+$action = $matches[1];
+$repositoryLine = $matches[2];
+
+// Split the repository, we expect the form: "project/repository/tree/a/b/c"
+if (!preg_match('#^([a-z0-9-]+)/([a-z0-9-/]+)$#semi', $repositoryLine, $matches)) {
+	echo 'The repository "' . $repositoryLine . '" does not exist.';
+    exit;
+}
+
+// The project and repository name:
+$projectName = $matches[1];
+$repository = preg_replace('#/+#', '/', $matches[2]);
+
+// Load the database information:
+$dbConfig = include __DIR__ . '/../../config/autoload/doctrine_orm.global.php';
+$dbConfig = $dbConfig['doctrine']['connection']['orm_default']['params'];
+
+// Create a database connection:
+$connection = mysql_connect($dbConfig['host'], $dbConfig['user'], $dbConfig['password']);
+if (!$connection) {
+    echo 'Could not check permissions for this repository: ' . mysql_error();
+    exit;
+}
+
+// Select the database or exit:
+if (!mysql_select_db($dbConfig['dbname'], $connection)) {
+    echo 'Could not check permissions for this repository: ' . mysql_error();
+    mysql_close($connection);
+    exit;
+}
+
+$sql = "SELECT rt.permission
+        FROM repository_team AS rt
+        INNER JOIN repository AS r ON r.id = rt.repository_id
+        INNER JOIN team_user AS tu ON tu.team_id = rt.team_id
+        INNER JOIN project AS p ON p.id = r.project_id
+        WHERE LOWER(p.name) = '" . mysql_real_escape_string($project) . "'
+        AND LOWER(r.name) = '" . mysql_real_escape_string($repository) . "'
+        AND tu.user_id = " . $userId;
+$rowset = mysql_query($sql, $connection);
+if (!$rowset) {
+    echo 'You do not have permissions to access this repository.';
+    mysql_close($connection);
+    exit;
+}
+
+$row = mysql_fetch_object($rowset);
+if ($action != 'git-receive-pack' && $row->permission != 'push') {
+    echo 'You do not have permissions to access this repository.';
+    mysql_close($connection);
+    exit;
+}
+
+// Prefix the repository with the correct path:
+$repository = $homePath . '/data/projects/' . $projectName . '/repositories/' . $repository;
+if (is_dir($repository)) {
+    echo $action . " '" . $repository . "'";
+} else {
+    echo 'The repository "' . $repositoryLine . '" does not exist.';
+}
+
+mysql_close($connection);
