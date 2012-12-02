@@ -160,8 +160,7 @@ class InstallController extends AbstractActionController
                     $installer->createDatabase();
                     $installer->createEntities($session['account']);
 
-                    exit;
-                    //return $this->redirect()->toRoute('dashboard');
+                    return $this->redirect()->toRoute('dashboard');
                 }
         }
 
