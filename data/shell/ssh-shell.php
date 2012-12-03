@@ -62,7 +62,11 @@ if (!mysql_select_db($dbConfig['dbname'], $connection)) {
     exit;
 }
 
-$neededPermission = $action == 'git-receive-pack' ? 'pull' : 'push';
+$neededPermission = array('pull');
+$neededPermission = array();
+if ($action != 'git-upload-pack') {
+    $neededPermission[] = 'push';
+}
 
 $sql = "SELECT COUNT(rt.permission) AS amount
         FROM repository_team AS rt
@@ -72,7 +76,7 @@ $sql = "SELECT COUNT(rt.permission) AS amount
         WHERE LOWER(p.name) = '" . mysql_real_escape_string($projectName) . "'
         AND LOWER(r.name) = '" . mysql_real_escape_string($repositoryName) . "'
         AND tu.user_id = " . $userId . "
-        AND rt.permission = '" . mysql_real_escape_string($neededPermission) . "'";
+        AND rt.permission = '" . implode("' OR rt.permission = '", $neededPermissions) . "'";
 $rowset = mysql_query($sql, $connection);
 if (!$rowset || mysql_num_rows($rowset) == 0) {
     echo 'You do not have permissions to access this repository.';
