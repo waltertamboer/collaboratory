@@ -62,10 +62,9 @@ if (!mysql_select_db($dbConfig['dbname'], $connection)) {
     exit;
 }
 
-$neededPermission = array('pull');
-$neededPermission = array();
+$neededPermissions = array('pull');
 if ($action != 'git-upload-pack') {
-    $neededPermission[] = 'push';
+    $neededPermissions[] = 'push';
 }
 
 $sql = "SELECT COUNT(rt.permission) AS amount
