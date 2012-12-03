@@ -42,7 +42,7 @@ if (!preg_match('#^([a-z0-9-]+)/([a-z0-9-/]+)$#semi', $repositoryLine, $matches)
 
 // The project and repository name:
 $projectName = $matches[1];
-$repository = preg_replace('#/+#', '/', $matches[2]);
+$repositoryName = preg_replace('#/+#', '/', $matches[2]);
 
 // Load the database information:
 $dbConfig = include __DIR__ . '/../../config/autoload/doctrine_orm.global.php';
@@ -62,32 +62,35 @@ if (!mysql_select_db($dbConfig['dbname'], $connection)) {
     exit;
 }
 
-$sql = "SELECT rt.permission
+$neededPermission = $action == 'git-receive-pack' ? 'pull' : 'push';
+
+$sql = "SELECT COUNT(rt.permission) AS amount
         FROM repository_team AS rt
         INNER JOIN repository AS r ON r.id = rt.repository_id
         INNER JOIN team_user AS tu ON tu.team_id = rt.team_id
         INNER JOIN project AS p ON p.id = r.project_id
         WHERE LOWER(p.name) = '" . mysql_real_escape_string($projectName) . "'
-        AND LOWER(r.name) = '" . mysql_real_escape_string($repository) . "'
-        AND tu.user_id = " . $userId;
+        AND LOWER(r.name) = '" . mysql_real_escape_string($repositoryName) . "'
+        AND tu.user_id = " . $userId . "
+        AND rt.permission = '" . mysql_real_escape_string($neededPermission) . "'";
 $rowset = mysql_query($sql, $connection);
-if (!$rowset) {
+if (!$rowset || mysql_num_rows($rowset) == 0) {
     echo 'You do not have permissions to access this repository.';
     mysql_close($connection);
     exit;
 }
 
 $row = mysql_fetch_object($rowset);
-if ($action != 'git-receive-pack' && $row->permission != 'push') {
+if ($row->amount == 0) {
     echo 'You do not have permissions to access this repository.';
     mysql_close($connection);
     exit;
 }
 
 // Prefix the repository with the correct path:
-$repository = $homePath . '/data/projects/' . $projectName . '/repositories/' . $repository;
-if (is_dir($repository)) {
-    echo $action . " '" . $repository . "'";
+$repositoryPath = $homePath . '/data/projects/' . $projectName . '/repositories/' . $repositoryName;
+if (is_dir($repositoryPath)) {
+    echo $action . " '" . $repositoryPath . "'";
 } else {
     echo 'The repository "' . $repositoryLine . '" does not exist.';
 }
