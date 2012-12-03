@@ -29,31 +29,6 @@ class IssueController extends AbstractActionController
 
     public function indexAction()
     {
-        $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
-
-        $issue = new \CollabIssue\Entity\Issue();
-        $issue->setTitle(123);
-        $issue->setDescription(123123);
-        $issue->setCreationDate(new \DateTime());
-        $em->persist($issue);
-        $em->flush();
-
-
-$bug = new \CollabIssue\Entity\Bug();
-$bug->setTitle('Bug 1');
-$bug->setDescription('The example description.');
-$bug->setCreationDate(new \DateTime());
-$em->persist($bug);
-$em->flush();
-
-//        $bugRepo = $em->getRepository('CollabIssue\Entity\Bug');
-//
-//        foreach ($bugRepo->findAll() as $bug) {
-//            echo $bug->getTitle();
-//        }
-
-        exit;
-
         $viewModel = new ViewModel();
         return $viewModel;
     }
