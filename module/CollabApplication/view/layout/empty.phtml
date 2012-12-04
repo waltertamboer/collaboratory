@@ -1,14 +1,19 @@
-<!DOCTYPE html>
+<?php
+
+$this->headScript()->prependFile('/js/jquery-1.8.3.min.js');
+
+echo $this->doctype(); ?>
+
 <html lang="en">
     <head>
         <?php echo $this->headMeta()->setCharset('utf-8'); ?>
-        <?php echo $this->headTitle('Collaboratory')->setSeparator(' - ')->setAutoEscape(false); ?>
-        <?php
-        echo $this->headScript()
-            ->prependFile('http://code.jquery.com/jquery-1.8.2.min.js');
 
-        echo $this->inlineScript();
-        ?>
+        <?php echo $this->headTitle('Collaboratory')->setSeparator(' - ')->setAutoEscape(false); ?>
+
+        <?php echo $this->headScript(); ?>
+
+        <?php echo $this->inlineScript(); ?>
+        
     </head>
     <body>
 

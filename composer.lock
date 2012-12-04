@@ -1,5 +1,5 @@
 {
-    "hash": "8283f153b0cf41a62478c7604e31962a",
+    "hash": "36366e1bfb886697c17cb2700925d70b",
     "packages": [
         {
             "name": "doctrine/common",
@@ -7,18 +7,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/common",
-                "reference": "a836c86c13e964051549e234250cf665a5f5a190"
+                "reference": "b91837135ce102d2e95fb394b43d8d1d47cde95c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/common/archive/a836c86c13e964051549e234250cf665a5f5a190.zip",
-                "reference": "a836c86c13e964051549e234250cf665a5f5a190",
+                "url": "https://github.com/doctrine/common/archive/b91837135ce102d2e95fb394b43d8d1d47cde95c.zip",
+                "reference": "b91837135ce102d2e95fb394b43d8d1d47cde95c",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2"
             },
-            "time": "2012-11-22 19:41:13",
+            "time": "2012-12-04 14:57:34",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -117,19 +117,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal",
-                "reference": "d1e83ae2375d2771cc4be11139f1ee17bddcea28"
+                "reference": "2e2336a6c1c3dd3897f9419df9675a5fb0a0edda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/dbal/archive/d1e83ae2375d2771cc4be11139f1ee17bddcea28.zip",
-                "reference": "d1e83ae2375d2771cc4be11139f1ee17bddcea28",
+                "url": "https://github.com/doctrine/dbal/archive/2e2336a6c1c3dd3897f9419df9675a5fb0a0edda.zip",
+                "reference": "2e2336a6c1c3dd3897f9419df9675a5fb0a0edda",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
                 "doctrine/common": ">=2.3-dev,<2.5-dev"
             },
-            "time": "2012-11-25 17:58:40",
+            "time": "2012-11-30 21:33:17",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -180,12 +180,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/doctrine/DoctrineModule.git",
-                "reference": "e9aca222893bd616a8912a26bef0c0b3f567fe3a"
+                "reference": "f31d3bb72edc6dfbe37243ec36be1206d3d5900f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/DoctrineModule/archive/e9aca222893bd616a8912a26bef0c0b3f567fe3a.zip",
-                "reference": "e9aca222893bd616a8912a26bef0c0b3f567fe3a",
+                "url": "https://github.com/doctrine/DoctrineModule/archive/f31d3bb72edc6dfbe37243ec36be1206d3d5900f.zip",
+                "reference": "f31d3bb72edc6dfbe37243ec36be1206d3d5900f",
                 "shasum": ""
             },
             "require": {
@@ -195,11 +195,16 @@
                 "zendframework/zendframework": "2.*",
                 "doctrine/data-fixtures": "1.*"
             },
-            "time": "2012-11-08 20:22:55",
+            "time": "2012-12-01 01:55:06",
             "bin": [
                 "bin/doctrine-module"
             ],
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.6.x-dev"
+                }
+            },
             "installation-source": "source",
             "autoload": {
                 "psr-0": {
@@ -246,25 +251,25 @@
         },
         {
             "name": "doctrine/doctrine-orm-module",
-            "version": "0.5.3",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "git://github.com/doctrine/DoctrineORMModule.git",
-                "reference": "0.5.3"
+                "reference": "977699076ef5e06cae5f8b516cb1683a20ab67d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/DoctrineORMModule/zipball/0.5.3",
-                "reference": "0.5.3",
+                "url": "https://github.com/doctrine/DoctrineORMModule/archive/977699076ef5e06cae5f8b516cb1683a20ab67d3.zip",
+                "reference": "977699076ef5e06cae5f8b516cb1683a20ab67d3",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3",
-                "doctrine/doctrine-module": ">=0.5.1",
                 "doctrine/orm": ">=2.3-dev,<2.5-dev",
                 "doctrine/dbal": ">=2.3-dev,<2.5-dev",
+                "zendframework/zendframework": "2.*",
                 "doctrine/migrations": "1.*",
-                "zendframework/zendframework": "2.*"
+                "doctrine/doctrine-module": ">=0.5.1"
             },
             "require-dev": {
                 "zendframework/zend-developer-tools": "dev-master"
@@ -272,9 +277,14 @@
             "suggest": {
                 "zendframework/zend-developer-tools": "zend-developer-tools if you want to profile operations executed by the ORM during development"
             },
-            "time": "2012-10-16 13:00:33",
+            "time": "2012-11-29 19:12:16",
             "type": "library",
-            "installation-source": "dist",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.6.x-dev"
+                }
+            },
+            "installation-source": "source",
             "autoload": {
                 "psr-0": {
                     "DoctrineORMModule\\": "src/",
@@ -375,12 +385,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/doctrine/doctrine2.git",
-                "reference": "46e6753649d078d31407844c211a3b339e137bdd"
+                "reference": "df1336dd262faf40d5a343c1d21cbbc4aa8192d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/doctrine2/archive/46e6753649d078d31407844c211a3b339e137bdd.zip",
-                "reference": "46e6753649d078d31407844c211a3b339e137bdd",
+                "url": "https://github.com/doctrine/doctrine2/archive/df1336dd262faf40d5a343c1d21cbbc4aa8192d9.zip",
+                "reference": "df1336dd262faf40d5a343c1d21cbbc4aa8192d9",
                 "shasum": ""
             },
             "require": {
@@ -392,7 +402,7 @@
             "suggest": {
                 "symfony/yaml": "If you want to use YAML Metadata Mapping Driver"
             },
-            "time": "2012-11-25 19:13:28",
+            "time": "2012-12-04 12:29:01",
             "bin": [
                 "bin/doctrine",
                 "bin/doctrine.php"
@@ -440,24 +450,219 @@
             ]
         },
         {
+            "name": "kriswallsmith/assetic",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "http://github.com/kriswallsmith/assetic.git",
+                "reference": "deed96bb7ba009d8e05aaeeb1b73c1d67a8f3719"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/kriswallsmith/assetic/archive/deed96bb7ba009d8e05aaeeb1b73c1d67a8f3719.zip",
+                "reference": "deed96bb7ba009d8e05aaeeb1b73c1d67a8f3719",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/process": ">=2.1.0,<2.3-dev",
+                "php": ">=5.3.1"
+            },
+            "require-dev": {
+                "twig/twig": ">=1.6.0,<2.0",
+                "leafo/lessphp": "*",
+                "leafo/scssphp": "*",
+                "ptachoire/cssembed": "*",
+                "leafo/scssphp-compass": "*"
+            },
+            "suggest": {
+                "twig/twig": "Assetic provides the integration with the Twig templating engine",
+                "leafo/lessphp": "Assetic provides the integration with the lessphp LESS compiler",
+                "leafo/scssphp": "Assetic provides the integration with the scssphp SCSS compiler",
+                "ptachoire/cssembed": "Assetic provides the integration with phpcssembed to embed data uris",
+                "leafo/scssphp-compass": "Assetic provides the integration with the SCSS compass plugin"
+            },
+            "time": "2012-11-27 13:27:38",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Assetic": "src/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kris Wallsmith",
+                    "email": "kris.wallsmith@gmail.com",
+                    "homepage": "http://kriswallsmith.net/"
+                }
+            ],
+            "description": "Asset Management for PHP",
+            "homepage": "https://github.com/kriswallsmith/assetic",
+            "keywords": [
+                "assets",
+                "compression",
+                "minification"
+            ]
+        },
+        {
+            "name": "leafo/scssphp",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/leafo/scssphp",
+                "reference": "ff8983e6bf942c742b4752432124925c960daa20"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/leafo/scssphp/archive/ff8983e6bf942c742b4752432124925c960daa20.zip",
+                "reference": "ff8983e6bf942c742b4752432124925c960daa20",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0"
+            },
+            "require-dev": {
+                "php": ">=5.3.0"
+            },
+            "time": "2012-11-30 19:34:08",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "classmap": [
+                    "scss.inc.php"
+                ]
+            },
+            "license": [
+                "MIT",
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Leaf Corcoran",
+                    "email": "leafot@gmail.com",
+                    "homepage": "http://leafo.net"
+                }
+            ],
+            "description": "scssphp is a compiler for SCSS written in PHP.",
+            "homepage": "http://leafo.net/scssphp/"
+        },
+        {
+            "name": "leafo/scssphp-compass",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/leafo/scssphp-compass",
+                "reference": "f1631ddb17731326863954d99b39694f0bbed6ec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/leafo/scssphp-compass/archive/f1631ddb17731326863954d99b39694f0bbed6ec.zip",
+                "reference": "f1631ddb17731326863954d99b39694f0bbed6ec",
+                "shasum": ""
+            },
+            "require": {
+                "leafo/scssphp": "dev-master"
+            },
+            "time": "2012-08-02 02:04:32",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "classmap": [
+                    "compass.inc.php"
+                ]
+            },
+            "authors": [
+                {
+                    "name": "Leaf Corcoran",
+                    "email": "leafot@gmail.com",
+                    "homepage": "http://leafo.net"
+                }
+            ],
+            "description": "Compass for scssphp",
+            "homepage": "http://leafo.net/scssphp/"
+        },
+        {
+            "name": "rwoverdijk/assetmanager",
+            "version": "1.2.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RWOverdijk/AssetManager",
+                "reference": "1.2.5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/RWOverdijk/AssetManager/zipball/1.2.5",
+                "reference": "1.2.5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "zendframework/zendframework": "2.0.*",
+                "kriswallsmith/assetic": ">=v1.1.0-alpha1"
+            },
+            "time": "2012-11-02 13:50:39",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-0": {
+                    "AssetManager": "src/"
+                }
+            },
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Marco Pivetta",
+                    "email": "ocramius@gmail.com",
+                    "homepage": "http://ocramius.github.com/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Wesley Overdijk",
+                    "email": "r.w.overdijk@gmail.com",
+                    "homepage": "http://blog.spoonx.nl/"
+                }
+            ],
+            "description": "An assetmanager module for Zend Framework 2.",
+            "homepage": "https://github.com/RWOverdijk/AssetManager",
+            "keywords": [
+                "asset",
+                "zf2",
+                "zend framework 2",
+                "asset manager"
+            ]
+        },
+        {
             "name": "symfony/console",
             "version": "dev-master",
             "target-dir": "Symfony/Component/Console",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console",
-                "reference": "003a487a674175a1d2e62f205ecd91ffe85554b1"
+                "reference": "236c4d50d364c21bafa46e35aaf4fd38eec63e66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/Console/archive/003a487a674175a1d2e62f205ecd91ffe85554b1.zip",
-                "reference": "003a487a674175a1d2e62f205ecd91ffe85554b1",
+                "url": "https://github.com/symfony/Console/archive/236c4d50d364c21bafa46e35aaf4fd38eec63e66.zip",
+                "reference": "236c4d50d364c21bafa46e35aaf4fd38eec63e66",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "2012-11-19 12:58:52",
+            "time": "2012-12-03 22:00:56",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -487,72 +692,64 @@
             "homepage": "http://symfony.com"
         },
         {
-            "name": "zendframework/zend-developer-tools",
+            "name": "symfony/process",
             "version": "dev-master",
+            "target-dir": "Symfony/Component/Process",
             "source": {
                 "type": "git",
-                "url": "https://github.com/zendframework/ZendDeveloperTools.git",
-                "reference": "e930bd2feaf13e046e6896d18d4218e31c3ddaf1"
+                "url": "https://github.com/symfony/Process",
+                "reference": "6ec0a1493b6bc36c196a86382839df470a703bf6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/zendframework/ZendDeveloperTools/archive/e930bd2feaf13e046e6896d18d4218e31c3ddaf1.zip",
-                "reference": "e930bd2feaf13e046e6896d18d4218e31c3ddaf1",
+                "url": "https://github.com/symfony/Process/archive/6ec0a1493b6bc36c196a86382839df470a703bf6.zip",
+                "reference": "6ec0a1493b6bc36c196a86382839df470a703bf6",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3",
-                "zendframework/zendframework": "2.*"
+                "php": ">=5.3.3"
             },
-            "suggest": {
-                "bjyoungblood/bjy-profiler": "Version: dev-master, allows the usage of the (Zend) Db collector."
+            "time": "2012-11-29 10:32:45",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
+                }
             },
-            "time": "2012-10-28 12:50:39",
-            "type": "zf-module",
             "installation-source": "source",
             "autoload": {
                 "psr-0": {
-                    "ZendDeveloperTools": "src/"
-                },
-                "classmap": [
-                    "./Module.php"
-                ]
+                    "Symfony\\Component\\Process\\": ""
+                }
             },
             "license": [
-                "BSD-3-Clause"
+                "MIT"
             ],
             "authors": [
                 {
-                    "name": "Evan Coury",
-                    "email": "me@evancoury.com",
-                    "homepage": "http://blog.evan.pro/"
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
                 },
                 {
-                    "name": "Eric Boh",
-                    "email": "cossish@gmail.com"
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
                 }
             ],
-            "description": "Module for developer and debug tools for working with the ZF2 MVC layer.",
-            "homepage": "https://github.com/zendframework/ZendDeveloperTools",
-            "keywords": [
-                "debug",
-                "zf2",
-                "module",
-                "developer"
-            ]
+            "description": "Symfony Process Component",
+            "homepage": "http://symfony.com"
         },
         {
             "name": "zendframework/zendframework",
-            "version": "dev-develop",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "git://github.com/zendframework/zf2.git",
-                "reference": "791cb402783fbcd111ae71b91678040bca33ad94"
+                "reference": "2cdd47126f71fa65d4b2459233cb8d476b1df2ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/zendframework/zf2/archive/791cb402783fbcd111ae71b91678040bca33ad94.zip",
-                "reference": "791cb402783fbcd111ae71b91678040bca33ad94",
+                "url": "https://github.com/zendframework/zf2/archive/2cdd47126f71fa65d4b2459233cb8d476b1df2ad.zip",
+                "reference": "2cdd47126f71fa65d4b2459233cb8d476b1df2ad",
                 "shasum": ""
             },
             "require": {
@@ -571,14 +768,12 @@
                 "zendframework/zend-db": "self.version",
                 "zendframework/zend-di": "self.version",
                 "zendframework/zend-dom": "self.version",
-                "zendframework/zend-escaper": "self.version",
                 "zendframework/zend-eventmanager": "self.version",
                 "zendframework/zend-feed": "self.version",
                 "zendframework/zend-file": "self.version",
                 "zendframework/zend-filter": "self.version",
                 "zendframework/zend-form": "self.version",
                 "zendframework/zend-http": "self.version",
-                "zendframework/zend-i18n": "self.version",
                 "zendframework/zend-inputfilter": "self.version",
                 "zendframework/zend-json": "self.version",
                 "zendframework/zend-ldap": "self.version",
@@ -605,7 +800,9 @@
                 "zendframework/zend-uri": "self.version",
                 "zendframework/zend-validator": "self.version",
                 "zendframework/zend-view": "self.version",
-                "zendframework/zend-xmlrpc": "self.version"
+                "zendframework/zend-xmlrpc": "self.version",
+                "zendframework/zend-escaper": "self.version",
+                "zendframework/zend-i18n": "self.version"
             },
             "require-dev": {
                 "doctrine/common": ">=2.1",
@@ -614,11 +811,11 @@
             "suggest": {
                 "doctrine/common": "Doctrine\\Common >=2.1 for annotation features",
                 "ext-intl": "ext/intl for i18n features",
-                "pecl-weakref": "Implementation of weak references for Zend\\Stdlib\\CallbackHandler",
+                "zendframework/zendservice-recaptcha": "ZendService\\ReCaptcha for rendering ReCaptchas in Zend\\Captcha and/or Zend\\Form",
                 "zendframework/zendpdf": "ZendPdf for creating PDF representations of barcodes",
-                "zendframework/zendservice-recaptcha": "ZendService\\ReCaptcha for rendering ReCaptchas in Zend\\Captcha and/or Zend\\Form"
+                "pecl-weakref": "Implementation of weak references for Zend\\Stdlib\\CallbackHandler"
             },
-            "time": "2012-11-26 15:15:18",
+            "time": "2012-12-03 22:23:13",
             "bin": [
                 "bin/classmap_generator.php"
             ],
@@ -652,7 +849,7 @@
 
     ],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "zendframework/zend-developer-tools": 20
-    }
+    "stability-flags": [
+
+    ]
 }

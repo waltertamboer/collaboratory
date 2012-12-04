@@ -24,6 +24,7 @@ class Module
             'factories' => array(
                 'navigation/main' => 'Zend\Navigation\Service\DefaultNavigationFactory',
                 'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',
+                'CollabApplication\Service\SassFilterFactory' => 'CollabApplication\Service\SassFilterFactory',
                 'CollabApplication\Service\ApplicationEvents' => function($sm) {
                     $mapper = $sm->get('CollabApplication\Mapper\ApplicationEvents');
                     return new Service\ApplicationEvents($mapper);

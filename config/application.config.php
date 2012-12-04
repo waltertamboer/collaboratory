@@ -10,6 +10,7 @@
 
 return array(
     'modules' => array(
+        'AssetManager',
         'DoctrineModule',
         'DoctrineORMModule',
         'CollabApplication',

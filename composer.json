@@ -3,9 +3,11 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",
-        "zendframework/zend-developer-tools": "dev-master",
         "zendframework/zendframework": "2.*",
-        "doctrine/doctrine-orm-module": "0.*"
+        "doctrine/doctrine-orm-module": "0.*",
+        "rwoverdijk/assetmanager": "1.*",
+        "leafo/scssphp": "*",
+        "leafo/scssphp-compass": "*"
     },
     "autoload": {
         "psr-0": {

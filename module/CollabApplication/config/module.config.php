@@ -11,6 +11,26 @@
 namespace CollabApplication;
 
 return array(
+    'asset_manager' => array(
+        'resolver_configs' => array(
+            'collections' => array(
+                'css/screen.css' => array(
+                    'sass/layout.scss',
+                ),
+            ),
+            'map' => array(
+                'js/jquery-1.8.3.min.js' => __DIR__ . '/../public/js/jquery-1.8.3.min.js',
+                'sass/layout.scss' => __DIR__ . '/../public/sass/layout.scss',
+            ),
+        ),
+        'filters' => array(
+            'css/screen.css' => array(
+                array(
+                    'service' => 'CollabApplication\Service\SassFilterFactory',
+                ),
+            ),
+        ),
+    ),
     'controllers' => array(
         'invokables' => array(
             'CollabApplication\Controller\DashboardController' => 'CollabApplication\Controller\DashboardController',
