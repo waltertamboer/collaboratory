@@ -32,6 +32,8 @@ class SassFilterFactory implements FactoryInterface, FilterInterface
         $scssc = new \scssc();
         $scssc->setFormatter('scss_formatter_compressed');
 
+        new \scss_compass($scssc);
+
         $asset->setContent($scssc->compile($asset->getContent()));
     }
 

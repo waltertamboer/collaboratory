@@ -10,6 +10,8 @@
 
 namespace CollabTeam;
 
+use CollabApplication\Layout\Menu\MenuItem;
+
 class Module
 {
     public function getConfig()
@@ -69,6 +71,18 @@ class Module
             $installer->addPermission('team_create');
             $installer->addPermission('team_update');
             $installer->addPermission('team_delete');
+        });
+
+        $sharedManager->attach('CollabLayout', 'initializeMenu', function($e) {
+            $layoutManager = $e->getTarget();
+            $renderer = $layoutManager->getRenderer();
+
+            $menuName = $e->getParam('name');
+            $menu = $layoutManager->getMenu($menuName);
+
+            if ($menuName == 'main') {
+                $menu->insert(200, new MenuItem(200, 'Teams', $renderer->url('team/overview')));
+            }
         });
     }
 

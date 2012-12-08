@@ -10,6 +10,7 @@
 
 namespace CollabUser;
 
+use CollabApplication\Layout\Menu\MenuItem;
 use CollabUser\Access\Access;
 use CollabUser\Authentication\AuthenticationService;
 use CollabUser\Controller\Plugin\UserAccess;
@@ -136,6 +137,22 @@ class Module
             $installer->addPermission('sshkey_create');
             $installer->addPermission('sshkey_delete_any');
             $installer->addPermission('sshkey_delete_own');
+        });
+
+        $sharedManager->attach('CollabLayout', 'initializeMenu', function($e) {
+            $layoutManager = $e->getTarget();
+            $renderer = $layoutManager->getRenderer();
+
+            $menuName = $e->getParam('name');
+            $menu = $layoutManager->getMenu($menuName);
+
+            if ($menuName == 'account') {
+                $menu->insert(110, new MenuItem(110, $renderer->userAvatar() . ' ' . $renderer->userDisplayName()));
+                $menu->insert(120, new MenuItem(120, 'Account', $renderer->url('user/profile')));
+                $menu->insert(130, new MenuItem(130, 'Logout', $renderer->url('user/logout')));
+            } elseif ($menuName == 'main') {
+                $menu->insert(100, new MenuItem(100, 'Accounts', $renderer->url('account/overview')));
+            }
         });
 
         $sharedManager->attach('Zend\Mvc\Controller\AbstractActionController', 'dispatch', function($e) {

@@ -10,6 +10,8 @@
 
 namespace CollabApplication;
 
+use CollabApplication\Layout\Menu\MenuItem;
+
 class Module
 {
 
@@ -29,6 +31,10 @@ class Module
                     $mapper = $sm->get('CollabApplication\Mapper\ApplicationEvents');
                     return new Service\ApplicationEvents($mapper);
                 },
+                'CollabApplication\Layout\LayoutManager' => function($sm) {
+                    $renderer = $sm->get('viewrenderer');
+                    return new Layout\LayoutManager($renderer);
+                },
             ),
         );
     }
@@ -40,21 +46,25 @@ class Module
                 'formatApplicationEvent' => function ($sm) {
                     return new View\Helper\FormatApplicationEvent();
                 },
+                'collabMenu' => function ($sm) {
+                    $layoutManager = $sm->getServiceLocator()->get('CollabApplication\Layout\LayoutManager');
+                    return new View\Helper\CollabMenu($layoutManager);
+                },
             ),
         );
     }
 
     public function onBootstrap($e)
     {
-        $sm = $e->getApplication()->getServiceManager();
+        $application = $e->getApplication();
+        $sm = $application->getServiceManager();
 
         $applicationEvents = $sm->get('CollabApplication\Service\ApplicationEvents');
 
         $sm->addInitializer(function($class) use ($applicationEvents) {
-                if ($class instanceof Events\ApplicationEventsAwareInterface) {
-                    $class->setApplicationEvents($applicationEvents);
-                }
-            });
+            if ($class instanceof Events\ApplicationEventsAwareInterface) {
+                $class->setApplicationEvents($applicationEvents);
+            }
+        });
     }
-
 }

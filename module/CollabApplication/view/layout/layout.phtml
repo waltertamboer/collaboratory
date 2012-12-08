@@ -1,7 +1,7 @@
 <?php
 
-$this->headLink()->prependStylesheet('/css/screen.css');
-$this->headScript()->prependFile('/js/jquery-1.8.3.min.js');
+$this->headLink()->prependStylesheet($this->basePath() . '/css/screen.css');
+$this->headScript()->prependFile($this->basePath() . '/js/jquery-1.8.3.min.js');
 
 echo $this->doctype(); ?>
 
@@ -20,21 +20,24 @@ echo $this->doctype(); ?>
     </head>
     <body>
 
-        <h1><a href="<?php echo $this->url('dashboard'); ?>">Collaboratory</a></h1>
+        <header>
+            <div class="grid12">
+                <h1 class="span8"><a href="<?php echo $this->url('dashboard'); ?>">Collaboratory</a></h1>
 
-        <ul>
-            <li><?php echo $this->userAvatar(); ?> <?php echo $this->userDisplayName(); ?></li>
-            <li><a href="<?php echo $this->url('user/profile'); ?>">Account</a></li>
-            <li><a href="<?php echo $this->url('user/logout'); ?>">Logout</a></li>
-        </ul>
+                <nav class="span4 horizontal" id="account-menu">
+                    <?php echo $this->collabMenu('account'); ?>
+                </nav>
+            </div>
+        </header>
 
-        <hr />
 
-        <?php echo $this->navigation('navigation/main')->menu(); ?>
+        <div class="grid12">
+            <nav class="span12 navbar">
+                <?php echo $this->collabMenu('main'); ?>
+            </nav>
 
-        <hr />
-
-        <?php echo $this->content; ?>
+            <?php echo $this->content; ?>
+        </div>
 
     </body>
 </html>

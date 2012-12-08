@@ -1,8 +1,94 @@
-a {
-    color: red;
+* {
+    margin: 0px;
+    padding: 0px;
 }
 
 body {
-    color: red;
-    font-family: arial;
+    font-family: arial, verdana, courier;
+    font-size: 12px;
+    margin: 0px;
+    padding: 0px;
+}
+
+header {
+    background: gradient(#333, #FFF);
+    background-color: #F3F3F3;
+    border-bottom: 1px solid #E5E5E5;
+    height: 40px;
+    line-height: 40px;
+}
+
+header h1 a {
+    color: #000;
+    text-decoration: none;
+    text-transform: lowercase;
+    letter-spacing: -1px;
+}
+
+header nav ul {
+    float: right;
+}
+
+.pull-left { float: left; }
+.pull-right { float: right; }
+
+nav ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+nav.horizontal li {
+    float: left;
+}
+
+nav.navbar ul {
+    background-color: #EAEAEA;
+    background-image: linear-gradient(#FAFAFA, #EAEAEA);
+    background-repeat: repeat-x;
+    border-color: #EAEAEA #EAEAEA #CACACA;
+    border-radius: 3px 3px 3px 3px;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 10px;
+    position: relative;
+}
+
+nav.navbar li {
+    display: table-cell;
+    text-align: center;
+    width: 1%;
+}
+
+nav.navbar a {
+    border-bottom: 2px solid #DADADA;
+    border-left: 1px solid rgba(255, 255, 255, 0.7);
+    border-right: 1px solid rgba(0, 0, 0, 0.04);
+    color: #777777;
+    display: block;
+    font-size: 12px;
+    line-height: 35px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 1px 0 white;
+}
+
+nav.navbar a:hover {
+    border-bottom: 2px solid #DADADA;
+    border-left: 1px solid rgba(255, 255, 255, 0.7);
+    border-right: 1px solid rgba(0, 0, 0, 0.04);
+    color: #777777;
+    display: block;
+    font-size: 12px;
+    line-height: 35px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 1px 0 white;
+
+    background-color: #EBEBEB;
+    background-image: linear-gradient(#FCFCFC, #EBEBEB);
+    border-bottom: 2px solid #D26911;
+    color: #000000;
 }

@@ -15,11 +15,15 @@ return array(
         'resolver_configs' => array(
             'collections' => array(
                 'css/screen.css' => array(
+                    'sass/reset.scss',
                     'sass/layout.scss',
+                    'sass/grid.scss',
                 ),
             ),
             'map' => array(
                 'js/jquery-1.8.3.min.js' => __DIR__ . '/../public/js/jquery-1.8.3.min.js',
+                'sass/reset.scss' => __DIR__ . '/../public/sass/reset.scss',
+                'sass/grid.scss' => __DIR__ . '/../public/sass/grid.scss',
                 'sass/layout.scss' => __DIR__ . '/../public/sass/layout.scss',
             ),
         ),

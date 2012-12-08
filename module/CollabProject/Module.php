@@ -10,6 +10,8 @@
 
 namespace CollabProject;
 
+use CollabApplication\Layout\Menu\MenuItem;
+
 class Module
 {
     public function getConfig()
@@ -49,6 +51,18 @@ class Module
             $installer->addPermission('project_create');
             $installer->addPermission('project_update');
             $installer->addPermission('project_delete');
+        });
+
+        $sharedManager->attach('CollabLayout', 'initializeMenu', function($e) {
+            $layoutManager = $e->getTarget();
+            $renderer = $layoutManager->getRenderer();
+
+            $menuName = $e->getParam('name');
+            $menu = $layoutManager->getMenu($menuName);
+
+            if ($menuName == 'main') {
+                $menu->insert(300, new MenuItem(300, 'Projects', $renderer->url('project/overview')));
+            }
         });
     }
 }
