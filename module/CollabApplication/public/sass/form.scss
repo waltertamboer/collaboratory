@@ -44,9 +44,61 @@ input[type="submit"] {
     cursor: pointer;
 }
 
-button,
-input[type="reset"],
-input[type="submit"],
-a.button {
-    margin-right: 10px;
+a.button.mini {
+    background-color: #EAEAEA;
+    background-image: linear-gradient(#FAFAFA, #EAEAEA);
+    background-repeat: repeat-x;
+    border-color: #D4D4D4 #D4D4D4 #BCBCBC;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 3px 3px 3px 3px;
+    font-size: 11px;
+    font-weight: bold;
+    height: 21px;
+    line-height: 21px;
+    padding: 0 10px;
+    color: #333333;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+
+a.button.negative {
+    background-color: #B33630;
+    background-image: linear-gradient(#DC5F59, #B33630);
+    background-repeat: repeat-x;
+    border-color: #B54440;
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+
+a.button.positive {
+    background-color: #28881B;
+    background-image: linear-gradient(#36B825, #28881B);
+    background-repeat: repeat-x;
+    border-color: #4A993E;
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+
+a.button.info {
+    background-color: #32687B;
+    background-image: linear-gradient(#448DA6, #32687B);
+    background-repeat: repeat-x;
+    border-color: #275666;
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+
+a.button.inversed {
+    background-color: #3F3F3F;
+    background-image: linear-gradient(#909090, #3F3F3F);
+    background-repeat: repeat-x;
+    border-style: none;
+    color: #FFFFFF;
+    text-shadow: -1px -1px 0 #333333;
+}
+
+a.button.mini {
+    height: 23px;
+    line-height: 23px;
 }
