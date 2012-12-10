@@ -35,6 +35,20 @@ header nav ul {
     float: right;
 }
 
+header nav a {
+    display: block;
+    font-weight: bold;
+    padding: 0px 15px;
+    text-decoration: none;
+}
+
+header nav img {
+    float: left;
+    height: 24px;
+    margin: 8px 10px 0 0;
+    width: 24px;
+}
+
 .pull-left { float: left; }
 .pull-right { float: right; }
 

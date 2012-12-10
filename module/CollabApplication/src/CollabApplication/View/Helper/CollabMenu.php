@@ -11,9 +11,9 @@
 namespace CollabApplication\View\Helper;
 
 use CollabApplication\Layout\LayoutManager;
-use Zend\View\Helper\AbstractHelper;
+use Zend\View\Helper\AbstractHtmlElement;
 
-class CollabMenu extends AbstractHelper
+class CollabMenu extends AbstractHtmlElement
 {
     private $layoutManager;
 
@@ -22,18 +22,23 @@ class CollabMenu extends AbstractHelper
         $this->layoutManager = $layoutManager;
     }
 
-    public function __invoke($name)
+    public function __invoke($name, array $options = array())
     {
         $menu = $this->layoutManager->getMenu($name);
 
-        $output = '';
-        $output .= '<ul>' . PHP_EOL;
+        $divided = array_key_exists('divided', $options) && $options['divided'] == true;
+
+        $output = '<ul>' . PHP_EOL;
         foreach ($menu as $item) {
             $link = $item->getLink();
             if ($link) {
-                $output .= '<li><a href="' . $link . '" title="' . $item->getLabel() . '">' . $item->getLabel() . '</a></li>' . PHP_EOL;
+                $output .= '<li><a href="' . $link . '">' . $item->getLabel() . '</a></li>' . PHP_EOL;
             } else {
                 $output .= '<li>' . $item->getLabel() . '</li>' . PHP_EOL;
+            }
+
+            if ($divided) {
+                $output .= '<li class="divider"></li>';
             }
         }
         $output .= '</ul>' . PHP_EOL;
