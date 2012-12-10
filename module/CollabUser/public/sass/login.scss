@@ -1,4 +1,4 @@
-.dialog.login {
+.dialog {
     background-color: #F9F9F9;
     border: 1px solid #CCC;
     border-radius: 5px;
@@ -7,34 +7,34 @@
     width: 350px;
 }
 
-.dialog.login .dialog-title {
+.dialog .dialog-title {
     font-size: 25px;
     font-weight: bold;
     text-align: center;
     text-transform: lowercase;
 }
 
-.dialog.login .dialog-description {
+.dialog .dialog-description {
     margin-bottom: 10px;
     text-align: center;
 }
 
-.dialog.login .control-label {
+.dialog .control-label {
     font-size: 15px;
     line-height: 30px;
 }
 
-.dialog.login input[type="text"],
-.dialog.login input[type="password"] {
+.dialog input[type="text"],
+.dialog input[type="password"] {
     font-size: 15px;
     padding: 5px;
     width: 200px;
 }
 
-.dialog.login input[type="submit"] {
+.dialog input[type="submit"] {
     padding: 5px;
 }
 
-.dialog.login a {
+.dialog a {
     color: #333;
 }
