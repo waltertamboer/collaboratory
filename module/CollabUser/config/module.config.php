@@ -11,6 +11,18 @@
 namespace CollabUser;
 
 return array(
+    'asset_manager' => array(
+        'resolver_configs' => array(
+            'collections' => array(
+                'css/screen.css' => array(
+                    __NAMESPACE__ . '/sass/login.scss',
+                ),
+            ),
+            'map' => array(
+                __NAMESPACE__ . '/sass/login.scss' => __DIR__ . '/../public/sass/login.scss',
+            ),
+        ),
+    ),
     'controllers' => array(
         'invokables' => array(
             'CollabSsh\Controller\KeysController' => 'CollabSsh\Controller\KeysController',

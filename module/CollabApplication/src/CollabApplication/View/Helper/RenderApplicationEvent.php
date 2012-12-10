@@ -13,13 +13,19 @@ namespace CollabApplication\View\Helper;
 use CollabApplication\Entity\ApplicationEvent;
 use Zend\View\Helper\AbstractHelper;
 
-class FormatApplicationEvent extends AbstractHelper
+class RenderApplicationEvent extends AbstractHelper
 {
     public function __invoke(ApplicationEvent $event)
     {
-        return $event->getCreationDate()->format('d-m-Y, H:i:s')
-            . ' - ' . $event->getType()
-            . ' - ' . print_r($event->getParameters(), true)
-            . '<hr />';
+        return '<div class="media">
+            <a href="">
+                <img src="" alt="" class="object" />
+            </a>
+            <div class="media-body">
+                ' . $event->getCreationDate()->format('d-m-Y, H:i:s')
+                . ' - ' . $event->getType()
+                . ' - ' . print_r($event->getParameters(), true) . '
+            </div>
+        </div>';
     }
 }

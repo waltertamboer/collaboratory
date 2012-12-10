@@ -1,7 +1,19 @@
 <?php $this->headTitle('News Feed'); ?>
 
-<ul>
-    <?php foreach ($this->applicationEvents as $event) { ?>
-    <li><?php echo $this->formatApplicationEvent($event); ?></li>
-    <?php } ?>
-</ul>
+<div class="grid12 page-header">
+    <div class="span12">
+        <h1>News Feed</h1>
+    </div>
+
+    <nav class="span12 navbar">
+        <?php echo $this->collabMenu('main'); ?>
+    </nav>
+</div>
+
+<div class="grid12">
+    <div class="span6">
+        <?php foreach ($this->applicationEvents as $event) { ?>
+            <?php echo $this->renderApplicationEvent($event); ?>
+        <?php } ?>
+    </div>
+</div>

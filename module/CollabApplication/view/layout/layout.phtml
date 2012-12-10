@@ -24,20 +24,13 @@ echo $this->doctype(); ?>
             <div class="grid12">
                 <h1 class="span8"><a href="<?php echo $this->url('dashboard'); ?>">Collaboratory</a></h1>
 
-                <nav class="span4 horizontal" id="account-menu">
+                <nav class="span4 horizontal">
                     <?php echo $this->collabMenu('account'); ?>
                 </nav>
             </div>
         </header>
 
-
-        <div class="grid12">
-            <nav class="span12 navbar">
-                <?php echo $this->collabMenu('main'); ?>
-            </nav>
-
-            <?php echo $this->content; ?>
-        </div>
+        <?php echo $this->content; ?>
 
     </body>
 </html>

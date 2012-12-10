@@ -15,16 +15,20 @@ return array(
         'resolver_configs' => array(
             'collections' => array(
                 'css/screen.css' => array(
-                    'sass/reset.scss',
-                    'sass/layout.scss',
-                    'sass/grid.scss',
+                    __NAMESPACE__ . '/sass/reset.scss',
+                    __NAMESPACE__ . '/sass/grid.scss',
+                    __NAMESPACE__ . '/sass/form.scss',
+                    __NAMESPACE__ . '/sass/dialog.scss',
+                    __NAMESPACE__ . '/sass/layout.scss',
                 ),
             ),
             'map' => array(
                 'js/jquery-1.8.3.min.js' => __DIR__ . '/../public/js/jquery-1.8.3.min.js',
-                'sass/reset.scss' => __DIR__ . '/../public/sass/reset.scss',
-                'sass/grid.scss' => __DIR__ . '/../public/sass/grid.scss',
-                'sass/layout.scss' => __DIR__ . '/../public/sass/layout.scss',
+                __NAMESPACE__ . '/sass/reset.scss' => __DIR__ . '/../public/sass/reset.scss',
+                __NAMESPACE__ . '/sass/grid.scss' => __DIR__ . '/../public/sass/grid.scss',
+                __NAMESPACE__ . '/sass/form.scss' => __DIR__ . '/../public/sass/form.scss',
+                __NAMESPACE__ . '/sass/dialog.scss' => __DIR__ . '/../public/sass/dialog.scss',
+                __NAMESPACE__ . '/sass/layout.scss' => __DIR__ . '/../public/sass/layout.scss',
             ),
         ),
         'filters' => array(

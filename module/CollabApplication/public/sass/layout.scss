@@ -1,9 +1,5 @@
-* {
-    margin: 0px;
-    padding: 0px;
-}
-
 body {
+    background-color: #FFF;
     font-family: arial, verdana, courier;
     font-size: 12px;
     margin: 0px;
@@ -18,8 +14,14 @@ header {
     line-height: 40px;
 }
 
+header h1 {
+    margin: 0px;
+}
+
 header h1 a {
     color: #000;
+    font-size: 22px;
+    font-weight: bold;
     text-decoration: none;
     text-transform: lowercase;
     letter-spacing: -1px;
@@ -52,7 +54,6 @@ nav.navbar ul {
     border-width: 1px;
     font-size: 12px;
     font-weight: bold;
-    margin-top: 10px;
     position: relative;
 }
 
@@ -91,4 +92,30 @@ nav.navbar a:hover {
     background-image: linear-gradient(#FCFCFC, #EBEBEB);
     border-bottom: 2px solid #D26911;
     color: #000000;
+}
+
+h1 {
+    color: #495961;
+    font-size: 18px;
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+
+.page-header {
+    margin-top: 20px;
+}
+
+.alert {
+    background-color: #FCF8E3;
+    border: 1px solid #FBEED5;
+    border-radius: 4px 4px 4px 4px;
+    color: #C09853;
+    padding: 8px 14px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.alert.info {
+    background-color: #D9EDF7;
+    border-color: #BCE8F1;
+    color: #3A87AD;
 }

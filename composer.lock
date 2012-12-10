@@ -7,18 +7,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/common",
-                "reference": "b91837135ce102d2e95fb394b43d8d1d47cde95c"
+                "reference": "d514e3920656921ba1148f16a4089222c58bc83a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/common/archive/b91837135ce102d2e95fb394b43d8d1d47cde95c.zip",
-                "reference": "b91837135ce102d2e95fb394b43d8d1d47cde95c",
+                "url": "https://github.com/doctrine/common/archive/d514e3920656921ba1148f16a4089222c58bc83a.zip",
+                "reference": "d514e3920656921ba1148f16a4089222c58bc83a",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2"
             },
-            "time": "2012-12-04 14:57:34",
+            "time": "2012-12-05 12:03:39",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -31,6 +31,7 @@
                     "Doctrine\\Common\\": "lib/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -180,12 +181,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/doctrine/DoctrineModule.git",
-                "reference": "f31d3bb72edc6dfbe37243ec36be1206d3d5900f"
+                "reference": "aea8df57f214330ed34303f0a6b6ff80daf86a78"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/DoctrineModule/archive/f31d3bb72edc6dfbe37243ec36be1206d3d5900f.zip",
-                "reference": "f31d3bb72edc6dfbe37243ec36be1206d3d5900f",
+                "url": "https://github.com/doctrine/DoctrineModule/archive/aea8df57f214330ed34303f0a6b6ff80daf86a78.zip",
+                "reference": "aea8df57f214330ed34303f0a6b6ff80daf86a78",
                 "shasum": ""
             },
             "require": {
@@ -195,7 +196,7 @@
                 "zendframework/zendframework": "2.*",
                 "doctrine/data-fixtures": "1.*"
             },
-            "time": "2012-12-01 01:55:06",
+            "time": "2012-12-06 19:46:51",
             "bin": [
                 "bin/doctrine-module"
             ],
@@ -211,6 +212,7 @@
                     "DoctrineModule\\": "src/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -255,12 +257,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/doctrine/DoctrineORMModule.git",
-                "reference": "977699076ef5e06cae5f8b516cb1683a20ab67d3"
+                "reference": "24830934f748497f77cf22f9af6cab4612fb0886"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/DoctrineORMModule/archive/977699076ef5e06cae5f8b516cb1683a20ab67d3.zip",
-                "reference": "977699076ef5e06cae5f8b516cb1683a20ab67d3",
+                "url": "https://github.com/doctrine/DoctrineORMModule/archive/24830934f748497f77cf22f9af6cab4612fb0886.zip",
+                "reference": "24830934f748497f77cf22f9af6cab4612fb0886",
                 "shasum": ""
             },
             "require": {
@@ -277,7 +279,7 @@
             "suggest": {
                 "zendframework/zend-developer-tools": "zend-developer-tools if you want to profile operations executed by the ORM during development"
             },
-            "time": "2012-11-29 19:12:16",
+            "time": "2012-12-06 19:52:20",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -291,6 +293,7 @@
                     "DoctrineORMModuleTest\\": "tests/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -698,18 +701,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Process",
-                "reference": "6ec0a1493b6bc36c196a86382839df470a703bf6"
+                "reference": "a38d32ff44572e478bbaf5b295de169c47167626"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/Process/archive/6ec0a1493b6bc36c196a86382839df470a703bf6.zip",
-                "reference": "6ec0a1493b6bc36c196a86382839df470a703bf6",
+                "url": "https://github.com/symfony/Process/archive/a38d32ff44572e478bbaf5b295de169c47167626.zip",
+                "reference": "a38d32ff44572e478bbaf5b295de169c47167626",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "2012-11-29 10:32:45",
+            "time": "2012-12-06 13:11:58",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -722,6 +725,7 @@
                     "Symfony\\Component\\Process\\": ""
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -744,12 +748,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/zendframework/zf2.git",
-                "reference": "2cdd47126f71fa65d4b2459233cb8d476b1df2ad"
+                "reference": "ca1e7b67148ba165af8900b586a2cec9d50e34b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/zendframework/zf2/archive/2cdd47126f71fa65d4b2459233cb8d476b1df2ad.zip",
-                "reference": "2cdd47126f71fa65d4b2459233cb8d476b1df2ad",
+                "url": "https://github.com/zendframework/zf2/archive/ca1e7b67148ba165af8900b586a2cec9d50e34b7.zip",
+                "reference": "ca1e7b67148ba165af8900b586a2cec9d50e34b7",
                 "shasum": ""
             },
             "require": {
@@ -815,7 +819,7 @@
                 "zendframework/zendpdf": "ZendPdf for creating PDF representations of barcodes",
                 "pecl-weakref": "Implementation of weak references for Zend\\Stdlib\\CallbackHandler"
             },
-            "time": "2012-12-03 22:23:13",
+            "time": "2012-12-05 14:41:26",
             "bin": [
                 "bin/classmap_generator.php"
             ],
@@ -833,6 +837,7 @@
                     "ZendTest\\": "tests/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],

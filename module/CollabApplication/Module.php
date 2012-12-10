@@ -43,8 +43,8 @@ class Module
     {
         return array(
             'factories' => array(
-                'formatApplicationEvent' => function ($sm) {
-                    return new View\Helper\FormatApplicationEvent();
+                'renderApplicationEvent' => function ($sm) {
+                    return new View\Helper\RenderApplicationEvent();
                 },
                 'collabMenu' => function ($sm) {
                     $layoutManager = $sm->getServiceLocator()->get('CollabApplication\Layout\LayoutManager');
