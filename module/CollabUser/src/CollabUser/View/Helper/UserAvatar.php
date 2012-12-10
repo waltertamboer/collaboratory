@@ -25,11 +25,11 @@ class UserAvatar extends AbstractHelper
         if (!$user) {
             $user = $this->authService->getIdentity();
         }
-        
+
         if ($user) {
             $view = $this->getView();
 
-            $result = $view->gravatar($user->getIdentity())->setImgSize(16);
+            $result = $view->gravatar($user->getIdentity())->setImgSize(24);
         }
 
         return $result;

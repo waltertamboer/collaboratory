@@ -66,5 +66,20 @@ class Module
                 $class->setApplicationEvents($applicationEvents);
             }
         });
+
+        $eventManager = $application->getEventManager();
+
+        $sharedManager = $eventManager->getSharedManager();
+        $sharedManager->attach('CollabLayout', 'initializeMenu', function($e) {
+            $layoutManager = $e->getTarget();
+            $renderer = $layoutManager->getRenderer();
+
+            $menuName = $e->getParam('name');
+            $menu = $layoutManager->getMenu($menuName);
+
+            if ($menuName == 'main') {
+                $menu->insert(0, new MenuItem(0, 'Dashboard', $renderer->url('dashboard')));
+            }
+        });
     }
 }
