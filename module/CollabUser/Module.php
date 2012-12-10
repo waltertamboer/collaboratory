@@ -163,7 +163,7 @@ class Module
             $path = 'config/autoload/doctrine_orm.global.php';
             if (is_file($path)) {
 				$publicPages = array();
-				$publicPages['CollabUser\Controller\UserController'] = array('login', 'logout');
+				$publicPages['CollabUser\Controller\UserController'] = array('login', 'logout', 'request-password');
 				$publicPages['CollabInstall\Controller\InstallController'] = array('index', 'database', 'account', 'finish');
 
 				if (array_key_exists($controller, $publicPages) && in_array($action, $publicPages[$controller])) {

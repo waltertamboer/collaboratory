@@ -188,6 +188,15 @@ return array(
                             ),
                         ),
                     ),
+                    'request-password' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => array(
+                            'route' => '/request/password',
+                            'defaults' => array(
+                                'action' => 'request-password',
+                            ),
+                        ),
+                    ),
                 ),
             ),
         ),

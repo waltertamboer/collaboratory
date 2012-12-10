@@ -25,6 +25,7 @@
         <div class="control-group">
             <div class="controls">
                 <?php echo $this->formSubmit($form->get('login')); ?>
+                <a href="<?php echo $this->url('user/request-password'); ?>" class="button">Request your password</a>
             </div>
         </div>
     <?php echo $this->form()->closeTag(); ?>
