@@ -1,56 +1,67 @@
-<?php
+<?php $this->headTitle('Project ' . $this->project->getName()); ?>
 
-$this->headTitle('Project ' . $this->project->getName());
+<div class="grid12 page-header">
+    <div class="span6">
+        <h1>Project <?php echo $this->project->getName(); ?></h1>
+    </div>
 
-echo '<h2>' . $this->project->getName() . '</h2>';
+    <div class="span6">
+        <div class="pull-right">
+            <a href="<?php echo $this->url('project/update', array(
+                'id' => $this->project->getId(),
+            )); ?>" class="button mini">Update</a>
+            <a href="<?php echo $this->url('project/delete', array(
+                'id' => $this->project->getId(),
+            )); ?>" class="button mini negative">Delete</a>
+        </div>
+    </div>
 
-echo '<ul>';
-echo '<li><a href="' . $this->url('project/update', array(
-    'id' => $this->project->getId()
-    )) . '">Update</a></li>';
-echo '</ul>';
+    <nav class="span12 navbar">
+        <?php echo $this->collabMenu('main'); ?>
+    </nav>
+</div>
 
-echo '<hr />';
+<div class="grid12 page-content">
+    <div class="span8">
+        <h2>Issues</h2>
+        <?php if (!$this->issues) {
+            echo '<p>There are no issues for this project.</p>';
+        } ?>
+    </div>
+    <div class="span4">
+        <h2>Repositories</h2>
+        <?php
 
-echo '<h3>Issues</h3>';
-
-if (!$this->issues) {
-    echo '<p>There are no issues for this project.</p>';
-} else {
-
-}
-
-echo '<hr />';
-
-echo '<h3>Repositories</h3>';
-
-echo '<ul>';
-echo '<li><a href="' . $this->url('scm/create', array(
-    'project' => $this->project->getId()
-)) . '">Create</a></li>';
-echo '</ul>';
-
-if (!$this->repositories) {
-    echo '<p>No repositories yet.</p>';
-} else {
-    echo '<ul>';
-    foreach ($this->repositories as $repository) {
-        echo '<li>';
-        if ($repository->getType() == 'git') {
-            echo '<h4><a href="' . $this->url('scm/view/tree', array('id' => $repository->getId())) . '">' . $repository->getName() . '</a></h4>';
-        } else {
-            echo '<h4>' . $repository->getName() . '</h4>';
-        }
-        echo '<p>' . $repository->getDescription() . '</p>';
         echo '<ul>';
-        if ($this->userAccess('repository_update')) {
-            echo '<li><a href="' . $this->url('scm/update', array('id' => $repository->getId())) . '">Update</a></li>';
-        }
-        if ($this->userAccess('repository_delete')) {
-            echo '<li><a href="' . $this->url('scm/delete', array('id' => $repository->getId())) . '">Remove</a></li>';
-        }
+        echo '<li><a href="' . $this->url('scm/create', array(
+            'project' => $this->project->getId()
+        )) . '">Create</a></li>';
         echo '</ul>';
-        echo '</li>';
-    }
-    echo '</ul>';
-}
+
+        if (!$this->repositories) {
+            echo '<p>No repositories yet.</p>';
+        } else {
+            echo '<ul>';
+            foreach ($this->repositories as $repository) {
+                echo '<li>';
+                if ($repository->getType() == 'git') {
+                    echo '<h4><a href="' . $this->url('scm/view/tree', array('id' => $repository->getId())) . '">' . $repository->getName() . '</a></h4>';
+                } else {
+                    echo '<h4>' . $repository->getName() . '</h4>';
+                }
+                echo '<p>' . $repository->getDescription() . '</p>';
+                echo '<ul>';
+                if ($this->userAccess('repository_update')) {
+                    echo '<li><a href="' . $this->url('scm/update', array('id' => $repository->getId())) . '">Update</a></li>';
+                }
+                if ($this->userAccess('repository_delete')) {
+                    echo '<li><a href="' . $this->url('scm/delete', array('id' => $repository->getId())) . '">Remove</a></li>';
+                }
+                echo '</ul>';
+                echo '</li>';
+            }
+            echo '</ul>';
+        }
+        ?>
+    </div>
+</div>

@@ -1,10 +1,27 @@
 <?php $this->headTitle('Delete Project'); ?>
 
-<p>
-    Are you sure you want to delete the project "<?php echo $this->project->getName(); ?>"?
-</p>
+<div class="grid12 page-header">
+    <div class="span6">
+        <h1>Projects</h1>
+    </div>
 
-<?php echo $this->form()->openTag($this->form); ?>
-<?php echo $this->formSubmit($this->form->get('yes')); ?>
-<a href="<?php echo $this->url('project/overview'); ?>">No</a>
-<?php echo $this->form()->closeTag(); ?>
+    <div class="span6">
+        <a href="<?php echo $this->url('project/create'); ?>" class="button mini pull-right">New Project</a>
+    </div>
+
+    <nav class="span12 navbar">
+        <?php echo $this->collabMenu('main'); ?>
+    </nav>
+
+    <div class="span12 page-content">
+        <p>
+            Are you sure you want to delete the project "<?php echo $this->project->getName(); ?>"?
+        </p>
+
+        <?php echo $this->form()->openTag($this->form); ?>
+        <?php echo $this->formSubmit($this->form->get('yes')->setAttribute('class', 'negative')); ?>
+        <a href="<?php echo $this->url('project/overview'); ?>" class="button">No</a>
+        <?php echo $this->form()->closeTag(); ?>
+
+    </div>
+</div>

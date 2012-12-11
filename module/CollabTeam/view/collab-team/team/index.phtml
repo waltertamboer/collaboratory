@@ -1,37 +1,57 @@
 <?php $this->headTitle('Teams'); ?>
 
-<?php if ($this->canCreateTeam()) { ?>
-<p><a href="<?php echo $this->url('team/create'); ?>">New Team</a></p>
-<?php } ?>
+<div class="grid12 page-header">
+    <div class="span6">
+        <h1>Teams</h1>
+    </div>
 
-<?php if (count($teams)) { ?>
-    <ul>
-        <?php foreach ($teams as $team) { ?>
-            <li>
-                <h2>
-                    <?php if ($this->canUpdateTeam($team)) { ?>
-                    <a href="<?php echo $this->url('team/update', array('id' => $team->getId())); ?>">
-                    <?php } ?>
-                        <?php echo $team->getName(); ?>
-                    <?php if ($this->canUpdateTeam($team)) { ?>
-                    </a>
-                    <?php } ?>
-                </h2>
-
-                <p><?php echo $team->getDescription(); ?></p>
-
-                <?php if ($this->canRemoveTeam($team)) { ?>
-                <ul>
-                    <li><a href="<?php echo $this->url('team/delete', array('id' => $team->getId())); ?>">Remove</a></li>
-                </ul>
-                <?php } ?>
-            </li>
+    <div class="span6">
+        <?php if ($this->canCreateTeam()) { ?>
+            <a href="<?php echo $this->url('team/create'); ?>" class="button mini pull-right">New Team</a>
         <?php } ?>
-    </ul>
-<?php } else { ?>
-    <p>There are no teams yet, would you like to create one?</p>
-<?php } ?>
+    </div>
 
-<?php if ($this->canCreateTeam()) { ?>
-<p><a href="<?php echo $this->url('team/create'); ?>">New Team</a></p>
-<?php } ?>
+    <nav class="span12 navbar">
+        <?php echo $this->collabMenu('main'); ?>
+    </nav>
+</div>
+
+<div class="grid12 page-content">
+    <div class="span12">
+        <?php if (count($teams)) { ?>
+            <ul class="data-list">
+                <?php foreach ($teams as $team) { ?>
+                    <li>
+                        <h2>
+                            <?php if ($this->canUpdateTeam($team)) { ?>
+                                <a href="<?php echo $this->url('team/update', array('id' => $team->getId())); ?>">
+                                <?php } ?>
+                                <?php echo $team->getName(); ?>
+                                <?php if ($this->canUpdateTeam($team)) { ?>
+                                </a>
+                            <?php } ?>
+                        </h2>
+
+                        <p><?php echo $team->getDescription(); ?></p>
+
+                        <?php if ($this->canRemoveTeam($team) || $this->canUpdateTeam($team)) { ?>
+                            <ul class="actions">
+                                <?php if ($this->canUpdateTeam($team)) { ?>
+                                    <li><a href="<?php echo $this->url('team/update', array('id' => $team->getId())); ?>" class="button">Update</a></li>
+                                <?php } ?>
+                                <?php if ($this->canRemoveTeam($team)) { ?>
+                                    <li><a href="<?php echo $this->url('team/delete', array('id' => $team->getId())); ?>" class="button negative">Remove</a></li>
+                                <?php } ?>
+                            </ul>
+                        <?php } ?>
+                    </li>
+                <?php } ?>
+            </ul>
+        <?php } else { ?>
+            <div class="alert">
+                <strong>Oh oh</strong>
+                <p>There are no teams yet, would you like to <a href="<?php echo $this->url('team/create'); ?>">create one</a>?</p>
+            </div>
+        <?php } ?>
+    </div>
+</div>

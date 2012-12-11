@@ -28,6 +28,7 @@
                         <p><?php echo $project->getDescription(); ?></p>
 
                         <ul class="actions">
+                            <li><a href="<?php echo $this->url('project/view', array('id' => $project->getId())); ?>" class="button">View</a></li>
                             <?php if ($this->userAccess('project_update')) { ?>
                                 <li><a href="<?php echo $this->url('project/update', array('id' => $project->getId())); ?>" class="button">Update</a></li>
                             <?php } ?>

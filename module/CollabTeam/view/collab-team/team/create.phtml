@@ -6,16 +6,99 @@ $form = $this->form;
 $form->prepare();
 
 $teamFieldset = $form->get('team');
+?>
 
-echo $this->form()->openTag($form->setAttribute('autocomplete', 'off'));
-echo $this->formRow($teamFieldset->get('name'));
-echo $this->formRow($teamFieldset->get('description'));
-echo '<hr />';
-echo $this->formCollection($teamFieldset->get('members'));
-echo $this->formCollection($teamFieldset->get('projects'));
-echo '<hr />';
-echo $this->formMultiCheckbox($teamFieldset->get('permissions'));
-echo '<hr />';
-echo $this->formSubmit($teamFieldset->get('save'));
-echo '<a href="' . $this->url('team/overview') . '">Cancel</a>';
-echo $this->form()->closeTag();
+<div class="grid12 page-header">
+    <div class="span6">
+        <h1>Teams</h1>
+    </div>
+
+    <div class="span6">
+        <?php if ($this->canCreateTeam()) { ?>
+            <a href="<?php echo $this->url('team/create'); ?>" class="button mini pull-right">New Team</a>
+        <?php } ?>
+    </div>
+
+    <nav class="span12 navbar">
+        <?php echo $this->collabMenu('main'); ?>
+    </nav>
+</div>
+
+<div class="grid12 page-content">
+    <?php echo $this->form()->openTag($form->setAttributes(array(
+        'class' => 'horizontal',
+    ))); ?>
+        <div class="control-group">
+            <?php echo $this->formLabel($teamFieldset->get('name')->setLabelAttributes(array(
+                'class' => 'control-label'
+            ))); ?>
+            <div class="controls">
+                <?php
+                echo $this->formText($teamFieldset->get('name'));
+                echo $this->formElementErrors($teamFieldset->get('name'), array(
+                    'class' => 'error'
+                ));
+                ?>
+            </div>
+        </div>
+        <div class="control-group">
+            <?php echo $this->formLabel($teamFieldset->get('description')->setLabelAttributes(array(
+                'class' => 'control-label'
+            ))); ?>
+            <div class="controls">
+                <?php
+                echo $this->formTextarea($teamFieldset->get('description'));
+                echo $this->formElementErrors($teamFieldset->get('description'), array(
+                    'class' => 'error'
+                ));
+                ?>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="control-group">
+            <div class="controls">
+                <?php
+                echo $this->formCollection($teamFieldset->get('members'));
+                echo $this->formElementErrors($teamFieldset->get('members'), array(
+                    'class' => 'error'
+                ));
+                ?>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <?php
+                echo $this->formCollection($teamFieldset->get('projects'));
+                echo $this->formElementErrors($teamFieldset->get('projects'), array(
+                    'class' => 'error'
+                ));
+                ?>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="control-group">
+            <div class="controls">
+                <?php
+                echo $this->formMultiCheckbox($teamFieldset->get('permissions'));
+                echo $this->formElementErrors($teamFieldset->get('permissions'), array(
+                    'class' => 'error'
+                ));
+                ?>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="control-group">
+            <div class="controls">
+                <?php echo $this->formSubmit($teamFieldset->get('save')); ?>
+                <a href="<?php echo $this->url('team/overview'); ?>">Cancel</a>
+            </div>
+        </div>
+    <?php echo $this->form()->closeTag(); ?>
+</div>

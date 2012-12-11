@@ -1,11 +1,25 @@
 <?php $this->headTitle('Accounts'); ?>
 
-<?php if ($this->userAccess('user_create')) { ?>
-<p><a href="<?php echo $this->url('account/create'); ?>">New User</a></p>
-<?php } ?>
+<div class="grid12 page-header">
+    <div class="span6">
+        <h1>Accounts</h1>
+    </div>
 
+    <div class="span6">
+        <?php if ($this->userAccess('user_create')) { ?>
+            <a href="<?php echo $this->url('account/create'); ?>" class="button mini pull-right">New Account</a>
+        <?php } ?>
+    </div>
+
+    <nav class="span12 navbar">
+        <?php echo $this->collabMenu('main'); ?>
+    </nav>
+</div>
+
+<div class="grid12 page-content">
+    <div class="span12">
 <?php if (count($accounts)) { ?>
-    <ul>
+    <ul class="data-list">
         <?php foreach ($accounts as $account) { ?>
             <li>
                 <h2>
@@ -23,8 +37,8 @@
                 </p>
 
                 <?php if ($this->userAccess('user_delete') && $account->getId() != $this->userIdentity()->getId()) { ?>
-                    <ul>
-                        <li><a href="<?php echo $this->url('account/delete', array('id' => $account->getId())); ?>">Remove</a></li>
+                    <ul class="actions">
+                        <li><a href="<?php echo $this->url('account/delete', array('id' => $account->getId())); ?>" class="button negative">Remove</a></li>
                     </ul>
                 <?php } ?>
             </li>
@@ -34,6 +48,5 @@
     <p>There are no users yet, would you like to create one?</p>
 <?php } ?>
 
-<?php if ($this->userAccess('user_create')) { ?>
-<p><a href="<?php echo $this->url('account/create'); ?>">New User</a></p>
-<?php } ?>
+    </div>
+</div>
