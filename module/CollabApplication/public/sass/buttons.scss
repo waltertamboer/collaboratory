@@ -1,0 +1,104 @@
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+.button {
+    background-color: #EAEAEA;
+    background-image: linear-gradient(#FAFAFA, #EAEAEA);
+    background-repeat: repeat-x;
+    border-color: #D4D4D4 #D4D4D4 #BCBCBC;
+    border-image: none;
+    border-radius: 3px 3px 3px 3px;
+    border-style: solid;
+    border-width: 1px;
+    color: #333;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Helvetica,arial,freesans,clean,sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    height: 24px;
+    line-height: 24px;
+    padding: 0px 10px;
+    position: relative;
+    text-shadow: 0 1px 0 #FFFFFF;
+    white-space: nowrap;
+}
+
+button,
+input[type="button"].negative,
+input[type="reset"].negative,
+input[type="submit"].negative,
+.button.negative {
+    color: #990000;
+}
+
+button.negative:hover,
+input[type="button"].negative:hover,
+input[type="reset"].negative:hover,
+input[type="submit"].negative:hover,
+.button.negative:hover {
+    background-color: #B33630;
+    background-image: linear-gradient(#DC5F59, #B33630);
+    background-repeat: repeat-x;
+    border-color: #B54440;
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+
+button.positive,
+input[type="button"].positive,
+input[type="reset"].positive,
+input[type="submit"].positive,
+.button.positive {
+    color: #28881B;
+}
+
+button.positive:hover,
+input[type="button"].positive:hover,
+input[type="reset"].positive:hover,
+input[type="submit"].positive:hover,
+.button.positive:hover {
+    background-color: #28881B;
+    background-image: linear-gradient(#36B825, #28881B);
+    background-repeat: repeat-x;
+    border-color: #4A993E;
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+
+button.info,
+input[type="button"].info,
+input[type="reset"].info,
+input[type="submit"].info,
+.button.info {
+    background-color: #32687B;
+    background-image: linear-gradient(#448DA6, #32687B);
+    background-repeat: repeat-x;
+    border-color: #275666;
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+
+button.inversed,
+input[type="button"].inversed,
+input[type="reset"].inversed,
+input[type="submit"].inversed,
+.button.inversed {
+    background-color: #3F3F3F;
+    background-image: linear-gradient(#909090, #3F3F3F);
+    background-repeat: repeat-x;
+    border-style: none;
+    color: #FFFFFF;
+    text-shadow: -1px -1px 0 #333333;
+}
+
+button.mini,
+input[type="button"].mini,
+input[type="reset"].mini,
+input[type="submit"].mini,
+.button.mini {
+    font-size: 11px;
+    height: 23px;
+    line-height: 23px;
+}

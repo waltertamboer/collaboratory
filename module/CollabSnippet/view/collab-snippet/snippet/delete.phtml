@@ -19,8 +19,8 @@
         </p>
 
         <?php echo $this->form()->openTag($form); ?>
-        <?php echo $this->formSubmit($form->get('yes')->setAttribute('class', 'button positive')); ?>
-        <a href="<?php echo $this->url('snippet/overview'); ?>">No</a>
+        <?php echo $this->formSubmit($form->get('yes')->setAttribute('class', 'button negative')); ?>
+        <a href="<?php echo $this->url('snippet/overview'); ?>" class="button">No</a>
         <?php echo $this->form()->closeTag(); ?>
     </div>
 </div>

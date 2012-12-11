@@ -33,86 +33,9 @@ input {
     transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
 }
 
-button,
 label,
 select,
-input[type="button"],
 input[type="checkbox"],
-input[type="radio"],
-input[type="reset"],
-input[type="submit"] {
+input[type="radio"] {
     cursor: pointer;
-}
-
-a.button {
-    background-color: #EAEAEA;
-    background-image: linear-gradient(#FAFAFA, #EAEAEA);
-    background-repeat: repeat-x;
-    border-radius: 3px 3px 3px 3px;
-    color: #333;
-    cursor: pointer;
-    display: inline-block;
-    font-family: Helvetica,arial,freesans,clean,sans-serif;
-    font-size: 13px;
-    font-weight: bold;
-    line-height: 24px;
-    padding: 0 10px;
-    position: relative;
-    white-space: nowrap;
-
-    border-color: #D4D4D4 #D4D4D4 #BCBCBC;
-    border-image: none;
-    border-style: solid;
-    border-width: 1px;
-    text-shadow: 0 1px 0 #FFFFFF;
-}
-
-a.button.negative {
-    color: #990000;
-}
-
-a.button.negative:hover {
-    background-color: #B33630;
-    background-image: linear-gradient(#DC5F59, #B33630);
-    background-repeat: repeat-x;
-    border-color: #B54440;
-    color: #FFFFFF;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
-}
-
-a.button.positive {
-    color: #28881B;
-}
-
-a.button.positive:hover {
-    background-color: #28881B;
-    background-image: linear-gradient(#36B825, #28881B);
-    background-repeat: repeat-x;
-    border-color: #4A993E;
-    color: #FFFFFF;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
-}
-
-a.button.info {
-    background-color: #32687B;
-    background-image: linear-gradient(#448DA6, #32687B);
-    background-repeat: repeat-x;
-    border-color: #275666;
-    color: #FFFFFF;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
-}
-
-a.button.inversed {
-    background-color: #3F3F3F;
-    background-image: linear-gradient(#909090, #3F3F3F);
-    background-repeat: repeat-x;
-    border-style: none;
-    color: #FFFFFF;
-    text-shadow: -1px -1px 0 #333333;
-}
-
-a.button.mini {
-    font-size: 11px;
-    height: 23px;
-    line-height: 23px;
 }
