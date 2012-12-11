@@ -150,13 +150,12 @@ return array(
                     ),
                 ),
             ),
-            'user' => array(
+            'settings' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route' => '/user',
+                    'route' => '/settings',
                     'defaults' => array(
                         'controller' => 'CollabUser\Controller\UserController',
-                        'action' => 'profile',
                     ),
                 ),
                 'may_terminate' => false,
