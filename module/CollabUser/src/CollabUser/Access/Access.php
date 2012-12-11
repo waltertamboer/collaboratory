@@ -11,11 +11,11 @@
 namespace CollabUser\Access;
 
 use CollabUser\Entity\User;
-use Zend\Permissions\Rbac\Rbac;
+use Zend\Permissions\Acl\Acl;
 
 class Access
 {
-    private $rbac;
+    private $acl;
     private $loaded;
     private $user;
 
@@ -25,24 +25,28 @@ class Access
         $this->user = $user;
     }
 
-    public function getRbac()
+    public function getAcl()
     {
-        return $this->rbac;
+        return $this->acl;
     }
 
     private function load()
     {
         if (!$this->loaded) {
             $this->loaded = true;
-            $this->rbac = new Rbac();
+            $this->acl = new Acl();
 
             // Get the teams for the current user:
             foreach ($this->user->getTeams() as $team) {
                 $role = new Role($team->getName(), $team->isRoot());
+                $this->acl->addRole($role);
+
                 foreach ($team->getPermissions() as $permission) {
-                    $role->addPermission($permission->getName());
+                    if (!$this->acl->hasResource($permission->getName())) {
+                        $this->acl->addResource($permission->getName());
+                    }
+                    $this->acl->allow($role, $permission->getName());
                 }
-                $this->rbac->addRole($role);
             }
         }
     }
@@ -50,8 +54,15 @@ class Access
     public function isRoot()
     {
         $this->load();
-        
-        foreach ($this->rbac as $role) {
+
+//        foreach ($this->acl as $role) {
+//            if ($role->isRoot()) {
+//                return true;
+//            }
+//        }
+
+        foreach ($this->acl->getRoles() as $roleName) {
+            $role = $this->acl->getRole($roleName);
             if ($role->isRoot()) {
                 return true;
             }
@@ -63,9 +74,16 @@ class Access
     {
         $this->load();
 
+        if ($this->isRoot()) {
+            return true;
+        }
+
         // When the user is part of a root team, access is granted:
-        foreach ($this->rbac as $role) {
-            if ($role->isRoot() || $this->rbac->isGranted($role, $permission, $assert)) {
+        //foreach ($this->acl as $role) {
+        foreach ($this->acl->getRoles() as $roleName) {
+            $role = $this->acl->getRole($roleName);
+            //if ($role->isRoot() || $this->acl->isGranted($role, $permission, $assert)) {
+            if ($role->isRoot() || $this->acl->isAllowed($role, $permission)) {
                 return true;
             }
         }

@@ -10,9 +10,9 @@
 
 namespace CollabUser\Access;
 
-use Zend\Permissions\Rbac\Role as AbstractRole;
+use Zend\Permissions\Acl\Role\GenericRole;
 
-class Role extends AbstractRole
+class Role extends GenericRole
 {
     private $root;
 
