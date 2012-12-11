@@ -37,9 +37,9 @@
         </div>
     <?php } else { ?>
         <div class="span12 page-content">
-            <div class="alert info">
+            <div class="alert">
                 <strong>Oh oh</strong>
-                <p>There are no snippets yet, would you like to create one?</p>
+                <p>There are no snippets yet, would you like to <a href="<?php echo $this->url('snippet/create'); ?>">create one</a>?</p>
             </div>
         </div>
     <?php } ?>
