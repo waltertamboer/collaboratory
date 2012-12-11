@@ -1,3 +1,20 @@
 <?php $this->headTitle('Calendar'); ?>
 
-<?php echo $this->calendar(); ?>
+
+
+<div class="grid12 page-header">
+    <div class="span6">
+        <h1>Calendar</h1>
+    </div>
+
+    <nav class="span12 navbar">
+        <?php echo $this->collabMenu('main'); ?>
+    </nav>
+
+    <div class="span12 page-content">
+        <?php echo $this->calendar(array(
+            'year' => date('Y'),
+            'month' => date('n'),
+        )); ?>
+    </div>
+</div>

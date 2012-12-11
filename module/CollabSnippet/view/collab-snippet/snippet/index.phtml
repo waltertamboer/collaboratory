@@ -13,32 +13,34 @@
         <?php echo $this->collabMenu('main'); ?>
     </nav>
 
-<?php if (count($snippets)) { ?>
-    <ul>
-        <?php foreach ($snippets as $snippet) { ?>
-            <li>
-                <h3><a href="<?php
-        echo $this->url('snippet/update', array(
-            'id' => $snippet->getId()
-        ));
-        ?>"><?php echo $snippet->getName(); ?></a></h3>
-                <p><?php echo $snippet->getDescription(); ?></p>
-                <ul>
-                    <li><a href="<?php
-        echo $this->url('snippet/delete', array(
-            'id' => $snippet->getId()
-        ));
-            ?>">Remove</a></li>
-                </ul>
-            </li>
-    <?php } ?>
-    </ul>
-<?php } else { ?>
-    <div class="span12">
-        <div class="alert info">
-            <strong>Oh oh</strong>
-            <p>There are no snippets yet, would you like to create one?</p>
+    <?php if (count($snippets)) { ?>
+        <div class="span12 page-content">
+            <ul>
+                <?php foreach ($snippets as $snippet) { ?>
+                    <li>
+                        <h3><a href="<?php
+            echo $this->url('snippet/update', array(
+                'id' => $snippet->getId()
+            ));
+                    ?>"><?php echo $snippet->getName(); ?></a></h3>
+                        <p><?php echo $snippet->getDescription(); ?></p>
+                        <ul>
+                            <li><a href="<?php
+                       echo $this->url('snippet/delete', array(
+                           'id' => $snippet->getId()
+                       ));
+                    ?>">Remove</a></li>
+                        </ul>
+                    </li>
+                <?php } ?>
+            </ul>
         </div>
-    </div>
-<?php } ?>
+    <?php } else { ?>
+        <div class="span12 page-content">
+            <div class="alert info">
+                <strong>Oh oh</strong>
+                <p>There are no snippets yet, would you like to create one?</p>
+            </div>
+        </div>
+    <?php } ?>
 </div>

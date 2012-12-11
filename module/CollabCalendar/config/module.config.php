@@ -11,6 +11,18 @@
 namespace CollabCalendar;
 
 return array(
+    'asset_manager' => array(
+        'resolver_configs' => array(
+            'collections' => array(
+                'css/screen.css' => array(
+                    __NAMESPACE__ . '/sass/calendar.scss',
+                ),
+            ),
+            'map' => array(
+                __NAMESPACE__ . '/sass/calendar.scss' => __DIR__ . '/../public/sass/calendar.scss',
+            ),
+        ),
+    ),
     'controllers' => array(
         'invokables' => array(
             'CollabCalendar\Controller\CalendarController' => 'CollabCalendar\Controller\CalendarController',
