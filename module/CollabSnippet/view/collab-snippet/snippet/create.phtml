@@ -5,11 +5,81 @@ $this->headTitle('Create Snippet');
 $form = $this->form;
 $form->prepare();
 
-echo $this->form()->openTag($form);
-echo $this->formRow($form->get('name'));
-echo $this->formRow($form->get('description'));
-echo $this->formRow($form->get('syntax'));
-echo $this->formRow($form->get('content'));
-echo $this->formSubmit($form->get('save'));
-echo '<a href="' . $this->url('snippet/overview') . '">Cancel</a>';
-echo $this->form()->closeTag();
+?>
+
+<div class="grid12 page-header">
+    <div class="span6">
+        <h1>New Snippet</h1>
+    </div>
+
+    <div class="span6">
+        <a href="<?php echo $this->url('snippet/create'); ?>" class="button mini pull-right">New Snippet</a>
+    </div>
+
+    <nav class="span12 navbar">
+        <?php echo $this->collabMenu('main'); ?>
+    </nav>
+
+    <div class="span12 page-content">
+        <?php echo $this->form()->openTag($form->setAttribute('class', 'horizontal')); ?>
+            <div class="control-group">
+                <?php echo $this->formLabel($form->get('name')->setLabelAttributes(array(
+                    'class' => 'control-label'
+                ))); ?>
+                <div class="controls">
+                    <?php
+                        echo $this->formText($form->get('name'));
+                        echo $this->formElementErrors($form->get('name'), array(
+                            'class' => 'error'
+                        ));
+                    ?>
+                </div>
+            </div>
+            <div class="control-group">
+                <?php echo $this->formLabel($form->get('description')->setLabelAttributes(array(
+                    'class' => 'control-label'
+                ))); ?>
+                <div class="controls">
+                    <?php
+                        echo $this->formTextarea($form->get('description'));
+                        echo $this->formElementErrors($form->get('description'), array(
+                            'class' => 'error'
+                        ));
+                    ?>
+                </div>
+            </div>
+            <div class="control-group">
+                <?php echo $this->formLabel($form->get('syntax')->setLabelAttributes(array(
+                    'class' => 'control-label'
+                ))); ?>
+                <div class="controls">
+                    <?php
+                        echo $this->formText($form->get('syntax'));
+                        echo $this->formElementErrors($form->get('syntax'), array(
+                            'class' => 'error'
+                        ));
+                    ?>
+                </div>
+            </div>
+            <div class="control-group">
+                <?php echo $this->formLabel($form->get('content')->setLabelAttributes(array(
+                    'class' => 'control-label'
+                ))); ?>
+                <div class="controls">
+                    <?php
+                        echo $this->formTextarea($form->get('content'));
+                        echo $this->formElementErrors($form->get('content'), array(
+                            'class' => 'error'
+                        ));
+                    ?>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <?php echo $this->formSubmit($form->get('save')); ?>
+                    <a href="<?php echo $this->url('snippet/overview'); ?>">Cancel</a>
+                </div>
+            </div>
+        <?php echo $this->form()->closeTag(); ?>
+    </div>
+</div>
