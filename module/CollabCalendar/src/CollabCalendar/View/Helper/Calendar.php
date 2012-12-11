@@ -27,12 +27,12 @@ class Calendar extends AbstractHelper
         $nextMonth = clone $today;
         $nextMonth->modify('+1 month');
 
-        $totalDays = $today->format('t');
-        $totalRows = ceil($totalDays / 7);
-
         $firstDay = clone $today;
         $firstDay->modify('first day of this month');
         $startIndex = $firstDay->format('N') - 1;
+
+        $totalDays = $today->format('t');
+        $totalRows = ceil(($totalDays + $startIndex) / 7);
 
         echo '<h2>' . $today->format('F Y') . '</h2>';
 

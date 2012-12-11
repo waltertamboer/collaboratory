@@ -22,8 +22,9 @@
     line-height: 70px;
 }
 
-.calendar.month td.previous {
-    color: #DEDEDE;
+.calendar.month td.previous,
+.calendar.month td.next {
+    color: #BBB;
 }
 
 .calendar.month td.today {
