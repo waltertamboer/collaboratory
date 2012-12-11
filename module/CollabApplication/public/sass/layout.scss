@@ -1,5 +1,6 @@
 a {
-    color: #333;
+    color: #4183C4;
+    text-decoration: none;
 }
 
 body {
@@ -20,6 +21,10 @@ header {
 
 header h1 {
     margin: 0px;
+}
+
+header a {
+    color: #333;
 }
 
 header h1 a {
@@ -70,4 +75,94 @@ h2 {
 
 .page-content {
     margin-top: 10px;
+}
+
+.data-list {
+    border-top: 1px solid #DDD;
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.data-list > li {
+    border-bottom: 1px solid #DDDDDD;
+    list-style-type: none;
+    padding: 8px 0;
+    position: relative;
+}
+
+.data-list .title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.data-list .description {
+    color: #999999;
+    font-size: 12px;
+}
+
+.data-list .actions {
+    margin: -12px 0 0;
+    position: absolute;
+    right: 0;
+    top: 50%;
+}
+
+.data-list .actions li {
+    display: inline-block;
+    margin: 0 0 0 5px;
+}
+
+.news {
+    border-bottom: 1px solid #F1F1F1;
+    overflow: hidden;
+    margin-bottom: 15px;
+    padding: 0px 0px 15px 0px;
+    position: relative;
+}
+
+.news time {
+    color: #BBBBBB;
+    font-size: 12px;
+}
+
+.news .title {
+    font-size: 13px;
+    font-weight: bold;
+    margin-top: 3px;
+}
+
+.news .title time {
+    font-weight: normal;
+}
+
+.news .title span {
+    background: -moz-linear-gradient(#E1E1E1, #D5D2D2) repeat scroll 0 0 transparent;
+    border-radius: 4px;
+    color: #FFF;
+    font-size: 11px;
+    font-weight: normal;
+    padding: 3px 5px;
+}
+
+.news.created .title span {
+    background: -moz-linear-gradient(#8ADD6D, #60B044) repeat scroll 0 0 transparent;
+}
+
+.news.deleted .title span {
+    background: -moz-linear-gradient(#DC5F59, #B33630) repeat scroll 0 0 transparent;
+}
+
+.news .commits {
+    margin-top: 5px;
+}
+
+.news .message {
+    color: #666666;
+    display: inline-block;
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: top;
+    white-space: nowrap;
 }

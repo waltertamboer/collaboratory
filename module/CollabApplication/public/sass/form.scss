@@ -44,25 +44,34 @@ input[type="submit"] {
     cursor: pointer;
 }
 
-a.button.mini {
+a.button {
     background-color: #EAEAEA;
     background-image: linear-gradient(#FAFAFA, #EAEAEA);
     background-repeat: repeat-x;
+    border-radius: 3px 3px 3px 3px;
+    color: #333;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Helvetica,arial,freesans,clean,sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 24px;
+    padding: 0 10px;
+    position: relative;
+    white-space: nowrap;
+
     border-color: #D4D4D4 #D4D4D4 #BCBCBC;
     border-image: none;
     border-style: solid;
     border-width: 1px;
-    border-radius: 3px 3px 3px 3px;
-    font-size: 11px;
-    font-weight: bold;
-    height: 21px;
-    line-height: 21px;
-    padding: 0 10px;
-    color: #333333;
     text-shadow: 0 1px 0 #FFFFFF;
 }
 
 a.button.negative {
+    color: #990000;
+}
+
+a.button.negative:hover {
     background-color: #B33630;
     background-image: linear-gradient(#DC5F59, #B33630);
     background-repeat: repeat-x;
@@ -99,6 +108,7 @@ a.button.inversed {
 }
 
 a.button.mini {
+    font-size: 11px;
     height: 23px;
     line-height: 23px;
 }

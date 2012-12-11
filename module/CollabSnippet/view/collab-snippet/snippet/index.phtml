@@ -15,21 +15,21 @@
 
     <?php if (count($snippets)) { ?>
         <div class="span12 page-content">
-            <ul>
+            <ul class="data-list">
                 <?php foreach ($snippets as $snippet) { ?>
                     <li>
-                        <h3><a href="<?php
-            echo $this->url('snippet/update', array(
-                'id' => $snippet->getId()
-            ));
-                    ?>"><?php echo $snippet->getName(); ?></a></h3>
-                        <p><?php echo $snippet->getDescription(); ?></p>
-                        <ul>
+                        <h3 class="title"><a href="<?php
+                            echo $this->url('snippet/update', array(
+                                'id' => $snippet->getId()
+                            ));
+                        ?>"><?php echo $snippet->getName(); ?></a></h3>
+                        <p class="description"><?php echo $snippet->getDescription(); ?></p>
+                        <ul class="actions">
                             <li><a href="<?php
-                       echo $this->url('snippet/delete', array(
-                           'id' => $snippet->getId()
-                       ));
-                    ?>">Remove</a></li>
+                                echo $this->url('snippet/delete', array(
+                                    'id' => $snippet->getId()
+                                ));
+                             ?>" class="button negative">Remove</a></li>
                         </ul>
                     </li>
                 <?php } ?>

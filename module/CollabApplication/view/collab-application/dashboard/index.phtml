@@ -11,9 +11,11 @@
 </div>
 
 <div class="grid12 page-content">
-    <div class="span6">
+    <div class="span12">
         <?php foreach ($this->applicationEvents as $event) { ?>
-            <?php echo $this->renderApplicationEvent($event); ?>
+            <div class="news">
+                <?php echo $this->renderApplicationEvent($event); ?>
+            </div>
         <?php } ?>
     </div>
 </div>

@@ -17,11 +17,11 @@ class RenderApplicationEvent extends AbstractHelper
 {
     public function __invoke(ApplicationEvent $event)
     {
-        return '<div class="media">
+        return '<div class="avatar">
             <a href="">
                 <img src="" alt="" class="object" />
             </a>
-            <div class="media-body">
+            <div class="message">
                 ' . $event->getCreationDate()->format('d-m-Y, H:i:s')
                 . ' - ' . $event->getType()
                 . ' - ' . print_r($event->getParameters(), true) . '
