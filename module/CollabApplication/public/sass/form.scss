@@ -81,6 +81,10 @@ a.button.negative:hover {
 }
 
 a.button.positive {
+    color: #28881B;
+}
+
+a.button.positive:hover {
     background-color: #28881B;
     background-image: linear-gradient(#36B825, #28881B);
     background-repeat: repeat-x;
