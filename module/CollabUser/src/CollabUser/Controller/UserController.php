@@ -11,6 +11,7 @@
 namespace CollabUser\Controller;
 
 use CollabUser\Form\LoginForm;
+use CollabUser\Form\RequestPasswordForm;
 use CollabUser\Form\ProfileForm;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -76,5 +77,22 @@ class UserController extends AbstractActionController
         $this->userAuthentication()->logout();
 
         return array();
+    }
+
+    public function requestPasswordAction()
+    {
+        $form = new RequestPasswordForm();
+
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $form->setData($request->getPost());
+
+            if ($form->isValid()) {
+            }
+        }
+        
+        $viewModel = new ViewModel();
+        $viewModel->setVariable('form', $form);
+        return $viewModel;
     }
 }
