@@ -88,9 +88,10 @@ class UserController extends AbstractActionController
             $form->setData($request->getPost());
 
             if ($form->isValid()) {
+                return $this->redirect()->toRoute('user/login');
             }
         }
-        
+
         $viewModel = new ViewModel();
         $viewModel->setVariable('form', $form);
         return $viewModel;

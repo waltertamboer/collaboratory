@@ -11,7 +11,10 @@
                 'class' => 'control-label'
             ))); ?>
             <div class="controls">
-                <?php echo $this->formText($form->get('identity')); ?>
+                <?php
+                echo $this->formText($form->get('identity'));
+                echo $this->formElementErrors($form->get('identity'));
+                ?>
             </div>
         </div>
         <div class="control-group">
@@ -19,7 +22,10 @@
                 'class' => 'control-label'
             ))); ?>
             <div class="controls">
-                <?php echo $this->formPassword($form->get('credential')); ?>
+                <?php
+                echo $this->formPassword($form->get('credential'));
+                echo $this->formElementErrors($form->get('credential'));
+                ?>
             </div>
         </div>
         <div class="control-group">
