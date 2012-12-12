@@ -1,12 +1,31 @@
 <?php $this->headTitle('Delete User'); ?>
 
-<p>
-    Are you sure you want to delete the user "<?php echo $this->userDisplayName($this->user); ?>"?
-</p>
+<div class="grid12 page-header">
+    <div class="span6">
+        <h1>Delete Account</h1>
+    </div>
 
-<?php
+    <div class="span6">
+        <?php if ($this->userAccess('user_create')) { ?>
+            <a href="<?php echo $this->url('account/create'); ?>" class="button mini pull-right">New Account</a>
+        <?php } ?>
+    </div>
 
-echo $this->form()->openTag($form);
-echo $this->formSubmit($form->get('yes')->setAttribute('class', 'btn btn-danger'));
-echo '<a href="' . $this->url('account/overview') . '">Cancel</a>';
-echo $this->form()->closeTag();
+    <nav class="span12 navbar">
+        <?php echo $this->collabMenu('main'); ?>
+    </nav>
+</div>
+
+<div class="grid12 page-content">
+    <div class="span12">
+        <p>
+            Are you sure you want to delete the user "<?php echo $this->userDisplayName($this->user); ?>"?
+        </p>
+
+        <?php echo $this->form()->openTag($form);
+        echo $this->formSubmit($form->get('yes')->setAttribute('class', 'button negative'));
+        echo '<a href="' . $this->url('account/overview') . '" class="button">Cancel</a>';
+        echo $this->form()->closeTag();
+        ?>
+    </div>
+</div>
