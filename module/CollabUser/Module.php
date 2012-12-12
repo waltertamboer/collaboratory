@@ -149,7 +149,7 @@ class Module
             if ($menuName == 'account') {
                 $menu->insert(110, new MenuItem(110, $renderer->userAvatar(), $renderer->url('settings/profile')));
                 $menu->insert(120, new MenuItem(120, 'Settings', $renderer->url('settings/profile')));
-                $menu->insert(130, new MenuItem(130, 'Logout', $renderer->url('settings/logout')));
+                $menu->insert(130, new MenuItem(130, 'Logout', $renderer->url('user/logout')));
             } elseif ($menuName == 'main') {
                 $menu->insert(100, new MenuItem(100, 'Accounts', $renderer->url('account/overview')));
             }
