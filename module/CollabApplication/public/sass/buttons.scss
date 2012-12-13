@@ -25,6 +25,19 @@ input[type="submit"],
     white-space: nowrap;
 }
 
+button:hover,
+input[type="button"]:hover,
+input[type="reset"]:hover,
+input[type="submit"]:hover,
+.button:hover {
+    background-color: #D8EAF2;
+    background-image: linear-gradient(#F0F7FA, #D8EAF2);
+    background-repeat: repeat-x;
+    border-color: #CBE3EE #CBE3EE #97C7DD;
+    color: #337797;
+    text-decoration: none;
+}
+
 button,
 input[type="button"].negative,
 input[type="reset"].negative,
