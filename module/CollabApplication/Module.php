@@ -50,6 +50,9 @@ class Module
                     $layoutManager = $sm->getServiceLocator()->get('CollabApplication\Layout\LayoutManager');
                     return new View\Helper\CollabMenu($layoutManager);
                 },
+                'formAutocomplete' => function ($sm) {
+                    return new Form\View\Helper\FormAutocomplete();
+                },
             ),
         );
     }

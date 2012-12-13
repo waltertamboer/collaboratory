@@ -54,16 +54,14 @@ $teamFieldset = $form->get('team');
         </div>
     </div>
 
-    <hr />
-
     <div class="control-group">
         <div class="controls">
-            <?php
-            echo $this->formCollection($teamFieldset->get('members'));
-            echo $this->formElementErrors($teamFieldset->get('members'), array(
-                'class' => 'error'
-            ));
-            ?>
+			<?php
+			echo $this->formAutocomplete($teamFieldset->get('members'));
+			echo $this->formElementErrors($teamFieldset->get('members'), array(
+				'class' => 'error'
+			));
+			?>
         </div>
     </div>
 
@@ -71,15 +69,13 @@ $teamFieldset = $form->get('team');
     <div class="control-group">
         <div class="controls">
             <?php
-            echo $this->formCollection($teamFieldset->get('projects'));
+            echo $this->formAutocomplete($teamFieldset->get('projects'));
             echo $this->formElementErrors($teamFieldset->get('projects'), array(
                 'class' => 'error'
             ));
             ?>
         </div>
     </div>
-
-    <hr />
 
     <div class="control-group">
         <div class="controls">
@@ -92,8 +88,6 @@ $teamFieldset = $form->get('team');
         </div>
     </div>
     <?php } ?>
-
-    <hr />
 
     <div class="control-group">
         <div class="controls">

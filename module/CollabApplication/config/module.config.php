@@ -17,6 +17,7 @@ return array(
                 'css/screen.css' => array(
                     __NAMESPACE__ . '/sass/reset.scss',
                     __NAMESPACE__ . '/sass/alerts.scss',
+                    __NAMESPACE__ . '/sass/autocomplete.scss',
                     __NAMESPACE__ . '/sass/boxed-groups.scss',
                     __NAMESPACE__ . '/sass/grid.scss',
                     __NAMESPACE__ . '/sass/buttons.scss',
@@ -31,6 +32,7 @@ return array(
                 'js/jquery-1.8.3.min.js' => __DIR__ . '/../public/js/jquery-1.8.3.min.js',
                 __NAMESPACE__ . '/sass/reset.scss' => __DIR__ . '/../public/sass/reset.scss',
                 __NAMESPACE__ . '/sass/alerts.scss' => __DIR__ . '/../public/sass/alerts.scss',
+                __NAMESPACE__ . '/sass/autocomplete.scss' => __DIR__ . '/../public/sass/autocomplete.scss',
                 __NAMESPACE__ . '/sass/boxed-groups.scss' => __DIR__ . '/../public/sass/boxed-groups.scss',
                 __NAMESPACE__ . '/sass/grid.scss' => __DIR__ . '/../public/sass/grid.scss',
                 __NAMESPACE__ . '/sass/buttons.scss' => __DIR__ . '/../public/sass/buttons.scss',
