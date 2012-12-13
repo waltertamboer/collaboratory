@@ -86,8 +86,7 @@ class TeamController extends AbstractActionController
         $form = new TeamForm($this->getUserService(),
             $this->getPermissionsService(), $this->getProjectService());
 
-        $teamFieldset = $form->get('team');
-        $permissions = $teamFieldset->get('permissions')->getProxy();
+        $permissions = $form->get('permissions')->getProxy();
         $permissions->setObjectManager($this->getServiceLocator()->get('doctrine.entitymanager.orm_default'));
         $permissions->setTargetClass('CollabUser\Entity\Permission');
         $permissions->setProperty('name');
@@ -148,8 +147,7 @@ class TeamController extends AbstractActionController
         $form = new TeamForm($this->getUserService(),
             $this->getPermissionsService(), $this->getProjectService());
 
-        $teamFieldset = $form->get('team');
-        $permissions = $teamFieldset->get('permissions')->getProxy();
+        $permissions = $form->get('permissions')->getProxy();
         $permissions->setObjectManager($this->getServiceLocator()->get('doctrine.entitymanager.orm_default'));
         $permissions->setTargetClass('CollabUser\Entity\Permission');
         $permissions->setProperty('name');

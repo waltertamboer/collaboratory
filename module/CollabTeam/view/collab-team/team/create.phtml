@@ -5,7 +5,6 @@ $this->headScript()->appendFile($this->basePath() . '/js/team.js');
 $form = $this->form;
 $form->prepare();
 
-$teamFieldset = $form->get('team');
 ?>
 
 <div class="grid12 page-header">
@@ -29,26 +28,26 @@ $teamFieldset = $form->get('team');
         'class' => 'horizontal',
     ))); ?>
         <div class="control-group">
-            <?php echo $this->formLabel($teamFieldset->get('name')->setLabelAttributes(array(
+            <?php echo $this->formLabel($form->get('name')->setLabelAttributes(array(
                 'class' => 'control-label'
             ))); ?>
             <div class="controls">
                 <?php
-                echo $this->formText($teamFieldset->get('name'));
-                echo $this->formElementErrors($teamFieldset->get('name'), array(
+                echo $this->formText($form->get('name'));
+                echo $this->formElementErrors($form->get('name'), array(
                     'class' => 'error'
                 ));
                 ?>
             </div>
         </div>
         <div class="control-group">
-            <?php echo $this->formLabel($teamFieldset->get('description')->setLabelAttributes(array(
+            <?php echo $this->formLabel($form->get('description')->setLabelAttributes(array(
                 'class' => 'control-label'
             ))); ?>
             <div class="controls">
                 <?php
-                echo $this->formTextarea($teamFieldset->get('description'));
-                echo $this->formElementErrors($teamFieldset->get('description'), array(
+                echo $this->formTextarea($form->get('description'));
+                echo $this->formElementErrors($form->get('description'), array(
                     'class' => 'error'
                 ));
                 ?>
@@ -60,8 +59,8 @@ $teamFieldset = $form->get('team');
         <div class="control-group">
             <div class="controls">
                 <?php
-                echo $this->formCollection($teamFieldset->get('members'));
-                echo $this->formElementErrors($teamFieldset->get('members'), array(
+                echo $this->formCollection($form->get('members'));
+                echo $this->formElementErrors($form->get('members'), array(
                     'class' => 'error'
                 ));
                 ?>
@@ -71,8 +70,8 @@ $teamFieldset = $form->get('team');
         <div class="control-group">
             <div class="controls">
                 <?php
-                echo $this->formCollection($teamFieldset->get('projects'));
-                echo $this->formElementErrors($teamFieldset->get('projects'), array(
+                echo $this->formCollection($form->get('projects'));
+                echo $this->formElementErrors($form->get('projects'), array(
                     'class' => 'error'
                 ));
                 ?>
@@ -84,8 +83,8 @@ $teamFieldset = $form->get('team');
         <div class="control-group">
             <div class="controls">
                 <?php
-                echo $this->formMultiCheckbox($teamFieldset->get('permissions'));
-                echo $this->formElementErrors($teamFieldset->get('permissions'), array(
+                echo $this->formMultiCheckbox($form->get('permissions'));
+                echo $this->formElementErrors($form->get('permissions'), array(
                     'class' => 'error'
                 ));
                 ?>
@@ -96,7 +95,7 @@ $teamFieldset = $form->get('team');
 
         <div class="control-group">
             <div class="controls">
-                <?php echo $this->formSubmit($teamFieldset->get('save')); ?>
+                <?php echo $this->formSubmit($form->get('save')); ?>
                 <a href="<?php echo $this->url('team/overview'); ?>">Cancel</a>
             </div>
         </div>
