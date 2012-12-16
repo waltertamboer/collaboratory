@@ -58,11 +58,8 @@ class Module
     public function getViewHelperConfig()
     {
         return array(
-            'factories' => array(
-                'collabRepoAddress' => function ($sm) {
-                    $config = $sm->getServiceLocator()->get('ApplicationConfig');
-                    return new View\Helper\Address($config['collaboratory']);
-                },
+            'invokables' => array(
+                'collabRepoAddress' => 'CollabScm\View\Helper\Address',
             ),
         );
     }

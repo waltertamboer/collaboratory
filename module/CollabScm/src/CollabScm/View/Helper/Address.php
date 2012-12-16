@@ -14,13 +14,6 @@ use Zend\View\Helper\AbstractHelper;
 
 class Address extends AbstractHelper
 {
-    private $config;
-
-    public function __construct($config)
-    {
-        $this->config = $config;
-    }
-
     public function __invoke($repository)
     {
         $result = '';
@@ -28,9 +21,8 @@ class Address extends AbstractHelper
         if ($repository->getType() == 'svn') {
             $result = '';
         } else {
-            $result .= $this->config['gitUser'];
-            $result .= '@';
-            $result .= $this->config['hostname'];
+            $result .= 'git@';
+            $result .= $_SERVER['SERVER_ADDR'];
             $result .= ':/';
             $result .= strtolower(preg_replace('/[^a-z0-9-]+/i', '', $repository->getProject()->getName()));
             $result .= '/';
