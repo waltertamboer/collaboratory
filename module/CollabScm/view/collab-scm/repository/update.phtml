@@ -3,18 +3,88 @@ $this->headTitle('Update Repository');
 
 $form = $this->form;
 $form->prepare();
+?>
 
-echo '<h3>Update ' . $this->repository->getName() . '</h3>';
+<div class="grid12 page-header">
+    <div class="span6">
+        <h1><?php echo $this->project->getName(); ?> Repositories</h1>
+    </div>
 
-echo $this->form()->openTag($form);
-echo $this->formRow($form->get('type'));
-echo $this->formRow($form->get('name'));
-echo $this->formRow($form->get('description'));
-echo '<hr />';
-echo $this->formRow($form->get('teams'));
-echo '<hr />';
-echo $this->formSubmit($form->get('save'));
-echo '<a href="' . $this->url('project/view', array(
-    'id' => $this->repository->getProject()->getId(),
-)) . '">Cancel</a>';
-echo $this->form()->closeTag();
+    <div class="span6"></div>
+
+    <nav class="span12 navbar">
+        <?php echo $this->collabMenu('main'); ?>
+    </nav>
+</div>
+
+<div class="grid12 page-content">
+    <?php echo $this->form()->openTag($form->setAttribute('class', 'horizontal')); ?>
+        <div class="span12">
+            <div class="control-group">
+                <?php echo $this->formLabel($form->get('type')->setLabelAttributes(array(
+                    'class' => 'control-label'
+                ))); ?>
+                <div class="controls">
+                    <?php
+                        echo $this->formSelect($form->get('type'));
+                        echo $this->formElementErrors($form->get('type'), array(
+                            'class' => 'error'
+                        ));
+                    ?>
+                </div>
+            </div>
+            <div class="control-group">
+                <?php echo $this->formLabel($form->get('name')->setLabelAttributes(array(
+                    'class' => 'control-label'
+                ))); ?>
+                <div class="controls">
+                    <?php
+                        echo $this->formText($form->get('name'));
+                        echo $this->formElementErrors($form->get('name'), array(
+                            'class' => 'error'
+                        ));
+                    ?>
+                </div>
+            </div>
+            <div class="control-group">
+                <?php echo $this->formLabel($form->get('description')->setLabelAttributes(array(
+                    'class' => 'control-label'
+                ))); ?>
+                <div class="controls">
+                    <?php
+                        echo $this->formTextarea($form->get('description'));
+                        echo $this->formElementErrors($form->get('description'), array(
+                            'class' => 'error'
+                        ));
+                    ?>
+                </div>
+            </div>
+        </div>
+        <div class="span6">
+            <div class="control-group">
+                <div class="controls">
+                    <?php
+                    echo $this->formAutocomplete($form->get('teams'), array(
+                        'url' => $this->basePath() . '/api/rest/teams',
+                        'key' => 'id',
+                        'lbl' => 'displayName',
+                    ));
+                    echo $this->formElementErrors($form->get('teams'), array(
+                        'class' => 'error'
+                    ));
+                    ?>
+                </div>
+            </div>
+        </div>
+        <div class="span12">
+            <div class="control-group">
+                <div class="controls">
+                    <?php echo $this->formSubmit($form->get('save')); ?>
+                    <a href="<?php echo $this->url('project/view', array(
+                        'id' => $this->project->getId(),
+                    )); ?>">Cancel</a>
+                </div>
+            </div>
+        </div>
+    <?php echo $this->form()->closeTag(); ?>
+</div>

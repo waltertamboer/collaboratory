@@ -43,7 +43,7 @@ return array(
         ),
     ),
     'collaboratory' => array(
-        'hostname' => 'myhost',
-        'gitUser' => 'walter',
+        'hostname' => 'collaboratory-hostname',
+        'gitUser' => 'collaboratory-gituser',
     ),
 );

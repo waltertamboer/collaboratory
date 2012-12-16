@@ -1,30 +1,56 @@
 <?php $this->headTitle('Repository Tree'); ?>
 
-<h2>
-    <a href="<?php echo $this->url('project/view', array(
-        'id' => $this->repository->getProject()->getId(),
-    )); ?>"><?php echo $this->repository->getProject()->getName(); ?></a>
-    /
-    <a href="<?php echo $this->url('scm/view/tree', array(
-        'id' => $this->repository->getId(),
-        'branch' => 'master',
-    )); ?>"><?php echo $this->repository->getName(); ?></a>
-</h2>
+<div class="grid12 page-header">
+    <div class="span6">
+        <h1>
+            <a href="<?php echo $this->url('project/view', array(
+                'id' => $this->repository->getProject()->getId(),
+            )); ?>"><?php echo $this->repository->getProject()->getName(); ?></a>
+            /
+            <a href="<?php echo $this->url('scm/view/tree', array(
+                'id' => $this->repository->getId(),
+                'branch' => 'master',
+            )); ?>"><?php echo $this->repository->getName(); ?></a>
+        </h1>
+    </div>
 
-<ul>
-    <?php foreach ($this->repositoryTree as $entry) {
-        if ($entry['type'] == 'tree') {
-            echo '<li><a href="' . $this->url('scm/view/tree/path', array(
-                'id' => $this->repository->getId(),
-                'branch' => 'master',
-                'path' => $entry['path'],
-            )) . '">' . $entry['path'] . '</a></li>';
-        } else {
-            echo '<li><a href="' . $this->url('scm/view/blob/path', array(
-                'id' => $this->repository->getId(),
-                'branch' => 'master',
-                'path' => $entry['path'],
-            )) . '">' . $entry['path'] . '</a></li>';
-        }
-    } ?>
-</ul>
+    <div class="span6">
+        <div class="address pull-right">
+            <?php echo $this->collabRepoAddress($this->repository); ?>
+        </div>
+    </div>
+
+    <nav class="span12 navbar">
+        <?php echo $this->collabMenu('main'); ?>
+    </nav>
+</div>
+
+<div class="grid12 page-content">
+    <?php if (!$this->repositoryTree) { ?>
+        <div class="span12">
+            <div class="alert">
+                <p>Nothing to see here, move along.</p>
+            </div>
+        </div>
+    <?php } else { ?>
+        <div class="span12">
+            <ul>
+                <?php foreach ($this->repositoryTree as $entry) {
+                    if ($entry['type'] == 'tree') {
+                        echo '<li><a href="' . $this->url('scm/view/tree/path', array(
+                            'id' => $this->repository->getId(),
+                            'branch' => 'master',
+                            'path' => $entry['path'],
+                        )) . '">' . $entry['path'] . '</a></li>';
+                    } else {
+                        echo '<li><a href="' . $this->url('scm/view/blob/path', array(
+                            'id' => $this->repository->getId(),
+                            'branch' => 'master',
+                            'path' => $entry['path'],
+                        )) . '">' . $entry['path'] . '</a></li>';
+                    }
+                } ?>
+            </ul>
+        </div>
+    <?php } ?>
+</div>

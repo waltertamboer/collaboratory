@@ -22,46 +22,54 @@
 </div>
 
 <div class="grid12 page-content">
-    <div class="span8">
-        <h2>Issues</h2>
-        <?php if (!$this->issues) {
-            echo '<p>There are no issues for this project.</p>';
-        } ?>
-    </div>
-    <div class="span4">
-        <h2>Repositories</h2>
-        <?php
+    <?php if (!$this->repositories) { ?>
+        <div class="span12">
+            <h2>Repositories</h2>
 
-        echo '<ul>';
-        echo '<li><a href="' . $this->url('scm/create', array(
-            'project' => $this->project->getId()
-        )) . '">Create</a></li>';
-        echo '</ul>';
+            <div class="alert">
+                <strong>Oh oh</strong>
+                <p>There are no repositories yet, would you like to <a href="<?php echo $this->url('scm/create', array(
+                    'project' => $this->project->getId(),
+                )); ?>">create one</a>?</p>
+            </div>
+        </div>
+    <?php } else { ?>
+        <div class="span6">
+            <h2>Repositories</h2>
+        </div>
 
-        if (!$this->repositories) {
-            echo '<p>No repositories yet.</p>';
-        } else {
-            echo '<ul>';
-            foreach ($this->repositories as $repository) {
-                echo '<li>';
-                if ($repository->getType() == 'git') {
-                    echo '<h4><a href="' . $this->url('scm/view/tree', array('id' => $repository->getId())) . '">' . $repository->getName() . '</a></h4>';
-                } else {
-                    echo '<h4>' . $repository->getName() . '</h4>';
-                }
-                echo '<p>' . $repository->getDescription() . '</p>';
-                echo '<ul>';
-                if ($this->userAccess('repository_update')) {
-                    echo '<li><a href="' . $this->url('scm/update', array('id' => $repository->getId())) . '">Update</a></li>';
-                }
-                if ($this->userAccess('repository_delete')) {
-                    echo '<li><a href="' . $this->url('scm/delete', array('id' => $repository->getId())) . '">Remove</a></li>';
-                }
-                echo '</ul>';
-                echo '</li>';
-            }
-            echo '</ul>';
-        }
-        ?>
-    </div>
+        <div class="span6">
+            <div class="pull-right">
+                <a href="<?php echo $this->url('scm/create', array(
+                    'project' => $this->project->getId(),
+                )); ?>" class="button mini">Create</a>
+            </div>
+        </div>
+
+        <div class="span12">
+            <ul class="data-list">
+                <?php foreach ($this->repositories as $repository) { ?>
+                <li>
+                    <h2>
+                        <a href="<?php echo $this->url('scm/view/tree', array('id' => $repository->getId())); ?>">
+                            <?php echo $repository->getName(); ?>
+                        </a>
+                    </h2>
+
+                    <p><?php echo $repository->getDescription(); ?></p>
+
+                    <ul class="actions">
+                        <li><a href="<?php echo $this->url('scm/view/tree', array('id' => $repository->getId())); ?>" class="button">View</a></li>
+                        <?php if ($this->userAccess('repository_update')) { ?>
+                            <li><a href="<?php echo $this->url('scm/update', array('id' => $repository->getId())); ?>" class="button">Update</a></li>
+                        <?php } ?>
+                        <?php if ($this->userAccess('repository_delete')) { ?>
+                            <li><a href="<?php echo $this->url('scm/delete', array('id' => $repository->getId())); ?>" class="button negative">Remove</a></li>
+                        <?php } ?>
+                    </ul>
+                </li>
+                <?php } ?>
+            </ul>
+        </div>
+    <?php } ?>
 </div>

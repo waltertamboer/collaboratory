@@ -94,14 +94,16 @@ class RepositoryController extends AbstractActionController
 
                 // Create the teams manually:
                 $teamService = $this->getTeamService();
-                foreach ($request->getPost('teams') as $teamData) {
-                    if ($teamData['id']) {
-                        $repositoryTeam = new RepositoryTeam();
-                        $repositoryTeam->setRepository($repository);
-                        $repositoryTeam->setTeam($teamService->getById($teamData['id']));
-                        $repositoryTeam->setPermission($teamData['permission']);
+                if ($request->getPost('teams')) {
+                    foreach ((array)$request->getPost('teams') as $teamData) {
+                        if ($teamData['id']) {
+                            $repositoryTeam = new RepositoryTeam();
+                            $repositoryTeam->setRepository($repository);
+                            $repositoryTeam->setTeam($teamService->getById($teamData['id']));
+                            $repositoryTeam->setPermission($teamData['permission']);
 
-                        $this->getRepositoryTeamService()->persist($repositoryTeam);
+                            $this->getRepositoryTeamService()->persist($repositoryTeam);
+                        }
                     }
                 }
 
@@ -145,15 +147,17 @@ class RepositoryController extends AbstractActionController
 
                 // Create the teams manually:
                 $this->getRepositoryTeamService()->clearForRepository($repository);
-                $teamService = $this->getTeamService();
-                foreach ($request->getPost('teams') as $teamData) {
-                    if ($teamData['id']) {
-                        $repositoryTeam = new RepositoryTeam();
-                        $repositoryTeam->setRepository($repository);
-                        $repositoryTeam->setTeam($teamService->getById($teamData['id']));
-                        $repositoryTeam->setPermission($teamData['permission']);
+                if ($request->getPost('teams')) {
+                    $teamService = $this->getTeamService();
+                    foreach ((array)$request->getPost('teams') as $teamData) {
+                        if ($teamData['id']) {
+                            $repositoryTeam = new RepositoryTeam();
+                            $repositoryTeam->setRepository($repository);
+                            $repositoryTeam->setTeam($teamService->getById($teamData['id']));
+                            $repositoryTeam->setPermission($teamData['permission']);
 
-                        $this->getRepositoryTeamService()->persist($repositoryTeam);
+                            $this->getRepositoryTeamService()->persist($repositoryTeam);
+                        }
                     }
                 }
 
@@ -166,6 +170,7 @@ class RepositoryController extends AbstractActionController
         $viewModel = new ViewModel();
         $viewModel->setVariable('form', $form);
         $viewModel->setVariable('repository', $repository);
+        $viewModel->setVariable('project', $repository->getProject());
         return $viewModel;
     }
 

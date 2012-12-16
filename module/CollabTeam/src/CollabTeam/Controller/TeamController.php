@@ -139,7 +139,7 @@ class TeamController extends AbstractActionController
     public function deleteAction()
     {
         $team = $this->getTeamService()->getById($this->params('id'));
-        if (!$team) {
+        if (!$team || $team->isRoot()) {
             return $this->redirect()->toRoute('team/overview');
         }
 

@@ -1,10 +1,30 @@
 <?php $this->headTitle('Delete Team'); ?>
 
-<p>
-    Are you sure you want to delete the team "<?php echo $this->team->getName(); ?>"?
-</p>
+<div class="grid12 page-header">
+    <div class="span6">
+        <h1>Teams</h1>
+    </div>
 
-<?php echo $this->form()->openTag($form); ?>
-<?php echo $this->formSubmit($form->get('yes')); ?>
-<a href="<?php echo $this->url('team/overview'); ?>">no</a>
-<?php echo $this->form()->closeTag(); ?>
+    <div class="span6">
+        <?php if ($this->canCreateTeam()) { ?>
+            <a href="<?php echo $this->url('team/create'); ?>" class="button mini pull-right">New Team</a>
+        <?php } ?>
+    </div>
+
+    <nav class="span12 navbar">
+        <?php echo $this->collabMenu('main'); ?>
+    </nav>
+</div>
+
+<div class="grid12 page-content">
+    <div class="span12">
+        <p>
+            Are you sure you want to delete the team "<?php echo $this->team->getName(); ?>"?
+        </p>
+
+        <?php echo $this->form()->openTag($form); ?>
+        <?php echo $this->formSubmit($form->get('yes')->setAttribute('class', 'button negative')); ?>
+        <a href="<?php echo $this->url('team/overview'); ?>" class="button">No</a>
+        <?php echo $this->form()->closeTag(); ?>
+    </div>
+</div>
