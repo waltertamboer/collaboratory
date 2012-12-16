@@ -21,6 +21,7 @@ return array(
     ),
     'router' => array(
         'routes' => array(
+            'restapi' => include __DIR__ . '/routes.restapi.php',
             'project' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(

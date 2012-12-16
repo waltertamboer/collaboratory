@@ -84,7 +84,7 @@ class TeamController extends AbstractActionController
         }
 
         $form = new TeamForm($this->getUserService(),
-            $this->getPermissionsService(), $this->getProjectService());
+                $this->getPermissionsService(), $this->getProjectService());
 
         $permissions = $form->get('permissions')->getProxy();
         $permissions->setObjectManager($this->getServiceLocator()->get('doctrine.entitymanager.orm_default'));
@@ -131,21 +131,8 @@ class TeamController extends AbstractActionController
             return $this->redirect()->toRoute('team/overview');
         }
 
-        $request = $this->getRequest();
-        if ($request->isXmlHttpRequest()) {
-
-            // TODO: Create a nicer way to handle this, maybe with the event manager?
-            if ($request->getQuery('type') == 'user') {
-                $data = $this->getUserService()->findAjax($request->getQuery('query'));
-            } else {
-                $data = $this->getProjectService()->findAjax($request->getQuery('query'));
-            }
-
-            die(json_encode($data));
-        }
-
         $form = new TeamForm($this->getUserService(),
-            $this->getPermissionsService(), $this->getProjectService());
+                $this->getPermissionsService(), $this->getProjectService());
 
         $permissions = $form->get('permissions')->getProxy();
         $permissions->setObjectManager($this->getServiceLocator()->get('doctrine.entitymanager.orm_default'));
@@ -154,30 +141,22 @@ class TeamController extends AbstractActionController
 
         $form->bind($team);
 
-        $teamMembers = $team->getMembers();
-
+        $request = $this->getRequest();
         if ($request->isPost()) {
+            $team->clearMembers();
+            $team->clearProjects();
+
             $form->setData($request->getPost());
 
             if ($form->isValid()) {
                 $this->getTeamService()->persist($team);
                 return $this->redirect()->toRoute('team/overview');
             }
-
-            // Find the teams:
-            // TODO: Create a nicer way to handle this, maybe with the event manager?
-            $postData = $request->getPost('team');
-            $teamMembers = array();
-            foreach ($postData['members'] as $member) {
-                $teamMembers[] = $this->getUserService()->findById($member['id']);
-            }
         }
 
         $viewModel = new ViewModel();
         $viewModel->setVariable('form', $form);
         $viewModel->setVariable('team', $team);
-        $viewModel->setVariable('teamMembers', $teamMembers);
-        $viewModel->setVariable('teamProjects', $team->getProjects());
         $viewModel->setTerminal($request->isXmlHttpRequest());
         return $viewModel;
     }

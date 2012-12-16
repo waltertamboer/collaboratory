@@ -24,6 +24,7 @@ class Module
         return array(
             'invokables' => array(
                 'CollabProject\Controller\ProjectController' => 'CollabProject\Controller\ProjectController',
+                'CollabProject\Controller\RestController' => 'CollabProject\Controller\RestController',
             ),
         );
     }

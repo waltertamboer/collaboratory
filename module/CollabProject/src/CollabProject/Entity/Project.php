@@ -10,6 +10,8 @@
 
 namespace CollabProject\Entity;
 
+use CollabTeam\Entity\Team;
+
 class Project
 {
     private $id;
@@ -64,7 +66,7 @@ class Project
         return $this;
     }
 
-    public function addTeam($team)
+    public function addTeam(Team $team)
     {
         if (!$this->teams->contains($team)) {
             $this->teams->add($team);
@@ -84,6 +86,14 @@ class Project
             $this->teams->add($team);
         }
         return $this;
+    }
+
+    public function removeTeam(Team $team)
+    {
+        if ($this->teams->contains($team)) {
+            $this->teams->removeElement($team);
+            $team->removeProject($this);
+        }
     }
 
     public function getSnippets()

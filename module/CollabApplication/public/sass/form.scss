@@ -60,3 +60,16 @@ input[type="text"], input[type="password"], input[type="email"], textarea {
 input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, textarea:focus {
     border-color: #51A7E8;
 }
+
+.lbl-collection input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.lbl-collection label {
+    background-color: #F9F9F9;
+    border: 1px solid #DDD;
+    border-radius: 5px;
+    float: left;
+    margin: 0px 10px 10px 0px;
+    padding: 3px 5px;
+}

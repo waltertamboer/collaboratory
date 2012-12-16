@@ -50,7 +50,7 @@ class TeamForm extends Form implements InputFilterProviderInterface
         $members->setName('members');
         $members->setLabel('Members');
         $members->setAllowAdd(true);
-        $members->setShouldCreateTemplate(true);
+        $members->setShouldCreateTemplate(false);
         $members->setTargetElement(array(
             'type' => 'CollabTeam\Form\Fieldset\TeamMemberFieldset'
         ));
@@ -60,7 +60,7 @@ class TeamForm extends Form implements InputFilterProviderInterface
         $projects->setName('projects');
         $projects->setLabel('Projects');
         $projects->setAllowAdd(true);
-        $projects->setShouldCreateTemplate(true);
+        $projects->setShouldCreateTemplate(false);
         $projects->setTargetElement(array(
             'type' => 'CollabTeam\Form\Fieldset\TeamProjectFieldset'
         ));
@@ -78,7 +78,7 @@ class TeamForm extends Form implements InputFilterProviderInterface
 
         $submitButton = new Submit();
         $submitButton->setName('save');
-        $submitButton->setLabel('Save');
+        $submitButton->setValue('Save');
         $this->add($submitButton);
     }
 

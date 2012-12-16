@@ -28,9 +28,11 @@ class TeamMemberFieldset extends Fieldset implements InputFilterProviderInterfac
         $this->add(array(
             'type' => 'Zend\Form\Element\Hidden',
             'name' => 'id',
-            'attributes' => array(
-                'type' => 'text'
-            )
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Text',
+            'name' => 'displayName',
         ));
     }
 
@@ -38,8 +40,11 @@ class TeamMemberFieldset extends Fieldset implements InputFilterProviderInterfac
     {
         return array(
             'id' => array(
-                'required' => true,
-            )
+                'required' => false,
+            ),
+            'displayName' => array(
+                'required' => false,
+            ),
         );
     }
 }

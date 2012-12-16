@@ -1,7 +1,49 @@
-.autocomplete-control {
-	width: 400px;
+.fields {
+    background-color: #F9F9F9;
+    border: 1px solid #DDD;
+    border-radius: 5px;
+    padding: 5px;
 }
 
-.autocomplete-control input[type="text"] {
-	width: 300px;
+.fields .pills {
+    margin-bottom: 10px;
+}
+
+.fields .pills li {
+    background: none repeat scroll 0 0 #EEEEEE;
+    border: 1px solid #DDDDDD;
+    border-radius: 3px 3px 3px 3px;
+    color: #333333;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 24px;
+    list-style-type: none;
+    margin: 3px 0;
+    min-height: 24px;
+    padding: 4px 5px;
+    position: relative;
+}
+
+.fields .pills li img {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #DDDDDD;
+    margin-right: 2px;
+    padding: 1px;
+    vertical-align: middle;
+}
+
+.add-pill-form {
+    background: none repeat scroll 0 0 #F5F5F5;
+    border: 1px solid #DDDDDD;
+    border-radius: 5px 5px 5px 5px;
+    color: #333333;
+    font-size: 12px;
+    padding: 4px 5px;
+}
+
+.add-pill-form input[type="text"] {
+    color: #666666;
+    font-size: 14px;
+    padding: 2px 5px;
+    width: 245px;
 }

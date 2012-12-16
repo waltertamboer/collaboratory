@@ -3,6 +3,11 @@ a {
     text-decoration: none;
 }
 
+a.action {
+    color: #DD0000;
+    text-decoration: underline;
+}
+
 body {
     background-color: #FFF;
     font-family: arial, verdana, courier;

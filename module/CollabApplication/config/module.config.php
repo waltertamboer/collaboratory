@@ -30,6 +30,8 @@ return array(
             ),
             'map' => array(
                 'js/jquery-1.8.3.min.js' => __DIR__ . '/../public/js/jquery-1.8.3.min.js',
+                'js/autocomplete.js' => __DIR__ . '/../public/js/autocomplete.js',
+                'css/autocomplete.css' => __DIR__ . '/../public/css/autocomplete.css',
                 __NAMESPACE__ . '/sass/reset.scss' => __DIR__ . '/../public/sass/reset.scss',
                 __NAMESPACE__ . '/sass/alerts.scss' => __DIR__ . '/../public/sass/alerts.scss',
                 __NAMESPACE__ . '/sass/autocomplete.scss' => __DIR__ . '/../public/sass/autocomplete.scss',
@@ -76,6 +78,13 @@ return array(
                     ),
                 ),
             ),
+            'restapi' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/api/rest',
+                ),
+                'may_terminate' => false,
+            ),
         ),
     ),
     'view_manager' => array(
@@ -93,6 +102,9 @@ return array(
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view',
+        ),
+        'strategies' => array(
+            'ViewJsonStrategy',
         ),
     ),
 );

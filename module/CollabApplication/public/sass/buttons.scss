@@ -38,7 +38,7 @@ input[type="submit"]:hover,
     text-decoration: none;
 }
 
-button,
+button.negative,
 input[type="button"].negative,
 input[type="reset"].negative,
 input[type="submit"].negative,
@@ -123,4 +123,8 @@ input[type="submit"]
 {
     height: 26px;
     padding-bottom: 2px;
+}
+
+button.mini {
+    line-height: 20px;
 }

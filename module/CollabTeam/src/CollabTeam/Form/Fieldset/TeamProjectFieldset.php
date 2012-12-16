@@ -28,9 +28,11 @@ class TeamProjectFieldset extends Fieldset implements InputFilterProviderInterfa
         $this->add(array(
             'type' => 'Zend\Form\Element\Hidden',
             'name' => 'id',
-            'attributes' => array(
-                'type' => 'text'
-            )
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Text',
+            'name' => 'name',
         ));
     }
 
@@ -38,8 +40,11 @@ class TeamProjectFieldset extends Fieldset implements InputFilterProviderInterfa
     {
         return array(
             'id' => array(
-                'required' => true,
-            )
+                'required' => false,
+            ),
+            'name' => array(
+                'required' => false,
+            ),
         );
     }
 }

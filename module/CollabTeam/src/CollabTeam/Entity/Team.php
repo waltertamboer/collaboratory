@@ -10,6 +10,7 @@
 
 namespace CollabTeam\Entity;
 
+use CollabProject\Entity\Project;
 use CollabUser\Entity\User;
 use DateTime;
 
@@ -123,6 +124,15 @@ class Team
         return $this;
     }
 
+    public function clearProjects()
+    {
+        foreach ($this->projects as $project) {
+            $project->removeTeam($this);
+        }
+        $this->projects->clear();
+        return $this;
+    }
+
     public function getMembers()
     {
         return $this->members;
@@ -136,13 +146,23 @@ class Team
         }
     }
 
+    public function removeProject(Project $project)
+    {
+        if ($this->projects->contains($project)) {
+            $this->projects->removeElement($project);
+            $project->removeTeam($this);
+        }
+    }
+
     public function setMembers($members)
     {
         $this->clearMembers();
-        foreach ($members as $member) {
-            if ($member) {
-                $this->addMember($member);
-                $member->addTeam($this);
+        if ($members) {
+            foreach ($members as $member) {
+                if ($member) {
+                    $this->addMember($member);
+                    $member->addTeam($this);
+                }
             }
         }
         return $this;
@@ -155,7 +175,7 @@ class Team
 
     public function setProjects($projects)
     {
-        $this->projects->clear();
+        $this->clearProjects();
         foreach ($projects as $project) {
             if ($project) {
                 $project->addTeam($this);

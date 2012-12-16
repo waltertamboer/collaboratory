@@ -28,6 +28,7 @@ return array(
             'CollabSsh\Controller\KeysController' => 'CollabSsh\Controller\KeysController',
             'CollabUser\Controller\AccountController' => 'CollabUser\Controller\AccountController',
             'CollabUser\Controller\UserController' => 'CollabUser\Controller\UserController',
+            'CollabUser\Controller\RestController' => 'CollabUser\Controller\RestController',
         ),
     ),
     'navigation' => array(
@@ -44,6 +45,7 @@ return array(
             'ssh' => include __DIR__ . '/routes.ssh.php',
             'settings' => include __DIR__ . '/routes.settings.php',
             'user' => include __DIR__ . '/routes.user.php',
+            'restapi' => include __DIR__ . '/routes.restapi.php',
         ),
     ),
     'view_manager' => array(
