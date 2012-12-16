@@ -27,16 +27,16 @@ class Installer
 
 	public function createConfigFile($database)
 	{
-		$configFile = realpath('./config/autoload') . '/doctrine_orm.global.php';
+		$dbConfigFile = realpath('./config/autoload') . '/doctrine_orm.global.php';
 
-		$content = file_get_contents($configFile . '.dist');
-		$content = str_replace('collaboratory-host', $database['host'], $content);
-		$content = str_replace('collaboratory-port', $database['port'], $content);
-		$content = str_replace('collaboratory-username', $database['username'], $content);
-		$content = str_replace('collaboratory-password', $database['password'], $content);
-		$content = str_replace('collaboratory-database', $database['dbname'], $content);
+		$content = file_get_contents($dbConfigFile . '.dist');
+		$content = str_replace('{DB_HOST}', $database['host'], $content);
+		$content = str_replace('{DB_PORT}', $database['port'], $content);
+		$content = str_replace('{DB_USER}', $database['username'], $content);
+		$content = str_replace('{DB_PASS}', $database['password'], $content);
+		$content = str_replace('{DB_NAME}', $database['dbname'], $content);
 
-		file_put_contents($configFile, $content);
+		file_put_contents($dbConfigFile, $content);
 	}
 
 	public function createDatabase()

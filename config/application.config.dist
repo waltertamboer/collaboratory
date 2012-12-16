@@ -42,4 +42,8 @@ return array(
             './vendor',
         ),
     ),
+    'collaboratory' => array(
+        'hostname' => 'collaboratory-hostname',
+        'gitUser' => 'collaboratory-gituser',
+    ),
 );

@@ -14,11 +14,11 @@ return array(
         'connection' => array(
             'orm_default' => array(
                 'params' => array(
-                    'host' => 'collaboratory-host',
-                    'port' => 'collaboratory-port',
-                    'user' => 'collaboratory-username',
-                    'password' => 'collaboratory-password',
-                    'dbname' => 'collaboratory-database',
+                    'host' => '{DB_HOST}',
+                    'port' => '{DB_PORT}',
+                    'user' => '{DB_USER}',
+                    'password' => '{DB_PASS}',
+                    'dbname' => '{DB_NAME}',
                 )
             ),
         ),
