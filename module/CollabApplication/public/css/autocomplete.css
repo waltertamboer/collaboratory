@@ -3,6 +3,7 @@
     border: 1px solid #51A7E8;
     border-top: 0px;
     border-radius: 0px 0px 3px 3px;
+    display: none;
     left: 5px;
     position: absolute;
     top: 25px;
