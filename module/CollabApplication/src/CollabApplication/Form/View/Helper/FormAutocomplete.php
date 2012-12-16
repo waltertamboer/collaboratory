@@ -30,15 +30,17 @@ class FormAutocomplete extends AbstractTranslatorHelper
         $lblFunc = 'get' . ucfirst($lblName);
 
         $list = '<ul class="pills">';
-        foreach ($collection->getObject() as $i => $object) {
-            $key = call_user_func(array($object, $keyFunc));
-            $lbl = call_user_func(array($object, $lblFunc));
+        if ($collection->getObject()) {
+            foreach ($collection->getObject() as $i => $object) {
+                $key = call_user_func(array($object, $keyFunc));
+                $lbl = call_user_func(array($object, $lblFunc));
 
-            $list .= '<li>';
-            $list .= '<input type="hidden" name="' . $collection->getName() . '[' . $i . '][' . $keyName . ']" value="' . $key . '" />';
-            $list .= '<span>' . $lbl . '</span> ';
-            $list .= '<a href="" class="remove action">(remove)</a>';
-            $list .= '</li>';
+                $list .= '<li>';
+                $list .= '<input type="hidden" name="' . $collection->getName() . '[' . $i . '][' . $keyName . ']" value="' . $key . '" />';
+                $list .= '<span>' . $lbl . '</span> ';
+                $list .= '<a href="" class="remove action">(remove)</a>';
+                $list .= '</li>';
+            }
         }
         $list .= '</ul>';
 

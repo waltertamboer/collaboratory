@@ -10,9 +10,35 @@
 
 namespace CollabTeam\InputFilter;
 
-use Zend\InputFilter\Input;
 use Zend\InputFilter\InputFilter;
 
 class TeamInputFilter extends InputFilter
 {
+    public function __construct()
+    {
+        $this->add(array(
+            'name' => 'name',
+            'required' => true,
+        ));
+
+        $this->add(array(
+            'name' => 'description',
+            'required' => true,
+        ));
+
+        $this->add(array(
+            'name' => 'members',
+            'required' => false,
+        ));
+
+        $this->add(array(
+            'name' => 'projects',
+            'required' => false,
+        ));
+
+        $this->add(array(
+            'name' => 'permission',
+            'required' => false,
+        ));
+    }
 }

@@ -103,7 +103,11 @@ $form->prepare();
         <div class="control-group">
             <div class="controls">
                 <?php
-                echo $this->formAutocomplete('Members', $this->members);
+                echo $this->formAutocomplete($form->get('members'), array(
+                    'url' => $this->basePath() . '/api/rest/users',
+                    'key' => 'id',
+                    'lbl' => 'displayName',
+                ));
                 echo $this->formElementErrors($form->get('members'), array(
                     'class' => 'error'
                 ));

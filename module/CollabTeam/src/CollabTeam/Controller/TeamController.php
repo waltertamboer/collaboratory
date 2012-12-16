@@ -70,19 +70,6 @@ class TeamController extends AbstractActionController
             return $this->redirect()->toRoute('team/overview');
         }
 
-        $request = $this->getRequest();
-        if ($request->isXmlHttpRequest()) {
-
-            // TODO: Create a nicer way to handle this, maybe with the event manager?
-            if ($request->getQuery('type') == 'user') {
-                $data = $this->getUserService()->findAjax($request->getQuery('query'));
-            } else {
-                $data = $this->getProjectService()->findAjax($request->getQuery('query'));
-            }
-
-            die(json_encode($data));
-        }
-
         $form = new TeamForm($this->getUserService(),
                 $this->getPermissionsService(), $this->getProjectService());
 
@@ -91,32 +78,20 @@ class TeamController extends AbstractActionController
         $permissions->setTargetClass('CollabUser\Entity\Permission');
         $permissions->setProperty('name');
 
-        $teamMembers = array();
+        $request = $this->getRequest();
         if ($request->isPost()) {
-            $team = new Team();
-
-            $form->bind($team);
             $form->setData($request->getPost());
 
             if ($form->isValid()) {
+                $team = $form->getData();
                 $team->setCreatedBy($this->userAuthentication()->getIdentity());
                 $this->getTeamService()->persist($team);
                 return $this->redirect()->toRoute('team/overview');
-            }
-
-            // Find the teams:
-            // TODO: Create a nicer way to handle this, maybe with the event manager?
-            $postData = $request->getPost('team');
-            foreach ($postData['members'] as $member) {
-                $teamMembers[] = $this->getUserService()->findById($member['id']);
             }
         }
 
         $viewModel = new ViewModel();
         $viewModel->setVariable('form', $form);
-        $viewModel->setVariable('teamMembers', $teamMembers);
-        $viewModel->setVariable('teamProjects', array());
-        $viewModel->setTerminal($request->isXmlHttpRequest());
         return $viewModel;
     }
 

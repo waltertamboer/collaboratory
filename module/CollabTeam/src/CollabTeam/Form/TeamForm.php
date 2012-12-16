@@ -10,12 +10,12 @@
 
 namespace CollabTeam\Form;
 
+use CollabTeam\Entity\Team;
 use CollabTeam\Form\Hydrator\TeamMembersStrategy;
 use CollabTeam\Form\Hydrator\TeamPermissionsStrategy;
 use CollabTeam\Form\Hydrator\TeamProjectsStrategy;
 use CollabTeam\InputFilter\TeamInputFilter;
 use DoctrineORMModule\Form\Element\EntityMultiCheckbox;
-use Zend\InputFilter\InputFilterProviderInterface;
 use Zend\Form\Element\Collection;
 use Zend\Form\Element\Submit;
 use Zend\Form\Element\Text;
@@ -23,7 +23,7 @@ use Zend\Form\Element\Textarea;
 use Zend\Form\Form;
 use Zend\Stdlib\Hydrator\ClassMethods as ClassMethodsHydrator;
 
-class TeamForm extends Form implements InputFilterProviderInterface
+class TeamForm extends Form
 {
     public function __construct($userService, $permissionsService, $projectsService)
     {
@@ -32,6 +32,13 @@ class TeamForm extends Form implements InputFilterProviderInterface
         $this->setAttribute('method', 'post');
         $this->setHydrator(new ClassMethodsHydrator(false));
         $this->setInputFilter(new TeamInputFilter());
+        $this->setObject(new Team());
+        $this->setUseInputFilterDefaults(false);
+
+        $hydrator = $this->getHydrator();
+        $hydrator->addStrategy('members', new TeamMembersStrategy($userService));
+        $hydrator->addStrategy('permissions', new TeamPermissionsStrategy($permissionsService));
+        $hydrator->addStrategy('projects', new TeamProjectsStrategy($projectsService));
 
         $name = new Text('name');
         $name->setLabel('Team name');
@@ -66,44 +73,9 @@ class TeamForm extends Form implements InputFilterProviderInterface
         ));
         $this->add($projects);
 
-        $save = new Text('save');
-        $save->setLabel('Save');
-        $save->setValue('Save');
-        $this->add($save);
-
-        $hydrator = $this->getHydrator();
-        $hydrator->addStrategy('members', new TeamMembersStrategy($userService));
-        $hydrator->addStrategy('permissions', new TeamPermissionsStrategy($permissionsService));
-        $hydrator->addStrategy('projects', new TeamProjectsStrategy($projectsService));
-
         $submitButton = new Submit();
         $submitButton->setName('save');
         $submitButton->setValue('Save');
         $this->add($submitButton);
     }
-
-    public function getInputFilterSpecification()
-    {
-        return array(
-            'name' => array(
-                'required' => true,
-            ),
-            'description' => array(
-                'required' => true,
-            ),
-            'permissions' => array(
-                'required' => false,
-            ),
-            'members' => array(
-                'required' => false,
-            ),
-            'projects' => array(
-                'required' => false,
-            ),
-            'permissions' => array(
-                'required' => false,
-            ),
-        );
-    }
-
 }
