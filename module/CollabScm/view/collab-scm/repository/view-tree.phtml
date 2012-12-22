@@ -34,23 +34,16 @@
         </div>
     <?php } else { ?>
         <div class="span12">
-            <ul>
-                <?php foreach ($this->repositoryTree as $entry) {
-                    if ($entry['type'] == 'tree') {
-                        echo '<li><a href="' . $this->url('scm/view/tree/path', array(
-                            'id' => $this->repository->getId(),
-                            'branch' => 'master',
-                            'path' => $entry['path'],
-                        )) . '">' . $entry['path'] . '</a></li>';
-                    } else {
-                        echo '<li><a href="' . $this->url('scm/view/blob/path', array(
-                            'id' => $this->repository->getId(),
-                            'branch' => 'master',
-                            'path' => $entry['path'],
-                        )) . '">' . $entry['path'] . '</a></li>';
-                    }
-                } ?>
-            </ul>
+            <div class="repositoryTree">
+                <div class="commit">
+                    <?php echo $this->latestCommit->getMessage(); ?>
+                </div>
+                <table>
+                    <?php foreach ($this->repositoryTree as $entry) { ?>
+
+                    <?php } ?>
+                </table>
+            </div>
         </div>
     <?php } ?>
 </div>

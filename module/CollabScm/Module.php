@@ -31,7 +31,6 @@ class Module
         return array(
             'invokables' => array(
                 'ScmPath' => 'CollabScm\Controller\Plugin\ScmPath',
-                'ScmRepositoryTree' => 'CollabScm\Controller\Plugin\ScmRepositoryTree',
             ),
         );
     }

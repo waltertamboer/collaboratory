@@ -37,6 +37,47 @@ class RepositoryService implements ServiceManagerAwareInterface
         return $this->mapper;
     }
 
+    public function getLatestCommit(Repository $repository)
+    {
+        $repositoryPath = $this->getRepositoryPath($repository);
+
+        $result = array();
+        if ($repository->getType() == 'git') {
+            $command = new \CollabScmGit\Api\Command\RevParse();
+            $command->setRepository($repositoryPath);
+
+            $result = $command->execute();
+        }
+        return $result;
+    }
+
+    private function getRepositoryPath(Repository $repository)
+    {
+        $project = $repository->getProject();
+
+        $projectName = preg_replace('/[^a-z0-9-]+/i', '', $project->getName());
+        $projectPath = getcwd() . '/data/projects/' . strtolower($projectName) . '/repositories/';
+
+        $repoName = preg_replace('/[^a-z0-9-]+/i', '', $repository->getName());
+
+        return realpath($projectPath . '/' . strtolower($repoName));
+    }
+
+    public function getTree(Repository $repository, $path)
+    {
+        $repositoryPath = $this->getRepositoryPath($repository);
+
+        $result = array();
+        if ($repository->getType() == 'git') {
+            $command = new \CollabScmGit\Api\Command\ListTree();
+            $command->setPath('.' . rtrim($path, '/') . '/');
+            $command->setRepository($repositoryPath);
+
+            $result = $command->execute();
+        }
+        return $result;
+    }
+
     public function findBy(array $criteria)
     {
         return $this->getMapper()->findBy($criteria);
@@ -60,11 +101,11 @@ class RepositoryService implements ServiceManagerAwareInterface
         $projectPath = realpath($projectPath);
 
         $oldRepositoryName = $repository->getPreviousName();
-        $repositoryPath = $this->getRepositoryPath($projectPath, $repository->getName());
+        $repositoryPath = $this->buildRepositoryPath($projectPath, $repository->getName());
 
         $shouldInitialize = false;
         if ($oldRepositoryName && $oldRepositoryName != $repository->getName()) {
-            $oldRepositoryPath = $this->getRepositoryPath($projectPath, $oldRepositoryName);
+            $oldRepositoryPath = $this->buildRepositoryPath($projectPath, $oldRepositoryName);
             if (is_dir($oldRepositoryPath)) {
                 rename($oldRepositoryPath, $repositoryPath);
                 $this->deleteDirectory($oldRepositoryPath);
@@ -99,7 +140,7 @@ class RepositoryService implements ServiceManagerAwareInterface
         $projectName = $repository->getProject()->getName();
         $projectPath = $this->getProjectPath($projectName);
 
-        $path = realpath($this->getRepositoryPath($projectPath, $repository->getName()));
+        $path = realpath($this->buildRepositoryPath($projectPath, $repository->getName()));
         $this->deleteDirectory($path);
 
         $eventArg = array('repository' => $repository);
@@ -122,7 +163,7 @@ class RepositoryService implements ServiceManagerAwareInterface
         return getcwd() . '/data/projects/' . strtolower($projectName) . '/repositories/';
     }
 
-    private function getRepositoryPath($projectPath, $name)
+    private function buildRepositoryPath($projectPath, $name)
     {
         $repoName = preg_replace('/[^a-z0-9-]+/i', '', $name);
 
