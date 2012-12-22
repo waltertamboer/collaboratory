@@ -16,6 +16,13 @@ COLLABORATORY_HOME="/home/$COLLABORATORY_GIT_USER/collaboratory"
 # The file of the virtual host file:
 COLLABORATORY_VHOST="/etc/apache2/sites-available/collaboratory"
 
+# The apache user and group:
+COLLABORATORY_APACHE_USER="www-data"
+COLLABORATORY_APACHE_GROUP="www-data"
+
+# The location of the public SSH key of Apache:
+COLLABORATORY_APACHE_PUBKEY="/home/$COLLABORATORY_GIT_USER/$COLLABORATORY_APACHE_USER.pub"
+
 # We assume that the target machine is a clean machine. Before we start the
 # installation we make sure the machine is up-to-date:
 sudo apt-get update
@@ -42,12 +49,36 @@ if [ -z "$(getent passwd $COLLABORATORY_GIT_USER)" ]; then
 		--home /home/$COLLABORATORY_GIT_USER \
 		$COLLABORATORY_GIT_USER
 
-	# Create the .ssh directory and authorized_keys file:
-	sudo -H -u $COLLABORATORY_GIT_USER mkdir /home/$COLLABORATORY_GIT_USER/.ssh
-	sudo -H -u $COLLABORATORY_GIT_USER touch /home/$COLLABORATORY_GIT_USER/.ssh/authorized_keys
+fi
 
-	# The .ssh directory and authhorized_keys file should be writable:
-	sudo chmod -R 0777 /home/$COLLABORATORY_GIT_USER/.ssh
+# Git management is done using Gitolite. We need to make changes to Gitolite using
+# Apache, Apache therefor needs an SSH key.
+if [ -f "$COLLABORATORY_APACHE_PUBKEY" ]; then
+    echo "Skipped public key generation for Apache since the key already exist."
+else
+    sudo chmod 0777 /var/www
+    sudo -u $COLLABORATORY_APACHE_USER ssh-keygen -q -N '' -t rsa -f /var/www/.ssh/$COLLABORATORY_APACHE_USER
+fi
+
+# Now setup Gitolite:
+if [ -d "/home/$COLLABORATORY_GIT_USER/bin" ]; then
+    echo "Skipped installation of Gitolite since it's already present."
+else
+    # Download Gitolite:
+    cd /home/$COLLABORATORY_GIT_USER
+    sudo -H -u $COLLABORATORY_GIT_USER git clone git://github.com/sitaramc/gitolite
+
+    # Install:
+    sudo -H -u $COLLABORATORY_GIT_USER mkdir /home/$COLLABORATORY_GIT_USER/bin
+    sudo -H -u $COLLABORATORY_GIT_USER gitolite/install -to /home/$COLLABORATORY_GIT_USER/bin
+
+    # Make sure the public key of Apache is readable:
+    sudo cp /var/www/.ssh/$COLLABORATORY_APACHE_USER.pub $COLLABORATORY_APACHE_PUBKEY
+    sudo chmod 0444 $COLLABORATORY_APACHE_PUBKEY
+
+    # Now setup Gitolite
+    sudo -H -u $COLLABORATORY_GIT_USER sh -c "echo \"PATH=\$PATH:/home/$COLLABORATORY_GIT_USER/bin\nexport PATH\" >> /home/$COLLABORATORY_GIT_USER/.profile"
+    sudo -H -u $COLLABORATORY_GIT_USER sh -c "PATH=/home/$COLLABORATORY_GIT_USER/bin:$PATH; gitolite setup -pk $COLLABORATORY_APACHE_PUBKEY"
 fi
 
 # Install or update Collaboratory:
@@ -58,25 +89,25 @@ if [ -d "$COLLABORATORY_HOME" ]; then
 	sudo -H -u $COLLABORATORY_GIT_USER git pull origin
 
 	# Collaboratory uses Composer to install its dependencies, let's do so:
+	sudo -H -u $COLLABORATORY_GIT_USER php composer.phar self-update
 	sudo -H -u $COLLABORATORY_GIT_USER php composer.phar update
 else
 	# Install Collaboratory in the user's home directory:
 	sudo -H -u $COLLABORATORY_GIT_USER git clone https://github.com/pixelpolishers/collaboratory.git $COLLABORATORY_HOME
+	cd $COLLABORATORY_HOME
 
-    # We want git to ignore file mode changes:
-    sudo -H -u $COLLABORATORY_GIT_USER git config core.filemode false
+	# We want git to ignore file mode changes:
+	sudo git config core.filemode false
 
-	# The shell should have executable rights:
-	sudo chmod +x $COLLABORATORY_HOME/data/shell/ssh-shell
+	# We let apache own Collaboratory:
+	sudo chown -R $COLLABORATORY_APACHE_USER:$COLLABORATORY_APACHE_GROUP $COLLABORATORY_HOME
 
 	# The logs directory should be writable:
-	sudo chmod -R 0777 $COLLABORATORY_HOME/logs
+	sudo chmod -R 0666 $COLLABORATORY_HOME/logs
 
-	# The repositories directory should be writable as well:
-	sudo chmod -R 0777 $COLLABORATORY_HOME/data/projects
-
-	# Collaboratory uses Composer to install its dependencies, let's do so:
-	sudo -H -u $COLLABORATORY_GIT_USER cd $COLLABORATORY_HOME && php composer.phar install
+    # Install Composer and install:
+    sudo -H -u $COLLABORATORY_APACHE_USER curl -s https://getcomposer.org/installer | php
+	sudo -H -u $COLLABORATORY_APACHE_USER php composer.phar install
 fi
 
 # The IP address that should be used to browse to:
@@ -124,9 +155,7 @@ echo "The setup of your system was successful but you're not done yet!"
 echo "Changes to sshd_config need to be made that we cannot automate."
 echo "Please set the following values in /etc/ssh/sshd_config"
 echo "- AllowUsers $COLLABORATORY_GIT_USER"
-echo "- StrictModes no"
 echo "- PasswordAuthentication no"
-echo "- UsePAM no"
 echo
 echo "Don't forget to restart SSH: sudo service ssh restart"
 echo
