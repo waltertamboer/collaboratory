@@ -106,20 +106,20 @@ else
 	sudo chmod -R 0666 $COLLABORATORY_HOME/logs
 
     # Install Composer and install:
-    sudo -H -u $COLLABORATORY_APACHE_USER curl -s https://getcomposer.org/installer | php
+    sudo -H -u $COLLABORATORY_APACHE_USER php composer.phar self-update
 	sudo -H -u $COLLABORATORY_APACHE_USER php composer.phar install
 fi
 
 # The IP address that should be used to browse to:
 IP_ADDRESS=`ifconfig | awk -F':' '/inet addr/&&!/127.0.0.1/{split($2,_," ");print _[1]}'`
 
-# The current time zone to set:
-TIMEZONE=`cat /etc/timezone`
-
 # Add the virtual host:
 if [ -f "$COLLABORATORY_VHOST" ]; then
 	echo "Skipped creation of virtual host since it already exists."
 else
+    # The current time zone to set:
+    TIMEZONE=`cat /etc/timezone`
+
 	# Add a new virtual host so that apache can find Collaboratory:
 	echo "<virtualhost *:80>
 		# Server information:
