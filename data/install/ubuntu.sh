@@ -79,6 +79,13 @@ else
     # Now setup Gitolite
     sudo -H -u $COLLABORATORY_GIT_USER sh -c "echo \"PATH=\$PATH:/home/$COLLABORATORY_GIT_USER/bin\nexport PATH\" >> /home/$COLLABORATORY_GIT_USER/.profile"
     sudo -H -u $COLLABORATORY_GIT_USER sh -c "PATH=/home/$COLLABORATORY_GIT_USER/bin:$PATH; gitolite setup -pk $COLLABORATORY_APACHE_PUBKEY"
+
+    # We need to setup the SSH config file for the Apache user:
+    sudo -H -u $COLLABORATORY_APACHE_USER sh -c "echo \"Host localhost\n\tIdentityFile /var/www/.ssh/$COLLABORATORY_APACHE_USER\" >> /var/www/.ssh/config"
+
+    # Now let's checkout the admin repository so we can set the host:
+    sudo -H -u $COLLABORATORY_APACHE_USER git clone $COLLABORATORY_GIT_USER@localhost:gitolite-admin /tmp/gitolite-admin
+    sudo rm -rf /tmp/gitolite-admin
 fi
 
 # Install or update Collaboratory:
