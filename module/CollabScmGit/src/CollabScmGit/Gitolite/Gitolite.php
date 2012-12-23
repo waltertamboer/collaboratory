@@ -11,20 +11,28 @@
 namespace CollabScmGit\Gitolite;
 
 use CollabScm\Entity\Repository;
+use CollabScm\Service\RepositoryService;
 use CollabScmGit\Api\Command\GitClone;
 use CollabScmGit\Api\Command\Pull;
+use CollabScmGit\Api\Command\Push;
 
 class Gitolite
 {
     private $repository;
     private $localPath;
     private $storagePath;
+    private $repositoryService;
 
     public function __construct($repository, $localPath, $storagePath)
     {
         $this->repository = $repository;
         $this->localPath = $localPath;
         $this->storagePath = $storagePath;
+    }
+
+    public function setRepositoryService(RepositoryService $repositoryService)
+    {
+        $this->repositoryService = $repositoryService;
     }
 
     public function load()
@@ -47,8 +55,39 @@ class Gitolite
     {
         $configFile = $this->localPath . '/conf/gitolite.conf';
 
-        var_dump($configFile);
-        exit;
+        $repositories = $this->repositoryService->findAll();
+
+        $gitRepos = array();
+        foreach ($repositories as $repository) {
+            $name = preg_replace('/[^a-z0-9_-]/i', '', $repository->getName());
+
+            $gitRepos[$name] = array();
+        }
+
+        // Sort the repositories access rights:
+        $content = '';
+        foreach ($gitRepos as $name => $users) {
+            if (count($users)) {
+                $sortedUsers = array();
+                foreach ($users as $name => $access) {
+                    if (!isset($sortedUsers[$access])) {
+                        $sortedUsers[$access][] = $name;
+                    }
+                }
+
+                $content .= 'repo ' . $name . PHP_EOL;
+                foreach ($sortedUsers as $access => $users) {
+                    $content .= "\t" . $access . ' = ' . implode(' ', $users) . PHP_EOL;
+                }
+                $content .= PHP_EOL;
+            }
+        }
+
+        file_put_contents($configFile, $content);
+
+        $pushCommand = new Push();
+        $pushCommand->setPath($this->localPath);
+        $pushCommand->execute();
     }
 
     public function removeRepository(Repository $repository)

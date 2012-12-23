@@ -23,7 +23,10 @@ class Module
                 'CollabScmGit\Gitolite' => function($sm) {
                     $adminPath = realpath('data') . DIRECTORY_SEPARATOR . 'gitolite-admin';
                     $storagePath = '/home/git/';
-                    return new Gitolite('git@localhost:gitolite-admin', $adminPath, $storagePath);
+
+                    $instance = new Gitolite('git@localhost:gitolite-admin', $adminPath, $storagePath);
+                    $instance->setRepositoryService($sm->get('CollabScm\Service\Repository'));
+                    return $instance;
                 },
                 'CollabScmGit\Events\FileSystemListener' => function($sm) {
                     $gitolite = $sm->get('CollabScmGit\Gitolite');
