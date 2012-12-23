@@ -65,7 +65,8 @@ class Gitolite
         }
 
         // Sort the repositories access rights:
-        $content = '';
+        $content = 'repo gitolite-admin' . PHP_EOL;
+        $content .= "\t" . 'RW+ = www-data' . PHP_EOL . PHP_EOL;
         foreach ($gitRepos as $name => $users) {
             if (count($users)) {
                 $sortedUsers = array();
