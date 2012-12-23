@@ -35,6 +35,14 @@ abstract class AbstractCommand
 
     public abstract function parse($stdout, $stderr);
 
+    protected function onExecutePre()
+    {
+    }
+
+    protected function onExecutePost()
+    {
+    }
+
     public function execute()
     {
         set_time_limit(0);
@@ -56,6 +64,8 @@ abstract class AbstractCommand
         $shellCommand = array_merge($arguments, $this->getArguments());
         $cmd = implode(' ', $shellCommand);
 
+        $this->onExecutePre();
+
         $handle = proc_open($cmd, $specs, $pipes, getcwd());
         if ($handle) {
             stream_set_blocking($pipes[1], 0);
@@ -74,6 +84,7 @@ abstract class AbstractCommand
 
             $exitCode = proc_close($handle);
             if ($exitCode === 0) {
+                $this->onExecutePost();
                 $result = $this->parse($stdout, $stderr);
             }
         }

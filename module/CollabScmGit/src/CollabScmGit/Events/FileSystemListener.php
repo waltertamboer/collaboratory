@@ -58,8 +58,8 @@ class FileSystemListener implements ListenerAggregateInterface
     public function attach(EventManagerInterface $events)
     {
         $sharedManager = $events->getSharedManager();
-        $this->listeners[] = $sharedManager->attach('CollabScm', 'persist.post', array($this, 'onPersistPost'));
-        $this->listeners[] = $sharedManager->attach('CollabScm', 'remove.post', array($this, 'onRemovePost'));
+        $this->listeners[] = $sharedManager->attach('CollabScm', 'persist.post', array($this, 'onPersistRepository'));
+        $this->listeners[] = $sharedManager->attach('CollabScm', 'remove.post', array($this, 'onRemoveRepository'));
         $this->listeners[] = $sharedManager->attach('CollabProject', 'remove.post', array($this, 'onRemoveProject'));
         $this->listeners[] = $sharedManager->attach('CollabTeam', 'persist.post', array($this, 'onPersistTeam'));
         $this->listeners[] = $sharedManager->attach('CollabTeam', 'remove.post', array($this, 'onRemoveTeam'));
@@ -82,7 +82,7 @@ class FileSystemListener implements ListenerAggregateInterface
         }
     }
 
-    public function onPersistPost(Event $e)
+    public function onPersistRepository(Event $e)
     {
         $repository = $e->getParam('repository');
         if ($repository->getType() == 'git') {
@@ -91,19 +91,20 @@ class FileSystemListener implements ListenerAggregateInterface
             $oldName = $repository->getPreviousName();
             $newName = $repository->getName();
 
-            if ($e->getParam('isNew')) {
-                $this->gitolite->createRepository($repository);
-            } elseif ($oldName != $newName) {
+            if (!$e->getParam('isNew') && $oldName != $newName) {
                 $this->gitolite->renameRepository($repository);
             }
+
+            $this->gitolite->persist();
         }
     }
 
-    public function onRemovePost(Event $e)
+    public function onRemoveRepository(Event $e)
     {
         $repository = $e->getParam('repository');
         if ($repository->getType() == 'git') {
             $this->gitolite->load();
+            $this->gitolite->persist();
             $this->gitolite->removeRepository($repository);
         }
     }
@@ -121,22 +122,31 @@ class FileSystemListener implements ListenerAggregateInterface
                     $this->gitolite->removeRepository($repository);
                 }
             }
+            $this->gitolite->persist();
         }
     }
 
     public function onPersistTeam(Event $e)
     {
+        $this->gitolite->load();
+        $this->gitolite->persist();
     }
 
     public function onRemoveTeam(Event $e)
     {
+        $this->gitolite->load();
+        $this->gitolite->persist();
     }
 
     public function onPersistUser(Event $e)
     {
+        $this->gitolite->load();
+        $this->gitolite->persist();
     }
 
     public function onRemoveUser(Event $e)
     {
+        $this->gitolite->load();
+        $this->gitolite->persist();
     }
 }

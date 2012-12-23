@@ -12,16 +12,19 @@ namespace CollabScmGit\Gitolite;
 
 use CollabScm\Entity\Repository;
 use CollabScmGit\Api\Command\GitClone;
+use CollabScmGit\Api\Command\Pull;
 
 class Gitolite
 {
     private $repository;
     private $localPath;
+    private $storagePath;
 
-    public function __construct($repository, $localPath)
+    public function __construct($repository, $localPath, $storagePath)
     {
         $this->repository = $repository;
         $this->localPath = $localPath;
+        $this->storagePath = $storagePath;
     }
 
     public function load()
@@ -33,13 +36,19 @@ class Gitolite
                 $cloneCommand->setPath($this->localPath);
                 $cloneCommand->execute();
             } else {
-                // @todo pull
+                $pullCommand = new Pull();
+                $pullCommand->setPath($this->localPath);
+                $pullCommand->execute();
             }
         }
     }
 
-    public function createRepository(Repository $repository)
+    public function persist()
     {
+        $configFile = $this->localPath . '/conf/gitolite.conf';
+
+        var_dump($configFile);
+        exit;
     }
 
     public function removeRepository(Repository $repository)
