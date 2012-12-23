@@ -30,12 +30,21 @@ abstract class AbstractCommand
     }
 
     public abstract function getArguments();
+
     public abstract function getCommand();
+
     public abstract function parse($data);
 
     public function execute()
     {
         set_time_limit(0);
+        $result = null;
+
+        $specs = array(
+            '0' => array('pipe', 'r'),
+            '1' => array('pipe', 'w'),
+            '2' => array('pipe', 'w'),
+        );
 
         $arguments = array();
         $arguments[] = $this->getExecutable();
@@ -45,9 +54,27 @@ abstract class AbstractCommand
         $arguments[] = $this->getCommand();
 
         $shellCommand = array_merge($arguments, $this->getArguments());
-		$command = implode(' ', $shellCommand);
+        $cmd = implode(' ', $shellCommand);
 
-        $output = shell_exec($command);
-        return $this->parse($output);
+        $handle = proc_open($cmd, $specs, $pipes, getcwd());
+        if ($handle) {
+            stream_set_blocking($pipes[1], 0);
+            stream_set_blocking($pipes[2], 0);
+
+            do {
+                $status = proc_get_status($handle);
+            } while ($status['running']);
+
+            $data = stream_get_contents($pipes[1]);
+            $result = $this->parse($data);
+
+            fclose($pipes[0]);
+            fclose($pipes[1]);
+            fclose($pipes[2]);
+
+            $exitCode = proc_close($handle);
+        }
+
+        return $result;
     }
 }
