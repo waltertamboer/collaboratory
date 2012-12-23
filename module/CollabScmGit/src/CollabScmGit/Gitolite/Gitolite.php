@@ -13,8 +13,7 @@ namespace CollabScmGit\Gitolite;
 use CollabScm\Entity\Repository;
 use CollabScm\Service\RepositoryService;
 use CollabScmGit\Api\Command\GitClone;
-use CollabScmGit\Api\Command\Pull;
-use CollabScmGit\Api\Command\Push;
+use CollabScmGit\Api\Command\Raw;
 
 class Gitolite
 {
