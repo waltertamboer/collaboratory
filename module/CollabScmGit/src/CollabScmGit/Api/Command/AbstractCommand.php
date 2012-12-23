@@ -65,14 +65,17 @@ abstract class AbstractCommand
                 $status = proc_get_status($handle);
             } while ($status['running']);
 
-            $data = stream_get_contents($pipes[1]);
-            $result = $this->parse($data);
+            $stdout = stream_get_contents($pipes[1]);
+            $stderr = stream_get_contents($pipes[2]);
 
             fclose($pipes[0]);
             fclose($pipes[1]);
             fclose($pipes[2]);
 
             $exitCode = proc_close($handle);
+            if ($exitCode === 0) {
+                $result = $this->parse($data);
+            }
         }
 
         return $result;
