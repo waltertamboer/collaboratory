@@ -10,6 +10,7 @@
 
 namespace CollabScm\Service;
 
+use CollabProject\Entity\Project;
 use CollabScm\Entity\Repository;
 use Zend\EventManager\EventManager;
 use Zend\ServiceManager\ServiceManager;
@@ -85,46 +86,23 @@ class RepositoryService implements ServiceManagerAwareInterface
 
     public function findById($id)
     {
-        return $this->getMapper()->findById($id);
+        return $this->getMapper()->findBy(array(
+            'id' => $id
+        ));
+    }
+
+    public function findForProject(Project $project)
+    {
+        return $this->getMapper()->findBy(array(
+            'project' => $project->getId()
+        ));
     }
 
     public function persist(Repository $repository)
     {
-        $projectName = $repository->getProject()->getName();
-        $projectPath = $this->getProjectPath($projectName);
-
-        if (!is_dir($projectPath)) {
-            mkdir($projectPath, 0777);
-            chmod($projectPath, 0777);
-        }
-
-        $projectPath = realpath($projectPath);
-
-        $oldRepositoryName = $repository->getPreviousName();
-        $repositoryPath = $this->buildRepositoryPath($projectPath, $repository->getName());
-
-        $shouldInitialize = false;
-        if ($oldRepositoryName && $oldRepositoryName != $repository->getName()) {
-            $oldRepositoryPath = $this->buildRepositoryPath($projectPath, $oldRepositoryName);
-            if (is_dir($oldRepositoryPath)) {
-                rename($oldRepositoryPath, $repositoryPath);
-                $this->deleteDirectory($oldRepositoryPath);
-            } else if (!is_dir($repositoryPath)) {
-                mkdir($repositoryPath, 0777);
-                chmod($repositoryPath, 0777);
-                $shouldInitialize = true;
-            }
-        } else if (!is_dir($repositoryPath)) {
-            mkdir($repositoryPath, 0777);
-            chmod($repositoryPath, 0777);
-            $shouldInitialize = true;
-        }
-
         $eventArgs = array(
             'repository' => $repository,
             'isNew' => !$repository->getId(),
-            'shouldInitialize' => $shouldInitialize,
-            'repositoryPath' => realpath($repositoryPath),
         );
 
         $this->getEventManager()->trigger('persist.pre', $this, $eventArgs);
@@ -136,13 +114,6 @@ class RepositoryService implements ServiceManagerAwareInterface
 
     public function remove(Repository $repository)
     {
-        // Delete the repository on the file system:
-        $projectName = $repository->getProject()->getName();
-        $projectPath = $this->getProjectPath($projectName);
-
-        $path = realpath($this->buildRepositoryPath($projectPath, $repository->getName()));
-        $this->deleteDirectory($path);
-
         $eventArg = array('repository' => $repository);
 
         $this->getEventManager()->trigger('remove.pre', $this, $eventArg);
@@ -154,31 +125,5 @@ class RepositoryService implements ServiceManagerAwareInterface
     public function setServiceManager(ServiceManager $serviceManager)
     {
         $this->serviceManager = $serviceManager;
-    }
-
-    public function getProjectPath($name)
-    {
-        $projectName = preg_replace('/[^a-z0-9-]+/i', '', $name);
-
-        return getcwd() . '/data/projects/' . strtolower($projectName) . '/repositories/';
-    }
-
-    private function buildRepositoryPath($projectPath, $name)
-    {
-        $repoName = preg_replace('/[^a-z0-9-]+/i', '', $name);
-
-        return $projectPath . DIRECTORY_SEPARATOR . strtolower($repoName);
-    }
-
-    private function deleteDirectory($path)
-    {
-        if (is_dir($path)) {
-            if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-                $command = 'rmdir /Q /S ' . $path;
-            } else {
-                $command = 'rm -rf ' . $path;
-            }
-            exec($command);
-        }
     }
 }

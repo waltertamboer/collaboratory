@@ -60,38 +60,11 @@ class ProjectService implements ServiceManagerAwareInterface
         $this->getMapper()->persist($project);
         $this->getEventManager()->trigger('persist.post', $this, $eventArg);
 
-        $oldProjectName = $project->getPreviousName();
-        $projectPath = $this->getProjectPath($project->getName());
-
-        if ($oldProjectName && $oldProjectName != $project->getName()) {
-            $oldProjectPath = $this->getProjectPath($oldProjectName);
-            if (is_dir($oldProjectPath)) {
-                rename($oldProjectPath, $projectPath);
-            } else {
-                mkdir($projectPath, 0777);
-                chmod($projectPath, 0777);
-            }
-        } else if (!is_dir($projectPath)) {
-            mkdir($projectPath, 0777);
-            chmod($projectPath, 0777);
-        }
-
         return $this;
     }
 
     public function remove(Project $project)
     {
-        // Delete the project on the file system:
-        $path = realpath($this->getProjectPath($project->getName()));
-        if (is_dir($path)) {
-            if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-                $command = 'rmdir /Q /S ' . $path;
-            } else {
-                $command = 'rm -rf ' . $path;
-            }
-            exec($command);
-        }
-
         $eventArg = array('project' => $project);
 
         $this->getEventManager()->trigger('remove.pre', $this, $eventArg);
@@ -104,12 +77,5 @@ class ProjectService implements ServiceManagerAwareInterface
     public function setServiceManager(ServiceManager $serviceManager)
     {
         $this->serviceManager = $serviceManager;
-    }
-
-    public function getProjectPath($name)
-    {
-        $projectName = preg_replace('/[^a-z0-9-]+/i', '', $name);
-
-        return getcwd() . '/data/projects/' . strtolower($projectName);
     }
 }

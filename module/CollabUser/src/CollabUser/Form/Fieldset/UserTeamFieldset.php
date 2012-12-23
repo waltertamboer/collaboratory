@@ -28,9 +28,11 @@ class UserTeamFieldset extends Fieldset implements InputFilterProviderInterface
         $this->add(array(
             'type' => 'Zend\Form\Element\Hidden',
             'name' => 'id',
-            'attributes' => array(
-                'type' => 'text'
-            )
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Text',
+            'name' => 'name',
         ));
     }
 
@@ -38,7 +40,10 @@ class UserTeamFieldset extends Fieldset implements InputFilterProviderInterface
     {
         return array(
             'id' => array(
-                'required' => true,
+                'required' => false,
+            ),
+            'name' => array(
+                'required' => false,
             )
         );
     }

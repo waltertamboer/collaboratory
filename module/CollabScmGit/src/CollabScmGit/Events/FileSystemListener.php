@@ -10,6 +10,8 @@
 
 namespace CollabScmGit\Events;
 
+use CollabScm\Service\RepositoryService;
+use CollabScmGit\Gitolite\Gitolite;
 use Zend\EventManager\Event;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
@@ -20,6 +22,30 @@ class FileSystemListener implements ListenerAggregateInterface
      * @var CallbackHandler[]
      */
     protected $listeners = array();
+
+    /**
+     * The gitolite manager.
+     *
+     * @var Gitolite
+     */
+    private $gitolite;
+
+    /**
+     * The repository service.
+     *
+     * @var RepositoryService
+     */
+    private $repositoryService;
+
+    /**
+     * Initializes a new instance of this class.
+     * @param Gitolite $gitolite
+     */
+    public function __construct(Gitolite $gitolite, RepositoryService $repositoryService)
+    {
+        $this->gitolite = $gitolite;
+        $this->repositoryService = $repositoryService;
+    }
 
     /**
      * Attach one or more listeners
@@ -33,6 +59,12 @@ class FileSystemListener implements ListenerAggregateInterface
     {
         $sharedManager = $events->getSharedManager();
         $this->listeners[] = $sharedManager->attach('CollabScm', 'persist.post', array($this, 'onPersistPost'));
+        $this->listeners[] = $sharedManager->attach('CollabScm', 'remove.post', array($this, 'onRemovePost'));
+        $this->listeners[] = $sharedManager->attach('CollabProject', 'remove.post', array($this, 'onRemoveProject'));
+        $this->listeners[] = $sharedManager->attach('CollabTeam', 'persist.post', array($this, 'onPersistTeam'));
+        $this->listeners[] = $sharedManager->attach('CollabTeam', 'remove.post', array($this, 'onRemoveTeam'));
+        $this->listeners[] = $sharedManager->attach('CollabUser', 'persist.post', array($this, 'onPersistUser'));
+        $this->listeners[] = $sharedManager->attach('CollabUser', 'remove.post', array($this, 'onRemoveUser'));
     }
 
     /**
@@ -53,16 +85,58 @@ class FileSystemListener implements ListenerAggregateInterface
     public function onPersistPost(Event $e)
     {
         $repository = $e->getParam('repository');
-        if ($repository->getType() == 'git' && $e->getParam('shouldInitialize')) {
-            $path = realpath($e->getParam('repositoryPath'));
+        if ($repository->getType() == 'git') {
+            $this->gitolite->load();
 
-            // Create the repository:
-            $command = 'git --bare init "' . $path . '"';
-            exec($command);
+            $oldName = $repository->getPreviousName();
+            $newName = $repository->getName();
 
-            // Since the httpd user created the apache, we need to make sure that
-            // permissions are set correct:
-            exec('chmod -R 0777 "' . $path . '"');
+            if ($e->getParam('isNew')) {
+                $this->gitolite->createRepository($repository);
+            } elseif ($oldName != $newName) {
+                $this->gitolite->renameRepository($repository);
+            }
         }
+    }
+
+    public function onRemovePost(Event $e)
+    {
+        $repository = $e->getParam('repository');
+        if ($repository->getType() == 'git') {
+            $this->gitolite->load();
+            $this->gitolite->removeRepository($repository);
+        }
+    }
+
+    public function onRemoveProject(Event $e)
+    {
+        // Get all the repositories for the project:
+        $project = $e->getParam('project');
+        $repositories = $this->repositoryService->findForProject($project);
+
+        if (count($repositories)) {
+            $this->gitolite->load();
+            foreach ($repositories as $repository) {
+                if ($repository->getType() == 'git') {
+                    $this->gitolite->removeRepository($repository);
+                }
+            }
+        }
+    }
+
+    public function onPersistTeam(Event $e)
+    {
+    }
+
+    public function onRemoveTeam(Event $e)
+    {
+    }
+
+    public function onPersistUser(Event $e)
+    {
+    }
+
+    public function onRemoveUser(Event $e)
+    {
     }
 }

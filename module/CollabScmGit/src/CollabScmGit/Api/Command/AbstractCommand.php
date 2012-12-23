@@ -12,16 +12,16 @@ namespace CollabScmGit\Api\Command;
 
 abstract class AbstractCommand
 {
-    private $repository;
+    private $localRepository;
 
-    public function getRepository()
+    public function getLocalRepository()
     {
-        return $this->repository;
+        return $this->localRepository;
     }
 
-    public function setRepository($repository)
+    public function setLocalRepository($repository)
     {
-        $this->repository = $repository;
+        $this->localRepository = $repository;
     }
 
     private function getExecutable()
@@ -35,16 +35,18 @@ abstract class AbstractCommand
 
     public function execute()
     {
+        set_time_limit(0);
+
         $arguments = array();
         $arguments[] = $this->getExecutable();
-        if ($this->getRepository()) {
-            $arguments[] = '--git-dir=' . realpath($this->getRepository());
+        if ($this->getLocalRepository()) {
+            $arguments[] = '--git-dir=' . realpath($this->getLocalRepository());
         }
         $arguments[] = $this->getCommand();
 
         $shellCommand = array_merge($arguments, $this->getArguments());
-
 		$command = implode(' ', $shellCommand);
+
         $output = shell_exec($command);
         return $this->parse($output);
     }

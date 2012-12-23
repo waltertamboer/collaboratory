@@ -22,21 +22,84 @@ $form->prepare();
 </div>
 
 <div class="grid12 page-content">
+    <?php echo $this->form()->openTag($form->setAttributes(array(
+        'class' => 'horizontal',
+    ))); ?>
     <div class="span12">
-        <?php
-
-        echo $this->form()->openTag($form);
-        echo $this->formRow($form->get('identity'));
-        echo $this->formRow($form->get('credential'));
-        echo $this->formRow($form->get('validation'));
-        echo $this->formRow($form->get('displayName'));
-        echo '<hr />';
-        echo $this->formCollection($form->get('teams'));
-        echo '<hr />';
-        echo $this->formSubmit($form->get('save'));
-        echo '<a href="' . $this->url('account/overview') . '">Cancel</a>';
-        echo $this->form()->closeTag();
-
-        ?>
+        <div class="control-group">
+            <?php echo $this->formLabel($form->get('identity')->setLabelAttributes(array(
+                'class' => 'control-label'
+            ))); ?>
+            <div class="controls">
+                <?php
+                echo $this->formText($form->get('identity'));
+                echo $this->formElementErrors($form->get('identity'), array(
+                    'class' => 'error'
+                ));
+                ?>
+            </div>
+        </div>
+        <div class="control-group">
+            <?php echo $this->formLabel($form->get('credential')->setLabelAttributes(array(
+                'class' => 'control-label'
+            ))); ?>
+            <div class="controls">
+                <?php
+                echo $this->formPassword($form->get('credential'));
+                echo $this->formElementErrors($form->get('credential'), array(
+                    'class' => 'error'
+                ));
+                ?>
+            </div>
+        </div>
+        <div class="control-group">
+            <?php echo $this->formLabel($form->get('validation')->setLabelAttributes(array(
+                'class' => 'control-label'
+            ))); ?>
+            <div class="controls">
+                <?php
+                echo $this->formPassword($form->get('validation'));
+                echo $this->formElementErrors($form->get('validation'), array(
+                    'class' => 'error'
+                ));
+                ?>
+            </div>
+        </div>
+        <div class="control-group">
+            <?php echo $this->formLabel($form->get('displayName')->setLabelAttributes(array(
+                'class' => 'control-label'
+            ))); ?>
+            <div class="controls">
+                <?php
+                echo $this->formText($form->get('displayName'));
+                echo $this->formElementErrors($form->get('displayName'), array(
+                    'class' => 'error'
+                ));
+                ?>
+            </div>
+        </div>
     </div>
+    <div class="span6">
+        <div class="control-group">
+            <div class="controls">
+                <?php
+                echo $this->formAutocomplete($form->get('teams'), array(
+                    'url' => $this->basePath() . '/api/rest/teams',
+                    'key' => 'id',
+                    'lbl' => 'name',
+                ));
+                echo $this->formElementErrors($form->get('teams'), array(
+                    'class' => 'error'
+                ));
+                ?>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <?php echo $this->formSubmit($form->get('save')); ?>
+                <a href="<?php echo $this->url('account/overview'); ?>">Cancel</a>
+            </div>
+        </div>
+    </div>
+    <?php echo $this->form()->closeTag(); ?>
 </div>

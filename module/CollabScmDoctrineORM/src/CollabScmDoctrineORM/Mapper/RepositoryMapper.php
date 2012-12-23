@@ -30,13 +30,6 @@ class RepositoryMapper implements RepositoryMapperInterface
         return $repository->findBy($criteria);
 	}
 
-    public function findById($id)
-    {
-        $repository = $this->entityManager->getRepository('CollabScm\Entity\Repository');
-
-        return $repository->find($id);
-    }
-
     public function persist(Repository $repository)
     {
         $this->entityManager->persist($repository);

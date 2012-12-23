@@ -38,11 +38,6 @@ class Module
     public function getServiceConfig()
     {
         return array(
-            'invokables' => array(
-                'CollabScm\Events\RepositoryLogger' => 'CollabScm\Events\RepositoryLogger',
-                'CollabScm\Handler\ConfigSynchronizer' => 'CollabScm\Handler\ConfigSynchronizer',
-                'CollabScm\Handler\FileSystem' => 'CollabScm\Handler\FileSystem',
-            ),
             'factories' => array(
                 'CollabScm\Service\Repository' => 'CollabScm\Service\RepositoryServiceFactory',
                 'CollabScm\Service\RepositoryTeam' => 'CollabScm\Service\RepositoryTeamServiceFactory',
@@ -69,58 +64,12 @@ class Module
         $sm = $application->getServiceManager();
 
         $eventManager = $application->getEventManager();
-        $eventManager->attachAggregate($sm->get('CollabScm\Events\RepositoryLogger'));
-        $eventManager->attachAggregate($sm->get('CollabScm\Handler\ConfigSynchronizer'));
-        $eventManager->attachAggregate($sm->get('CollabScm\Handler\FileSystem'));
-
         $sharedManager = $eventManager->getSharedManager();
         $sharedManager->attach('CollabInstall', 'initializePermissions', function($e) {
-                $installer = $e->getTarget();
-                $installer->addPermission('repository_create');
-                $installer->addPermission('repository_update');
-                $installer->addPermission('repository_delete');
-            });
+            $installer = $e->getTarget();
+            $installer->addPermission('repository_create');
+            $installer->addPermission('repository_update');
+            $installer->addPermission('repository_delete');
+        });
     }
-
-//    public function onBootstrap($e)
-//    {
-//        $path = __DIR__ . '/collaboratory.json';
-//
-//        $sm = $e->getApplication()->getServiceManager();
-//        $synchronizer = $sm->get('CollabScm\Service\Synchronizer');
-//
-//        $config = $synchronizer->load($path);
-//
-//		$user1 = new Entity\User();
-//		$user1->setName('user1');
-//		$config->addUser($user1);
-//
-//		$user2 = new Entity\User();
-//		$user2->setName('user2');
-//		$config->addUser($user2);
-//
-//		$user3 = new Entity\User();
-//		$user3->setName('user3');
-//		$config->addUser($user3);
-//
-//		$user4 = new Entity\User();
-//		$user4->setName('user4');
-//		$config->addUser($user4);
-//
-//		$group1 = new Entity\Group();
-//		$group1->setName('group1');
-//		$group1->addEntity($user1);
-//		$group1->addEntity($user2);
-//		$config->addGroup($group1);
-//
-//		$repository = new Entity\Repository();
-//		$repository->setName('repo');
-//		$repository->setAccess($user1, new Entity\Access(Entity\Access::READ | Entity\Access::WRITE));
-//		$repository->setAccess($user2, new Entity\Access(Entity\Access::READ | Entity\Access::WRITE));
-//		$repository->setAccess($user3, new Entity\Access(Entity\Access::READ));
-//		$repository->setAccess($group1, new Entity\Access(Entity\Access::WRITE));
-//		$config->addRepository($repository);
-//
-//        $synchronizer->save($config, $path);
-//    }
 }

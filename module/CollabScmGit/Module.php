@@ -10,13 +10,25 @@
 
 namespace CollabScmGit;
 
+use CollabScmGit\Gitolite\Gitolite;
+use CollabScmGit\Events\FileSystemListener;
+
 class Module
 {
+
     public function getServiceConfig()
     {
         return array(
-            'invokables' => array(
-                'CollabScmGit\Events\FileSystemListener' => 'CollabScmGit\Events\FileSystemListener',
+            'factories' => array(
+                'CollabScmGit\Gitolite' => function($sm) {
+                    $adminPath = realpath('data') . DIRECTORY_SEPARATOR . 'gitolite-admin';
+                    return new Gitolite('git@localhost:gitolite-admin', $adminPath);
+                },
+                'CollabScmGit\Events\FileSystemListener' => function($sm) {
+                    $gitolite = $sm->get('CollabScmGit\Gitolite');
+                    $repositoryService = $sm->get('CollabScm\Service\Repository');
+                    return new FileSystemListener($gitolite, $repositoryService);
+                }
             ),
         );
     }
@@ -29,4 +41,5 @@ class Module
         $eventManager = $application->getEventManager();
         $eventManager->attachAggregate($sm->get('CollabScmGit\Events\FileSystemListener'));
     }
+
 }
