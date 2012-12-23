@@ -33,7 +33,7 @@ abstract class AbstractCommand
 
     public abstract function getCommand();
 
-    public abstract function parse($data);
+    public abstract function parse($stdout, $stderr);
 
     public function execute()
     {
@@ -74,7 +74,7 @@ abstract class AbstractCommand
 
             $exitCode = proc_close($handle);
             if ($exitCode === 0) {
-                $result = $this->parse($data);
+                $result = $this->parse($stdout, $stderr);
             }
         }
 

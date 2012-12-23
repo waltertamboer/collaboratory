@@ -47,9 +47,9 @@ class RevParse extends AbstractCommand
         return $args;
     }
 
-    public function parse($data)
+    public function parse($stdout, $stderr)
     {
-        var_dump($data);
+        var_dump($stdout);
         exit;
     }
 }

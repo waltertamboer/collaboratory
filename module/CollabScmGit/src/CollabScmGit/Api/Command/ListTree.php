@@ -49,10 +49,10 @@ class ListTree extends AbstractCommand
         return $args;
     }
 
-    public function parse($data)
+    public function parse($stdout, $stderr)
     {
         $result = array();
-        foreach (explode("\n", $data) as $line) {
+        foreach (explode("\n", $stdout) as $line) {
             if (preg_match('/^([0-9]+) (.+) ([0-9a-fA-F]{40})(\s+[0-9]+|\s+-)?\s+(.+)$/i', $line, $matches)) {
 				switch($matches[2]) {
 					case 'tree':
@@ -62,7 +62,7 @@ class ListTree extends AbstractCommand
 						$data['mode'] = $matches[1];
 						$data['path'] = $matches[5];
 
-						$result[] = $data;
+						$result[] = $stdout;
 						break;
 					case 'blob':
 						$data = array();
@@ -74,7 +74,7 @@ class ListTree extends AbstractCommand
 						$path = $matches[5];
 						if (!empty($treePath))
 							$path = $treePath . '/' . $path;
-						$data['path'] = $path;
+						$stdout['path'] = $path;
 
 						$result[] = $data;
 						break;
