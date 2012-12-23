@@ -39,15 +39,13 @@ class Gitolite
     {
         if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
             if (!is_dir($this->localPath)) {
-                $cloneCommand = new GitClone();
-                $cloneCommand->setRepository($this->repository);
-                $cloneCommand->setPath($this->localPath);
-                $cloneCommand->execute();
+                $command = new GitClone();
+                $command->setRepository($this->repository);
             } else {
-                $pullCommand = new Pull();
-                $pullCommand->setPath($this->localPath);
-                $pullCommand->execute();
+                $command = new Raw('pull');
             }
+            $command->setPath($this->localPath);
+            $command->execute();
         }
     }
 
@@ -86,7 +84,15 @@ class Gitolite
 
         file_put_contents($configFile, $content);
 
-        $pushCommand = new Push();
+        $addCommand = new Raw('add');
+        $addCommand->setPath($this->localPath);
+        $addCommand->execute();
+
+        $commitCommand = new Raw('commit -m "Updated the settings."');
+        $commitCommand->setPath($this->localPath);
+        $commitCommand->execute();
+
+        $pushCommand = new Raw('push origin');
         $pushCommand->setPath($this->localPath);
         $pushCommand->execute();
     }

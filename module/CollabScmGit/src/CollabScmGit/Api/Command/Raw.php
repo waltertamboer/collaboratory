@@ -10,16 +10,15 @@
 
 namespace CollabScmGit\Api\Command;
 
-class Push extends AbstractCommand
+class Raw extends AbstractCommand
 {
-    private $branch;
+    private $command;
     private $path;
     private $pathBackup;
 
-    public function setBranch($branch)
+    public function __construct($command)
     {
-        $this->branch = $branch;
-        return $this;
+        $this->command = $command;
     }
 
     public function setPath($path)
@@ -30,16 +29,13 @@ class Push extends AbstractCommand
 
     public function getCommand()
     {
-        return 'push';
+        return $this->command;
     }
 
     public function getArguments()
     {
         $args = array();
-        $args[] = 'origin';
-        if ($this->branch) {
-            $args[] = $this->branch;
-        }
+
         return $args;
     }
 
@@ -56,5 +52,6 @@ class Push extends AbstractCommand
 
     public function parse($stdout, $stderr)
     {
+        return $stdout;
     }
 }
