@@ -15,6 +15,7 @@ use CollabScm\Entity\Repository;
 interface RepositoryMapperInterface
 {
     public function findBy(array $criteria);
+    public function findOneBy(array $criteria);
     public function persist(Repository $repository);
     public function remove(Repository $repository);
 }
