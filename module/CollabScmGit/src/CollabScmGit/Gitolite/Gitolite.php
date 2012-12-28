@@ -79,7 +79,7 @@ class Gitolite
             $content .= "\t" . 'RW+ = www-data' . PHP_EOL . PHP_EOL;
 
             $repositoryTeams = $this->repositoryTeamService->findBy(array(
-                'repository_id' => $repository->getId(),
+                'repository' => $repository,
             ));
 
             foreach ($repositoryTeams as $repositoryTeam) {
