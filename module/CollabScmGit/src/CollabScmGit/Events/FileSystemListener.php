@@ -11,6 +11,7 @@
 namespace CollabScmGit\Events;
 
 use CollabScm\Service\RepositoryService;
+use CollabScm\Service\RepositoryTeamService;
 use CollabScmGit\Gitolite\Gitolite;
 use Zend\EventManager\Event;
 use Zend\EventManager\EventManagerInterface;

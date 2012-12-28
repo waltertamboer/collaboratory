@@ -26,6 +26,7 @@ class Module
 
                     $instance = new Gitolite('git@localhost:gitolite-admin', $adminPath, $storagePath);
                     $instance->setRepositoryService($sm->get('CollabScm\Service\Repository'));
+                    $instance->setRepositoryTeamService($sm->get('CollabScm\Service\RepositoryTeam'));
                     return $instance;
                 },
                 'CollabScmGit\Events\FileSystemListener' => function($sm) {
