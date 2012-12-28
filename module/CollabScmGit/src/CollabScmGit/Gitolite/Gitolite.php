@@ -58,6 +58,7 @@ class Gitolite
         foreach ($repositories as $repository) {
             $name = preg_replace('/[^a-z0-9_-]/i', '', $repository->getName());
 
+            $repository->getTeams();
             $gitRepos[$name] = array();
         }
 
