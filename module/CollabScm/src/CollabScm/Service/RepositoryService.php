@@ -83,7 +83,7 @@ class RepositoryService implements ServiceManagerAwareInterface
     {
         return $this->getMapper()->findBy(array());
     }
-    
+
     public function findBy(array $criteria)
     {
         return $this->getMapper()->findBy($criteria);
@@ -91,7 +91,7 @@ class RepositoryService implements ServiceManagerAwareInterface
 
     public function findById($id)
     {
-        return $this->getMapper()->findBy(array(
+        return $this->getMapper()->findOneBy(array(
             'id' => $id
         ));
     }
