@@ -17,7 +17,7 @@ class CalendarController extends AbstractActionController
 {
     public function indexAction()
     {
-		$url = 'https://www.google.com/calendar/ical/walter.tamboer%40gmail.com/private-fafcabe34162fe4fbb676d7b27ccc011/basic.ics';
+		$url = '';
 		
 		$reader = new \CollabCalendar\Calendar\Reader\ICal\Reader();
 		$reader->setUrl($url);
