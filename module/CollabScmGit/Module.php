@@ -31,8 +31,7 @@ class Module
                 },
                 'CollabScmGit\Events\FileSystemListener' => function($sm) {
                     $gitolite = $sm->get('CollabScmGit\Gitolite');
-                    $repositoryService = $sm->get('CollabScm\Service\Repository');
-                    return new FileSystemListener($gitolite, $repositoryService);
+                    return new FileSystemListener($gitolite);
                 }
             ),
         );

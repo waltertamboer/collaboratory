@@ -26,10 +26,7 @@ $form->prepare();
                 ))); ?>
                 <div class="controls">
                     <?php
-                        echo $this->formSelect($form->get('type'));
-                        echo $this->formElementErrors($form->get('type'), array(
-                            'class' => 'error'
-                        ));
+                        echo $form->get('type')->getValue();
                     ?>
                 </div>
             </div>
