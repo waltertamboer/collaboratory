@@ -1,25 +1,29 @@
 <?php $this->headTitle('Install'); ?>
 
-<h1>Installer</h1>
+<div class="dialog">
+	<h1 class="dialog-title">Installer</h1>
 
-<h2>Database</h2>
+	<div class="dialog-content">
+		<h2>Database</h2>
 
-<p>
-	Please provide the database information that is needed to create the database structure:
-</p>
+		<p>
+			Please provide the database information that is needed to create the database structure:
+		</p>
 
-<?php
+		<?php
 
-echo $this->form()->openTag($this->form);
-echo $this->formRow($this->form->get('host'));
-echo $this->formRow($this->form->get('port'));
-echo $this->formRow($this->form->get('username'));
-echo $this->formRow($this->form->get('password'));
-echo $this->formRow($this->form->get('dbname'));
-echo $this->formSubmit($this->form->get('save'));
-echo '<a href="' . $this->url('install') . '">Back to the previous step</a>';
-echo $this->form()->closeTag();
+		echo $this->form()->openTag($this->form);
+		echo $this->formRow($this->form->get('host'));
+		echo $this->formRow($this->form->get('port'));
+		echo $this->formRow($this->form->get('username'));
+		echo $this->formRow($this->form->get('password'));
+		echo $this->formRow($this->form->get('dbname'));
+		echo $this->formSubmit($this->form->get('save'));
+		echo '<a href="' . $this->url('install') . '">Back to the previous step</a>';
+		echo $this->form()->closeTag();
 
-?>
+		?>
 
-<?php if (isset($error)) { echo '<p>' . $error . '</p>'; } ?>
+		<?php if (isset($error)) { echo '<p>' . $error . '</p>'; } ?>
+	</div>
+</div>

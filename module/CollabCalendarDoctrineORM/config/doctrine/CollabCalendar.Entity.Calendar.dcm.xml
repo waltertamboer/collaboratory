@@ -4,6 +4,6 @@
         <id name="id" type="bigint" column="id">
             <generator strategy="IDENTITY"/>
         </id>
-        <field name="name" type="string" column="identity" nullable="false" precision="0" scale="0"/>
+        <field name="title" type="string" column="title" nullable="false" precision="0" scale="0"/>
     </entity>
 </doctrine-mapping>

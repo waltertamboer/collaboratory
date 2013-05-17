@@ -8,21 +8,16 @@
  * @package   Collaboratory
  */
 
-namespace CollabCalendar\Entity;
+namespace CollabCalendar\Calendar\Reader;
 
-use CollabCalendar\Calendar\Calendar as BaseCalendar;
+use CollabCalendar\Calendar\Calendar;
 
-class Calendar extends BaseCalendar
+interface ReaderInterface
 {
-    private $id;
-	
-	public function getId()
-	{
-		return $this->id;
-	}
-
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
+	/**
+	 * Reads a calendar from a data source.
+	 * 
+	 * @return Calendar
+	 */
+	public function read();
 }

@@ -32,9 +32,9 @@
                     <?php } ?>
                 </h2>
 
-                <p>
+                <div>
                     <?php echo $account->getIdentity(); ?>
-                </p>
+                </div>
 
                 <?php if ($this->userAccess('user_delete') && $account->getId() != $this->userIdentity()->getId()) { ?>
                     <ul class="actions">

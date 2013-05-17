@@ -32,7 +32,7 @@
                             <?php } ?>
                         </h2>
 
-                        <p><?php echo $team->getDescription(); ?></p>
+                        <div><?php echo $team->getDescription(); ?></div>
 
                         <?php if ($this->canRemoveTeam($team) || $this->canUpdateTeam($team)) { ?>
                             <ul class="actions">
@@ -50,7 +50,7 @@
         <?php } else { ?>
             <div class="alert">
                 <strong>Oh oh</strong>
-                <p>There are no teams yet, would you like to <a href="<?php echo $this->url('team/create'); ?>">create one</a>?</p>
+                <div>There are no teams yet, would you like to <a href="<?php echo $this->url('team/create'); ?>">create one</a>?</div>
             </div>
         <?php } ?>
     </div>

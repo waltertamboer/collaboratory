@@ -15,6 +15,7 @@ class MenuItem
     private $id;
     private $label;
     private $link;
+	private $image;
 
     public function __construct($id, $label, $link = null)
     {
@@ -53,6 +54,17 @@ class MenuItem
     public function setLink($link)
     {
         $this->link = $link;
+        return $this;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function setImage($image)
+    {
+        $this->image = $image;
         return $this;
     }
 }

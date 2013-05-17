@@ -32,12 +32,20 @@ class FileSystemListener implements ListenerAggregateInterface
     private $gitolite;
 
     /**
+     * The repository service.
+     *
+     * @var RepositoryService
+     */
+    private $repositoryService;
+
+    /**
      * Initializes a new instance of this class.
      * @param Gitolite $gitolite
      */
-    public function __construct(Gitolite $gitolite)
+    public function __construct(Gitolite $gitolite, RepositoryService $repositoryService)
     {
         $this->gitolite = $gitolite;
+        $this->repositoryService = $repositoryService;
     }
 
     /**
@@ -106,7 +114,7 @@ class FileSystemListener implements ListenerAggregateInterface
     {
         // Get all the repositories for the project:
         $project = $e->getParam('project');
-        $repositories = $this->gitolite->getRepositoryService()->findForProject($project);
+        $repositories = $this->repositoryService->findForProject($project);
 
         if (count($repositories)) {
             $this->gitolite->load();

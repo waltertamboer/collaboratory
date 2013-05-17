@@ -1,62 +1,66 @@
 <?php $this->headTitle('Install'); ?>
 
-<h1>Installer</h1>
+<div class="dialog">
+	<h1 class="dialog-title">Installer</h1>
 
-<h2>Finish</h2>
+	<div class="dialog-content">
+		<h2>Finish</h2>
 
-<p>
-	You are about to finish the installation. Are the settings below correct?
-</p>
+		<p>
+			You are about to finish the installation. Are the settings below correct?
+		</p>
 
-<h3>Database</h3>
+		<h3>Database</h3>
 
-<table border="1">
-	<tr>
-		<td>Host</td>
-		<td><?php echo $this->database['host']; ?></td>
-	</tr>
-	<tr>
-		<td>Port</td>
-		<td><?php echo $this->database['port']; ?></td>
-	</tr>
-	<tr>
-		<td>Username</td>
-		<td><?php echo $this->database['username']; ?></td>
-	</tr>
-	<tr>
-		<td>Password</td>
-		<td><?php echo $this->database['password']; ?></td>
-	</tr>
-	<tr>
-		<td>Database</td>
-		<td><?php echo $this->database['dbname']; ?></td>
-	</tr>
-</table>
+		<table border="1">
+			<tr>
+				<td>Host</td>
+				<td><?php echo $this->database['host']; ?></td>
+			</tr>
+			<tr>
+				<td>Port</td>
+				<td><?php echo $this->database['port']; ?></td>
+			</tr>
+			<tr>
+				<td>Username</td>
+				<td><?php echo $this->database['username']; ?></td>
+			</tr>
+			<tr>
+				<td>Password</td>
+				<td><?php echo $this->database['password']; ?></td>
+			</tr>
+			<tr>
+				<td>Database</td>
+				<td><?php echo $this->database['dbname']; ?></td>
+			</tr>
+		</table>
 
-<h3>Account</h3>
+		<h3>Account</h3>
 
-<table border="1">
-	<tr>
-		<td>E-mail address</td>
-		<td><?php echo $this->account['identity']; ?></td>
-	</tr>
-	<tr>
-		<td>Password</td>
-		<td><?php echo $this->account['credential']; ?></td>
-	</tr>
-	<tr>
-		<td>Display name</td>
-		<td><?php echo $this->account['displayName']; ?></td>
-	</tr>
-</table>
+		<table border="1">
+			<tr>
+				<td>E-mail address</td>
+				<td><?php echo $this->account['identity']; ?></td>
+			</tr>
+			<tr>
+				<td>Password</td>
+				<td><?php echo $this->account['credential']; ?></td>
+			</tr>
+			<tr>
+				<td>Display name</td>
+				<td><?php echo $this->account['displayName']; ?></td>
+			</tr>
+		</table>
 
-<hr />
+		<hr />
 
-<?php
+		<?php
 
-echo $this->form()->openTag($this->form);
-echo $this->formSubmit($this->form->get('save'));
-echo '<a href="' . $this->url('install/account') . '">Back to the previous step</a>';
-echo $this->form()->closeTag();
+		echo $this->form()->openTag($this->form);
+		echo $this->formSubmit($this->form->get('save'));
+		echo '<a href="' . $this->url('install/account') . '">Back to the previous step</a>';
+		echo $this->form()->closeTag();
 
-?>
+		?>
+	</div>
+</div>

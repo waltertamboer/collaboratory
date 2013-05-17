@@ -23,7 +23,7 @@
                                 'id' => $snippet->getId()
                             ));
                         ?>"><?php echo $snippet->getName(); ?></a></h3>
-                        <p class="description"><?php echo $snippet->getDescription(); ?></p>
+                        <div class="description"><?php echo $snippet->getDescription(); ?></div>
                         <ul class="actions">
                             <li><a href="<?php
                                 echo $this->url('snippet/delete', array(
@@ -39,7 +39,7 @@
         <div class="span12 page-content">
             <div class="alert">
                 <strong>Oh oh</strong>
-                <p>There are no snippets yet, would you like to <a href="<?php echo $this->url('snippet/create'); ?>">create one</a>?</p>
+                <div>There are no snippets yet, would you like to <a href="<?php echo $this->url('snippet/create'); ?>">create one</a>?</div>
             </div>
         </div>
     <?php } ?>

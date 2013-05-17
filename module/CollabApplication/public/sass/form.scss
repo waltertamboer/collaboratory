@@ -44,19 +44,6 @@ textarea {
     height: 100px;
 }
 
-input[type="text"], input[type="password"], input[type="email"], textarea {
-    background: none repeat scroll 0 0 #FAFAFA;
-    border: 1px solid #CCCCCC;
-    border-radius: 3px 3px 3px 3px;
-    color: #666666;
-    font-family: inherit;
-    font-size: 14px;
-    margin-right: 5px;
-    outline: medium none;
-    padding: 6px;
-    width: 400px;
-}
-
 select {
     background: none repeat scroll 0 0 #FAFAFA;
     border: 1px solid #CCCCCC;
@@ -70,7 +57,26 @@ select {
     width: 415px;
 }
 
-input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, textarea:focus {
+input[type="text"], 
+input[type="password"], 
+input[type="email"], 
+textarea {
+    background: none repeat scroll 0 0 #FAFAFA;
+    border: 1px solid #CCCCCC;
+    border-radius: 3px 3px 3px 3px;
+    color: #666666;
+    font-family: inherit;
+    font-size: 14px;
+    margin-right: 5px;
+    outline: medium none;
+    padding: 6px;
+    width: 400px;
+}
+
+input[type="text"]:focus, 
+input[type="password"]:focus, 
+input[type="email"]:focus, 
+textarea:focus {
     border-color: #51A7E8;
 }
 

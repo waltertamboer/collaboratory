@@ -1,12 +1,11 @@
 {
     "name": "pixelpolishers/collaboratory",
-    "minimum-stability": "alpha",
     "require": {
         "php": ">=5.3.3",
-        "zendframework/zendframework": "2.*",
+        "zendframework/zendframework": "2.2.*",
         "doctrine/doctrine-orm-module": "0.*",
-        "rwoverdijk/assetmanager": "1.*",
-        "leafo/scssphp": "*"
+		"rwoverdijk/assetmanager": "1.*",
+		"leafo/scssphp": "*"
     },
     "autoload": {
         "psr-0": {

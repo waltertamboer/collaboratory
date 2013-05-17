@@ -7,18 +7,68 @@ $form->prepare();
 
 ?>
 
-<ul>
-    <li><a href="<?php echo $this->url('user/profile'); ?>">Profile</a></li>
-    <li><a href="<?php echo $this->url('ssh/overview'); ?>">SSH Keys</a></li>
-</ul>
+<div class="grid12 page-header">
+    <div class="span6">
+        <h1>SSH Keys</h1>
+    </div>
 
-<hr />
+    <div class="span6"></div>
+</div>
 
-<?php
 
-echo $this->form()->openTag($form);
-echo $this->formRow($form->get('name'));
-echo $this->formRow($form->get('content'));
-echo $this->formSubmit($form->get('save'));
-echo '<a href="' . $this->url('ssh/overview') . '">Cancel</a>';
-echo $this->form()->closeTag();
+<div class="grid12 page-content">
+    <div class="span3">
+        <div class="boxed-group">
+            <h3><?php echo $this->userDisplayName(); ?></h3>
+
+            <div class="boxed-group-inner">
+				<ul class="section-list">
+					<li><a href="<?php echo $this->url('settings/profile'); ?>">Profile</a></li>
+					<li class="selected"><a href="<?php echo $this->url('ssh/overview'); ?>">SSH Keys</a></li>
+				</ul>
+			</div>
+        </div>
+    </div>
+
+    <div class="span9">
+        <div class="boxed-group">
+            <h3>SSH Keys</h3>
+            <div class="boxed-group-inner content">
+				<?php echo $this->form()->openTag($form->setAttribute('class', 'horizontal')); ?>
+					<div class="control-group">
+						<?php echo $this->formLabel($form->get('name')->setLabelAttributes(array(
+							'class' => 'control-label'
+						))); ?>
+						<div class="controls">
+							<?php
+								echo $this->formText($form->get('name'));
+								echo $this->formElementErrors($form->get('name'), array(
+									'class' => 'error'
+								));
+							?>
+						</div>
+					</div>
+					<div class="control-group">
+						<?php echo $this->formLabel($form->get('content')->setLabelAttributes(array(
+							'class' => 'control-label'
+						))); ?>
+						<div class="controls">
+							<?php
+								echo $this->formTextarea($form->get('content'));
+								echo $this->formElementErrors($form->get('content'), array(
+									'class' => 'error'
+								));
+							?>
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="controls">
+							<?php echo $this->formSubmit($form->get('save')); ?>
+							<a href="<?php echo $this->url('ssh/overview'); ?>">Cancel</a>
+						</div>
+					</div>
+                <?php echo $this->form()->closeTag(); ?>
+            </div>
+        </div>
+    </div>
+</div>

@@ -10,7 +10,6 @@
 
 namespace CollabCalendar\Controller;
 
-use CollabCalendar\iCal\Reader;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -18,7 +17,15 @@ class CalendarController extends AbstractActionController
 {
     public function indexAction()
     {
+		$url = 'https://www.google.com/calendar/ical/walter.tamboer%40gmail.com/private-fafcabe34162fe4fbb676d7b27ccc011/basic.ics';
+		
+		$reader = new \CollabCalendar\Calendar\Reader\ICal\Reader();
+		$reader->setUrl($url);
+		$calendar = $reader->read();
+		
+		var_dump($calendar);
+		exit;
+		
         return new ViewModel();
     }
-
 }

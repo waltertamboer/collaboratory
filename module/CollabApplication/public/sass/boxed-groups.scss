@@ -38,5 +38,32 @@
     border-width: 1px;
     color: #666666;
     font-size: 13px;
-    padding: 1px 10px;
+}
+
+.boxed-group-inner {
+	padding: 0px;
+}
+
+.boxed-group-inner.content {
+	padding: 15px;
+}
+
+.boxed-group-inner .data-list {
+	border-top: none;
+}
+
+.boxed-group-inner .data-list > li {
+	border-bottom: 1px solid #E5E5E5;
+	display: block;
+	line-height: 23px;
+	padding: 5px 10px;
+	position: relative;
+}
+
+.boxed-group-inner .data-list > li:last-child {
+	border-bottom: none;
+}
+
+.boxed-group-inner .data-list .actions {
+	right: 10px;
 }

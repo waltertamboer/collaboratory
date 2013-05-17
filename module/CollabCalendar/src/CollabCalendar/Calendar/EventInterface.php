@@ -8,21 +8,13 @@
  * @package   Collaboratory
  */
 
-namespace CollabCalendar\Entity;
+namespace CollabCalendar\Calendar;
 
-use CollabCalendar\Calendar\Calendar as BaseCalendar;
-
-class Calendar extends BaseCalendar
+interface EventInterface
 {
-    private $id;
+	public function getTitle();
+	public function setTitle($title);
 	
-	public function getId()
-	{
-		return $this->id;
-	}
-
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
+	public function getDescription();
+	public function setDescription($description);
 }

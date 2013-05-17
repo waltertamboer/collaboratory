@@ -1,22 +1,26 @@
 <?php $this->headTitle('Install'); ?>
 
-<h1>Installer</h1>
+<div class="dialog">
+	<h1 class="dialog-title">Installer</h1>
 
-<p>
-	Welcome! You are about to install Collaboratory. Before we do so we have to make sure that all system settings are correct:
-</p>
+	<div class="dialog-content">
+		<p>
+			Welcome! You are about to install Collaboratory. Before we do so we have to make sure that all system settings are correct:
+		</p>
 
-<table border="1">
-<?php foreach ($this->systemSettings as $setting) { ?>
-	<tr style="color: <?php echo $setting->isValid() ? 'green' : 'red'; ?>;">
-		<td><?php echo $setting->getName(); ?></td>
-		<td><?php echo $setting->getMessage(); ?></td>
-	</tr>
-<?php } ?>
-</table>
+		<table>
+		<?php foreach ($this->systemSettings as $setting) { ?>
+			<tr style="color: <?php echo $setting->isValid() ? 'green' : 'red'; ?>;">
+				<td><?php echo $setting->getName(); ?></td>
+				<td><?php echo $setting->getMessage(); ?></td>
+			</tr>
+		<?php } ?>
+		</table>
 
-<?php if ($this->canContinue) { ?>
-<ul>
-	<li><a href="<?php echo $this->url('install/database'); ?>">Go to the next step</a></li>
-</ul>
-<?php } ?>
+		<?php if ($this->canContinue) { ?>
+		<ul>
+			<li><a href="<?php echo $this->url('install/database'); ?>">Go to the next step</a></li>
+		</ul>
+		<?php } ?>
+	</div>
+</div>

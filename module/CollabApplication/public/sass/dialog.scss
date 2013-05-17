@@ -1,10 +1,52 @@
-.dialog.inline {
-    box-shadow: 0 0 10px #CCCCCC;
+.dialog {
+    background-color: #F9F9F9;
+    border: 1px solid #CCC;
+    border-radius: 5px;
+    margin-top: 50px;
     margin-left: auto;
     margin-right: auto;
+    padding: 10px;
     width: 500px;
 }
 
 .dialog.small {
     width: 350px;
+}
+
+.dialog .dialog-title {
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    text-transform: lowercase;
+}
+
+.dialog .dialog-description {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.dialog .dialog-content {
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.dialog .dialog-content.center,
+.dialog .dialog-content.centre {
+    text-align: center;
+}
+
+.dialog .control-label {
+    font-size: 15px;
+    line-height: 30px;
+}
+
+.dialog input[type="text"],
+.dialog input[type="password"] {
+    font-size: 15px;
+    padding: 5px;
+    width: 200px;
+}
+
+.dialog a {
+    color: #333;
 }

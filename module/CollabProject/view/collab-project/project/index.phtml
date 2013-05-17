@@ -25,7 +25,7 @@
                             </a>
                         </h2>
 
-                        <p><?php echo $project->getDescription(); ?></p>
+                        <div><?php echo $project->getDescription(); ?></div>
 
                         <ul class="actions">
                             <li><a href="<?php echo $this->url('project/view', array('id' => $project->getId())); ?>" class="button">View</a></li>
@@ -42,7 +42,7 @@
         <?php } else { ?>
             <div class="alert">
                 <strong>Oh oh</strong>
-                <p>There are no projects yet, would you like to <a href="<?php echo $this->url('project/create'); ?>">create one</a>?</p>
+                <div>There are no projects yet, would you like to <a href="<?php echo $this->url('project/create'); ?>">create one</a>?</div>
             </div>
         <?php } ?>
     </div>

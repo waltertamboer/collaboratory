@@ -11,6 +11,18 @@
 namespace CollabInstall;
 
 return array(
+    'asset_manager' => array(
+        'resolver_configs' => array(
+            'collections' => array(
+                'css/screen.css' => array(
+                    __NAMESPACE__ . '/sass/install.scss',
+                ),
+            ),
+            'map' => array(
+                __NAMESPACE__ . '/sass/install.scss' => __DIR__ . '/../public/sass/install.scss',
+            ),
+        ),
+    ),
 	'controllers' => array(
 		'invokables' => array(
 			'CollabInstall\Controller\InstallController' => 'CollabInstall\Controller\InstallController',

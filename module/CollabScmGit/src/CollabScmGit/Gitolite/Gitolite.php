@@ -27,15 +27,10 @@ class Gitolite
 
     public function __construct($repository, $localPath, $storagePath)
     {
-        $this->isValid = strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN';
+        $this->isValid = true;//strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN';
         $this->repository = $repository;
         $this->localPath = $localPath;
         $this->storagePath = $storagePath;
-    }
-
-    public function getRepositoryService()
-    {
-        return $this->repositoryService;
     }
 
     public function setRepositoryService(RepositoryService $repositoryService)

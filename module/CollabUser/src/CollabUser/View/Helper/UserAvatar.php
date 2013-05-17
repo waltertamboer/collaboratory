@@ -17,23 +17,39 @@ use Zend\View\Helper\AbstractHelper;
 class UserAvatar extends AbstractHelper
 {
     private $authService;
+	private $user;
+	private $gravatar;
 
     public function __invoke(User $user = null)
     {
-        $result = '';
-
-        if (!$user) {
-            $user = $this->authService->getIdentity();
-        }
-
         if ($user) {
-            $view = $this->getView();
-
-            $result = $view->gravatar($user->getIdentity())->setImgSize(24);
+			$this->user = $user;
+		} else {
+            $this->user = $this->authService->getIdentity();
         }
-
-        return $result;
+		
+		$view = $this->getView();
+		$this->gravatar = $view->gravatar($this->user->getIdentity())->setImgSize(24);
+		
+		return $this;
     }
+	
+	
+	public function __toString()
+	{
+        return (string)$this->gravatar;
+	}
+	
+	public function getUrl()
+	{
+		$imgTag = $this->gravatar->getImgTag();
+		
+		$url = null;
+		if (preg_match('/src="(.+?)"/i', $imgTag, $matches)) {
+			$url = $matches[1];
+		}
+		return $url;
+	}
 
     public function setAuthService(AuthenticationService $authService)
     {

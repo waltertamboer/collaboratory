@@ -30,11 +30,17 @@ class CollabMenu extends AbstractHtmlElement
 
         $output = '<ul>' . PHP_EOL;
         foreach ($menu as $item) {
-            $link = $item->getLink();
-            if ($link) {
-                $output .= '<li><a href="' . $link . '">' . $item->getLabel() . '</a></li>' . PHP_EOL;
+			
+			$label = $item->getLabel();
+			
+			if ($item->getImage()) {
+				$label = '<img src="' . $item->getImage() . '" alt="" /> ' . $label;
+			}
+			
+            if ($item->getLink()) {
+                $output .= '<li><a href="' . $item->getLink() . '">' . $label . '</a></li>' . PHP_EOL;
             } else {
-                $output .= '<li>' . $item->getLabel() . '</li>' . PHP_EOL;
+                $output .= '<li>' . $label . '</li>' . PHP_EOL;
             }
 
             if ($divided) {

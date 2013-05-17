@@ -17,32 +17,37 @@
         <div class="boxed-group">
             <h3><?php echo $this->userDisplayName(); ?></h3>
 
-            <ul class="section-list">
-                <li><a href="<?php echo $this->url('settings/profile'); ?>">Profile</a></li>
-                <li><a href="<?php echo $this->url('ssh/overview'); ?>">SSH Keys</a></li>
-            </ul>
+            <div class="boxed-group-inner">
+				<ul class="section-list">
+					<li><a href="<?php echo $this->url('settings/profile'); ?>">Profile</a></li>
+					<li class="selected"><a href="<?php echo $this->url('ssh/overview'); ?>">SSH Keys</a></li>
+				</ul>
+			</div>
         </div>
     </div>
 
     <div class="span9">
         <div class="boxed-group">
             <h3>SSH Keys</h3>
-            <div class="boxed-group-inner">
-                <?php if (count($keys)) { ?>
-                    <ul>
-                        <?php foreach ($keys as $sshKey) { ?>
-                            <li>
-                                <h2><?php echo $sshKey->getName(); ?></h2>
+			<?php if (count($keys)) { ?>
+				<div class="boxed-group-inner">
+					<ul class="data-list">
+						<?php foreach ($keys as $sshKey) { ?>
+							<li>
+								<?php echo $sshKey->getName(); ?>
 
-                                <ul>
-                                    <li><a href="<?php echo $this->url('ssh/delete', array('id' => $sshKey->getId())); ?>">Remove</a></li>
-                                </ul>
-                            </li>
-                        <?php } ?>
-                    </ul>
-                <?php } else { ?>
-                    <p>You don't have any SSH keys yet, would you like to add one?</p>
-                <?php } ?>
+								<ul class="actions">
+									<li><a href="<?php echo $this->url('ssh/delete', array('id' => $sshKey->getId())); ?>" class="button negative mini">Remove</a></li>
+								</ul>
+							</li>
+						<?php } ?>
+					</ul>
+				</div>
+			<?php } else { ?>
+				<div class="boxed-group-inner content">
+					<p>You don't have any SSH keys yet, would you like to add one?</p>
+				</div>
+			<?php } ?>
             </div>
         </div>
     </div>

@@ -47,6 +47,18 @@ return array(
                         'action' => 'index',
                     ),
                 ),
+				'child_routes' => array(
+					'overview' => array(
+						'type' => 'Zend\Mvc\Router\Http\Literal',
+						'options' => array(
+							'route' => '/overview',
+							'defaults' => array(
+								'controller' => 'CollabCalendar\Controller\CalendarController',
+								'action' => 'index',
+							),
+						),
+					),
+				),
             ),
         ),
     ),
