@@ -20,14 +20,14 @@ return array(
             ),
             'orm_default' => array(
                 'drivers' => array(
-                    'CollabCalendar\Entity' => __NAMESPACE__
+                    'CollabCalendar\Entity' => __NAMESPACE__,
                 )
             ),
         ),
     ),
     'service_manager' => array(
         'factories' => array(
-            'callendar.mapper' => 'CollabCalendarDoctrineORM\Mapper\CalendarMapperFactory',
+            'calendar.mapper' => 'CollabCalendarDoctrineORM\Mapper\CalendarMapperFactory',
         ),
     ),
 );

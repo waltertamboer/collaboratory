@@ -14,7 +14,7 @@ use CollabCalendar\Entity\Calendar;
 
 interface CalendarMapperInterface
 {
-    public function getAll();
+    public function findAll();
     public function persist(Calendar $calendar);
     public function remove(Calendar $calendar);
 }

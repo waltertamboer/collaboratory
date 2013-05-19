@@ -17,15 +17,46 @@ class CalendarController extends AbstractActionController
 {
     public function indexAction()
     {
-		$url = '';
-		
-		$reader = new \CollabCalendar\Calendar\Reader\ICal\Reader();
-		$reader->setUrl($url);
-		$calendar = $reader->read();
-		
-		var_dump($calendar);
-		exit;
-		
-        return new ViewModel();
+        $calendarService = $this->getServiceLocator()->get('calendar.service');
+        
+        return new ViewModel(array(
+            'calendars' => $calendarService->findAll(),
+        ));
+    }
+    
+    public function yearAction()
+    {
+        $calendarService = $this->getServiceLocator()->get('calendar.service');
+
+        return new ViewModel(array(
+            'calendars' => $calendarService->findAll(),
+        ));
+    }
+    
+    public function monthAction()
+    {
+        $calendarService = $this->getServiceLocator()->get('calendar.service');
+
+        return new ViewModel(array(
+            'calendars' => $calendarService->findAll(),
+        ));
+    }
+    
+    public function dayAction()
+    {
+        $calendarService = $this->getServiceLocator()->get('calendar.service');
+
+        return new ViewModel(array(
+            'calendars' => $calendarService->findAll(),
+        ));
+    }
+    
+    public function eventsAction()
+    {
+        $calendarService = $this->getServiceLocator()->get('calendar.service');
+
+        return new ViewModel(array(
+            'calendars' => $calendarService->findAll(),
+        ));
     }
 }

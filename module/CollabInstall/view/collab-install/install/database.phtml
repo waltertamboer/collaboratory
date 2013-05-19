@@ -10,20 +10,80 @@
 			Please provide the database information that is needed to create the database structure:
 		</p>
 
-		<?php
+        <?php echo $this->form()->openTag($this->form->setAttribute('class', 'horizontal')); ?>
+            <div class="control-group">
+                <?php echo $this->formLabel($form->get('host')->setLabelAttributes(array(
+                    'class' => 'control-label'
+                ))); ?>
+                <div class="controls">
+                    <?php
+                        echo $this->formText($form->get('host'));
+                        echo $this->formElementErrors($form->get('host'), array(
+                            'class' => 'error'
+                        ));
+                    ?>
+                </div>
+            </div>
+            <div class="control-group">
+                <?php echo $this->formLabel($form->get('port')->setLabelAttributes(array(
+                    'class' => 'control-label'
+                ))); ?>
+                <div class="controls">
+                    <?php
+                        echo $this->formText($form->get('port'));
+                        echo $this->formElementErrors($form->get('port'), array(
+                            'class' => 'error'
+                        ));
+                    ?>
+                </div>
+            </div>
+            <div class="control-group">
+                <?php echo $this->formLabel($form->get('username')->setLabelAttributes(array(
+                    'class' => 'control-label'
+                ))); ?>
+                <div class="controls">
+                    <?php
+                        echo $this->formText($form->get('username'));
+                        echo $this->formElementErrors($form->get('username'), array(
+                            'class' => 'error'
+                        ));
+                    ?>
+                </div>
+            </div>
+            <div class="control-group">
+                <?php echo $this->formLabel($form->get('password')->setLabelAttributes(array(
+                    'class' => 'control-label'
+                ))); ?>
+                <div class="controls">
+                    <?php
+                        echo $this->formText($form->get('password'));
+                        echo $this->formElementErrors($form->get('password'), array(
+                            'class' => 'error'
+                        ));
+                    ?>
+                </div>
+            </div>
+            <div class="control-group">
+                <?php echo $this->formLabel($form->get('dbname')->setLabelAttributes(array(
+                    'class' => 'control-label'
+                ))); ?>
+                <div class="controls">
+                    <?php
+                        echo $this->formText($form->get('dbname'));
+                        echo $this->formElementErrors($form->get('dbname'), array(
+                            'class' => 'error'
+                        ));
+                    ?>
+                </div>
+            </div>
 
-		echo $this->form()->openTag($this->form);
-		echo $this->formRow($this->form->get('host'));
-		echo $this->formRow($this->form->get('port'));
-		echo $this->formRow($this->form->get('username'));
-		echo $this->formRow($this->form->get('password'));
-		echo $this->formRow($this->form->get('dbname'));
-		echo $this->formSubmit($this->form->get('save'));
-		echo '<a href="' . $this->url('install') . '">Back to the previous step</a>';
-		echo $this->form()->closeTag();
-
-		?>
-
-		<?php if (isset($error)) { echo '<p>' . $error . '</p>'; } ?>
+            <?php if (isset($error)) { echo '<p>' . $error . '</p>'; } ?>
+        
+            <div class="button-bar">
+                <div class="pull-left"><a class="button" href="<?php echo $this->url('install'); ?>">Back</a></div>
+                <div class="pull-right"><?php echo $this->formSubmit($form->get('save')); ?></div>
+                <div class="clear"></div>
+            </div>
+        <?php echo $this->form()->closeTag(); ?>
 	</div>
 </div>

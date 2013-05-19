@@ -27,7 +27,7 @@ class Installer
 
 	public function createConfigFile($database)
 	{
-		$dbConfigFile = realpath('./config/autoload') . '/doctrine_orm.global.php';
+		$dbConfigFile = realpath('./config/autoload') . '/install.global.php';
 
 		$content = file_get_contents($dbConfigFile . '.dist');
 		$content = str_replace('{DB_HOST}', $database['host'], $content);
@@ -43,6 +43,7 @@ class Installer
 	{
         $classes = $this->entityManager->getMetaDataFactory()->getAllMetadata();
 
+        set_time_limit(0);
 		$tool = new \Doctrine\ORM\Tools\SchemaTool($this->entityManager);
 		$tool->dropDatabase();
 		$tool->createSchema($classes);

@@ -8,16 +8,22 @@
  * @package   Collaboratory
  */
 
-namespace ApplicationDoctrineORM\Mapper;
+namespace CollabCalendarDoctrineORM\Mapper;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class SshMapperFactory implements FactoryInterface
+class CalendarMapperFactory implements FactoryInterface
 {
+    /**
+     * Create service
+     *
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return mixed
+     */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $entityManager = $serviceLocator->get('doctrine.entitymanager.orm_default');
-        return new SshMapper($entityManager);
+        return new CalendarMapper($entityManager);
     }
 }

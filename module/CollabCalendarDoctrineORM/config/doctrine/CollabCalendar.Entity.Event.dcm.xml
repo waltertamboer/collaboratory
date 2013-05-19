@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-    <entity name="CollabCalendar\Entity\Calendar" table="calendar">
+    <entity name="CollabCalendar\Entity\Event" table="calendar_event">
         <id name="id" type="bigint" column="id">
             <generator strategy="IDENTITY"/>
         </id>
-        <field name="dataType" type="string" column="dataType" nullable="true" precision="0" scale="0" />
-        <field name="dataSource" type="string" column="dataSource" nullable="true" precision="0" scale="0" />
         <field name="title" type="string" column="title" nullable="false" precision="0" scale="0" />
         <field name="description" type="text" column="description" nullable="true" precision="0" scale="0" />
-        <field name="color" type="string" column="color" nullable="true" precision="0" scale="0" />
+        <field name="startDate" type="datetime" column="startDate" nullable="false" precision="0" scale="0" />
+        <field name="endDate" type="datetime" column="endDate" nullable="false" precision="0" scale="0" />
         <field name="createdOn" type="datetime" column="createdOn" nullable="false" precision="0" scale="0" />
+        
+        <many-to-one field="calendar" target-entity="CollabCalendar\Entity\Calendar" inversed-by="events">
+            <join-column name="calendar" referenced-column-name="id" on-delete="CASCADE" />
+        </many-to-one>
         
         <many-to-one field="createdBy" target-entity="CollabUser\Entity\User" inversed-by="sshKeys">
             <join-column name="createdBy" referenced-column-name="id" on-delete="CASCADE" />

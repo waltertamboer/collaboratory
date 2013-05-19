@@ -163,7 +163,7 @@ class Module
             $controller = $routeMatch->getParam('controller');
             $action = $routeMatch->getParam('action');
 
-            $path = 'config/autoload/doctrine_orm.global.php';
+            $path = 'config/autoload/install.global.php';
             if (is_file($path)) {
 				$publicPages = array();
 				$publicPages['CollabUser\Controller\UserController'] = array('login', 'logout', 'request-password');

@@ -8,19 +8,19 @@
  * @package   Collaboratory
  */
 
-namespace CollabCalendar\Calendar;
+namespace CollabCalendar\Entity;
 
 class Property
 {
     private $name;
     private $value;
-    private $param;
+    private $params;
 
-    public function __construct($name, $value, $param)
+    public function __construct($name, $value, array $params = array())
     {
         $this->name = $name;
         $this->value = $value;
-        $this->param = $param;
+        $this->params = $params;
     }
 
     public function getName()
@@ -33,8 +33,22 @@ class Property
         return $this->value;
     }
 
-    public function getParam()
+    public function getParam($name, $defaultValue = null)
     {
-        return $this->param;
+        if ($this->hasParam($name)) {
+            return $this->params[$name];
+        } else {
+            return $defaultValue;
+        }
+    }
+    
+    public function hasParam($name)
+    {
+        return array_key_exists($name, $this->params);
+    }
+    
+    public function setParam($name, $value)
+    {
+        $this->params[$name] = $value;
     }
 }

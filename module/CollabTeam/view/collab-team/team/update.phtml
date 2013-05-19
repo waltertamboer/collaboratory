@@ -88,7 +88,16 @@ $form->prepare();
     </div>
     <div class="span12">
         <div class="control-group">
-            <div class="controls lbl-collection">
+            <div class="controls lbl-collection permissions">
+                <h2>Permissions</h2>
+                
+                <div id="checkAllPermissions">
+                    <label>
+                        <input type="checkbox" id="checkAll" />
+                        Check/Uncheck all
+                    </label>
+                </div>
+                
                 <?php
                 echo $this->formMultiCheckbox($form->get('permissions'));
                 echo $this->formElementErrors($form->get('permissions'), array(

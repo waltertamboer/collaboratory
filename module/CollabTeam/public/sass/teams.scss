@@ -1,0 +1,25 @@
+.lbl-collection.permissions {
+    position: relative;
+}
+
+.lbl-collection.permissions label {
+    width: 250px;
+}
+
+#checkAllPermissions {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+
+#checkAllPermissions label {
+    background-color: inherit;
+    border: none;
+    font-size: 10px;
+    width: auto;
+}
+
+#checkAllPermissions input {
+    font-size: 10px;
+    margin-top: 3px;
+}

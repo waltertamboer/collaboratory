@@ -8,20 +8,16 @@
  * @package   Collaboratory
  */
 
-namespace CollabCalendar\iCal;
+namespace CollabCalendar\Reader;
 
-class Calendar extends PropertyContainer
+use CollabCalendar\Calendar\Calendar;
+
+interface ReaderInterface
 {
-    private $events;
-
-    public function __construct()
-    {
-        $this->events = array();
-    }
-
-    public function addEvent(Event $event)
-    {
-        $this->events[] = $event;
-        return $this;
-    }
+	/**
+	 * Reads a calendar from a data source.
+	 * 
+	 * @return Calendar
+	 */
+	public function read();
 }

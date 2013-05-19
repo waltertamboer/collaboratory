@@ -1,34 +1,21 @@
-.calendar.month {
+.settings-table {
     border-collapse: collapse;
-    margin: 0px auto;
+    margin-top: 10px;
     width: 100%;
 }
 
-.calendar.month th {
-    background-color: #F9F9F9;
-    border: 1px solid #EEE;
-    color: #666;
+.settings-table td {
+    padding: 4px 0px;
 }
 
-.calendar.month th,
-.calendar.month td {
-    padding: 5px;
-    text-align: center;
-    width: 1%;
+.settings-table .name {
+    width: 150px;
 }
 
-.calendar.month td {
-    border: 1px solid #EEE;
-    line-height: 70px;
+.settings-table .valid {
+    color: green;
 }
 
-.calendar.month td.previous,
-.calendar.month td.next {
-    color: #BBB;
-}
-
-.calendar.month td.today {
-    background-color: #EFEFEF;
-    border: 1px solid #DEDEDE;
-    font-weight: bold;
+.settings-table .invalid {
+    color: red;
 }

@@ -8,7 +8,7 @@
  * @package   Collaboratory
  */
 
-namespace CollabCalendar\Calendar;
+namespace CollabCalendar\Entity;
 
 class PropertyContainer
 {

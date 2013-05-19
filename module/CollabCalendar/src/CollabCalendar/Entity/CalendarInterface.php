@@ -8,16 +8,8 @@
  * @package   Collaboratory
  */
 
-namespace ApplicationDoctrineORM\Mapper;
+namespace CollabCalendar\Entity;
 
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
-
-class TeamMapperFactory implements FactoryInterface
+interface CalendarInterface
 {
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        $entityManager = $serviceLocator->get('doctrine.entitymanager.orm_default');
-        return new TeamMapper($entityManager);
-    }
 }

@@ -17,6 +17,8 @@ class CalendarServiceFactory implements FactoryInterface
 {
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return new CalendarService();
+        $mapper = $serviceLocator->get('calendar.mapper');
+        
+        return new CalendarService($mapper);
     }
 }

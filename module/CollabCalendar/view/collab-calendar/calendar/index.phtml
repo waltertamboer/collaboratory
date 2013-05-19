@@ -1,20 +1,39 @@
 <?php $this->headTitle('Calendar'); ?>
 
-
-
 <div class="grid12 page-header">
     <div class="span6">
         <h1>Calendar</h1>
     </div>
 
+    <div class="span6">
+        <a href="<?php echo $this->url('calendar/create'); ?>" class="button mini pull-right">New Calendar</a>
+    </div>
+
     <nav class="span12 navbar">
         <?php echo $this->collabMenu('main'); ?>
     </nav>
+</div>
 
-    <div class="span12 page-content">
+<div class="grid12 page-content">
+    <?php if ($this->calendars) { ?>
+    <div class="span10">
+    <?php } else { ?>
+    <div class="span12">
+    <?php } ?>
         <?php echo $this->calendar(array(
             'year' => date('Y'),
             'month' => date('n'),
+            'calendars' => $this->calendars,
         )); ?>
     </div>
+    <?php if ($this->calendars) { ?>
+    <span class="span2">
+        <h2>Calendars</h2>
+        <ul>
+            <?php foreach ($this->calendars as $calendar) { ?>
+            <li><?php echo $calendar->getTitle(); ?></li>
+            <?php } ?>
+        </ul>
+    </div>
+    <?php } ?>
 </div>

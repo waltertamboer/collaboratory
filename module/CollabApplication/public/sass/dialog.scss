@@ -13,6 +13,10 @@
     width: 350px;
 }
 
+.dialog.big {
+    width: 800px;
+}
+
 .dialog .dialog-title {
     font-size: 25px;
     font-weight: bold;
@@ -26,7 +30,6 @@
 }
 
 .dialog .dialog-content {
-    margin-bottom: 10px;
     text-align: left;
 }
 
@@ -49,4 +52,15 @@
 
 .dialog a {
     color: #333;
+}
+
+.dialog .button-bar {
+    border-top: 1px solid #CCC;
+    margin-top: 20px;
+    padding-top: 10px;
+    text-align: right;
+}
+
+.dialog h3 {
+    margin-top: 15px;
 }

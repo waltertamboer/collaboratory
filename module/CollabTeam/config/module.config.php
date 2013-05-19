@@ -11,6 +11,19 @@
 namespace CollabTeam;
 
 return array(
+    'asset_manager' => array(
+        'resolver_configs' => array(
+            'collections' => array(
+                'css/screen.css' => array(
+                    __NAMESPACE__ . '/sass/teams.scss',
+                ),
+            ),
+            'map' => array(
+                __NAMESPACE__ . '/sass/teams.scss' => __DIR__ . '/../public/sass/teams.scss',
+                'js/teams.js' => __DIR__ . '/../public/js/teams.js',
+            ),
+        ),
+    ),
     'controllers' => array(
         'invokables' => array(
             'CollabTeam\Controller\TeamController' => 'CollabTeam\Controller\TeamController',
@@ -86,6 +99,16 @@ return array(
     'service_manager' => array(
         'factories' => array(
             'team.service' => 'CollabTeam\Service\TeamServiceFactory',
+        ),
+    ),
+    'translator' => array(
+        'locale' => 'en_US',
+        'translation_file_patterns' => array(
+            array(
+                'type' => 'phparray',
+                'base_dir' => __DIR__ . '/../language',
+                'pattern' => '%s.php',
+            ),
         ),
     ),
     'view_manager' => array(

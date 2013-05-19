@@ -14,13 +14,20 @@ use CollabCalendar\Entity\Calendar;
 use CollabCalendar\Mapper\CalendarMapperInterface;
 use Doctrine\ORM\EntityManager;
 
-class CalendarMapper implements ProjectMapperInterface
+class CalendarMapper implements CalendarMapperInterface
 {
     private $entityManager;
 
     public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
+    }
+    
+    public function findAll()
+    {
+        $repository = $this->entityManager->getRepository('CollabCalendar\Entity\Calendar');
+        
+        return $repository->findAll();
     }
 
     public function persist(Calendar $calendar)

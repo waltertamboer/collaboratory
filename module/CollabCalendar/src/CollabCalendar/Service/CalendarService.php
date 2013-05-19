@@ -11,36 +11,31 @@
 namespace CollabCalendar\Service;
 
 use CollabCalendar\Entity\Calendar;
-use Zend\ServiceManager\ServiceManager;
-use Zend\ServiceManager\ServiceManagerAwareInterface;
+use CollabCalendar\Mapper\CalendarMapperInterface;
 
-class CalendarService implements ServiceManagerAwareInterface
+class CalendarService
 {
     private $mapper;
-    private $serviceManager;
-
-    private function getMapper()
+    
+    public function __construct(CalendarMapperInterface $mapper)
     {
-        if ($this->mapper === null) {
-            $this->mapper = $this->serviceManager->get('calendar.mapper');
-        }
-        return $this->mapper;
+        $this->mapper = $mapper;
+    }
+    
+    public function findAll()
+    {
+        return $this->mapper->findAll();
     }
 
     public function persist(Calendar $calendar)
     {
-        $this->getMapper()->persist($calendar);
+        $this->mapper->persist($calendar);
         return $this;
     }
 
     public function remove(Calendar $calendar)
     {
-        $this->getMapper()->remove($calendar);
+        $this->mapper->remove($calendar);
         return $this;
-    }
-
-    public function setServiceManager(ServiceManager $serviceManager)
-    {
-        $this->serviceManager = $serviceManager;
     }
 }

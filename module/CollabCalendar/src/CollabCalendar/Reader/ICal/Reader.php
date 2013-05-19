@@ -8,12 +8,13 @@
  * @package   Collaboratory
  */
 
-namespace CollabCalendar\Calendar\Reader\ICal;
+namespace CollabCalendar\Reader\ICal;
 
-use CollabCalendar\Calendar\Calendar;
-use CollabCalendar\Calendar\Event;
-use CollabCalendar\Calendar\Property;
-use CollabCalendar\Calendar\Reader\ReaderInterface;
+use CollabCalendar\Entity\Calendar;
+use CollabCalendar\Entity\Event;
+use CollabCalendar\Entity\Property;
+use CollabCalendar\Reader\ReaderInterface;
+use DateTime;
 
 // http://www.kanzaki.com/docs/ical/vtodo.html
 // http://www.kanzaki.com/docs/ical/vevent.html
@@ -74,6 +75,18 @@ class Reader implements ReaderInterface
                     case 'VEVENT':
                         $this->parseEvent($calendar, $lines);
                         break;
+                    
+                    case 'VTIMEZONE':
+                        $this->parseTill($lines, 'END:VTIMEZONE');
+                        break;
+                    
+                    case 'DAYLIGHT':
+                        $this->parseTill($lines, 'END:DAYLIGHT');
+                        break;
+                    
+                    case 'STANDARD':
+                        $this->parseTill($lines, 'END:STANDARD');
+                        break;
 
                     default:
                         throw new \RuntimeException('Type not supported: ' . $line);
@@ -81,7 +94,7 @@ class Reader implements ReaderInterface
             } else {
 				switch ($property->getName()) {
 					case 'X-WR-CALNAME':
-						$calendar->setName($property->getValue());
+						$calendar->setTitle($property->getValue());
 						break;
 					
 					default:
@@ -119,7 +132,13 @@ class Reader implements ReaderInterface
 					break;
 				
 				case 'DTSTART':
-					var_dump($line);
+                    $dateTime = $this->parseDateTime($property);
+                    $event->setStartDate($dateTime);
+					break;
+				
+				case 'DTEND':
+                    $dateTime = $this->parseDateTime($property);
+                    $event->setEndDate($dateTime);
 					break;
 				
 				default:
@@ -127,15 +146,46 @@ class Reader implements ReaderInterface
 					break;
 			}
         }
-		var_dumP($event);
     }
 
     public function parseProperty($text)
     {
         $result = null;
         if (preg_match('/(?<name>.+?)(?:;(?<param>.+?))?:(?<value>.*)/i', $text, $matches)) {
-			$result = new Property($matches['name'], $matches['value'], $matches['param']);
+            $params = array();
+            if ($matches['param']) {
+                $splitted = explode(';', $matches['param']);
+                foreach ($splitted as $param) {
+                    list($name, $value) = explode('=', $param, 2);
+                    
+                    $params[$name] = $value;
+                }
+            }
+            
+			$result = new Property($matches['name'], $matches['value'], $params);
 		}
         return $result;
+    }
+
+    public function parseDateTime(Property $property)
+    {
+        $result = new DateTime();
+        $result->setTimestamp(strtotime($property->getValue()));
+        if ($property->hasParam('TZID')) {
+            $dateTimeZone = new \DateTimeZone($property->getParam('TZID'));
+            $result->setTimezone($dateTimeZone);
+        }
+        return $result;
+    }
+
+    public function parseTill($lines, $end)
+    {
+        while (count($lines)) {
+            $line = trim(array_shift($lines));
+
+            if ($line == $end) {
+                break;
+            }
+        }
     }
 }
